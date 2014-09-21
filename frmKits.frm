@@ -318,7 +318,6 @@ Begin VB.Form frmKits
          _ExtentX        =   13356
          _ExtentY        =   4360
          _Version        =   393217
-         Enabled         =   -1  'True
          TextRTF         =   $"frmKits.frx":0000
       End
    End
@@ -355,7 +354,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:09 PM"
+            TextSave        =   "12:23 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -884,19 +883,11 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If Not rsMain.EOF Then
-        If rsMain.EditMode <> adEditNone Then rsMain.CancelUpdate
-    End If
-    If (rsMain.State And adStateOpen) = adStateOpen Then rsMain.Close
-    Set rsMain = Nothing
-    rsManufacturers.Close
-    Set rsManufacturers = Nothing
-    rsCatalogs.Close
-    Set rsCatalogs = Nothing
-    rsScales.Close
-    Set rsScales = Nothing
-    rsNations.Close
-    Set rsNations = Nothing
+    CloseRecordset rsMain, True
+    CloseRecordset rsManufacturers, True
+    CloseRecordset rsCatalogs, True
+    CloseRecordset rsScales, True
+    CloseRecordset rsNations, True
     
     On Error Resume Next
     adoConn.Close
