@@ -61,7 +61,7 @@ Begin VB.Form frmMain
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:08 AM"
+            TextSave        =   "1:25 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -342,6 +342,7 @@ Private Sub Form_Resize()
     End If
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
+    Set DBcollection = Nothing
     Call Trace(trcBody, App.FileDescription & " Exit.")
     Call Trace(trcBody, String(132, "="))
 End Sub

@@ -14,51 +14,42 @@ Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"No"
 Option Explicit
-'set this to 0 to disable debug code in this class
-#Const DebugMode = 0
-#If DebugMode Then
-    'local variable to hold the serialized class ID that was created in Class_Initialize
-    Private mlClassDebugID As Long
-#End If
+Private mlClassDebugID As Long  'local variable to hold the serialized class ID that was created in Class_Initialize
 Public Key As String
-'local variable(s) to hold property value(s)
 Private mvarRecordset As ADODB.Recordset
 Public Property Set Recordset(vData As ADODB.Recordset)
     On Error GoTo SetErr
 
+    Call Trace(trcEnter, "Class: " & TypeName(Me) & " instance " & mlClassDebugID & " - Property Set Recordset()")
     Set mvarRecordset = vData
+    Call Trace(trcExit, "Class: " & TypeName(Me) & " instance " & mlClassDebugID & " - Property Set Recordset()")
     Exit Property
 
 SetErr:
     Call RaiseError(MyUnhandledError, "DataBaseInfo:Recordset Property Set")
 End Property
 Public Property Get Recordset() As ADODB.Recordset
+    Call Trace(trcEnter, "Class: " & TypeName(Me) & " instance " & mlClassDebugID & " - Property Get Recordset()")
     On Error GoTo GetErr
 
     Set Recordset = mvarRecordset
+    Call Trace(trcExit, "Class: " & TypeName(Me) & " instance " & mlClassDebugID & " - Property Get Recordset")
     Exit Property
 
 GetErr:
     Call RaiseError(MyUnhandledError, "DataBaseInfo:Recordset Property Get")
 End Property
 Private Sub Class_Initialize()
-    #If DebugMode Then
-        'get the next available class ID, and print out
-        'that the class was created successfully
-        mlClassDebugID = GetNextClassDebugID()
-        Debug.Print "'" & TypeName(Me) & "' instance " & mlClassDebugID & " created"
-    #End If
+    mlClassDebugID = GetNextClassDebugID()  'get the next available class ID, and print out that the class was created successfully
+    Call Trace(trcEnter, "Class: " & TypeName(Me) & " instance " & mlClassDebugID & " - Initialize()")
+    Call Trace(trcExit, "Class: " & TypeName(Me) & " instance " & mlClassDebugID & " - Initialize()")
 End Sub
 Private Sub Class_Terminate()
     'the class is being destroyed
-    #If DebugMode Then
-        Debug.Print "'" & TypeName(Me) & "' instance " & CStr(mlClassDebugID) & " is terminating"
-    #End If
+    Call Trace(trcEnter, "Class: " & TypeName(Me) & " instance " & mlClassDebugID & " - Terminate()")
+    Call Trace(trcExit, "Class: " & TypeName(Me) & " instance " & mlClassDebugID & " - Terminate()")
 End Sub
-#If DebugMode Then
-    Public Property Get ClassDebugID()
-        'if we are in debug mode, surface this property that consumers can query
-        ClassDebugID = mlClassDebugID
-    End Property
-#End If
+Public Property Get ClassDebugID()
+    ClassDebugID = mlClassDebugID
+End Property
 

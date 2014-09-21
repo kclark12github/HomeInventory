@@ -1,8 +1,8 @@
 Attribute VB_Name = "modMain"
 Option Explicit
 'Global Const fmtDate As String = "dd-MMM-yyyy hh:nn AMPM"
-Global Const gstrProvider As String = "Microsoft.Jet.OLEDB.4.0"
-'Global Const gstrProvider As String = "Microsoft.Jet.OLEDB.3.51"
+'Global Const gstrProvider As String = "Microsoft.Jet.OLEDB.4.0"
+Global Const gstrProvider As String = "Microsoft.Jet.OLEDB.3.51"
 Global Const gstrConnectionString As String = "DBQ=C:\My Documents\Home Inventory\Database\Ken's Stuff.mdb;DefaultDir=C:\My Documents\Home Inventory\Database;Driver={Microsoft Access Driver (*.mdb)};DriverId=281;FIL=MS Access;FILEDSN=C:\Program Files\Common Files\ODBC\Data Sources\Ken's Stuff.dsn;MaxBufferSize=2048;MaxScanRows=8;PageTimeout=5;SafeTransactions=0;Threads=3;UID=admin;UserCommitSync=Yes;"
 'Global Const gstrConnectionString As String = "DBQ=C:\My Documents\Home Inventory\Database\Ken's Stuff.mdb;"
 Global Const gstrRunTimeUserName As String = "admin"
@@ -54,6 +54,7 @@ Public SQLfilter As String
 Public SQLkey As String
 Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Recordset, Optional RowSource As ADODB.Recordset, Optional BoundColumn As String, Optional ListField As String)
     Dim DateTimeFormat As StdDataFormat
+    Call Trace(trcEnter, "BindField(""" & ctl.Name & """, """ & DataField & """, DataSource, RowSource, """ & BoundColumn & """, """ & ListField & """)")
     Select Case TypeName(ctl)
         Case "CheckBox", "Label", "PictureBox", "RichTextBox", "TextBox"
             Set ctl.DataSource = Nothing
@@ -86,6 +87,7 @@ Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Re
             End Select
         Case "DataCombo"
     End Select
+    Call Trace(trcExit, "BindField")
 End Sub
 'Public Sub BindFieldDAO(ctl As Control, DataField As String, DataSource As DAO.Recordset, Optional RowSource As DAO.Recordset, Optional BoundColumn As String, Optional ListField As String)
 '    Dim DateTimeFormat As StdDataFormat
@@ -104,12 +106,18 @@ End Sub
 '    End Select
 'End Sub
 Public Sub CancelCommand(frm As Form, RS As ADODB.Recordset)
+    Call Trace(trcEnter, "CancelCommand(""" & frm.Name & """, RS)")
     Select Case mode
         Case modeDisplay
             Unload frm
         Case modeAdd, modeModify
+            Call Trace(trcBody, "RS.CancelUpdate")
             RS.CancelUpdate
-            If mode = modeAdd And Not RS.EOF Then RS.MoveLast
+            If mode = modeAdd And Not RS.EOF Then
+                Call Trace(trcBody, "RS.MoveLast")
+                RS.MoveLast
+            End If
+            Call Trace(trcBody, "adoConn.RollbackTrans")
             adoConn.RollbackTrans
             fTransaction = False
             ProtectFields frm
@@ -120,10 +128,12 @@ Public Sub CancelCommand(frm As Form, RS As ADODB.Recordset)
             frm.mnuRecords.Enabled = True
             frm.tbMain.Enabled = True
     End Select
+    Call Trace(trcExit, "CancelCommand")
 End Sub
 Public Function CloseConnection(frm As Form) As Integer
     Dim DBinfo As DataBaseInfo
     
+    Call Trace(trcEnter, "CloseConnection(""" & frm.Name & """)")
     If fTransaction Then
         MsgBox "Please complete the current operation before closing the window.", vbExclamation, frm.Caption
         CloseConnection = 1
@@ -136,25 +146,37 @@ Public Function CloseConnection(frm As Form) As Integer
     DBcollection.Clear
     
     On Error Resume Next
+    Call Trace(trcBody, "adoConn.Close")
     adoConn.Close
     If Err.Number = 3246 Then
+        Call Trace(trcBody, "adoConn.RollbackTrans")
         adoConn.RollbackTrans
         fTransaction = False
+        Call Trace(trcBody, "adoConn.Close")
         adoConn.Close
     End If
     Set adoConn = Nothing
     CloseConnection = 0
+    Call Trace(trcExit, "CloseConnection")
 End Function
 Public Sub DeleteCommand(frm As Form, RS As ADODB.Recordset)
+    Call Trace(trcEnter, "DeleteCommand(""" & frm.Name & """, RS)")
     mode = modeDelete
     If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, frm.Caption) = vbYes Then
+        Call Trace(trcBody, "RS.Delete")
         RS.Delete
+        Call Trace(trcBody, "RS.MoveNext")
         RS.MoveNext
-        If RS.EOF Then RS.MoveLast
+        If RS.EOF Then
+            Call Trace(trcBody, "RS.MoveLast")
+            RS.MoveLast
+        End If
     End If
     mode = modeDisplay
+    Call Trace(trcExit, "DeleteCommand")
 End Sub
 Public Sub EstablishConnection(cn As ADODB.Connection)
+    Call Trace(trcEnter, "EstablishConnection")
     If Not cn Is Nothing Then
         If (cn.State And adStateOpen) = adStateOpen Then cn.Close
         Set cn = Nothing
@@ -166,6 +188,7 @@ Public Sub EstablishConnection(cn As ADODB.Connection)
     'cn.Open "Provider=Microsoft.Jet.OLEDB.4.0;Persist Security Info=False;Data Source=c:\My Documents\Home Inventory\Database\Ken's Stuff.mdb;;"
     'cn.Open "Provider=MSDASQL;FileDSN=" & gstrFileDSN
     cn.Open "FileDSN=" & gstrFileDSN
+    Call Trace(trcExit, "EstablishConnection - """ & cn.ConnectionString & """")
 End Sub
 Public Sub FilterCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String)
     Dim FieldList As String
@@ -174,6 +197,7 @@ Public Sub FilterCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String
     Dim OrderByClause As String
     Dim SQLstatement As String
     
+    Call Trace(trcEnter, "FilterCommand(""" & frm.Name & """, RS, """ & Key & """)")
     Load frmFilter
     frmFilter.Caption = frm.Caption & " Filter"
     If frmMain.Width > frm.Width And frmMain.Height > frm.Height Then
@@ -212,33 +236,41 @@ Public Sub FilterCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String
     End If
     
     If gfUseFilterMethod Then
+        Call Trace(trcBody, "RS.Filter = 0")
         RS.Filter = 0
         If SQLfilter <> vbNullString Then
+            Call Trace(trcBody, "RS.Filter = """ & SQLfilter & """")
             RS.Filter = SQLfilter
         Else
             RefreshCommand RS
         End If
     Else
         CloseRecordset RS, False
+        Call Trace(trcBody, "RS.Open """ & SQLstatement & """, adoConn, adOpenKeyset, adLockOptimistic)")
         RS.Open SQLstatement, adoConn, adOpenKeyset, adLockOptimistic
+
         'I may need to change this later, but I didn't want to go through
         'all the screens' List commands and add the argument to ListCommand()
         '(i.e. frmList supports a Filter command, but hasn't been passed a Key)...
         RefreshCommand RS, Key
     End If
+    Call Trace(trcExit, "FilterCommand")
 End Sub
 Public Function GetRegionalShortDateFormat() As String
     Dim dwLCID As Long
     Dim dataLen As Integer
     Dim Buffer As String * 100
     
+    Call Trace(trcEnter, "GetRegionalShortDateFormat")
     dwLCID = GetSystemDefaultLCID()
     dataLen = GetLocaleInfo(dwLCID, LOCALE_SSHORTDATE, Buffer, 100)
     GetRegionalShortDateFormat = Left$(Buffer, dataLen - 1)
+    Call Trace(trcExit, "GetRegionalShortDateFormat = """ & GetRegionalShortDateFormat & """")
 End Function
 Public Sub ListCommand(frm As Form, RS As ADODB.Recordset, Optional AllowUpdate As Boolean = True)
     Dim vRS As ADODB.Recordset
     
+    Call Trace(trcEnter, "ListCommand(""" & frm.Name & """, RS, " & AllowUpdate & ")")
     Load frmList
     frmList.Caption = frm.Caption & " List"
     If frmMain.Width > frm.Width And frmMain.Height > frm.Height Then
@@ -255,6 +287,7 @@ Public Sub ListCommand(frm As Form, RS As ADODB.Recordset, Optional AllowUpdate 
     
     If AllowUpdate Then
         Set frmList.rsList = RS
+        Call Trace(trcBody, "adoConn.BeginTrans")
         adoConn.BeginTrans
         fTransaction = True
         frmList.dgdList.BackColor = vbWindowBackground
@@ -274,34 +307,44 @@ Public Sub ListCommand(frm As Form, RS As ADODB.Recordset, Optional AllowUpdate 
     End If
         
     If AllowUpdate Then
+        Call Trace(trcBody, "adoConn.CommitTrans")
         adoConn.CommitTrans
         fTransaction = False
     Else
         CloseRecordset vRS, True
     End If
+    Call Trace(trcExit, "ListCommand")
 End Sub
 Public Sub ModifyCommand(frm As Form)
+    Call Trace(trcEnter, "ModifyCommand(""" & frm.Name & """)")
     mode = modeModify
     OpenFields frm
     frm.mnuFile.Enabled = False
     frm.mnuRecords.Enabled = False
     frm.tbMain.Enabled = False
     frm.adodcMain.Enabled = False
+    Call Trace(trcBody, "adoConn.BeginTrans")
     adoConn.BeginTrans
     fTransaction = True
+    Call Trace(trcExit, "ModifyCommand")
 End Sub
 Public Sub NewCommand(frm As Form, RS As ADODB.Recordset)
+    Call Trace(trcEnter, "NewCommand(""" & frm.Name & """, RS)")
     mode = modeAdd
     OpenFields frm
     frm.mnuFile.Enabled = False
     frm.mnuRecords.Enabled = False
     frm.tbMain.Enabled = False
     frm.adodcMain.Enabled = False
+    Call Trace(trcBody, "RS.AddNew")
     RS.AddNew
+    Call Trace(trcBody, "adoConn.BeginTrans")
     adoConn.BeginTrans
     fTransaction = True
+    Call Trace(trcExit, "NewCommand")
 End Sub
 Public Sub OKCommand(frm As Form, RS As ADODB.Recordset)
+    Call Trace(trcEnter, "OKCommand(""" & frm.Name & """, RS)")
     Select Case mode
         Case modeDisplay
             Unload frm
@@ -315,10 +358,13 @@ Public Sub OKCommand(frm As Form, RS As ADODB.Recordset)
             'done for DataCombo controls (no .MaxLength property)...
             On Error Resume Next
             If RS.LockType = adLockBatchOptimistic Then
+                Call Trace(trcBody, "RS.UpdateBatch")
                 RS.UpdateBatch
             Else
+                Call Trace(trcBody, "RS.Update")
                 RS.Update
             End If
+            Call Trace(trcBody, "adoConn.CommitTrans")
             adoConn.CommitTrans
             fTransaction = False
             ProtectFields frm
@@ -331,9 +377,12 @@ Public Sub OKCommand(frm As Form, RS As ADODB.Recordset)
             frm.mnuRecords.Enabled = True
             frm.tbMain.Enabled = True
     End Select
+    Call Trace(trcExit, "OKCommand")
 End Sub
 Public Sub OpenFields(pForm As Form)
     Dim ctl As Control
+    
+    Call Trace(trcEnter, "OpenFields(""" & pForm.Name & """)")
     For Each ctl In pForm.Controls
         Select Case TypeName(ctl)
             Case "ComboBox", "DataCombo", "DataGrid", "RichTextBox", "TextBox"
@@ -347,9 +396,12 @@ Public Sub OpenFields(pForm As Form)
     pForm.sbStatus.Panels("Status").Text = "Edit Mode"
     pForm.cmdCancel.Caption = "Cancel"
     pForm.cmdOK.Visible = True
+    Call Trace(trcExit, "OpenFields")
 End Sub
 Public Sub ProtectFields(pForm As Form)
     Dim ctl As Control
+    
+    Call Trace(trcEnter, "ProtectFields(""" & pForm.Name & """)")
     For Each ctl In pForm.Controls
         Select Case TypeName(ctl)
             Case "ComboBox", "DataCombo", "DataGrid", "RichTextBox", "TextBox"
@@ -364,11 +416,13 @@ Public Sub ProtectFields(pForm As Form)
     pForm.sbStatus.Panels("Status").Text = ""
     pForm.cmdCancel.Caption = "&Exit"
     pForm.cmdOK.Visible = False
+    Call Trace(trcExit, "ProtectFields")
 End Sub
 Public Sub RefreshCommand(RS As ADODB.Recordset, Optional Key As Variant)
     Dim SaveBookmark As String
     Dim DBinfo As DataBaseInfo
     
+    Call Trace(trcEnter, "RefreshCommand(RS, """ & Key & """)")
     On Error Resume Next
     If IsMissing(Key) Then
         SaveBookmark = RS(0)
@@ -377,14 +431,20 @@ Public Sub RefreshCommand(RS As ADODB.Recordset, Optional Key As Variant)
     End If
     RS.Requery
     If IsMissing(Key) Then
+        Call Trace(trcBody, "RS.Find " & RS(0).Name & "='" & SQLQuote(SaveBookmark) & "'")
         RS.Find RS(0).Name & "='" & SQLQuote(SaveBookmark) & "'"
     Else
+        Call Trace(trcBody, "RS.Find " & Key & "='" & SQLQuote(SaveBookmark) & "'")
         RS.Find Key & "='" & SQLQuote(SaveBookmark) & "'"
     End If
     
     For Each DBinfo In DBcollection
-        If Not (DBinfo.Recordset Is RS) Then DBinfo.Recordset.Requery
+        If Not (DBinfo.Recordset Is RS) Then
+            Call Trace(trcBody, "DBinfo.Recordset.Requery")
+            DBinfo.Recordset.Requery
+        End If
     Next
+    Call Trace(trcExit, "RefreshCommand")
 End Sub
 Public Sub ReportCommand(frm As Form, RS As ADODB.Recordset, ByVal ReportPath As String)
     Dim scrApplication As New CRAXDRT.Application
@@ -393,6 +453,7 @@ Public Sub ReportCommand(frm As Form, RS As ADODB.Recordset, ByVal ReportPath As
 '    Dim scrApplication As New CRPEAuto.Application
 '    Dim Report As New CRPEAuto.Report
     
+    Call Trace(trcEnter, "ReportCommand(""" & frm.Name & """, RS, """ & ReportPath & """)")
     MakeVirtualRecordset adoConn, RS, vRS
     
     Load frmViewReport
@@ -410,8 +471,11 @@ Public Sub ReportCommand(frm As Form, RS As ADODB.Recordset, ByVal ReportPath As
     End If
     frmViewReport.WindowState = vbMaximized
     
+    Call Trace(trcBody, "Set Report = scrApplication.OpenReport(""" & ReportPath & """, crOpenReportByTempCopy)")
     Set Report = scrApplication.OpenReport(ReportPath, crOpenReportByTempCopy)
+    Call Trace(trcBody, "Report.Database.SetDataSource vRS, 3, 1")
     Report.Database.SetDataSource vRS, 3, 1
+    Call Trace(trcBody, "Report.ReadRecords")
     Report.ReadRecords
     
     frmViewReport.scrViewer.ReportSource = Report
@@ -421,6 +485,7 @@ Public Sub ReportCommand(frm As Form, RS As ADODB.Recordset, ByVal ReportPath As
     Set Report = Nothing
     vRS.Close
     Set vRS = Nothing
+    Call Trace(trcExit, "ReportCommand")
 End Sub
 Public Sub SearchCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String)
     Dim FieldList As String
@@ -429,6 +494,7 @@ Public Sub SearchCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String
     Dim OrderByClause As String
     Dim SQLstatement As String
     
+    Call Trace(trcEnter, "SearchCommand(""" & frm.Name & """, RS, """ & Key & """)")
     Load frmSearch
     frmSearch.Caption = frm.Caption & " Search"
     If frmMain.Width > frm.Width And frmMain.Height > frm.Height Then
@@ -446,9 +512,12 @@ Public Sub SearchCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String
     Set frmSearch.RS = RS
     frmSearch.Show vbModal
     'RefreshCommand RS, Key
+    Call Trace(trcExit, "SearchCommand")
 End Sub
 Public Sub SetDateFormats()
     Dim iPos As Integer
+    
+    Call Trace(trcEnter, "SetDateFormats")
     fmtShortDate = GetRegionalShortDateFormat()
     fmtLongDate = fmtShortDate
     If InStr(LCase(fmtLongDate), "yyyy") = 0 Then
@@ -456,8 +525,10 @@ Public Sub SetDateFormats()
         fmtLongDate = Mid(fmtLongDate, 1, iPos - 1) & "yyyy"
     End If
     fmtFullDateTime = fmtLongDate & " hh:nn:ss AMPM"
+    Call Trace(trcExit, "SetDateFormats")
 End Sub
 Public Sub SQLCommand(ByVal TableName As String)
+    Call Trace(trcEnter, "SQLCommand(""" & TableName & """")
     Load frmSQL
     Set frmSQL.cnSQL = adoConn
     If ParsePath(gstrFileDSN, DrvDirNoSlash) = gstrODBCFileDSNDir Then
@@ -467,10 +538,12 @@ Public Sub SQLCommand(ByVal TableName As String)
     End If
     frmSQL.dbcTables.BoundText = TableName
     frmSQL.Show vbModal
+    Call Trace(trcExit, "SQLCommand")
 End Sub
 Public Sub UpdatePosition(frm As Form, ByVal Caption As String, RS As ADODB.Recordset)
     Dim i As Integer
     
+    Call Trace(trcEnter, "UpdatePosition(""" & frm.Name & """, """ & Caption & """, RS)")
     On Error GoTo ErrorHandler
     If RS.BOF And RS.EOF Then
         Caption = "No Records"
@@ -488,6 +561,7 @@ Public Sub UpdatePosition(frm As Form, ByVal Caption As String, RS As ADODB.Reco
     End If
     
     frm.adodcMain.Caption = Caption
+    Call Trace(trcExit, "UpdatePosition")
     Exit Sub
 
 ErrorHandler:
@@ -504,6 +578,7 @@ Public Function dbcValidate(fld As ADODB.Field, ctl As DataCombo) As Integer
     Dim WhereClause As String
     Dim OrderByClause As String
     
+    Call Trace(trcEnter, "dbcValidate(""" & fld.Name & """, """ & ctl.Name & """)")
     dbcValidate = 1
     Set pDataSource = ctl.DataSource
     If IsNull(ctl.SelectedItem) Then
@@ -539,6 +614,7 @@ Public Function dbcValidate(fld As ADODB.Field, ctl As DataCombo) As Integer
     If ctl.BoundText <> pDataSource(fld.Name) Then
         pDataSource(fld.Name) = ctl.BoundText
     End If
+    Call Trace(trcExit, "dbcValidate")
 End Function
 Public Sub dbcKeyPress(fld As ADODB.Field, ctl As DataCombo, KeyAscii As Integer)
     Dim adoRS As ADODB.Recordset
@@ -550,6 +626,7 @@ Public Sub dbcKeyPress(fld As ADODB.Field, ctl As DataCombo, KeyAscii As Integer
     Dim WhereClause As String
     Dim OrderByClause As String
     
+    Call Trace(trcEnter, "dbcKeyPress(""" & fld.Name & """, """ & ctl.Name & """, """ & KeyAscii & """)")
     Set pDataSource = ctl.DataSource
     If IsNull(ctl.SelectedItem) Then
         Call ParseSQLSelect(pDataSource.Source, FieldList, TableList, WhereClause, OrderByClause)
@@ -571,5 +648,6 @@ Public Sub dbcKeyPress(fld As ADODB.Field, ctl As DataCombo, KeyAscii As Integer
     If ctl.BoundText <> pDataSource(fld.Name) Then
         pDataSource(fld.Name) = ctl.BoundText
     End If
+    Call Trace(trcExit, "dbcKeyPress")
 End Sub
 
