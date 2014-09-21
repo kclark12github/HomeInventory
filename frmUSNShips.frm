@@ -828,7 +828,7 @@ Begin VB.Form frmUSNShips
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:08 PM"
+            TextSave        =   "9:51 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -1141,7 +1141,6 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Dim adoConn As ADODB.Connection
 Dim WithEvents rsMain As ADODB.Recordset
 Attribute rsMain.VB_VarHelpID = -1
 Dim rsCommands As New ADODB.Recordset
@@ -1149,89 +1148,176 @@ Dim rsHomePorts As New ADODB.Recordset
 Dim rsClasses As New ADODB.Recordset
 Dim rsClassifications As New ADODB.Recordset
 Dim rsImages As New ADODB.Recordset
-Dim mode As ActionMode
-Dim fTransaction As Boolean
 Dim DBinfo As DataBaseInfo
 Dim MouseY As Single
 Dim MouseX As Single
 Private SortDESC() As Boolean
-Private Sub BindFields()
-    'General
-    frmMain.BindField txtDesignation, "HullNumber", rsMain
-    'frmMain.BindField txtNumber, "Number", rsMain
-    frmMain.BindField txtName, "Name", rsMain
-    frmMain.BindField dbcClass, "ClassID", rsMain, rsClasses, "ID", "Name"
-    frmMain.BindField dbcClassification, "Classification", rsMain, rsClassifications, "Type", "Type"
-    frmMain.BindField txtClassDesc, "Description", rsClassifications
-    frmMain.BindField dbcCommand, "Command", rsMain, rsCommands, "Command", "Command"
-    frmMain.BindField dbcHomePort, "HomePort", rsMain, rsHomePorts, "HomePort", "HomePort"
-    frmMain.BindField txtZipCode, "Zip Code", rsMain
-    frmMain.BindField txtCommissioned, "Commissioned", rsMain
-    frmMain.BindField txtURL, "URL_Internet", rsMain
-    frmMain.BindField txtLocalURL, "URL_Local", rsMain
-    
-    'Characteristics...
-    frmMain.BindField rtxtDisplacement, "Displacement", rsMain
-    frmMain.BindField rtxtLength, "Length", rsMain
-    frmMain.BindField rtxtBeam, "Beam", rsMain
-    frmMain.BindField rtxtDraft, "Draft", rsMain
-    frmMain.BindField rtxtPropulsion, "Propulsion", rsMain
-    frmMain.BindField rtxtBoilers, "Boilers", rsMain
-    frmMain.BindField txtSpeed, "Speed", rsMain
-    frmMain.BindField rtxtManning, "Manning", rsMain
-    
-    'Weapons...
-    frmMain.BindField rtxtAircraft, "Aircraft", rsMain
-    frmMain.BindField rtxtMissiles, "Missiles", rsMain
-    frmMain.BindField rtxtGuns, "Guns", rsMain
-    frmMain.BindField rtxtASW, "ASW Weapons", rsMain
-    frmMain.BindField rtxtRadars, "Radars", rsMain
-    frmMain.BindField rtxtSonars, "Sonars", rsMain
-    frmMain.BindField rtxtFireControl, "Fire Control", rsMain
-    frmMain.BindField rtxtEW, "EW", rsMain
-    
-    'History...
-    frmMain.BindField rtxtHistory, "History", rsMain
-    
-    'More History...
-    frmMain.BindField rtxtMoreHistory, "More History", rsMain
-End Sub
 Private Sub cmdCancel_Click()
-    Select Case mode
-        Case modeDisplay
-            Unload Me
-        Case modeAdd, modeModify
-            rsMain.CancelUpdate
-            If mode = modeAdd And Not rsMain.EOF Then rsMain.MoveLast
-            adoConn.RollbackTrans
-            fTransaction = False
-            frmMain.ProtectFields Me
-            mode = modeDisplay
-            adodcMain.Enabled = True
-    End Select
+    CancelCommand Me, rsMain
 End Sub
 Private Sub cmdOK_Click()
-    Select Case mode
-        Case modeDisplay
-            Unload Me
-        Case modeAdd, modeModify
-            'Why we need to do this is buggy...
-            rsMain("ClassID") = dbcClass.BoundText
-            rsMain("ClassificationID") = dbcClassification.BoundText
-            rsMain("Command") = dbcCommand.BoundText
-            rsMain("HomePort") = dbcHomePort.BoundText
-            If InStr(txtDesignation.Text, "-") Then
-                rsMain("Number") = Mid(txtDesignation.Text, InStr(txtDesignation.Text, "-") + 1)
-            End If
-            rsMain.UpdateBatch
-            adoConn.CommitTrans
-            fTransaction = False
-            frmMain.ProtectFields Me
-            mode = modeDisplay
-            adodcMain.Enabled = True
-            
+    If mode = modeAdd Or mode = modeModify Then
+        If InStr(txtDesignation.Text, "-") Then
+            rsMain("Number") = Mid(txtDesignation.Text, InStr(txtDesignation.Text, "-") + 1)
+        End If
+    End If
+    OKCommand Me, rsMain
+End Sub
+Private Sub Form_Load()
+    Set adoConn = New ADODB.Connection
+    adoConn.Open "FileDSN=" & gstrFileDSN
+    
+    Set rsMain = New ADODB.Recordset
+    rsMain.CursorLocation = adUseClient
+    SQLmain = "select * from [Ships] order by Classification, Number"
+    SQLfilter = vbNullString
+    SQLkey = "Reference"
+    rsMain.Open SQLmain, adoConn, adOpenKeyset, adLockBatchOptimistic
+    DBcollection.Add "rsMain", rsMain
+    rsMain.MoveFirst
+    
+    rsClassifications.CursorLocation = adUseClient
+    rsClassifications.Open "select * from [Classification] order by Type", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsClassifications", rsClassifications
+    
+    rsCommands.CursorLocation = adUseClient
+    rsCommands.Open "select distinct Command from [Ships] order by Command", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsCommands", rsCommands
+    
+    rsHomePorts.CursorLocation = adUseClient
+    rsHomePorts.Open "select distinct HomePort from [Ships] order by HomePort", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsHomePorts", rsHomePorts
+    
+    rsClasses.CursorLocation = adUseClient
+    rsClasses.Open "select * from [Class] order by Name", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsClasses", rsClasses
+    
+    Set adodcMain.Recordset = rsMain
+    BindField lblID, "ID", rsMain
+
+    BindFields
+    
+    Set tsShips.SelectedItem = tsShips.Tabs(1)
+    ProtectFields Me
+    mode = modeDisplay
+    fTransaction = False
+End Sub
+Private Sub Form_Unload(Cancel As Integer)
+    Cancel = CloseConnection(Me)
+End Sub
+Private Sub mnuActionFilter_Click()
+    FilterCommand Me, rsMain, SQLkey
+End Sub
+Private Sub mnuActionDelete_Click()
+    DeleteCommand Me, rsMain
+End Sub
+Private Sub mnuActionList_Click()
+    ListCommand Me, rsMain
+End Sub
+Private Sub mnuActionModify_Click()
+    ModifyCommand Me
+    
+    Set tsShips.SelectedItem = tsShips.Tabs(1)
+End Sub
+Private Sub mnuActionNew_Click()
+    NewCommand Me, rsMain
+
+    txtCommissioned.Text = Format(Now(), "dddd, MMMM dd, yyyy")
+    Set tsShips.SelectedItem = tsShips.Tabs(1)
+End Sub
+Private Sub mnuActionRefresh_Click()
+    RefreshCommand SQLkey
+End Sub
+Private Sub mnuActionReport_Click()
+    ReportCommand Me, rsMain, App.Path & "\Reports\USN Ships.rpt"
+End Sub
+Private Sub mnuActionSQL_Click()
+    SQLCommand "Ships"
+End Sub
+Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+    Dim Caption As String
+    
+    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset("HullNumber") & " " & pRecordset("Name")
+    UpdatePosition Me, Caption, pRecordset
+    DefaultClassificationDesc
+    DefaultClassDetails
+    ResetImageGrid
+End Sub
+Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
+    Select Case Button.Key
+        Case "List"
+            mnuActionList_Click
+        Case "Refresh"
             mnuActionRefresh_Click
+        Case "Filter"
+            mnuActionFilter_Click
+        Case "New"
+            mnuActionNew_Click
+        Case "Modify"
+            mnuActionModify_Click
+        Case "Delete"
+            mnuActionDelete_Click
+        Case "Report"
+            mnuActionReport_Click
+        Case "SQL"
+            mnuActionSQL_Click
     End Select
+End Sub
+Private Sub tsShips_Click()
+    Dim i As Integer
+    
+    With tsShips
+        For i = 0 To .Tabs.Count - 1
+            If i = .SelectedItem.Index - 1 Then
+                fraShips(i).Enabled = True
+                fraShips(i).ZOrder
+            Else
+                fraShips(i).Enabled = False
+            End If
+        Next
+    End With
+End Sub
+'=================================================================================
+Private Sub BindFields()
+    'General
+    BindField txtDesignation, "HullNumber", rsMain
+    'BindField txtNumber, "Number", rsMain
+    BindField txtName, "Name", rsMain
+    BindField dbcClass, "ClassID", rsMain, rsClasses, "ID", "Name"
+    BindField dbcClassification, "Classification", rsMain, rsClassifications, "Type", "Type"
+    BindField txtClassDesc, "Description", rsClassifications
+    BindField dbcCommand, "Command", rsMain, rsCommands, "Command", "Command"
+    BindField dbcHomePort, "HomePort", rsMain, rsHomePorts, "HomePort", "HomePort"
+    BindField txtZipCode, "Zip Code", rsMain
+    BindField txtCommissioned, "Commissioned", rsMain
+    BindField txtURL, "URL_Internet", rsMain
+    BindField txtLocalURL, "URL_Local", rsMain
+    
+    'Characteristics...
+    BindField rtxtDisplacement, "Displacement", rsMain
+    BindField rtxtLength, "Length", rsMain
+    BindField rtxtBeam, "Beam", rsMain
+    BindField rtxtDraft, "Draft", rsMain
+    BindField rtxtPropulsion, "Propulsion", rsMain
+    BindField rtxtBoilers, "Boilers", rsMain
+    BindField txtSpeed, "Speed", rsMain
+    BindField rtxtManning, "Manning", rsMain
+    
+    'Weapons...
+    BindField rtxtAircraft, "Aircraft", rsMain
+    BindField rtxtMissiles, "Missiles", rsMain
+    BindField rtxtGuns, "Guns", rsMain
+    BindField rtxtASW, "ASW Weapons", rsMain
+    BindField rtxtRadars, "Radars", rsMain
+    BindField rtxtSonars, "Sonars", rsMain
+    BindField rtxtFireControl, "Fire Control", rsMain
+    BindField rtxtEW, "EW", rsMain
+    
+    'History...
+    BindField rtxtHistory, "History", rsMain
+    
+    'More History...
+    BindField rtxtMoreHistory, "More History", rsMain
 End Sub
 Private Sub dbcClass_Validate(Cancel As Boolean)
     If Not dbcClass.Enabled Then Exit Sub
@@ -1276,27 +1362,27 @@ Private Sub DefaultClassDetails()
     BindFields
     
     'Characteristics...
-    If IsNull(rsMain("Displacement")) And Not IsNull(rsClasses("Displacement")) Then frmMain.BindField rtxtDisplacement, "Displacement", rsClasses
-    If IsNull(rsMain("Length")) And Not IsNull(rsClasses("Length")) Then frmMain.BindField rtxtLength, "Length", rsClasses
-    If IsNull(rsMain("Beam")) And Not IsNull(rsClasses("Beam")) Then frmMain.BindField rtxtBeam, "Beam", rsClasses
-    If IsNull(rsMain("Draft")) And Not IsNull(rsClasses("Draft")) Then frmMain.BindField rtxtDraft, "Draft", rsClasses
-    If IsNull(rsMain("Propulsion")) And Not IsNull(rsClasses("Propulsion")) Then frmMain.BindField rtxtPropulsion, "Propulsion", rsClasses
-    If IsNull(rsMain("Boilers")) And Not IsNull(rsClasses("Boilers")) Then frmMain.BindField rtxtBoilers, "Boilers", rsClasses
-    If IsNull(rsMain("Speed")) And Not IsNull(rsClasses("Speed")) Then frmMain.BindField txtSpeed, "Speed", rsClasses
-    If IsNull(rsMain("Manning")) And Not IsNull(rsClasses("Manning")) Then frmMain.BindField rtxtManning, "Manning", rsClasses
+    If IsNull(rsMain("Displacement")) And Not IsNull(rsClasses("Displacement")) Then BindField rtxtDisplacement, "Displacement", rsClasses
+    If IsNull(rsMain("Length")) And Not IsNull(rsClasses("Length")) Then BindField rtxtLength, "Length", rsClasses
+    If IsNull(rsMain("Beam")) And Not IsNull(rsClasses("Beam")) Then BindField rtxtBeam, "Beam", rsClasses
+    If IsNull(rsMain("Draft")) And Not IsNull(rsClasses("Draft")) Then BindField rtxtDraft, "Draft", rsClasses
+    If IsNull(rsMain("Propulsion")) And Not IsNull(rsClasses("Propulsion")) Then BindField rtxtPropulsion, "Propulsion", rsClasses
+    If IsNull(rsMain("Boilers")) And Not IsNull(rsClasses("Boilers")) Then BindField rtxtBoilers, "Boilers", rsClasses
+    If IsNull(rsMain("Speed")) And Not IsNull(rsClasses("Speed")) Then BindField txtSpeed, "Speed", rsClasses
+    If IsNull(rsMain("Manning")) And Not IsNull(rsClasses("Manning")) Then BindField rtxtManning, "Manning", rsClasses
     
     'Weapons...
-    If IsNull(rsMain("Aircraft")) And Not IsNull(rsClasses("Aircraft")) Then frmMain.BindField rtxtAircraft, "Aircraft", rsClasses
-    If IsNull(rsMain("Missiles")) And Not IsNull(rsClasses("Missiles")) Then frmMain.BindField rtxtMissiles, "Missiles", rsClasses
-    If IsNull(rsMain("Guns")) And Not IsNull(rsClasses("Guns")) Then frmMain.BindField rtxtGuns, "Guns", rsClasses
-    If IsNull(rsMain("ASW Weapons")) And Not IsNull(rsClasses("ASW Weapons")) Then frmMain.BindField rtxtASW, "ASW Weapons", rsClasses
-    If IsNull(rsMain("Radars")) And Not IsNull(rsClasses("Radars")) Then frmMain.BindField rtxtRadars, "Radars", rsClasses
-    If IsNull(rsMain("Sonars")) And Not IsNull(rsClasses("Sonars")) Then frmMain.BindField rtxtSonars, "Sonars", rsClasses
-    If IsNull(rsMain("Fire Control")) And Not IsNull(rsClasses("Fire Control")) Then frmMain.BindField rtxtFireControl, "Fire Control", rsClasses
-    If IsNull(rsMain("EW")) And Not IsNull(rsClasses("EW")) Then frmMain.BindField rtxtEW, "EW", rsClasses
+    If IsNull(rsMain("Aircraft")) And Not IsNull(rsClasses("Aircraft")) Then BindField rtxtAircraft, "Aircraft", rsClasses
+    If IsNull(rsMain("Missiles")) And Not IsNull(rsClasses("Missiles")) Then BindField rtxtMissiles, "Missiles", rsClasses
+    If IsNull(rsMain("Guns")) And Not IsNull(rsClasses("Guns")) Then BindField rtxtGuns, "Guns", rsClasses
+    If IsNull(rsMain("ASW Weapons")) And Not IsNull(rsClasses("ASW Weapons")) Then BindField rtxtASW, "ASW Weapons", rsClasses
+    If IsNull(rsMain("Radars")) And Not IsNull(rsClasses("Radars")) Then BindField rtxtRadars, "Radars", rsClasses
+    If IsNull(rsMain("Sonars")) And Not IsNull(rsClasses("Sonars")) Then BindField rtxtSonars, "Sonars", rsClasses
+    If IsNull(rsMain("Fire Control")) And Not IsNull(rsClasses("Fire Control")) Then BindField rtxtFireControl, "Fire Control", rsClasses
+    If IsNull(rsMain("EW")) And Not IsNull(rsClasses("EW")) Then BindField rtxtEW, "EW", rsClasses
     
     'History...
-    If IsNull(rsMain("History")) And Not IsNull(rsClasses("Description")) Then frmMain.BindField rtxtHistory, "Description", rsClasses
+    If IsNull(rsMain("History")) And Not IsNull(rsClasses("Description")) Then BindField rtxtHistory, "Description", rsClasses
 End Sub
 Private Sub DefaultClassificationDesc()
     If rsClassifications Is Nothing Then Exit Sub
@@ -1369,296 +1455,16 @@ Private Sub dgdImages_MouseMove(Button As Integer, Shift As Integer, X As Single
     MouseX = X
     MouseY = Y
 End Sub
-Private Sub Form_Load()
-    Set adoConn = New ADODB.Connection
-    Set rsMain = New ADODB.Recordset
-    Set DBinfo = frmMain.DBcollection("US Navy Ships")
-    With DBinfo
-        adoConn.Provider = .Provider
-        adoConn.CommandTimeout = 60
-        adoConn.ConnectionTimeout = 60
-        adoConn.Open .PathName, .UserName, .Password
-    End With
-    
-    rsClassifications.CursorLocation = adUseClient
-    rsClassifications.Open "select * from [Classification] order by Type", adoConn, adOpenStatic, adLockReadOnly
-    
-    rsMain.CursorLocation = adUseClient
-    'rsMain.Open "select [Ships].*, [Classification].Type from [Ships],[Classification] order by [Classification].Type, [Ships].Number", adoConn, adOpenKeyset, adLockBatchOptimistic
-    rsMain.Open "select * from [Ships] order by Classification, Number", adoConn, adOpenKeyset, adLockBatchOptimistic
-    rsMain.MoveFirst
-    
-    'Fixit Program Section...
-    'rsMain.MoveFirst
-    'While Not rsMain.EOF
-    '    If IsNull(rsMain("Classification")) Then
-    '        Debug.Print "Reference #" & rsMain.Bookmark & ": " & rsMain("HullNumber") & " " & rsMain("Name")
-    '        rsClassifications.MoveFirst
-    '        rsClassifications.Find "ID=" & rsMain("ClassificationID").Value
-    '        rsMain("Classification").Value = rsClassifications("Type")
-    '        rsMain.UpdateBatch
-    '    End If
-    '    rsMain.MoveNext
-    '    DoEvents
-    'Wend
-    'rsMain.MoveFirst
-    
-    rsCommands.CursorLocation = adUseClient
-    rsCommands.Open "select distinct Command from [Ships] order by Command", adoConn, adOpenStatic, adLockReadOnly
-    
-    rsHomePorts.CursorLocation = adUseClient
-    rsHomePorts.Open "select distinct HomePort from [Ships] order by HomePort", adoConn, adOpenStatic, adLockReadOnly
-    
-    rsClasses.CursorLocation = adUseClient
-    rsClasses.Open "select * from [Class] order by Name", adoConn, adOpenStatic, adLockReadOnly
-    
-    Set adodcMain.Recordset = rsMain
-    frmMain.BindField lblID, "ID", rsMain
-    
-    BindFields
-    
-    Set tsShips.SelectedItem = tsShips.Tabs(1)
-    frmMain.ProtectFields Me
-    mode = modeDisplay
-    fTransaction = False
-End Sub
-Private Sub Form_Unload(Cancel As Integer)
-    If fTransaction Then
-        MsgBox "Please complete the current operation before closing the window.", vbExclamation, Me.Caption
-        Cancel = 1
-        Exit Sub
-    End If
-    CloseRecordset rsMain, True
-    CloseRecordset rsCommands, True
-    CloseRecordset rsHomePorts, True
-    CloseRecordset rsClasses, True
-    CloseRecordset rsClassifications, True
-    CloseRecordset rsImages, True
-    
-    On Error Resume Next
-    adoConn.Close
-    If Err.Number = 3246 Then
-        adoConn.RollbackTrans
-        fTransaction = False
-        adoConn.Close
-    End If
-    Set adoConn = Nothing
-End Sub
-Private Sub mnuActionList_Click()
-    Dim frm As Form
-    
-    Me.MousePointer = vbHourglass
-    Load frmList
-    frmList.Caption = Me.Caption & " List"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmList.Top = frm.Top
-    frmList.Left = frm.Left
-    frmList.Width = frm.Width
-    frmList.Height = frm.Height
-    
-    Set frmList.rsList = rsMain
-    
-    adoConn.BeginTrans
-    fTransaction = True
-    Me.MousePointer = vbDefault
-    frmList.Show vbModal
-    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-    End If
-    adoConn.CommitTrans
-    fTransaction = False
-End Sub
-Private Sub mnuActionRefresh_Click()
-    Dim SaveBookmark As String
-    
-    On Error Resume Next
-    SaveBookmark = rsMain("Reference")
-    rsMain.Requery
-    rsMain.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
-    rsClasses.Requery
-    rsClassifications.Requery
-    rsCommands.Requery
-    rsHomePorts.Requery
-End Sub
-Private Sub mnuActionFilter_Click()
-    Dim frm As Form
-    
-    Me.MousePointer = vbHourglass
-    Load frmFilter
-    frmFilter.Caption = Me.Caption & " Filter"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmFilter.Top = frm.Top
-    frmFilter.Left = frm.Left
-    frmFilter.Width = frm.Width
-    frmFilter.Height = frm.Height
-    
-    Set frmFilter.RS = rsMain
-    Me.MousePointer = vbDefault
-    frmFilter.Show vbModal
-    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-    End If
-End Sub
-Private Sub mnuActionNew_Click()
-    mode = modeAdd
-    frmMain.OpenFields Me
-    txtClassDesc.Locked = True
-    txtClassDesc.BackColor = vbButtonFace
-    adodcMain.Enabled = False
-    rsMain.AddNew
-    adoConn.BeginTrans
-    fTransaction = True
-    
-    txtCommissioned.Text = Format(Now(), "dddd, MMMM dd, yyyy")
-    Set tsShips.SelectedItem = tsShips.Tabs(1)
-    txtDesignation.SetFocus
-End Sub
-Private Sub mnuActionDelete_Click()
-    mode = modeDelete
-    If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsMain.Delete
-        rsMain.MoveNext
-        If rsMain.EOF Then rsMain.MoveLast
-    End If
-    mode = modeDisplay
-End Sub
-Private Sub mnuActionModify_Click()
-    mode = modeModify
-    frmMain.OpenFields Me
-    txtClassDesc.Locked = True
-    txtClassDesc.BackColor = vbButtonFace
-    adodcMain.Enabled = False
-    adoConn.BeginTrans
-    fTransaction = True
-    
-    Set tsShips.SelectedItem = tsShips.Tabs(1)
-    txtDesignation.SetFocus
-End Sub
-Private Sub mnuActionReport_Click()
-    Dim frm As Form
-    Dim scrApplication As New CRAXDRT.Application
-    Dim Report As New CRAXDRT.Report
-    Dim vRS As ADODB.Recordset
-    
-    Me.MousePointer = vbHourglass
-    MakeVirtualRecordset adoConn, rsMain, vRS
-    
-    Load frmViewReport
-    frmViewReport.Caption = Me.Caption & " Report"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmViewReport.Top = frm.Top
-    frmViewReport.Left = frm.Left
-    frmViewReport.Width = frm.Width
-    frmViewReport.Height = frm.Height
-    frmViewReport.WindowState = vbMaximized
-    
-    Set Report = scrApplication.OpenReport(App.Path & "\Reports\USN Ships.rpt", crOpenReportByTempCopy)
-    Report.Database.SetDataSource vRS, 3, 1
-    Report.ReadRecords
-    
-    frmViewReport.scrViewer.ReportSource = Report
-    Me.MousePointer = vbDefault
-    frmViewReport.Show vbModal
-    
-    Set scrApplication = Nothing
-    Set Report = Nothing
-    vRS.Close
-    Set vRS = Nothing
-End Sub
-Private Sub mnuActionSQL_Click()
-    Load frmSQL
-    Set frmSQL.cnSQL = adoConn
-    frmSQL.txtDatabase.Text = DBinfo.PathName
-    frmSQL.dbcTables.BoundText = "Kits"
-    frmSQL.Show vbModal
-End Sub
 Private Sub ResetImageGrid()
     If rsMain.BOF Or rsMain.EOF Then Exit Sub
     
     Set dgdImages.DataSource = Nothing
     CloseRecordset rsImages, False
     rsImages.CursorLocation = adUseClient
-    rsImages.Open "select * from [Images] where ShipID=" & rsMain("ID"), adoConn, adOpenKeyset, adLockReadOnly
+    rsImages.Open "select * from [Images] where TableName='Ships' And TableID=" & rsMain("ID"), adoConn, adOpenKeyset, adLockReadOnly
     Set dgdImages.DataSource = rsImages
     ReDim SortDESC(0 To dgdImages.Columns.Count - 1)
-    dgdImages.Columns("ShipID").Visible = False
-End Sub
-Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
-    Dim Caption As String
-    Dim i As Integer
-    
-    On Error GoTo ErrorHandler
-    If rsMain.BOF And rsMain.EOF Then
-        Caption = "No Records"
-    ElseIf rsMain.EOF Then
-        Caption = "EOF"
-    ElseIf rsMain.BOF Then
-        Caption = "BOF"
-    Else
-        Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("HullNumber") & " " & rsMain("Name")
-        
-        i = InStr(Caption, "&")
-        If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-            sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-        End If
-        sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
-    End If
-    DefaultClassificationDesc
-    DefaultClassDetails
-    ResetImageGrid
-    adodcMain.Caption = Caption
-    Exit Sub
-
-ErrorHandler:
-    MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
-    Resume Next
-End Sub
-Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
-    Select Case Button.Key
-        Case "List"
-            mnuActionList_Click
-        Case "Refresh"
-            mnuActionRefresh_Click
-        Case "Filter"
-            mnuActionFilter_Click
-        Case "New"
-            mnuActionNew_Click
-        Case "Modify"
-            mnuActionModify_Click
-        Case "Delete"
-            mnuActionDelete_Click
-        Case "Report"
-            mnuActionReport_Click
-        Case "SQL"
-            mnuActionSQL_Click
-    End Select
-End Sub
-Private Sub tsShips_Click()
-    Dim i As Integer
-    
-    With tsShips
-        For i = 0 To .Tabs.Count - 1
-            If i = .SelectedItem.Index - 1 Then
-                fraShips(i).Enabled = True
-                fraShips(i).ZOrder
-            Else
-                fraShips(i).Enabled = False
-            End If
-        Next
-    End With
+    dgdImages.Columns("TableID").Visible = False
 End Sub
 Private Sub txtDesignation_GotFocus()
     TextSelected
