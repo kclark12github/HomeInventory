@@ -49,7 +49,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:23 PM"
+            TextSave        =   "11:25 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -182,11 +182,11 @@ Begin VB.Form frmKits
          LCID            =   1033
          SubFormatType   =   2
       EndProperty
-      Height          =   8052
-      Left            =   48
+      Height          =   288
+      Left            =   3180
       TabIndex        =   4
-      Top             =   516
-      Width           =   13224
+      Top             =   960
+      Width           =   1332
    End
    Begin VB.TextBox txtDesignation 
       Height          =   240
