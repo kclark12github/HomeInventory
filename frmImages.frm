@@ -254,7 +254,7 @@ Begin VB.Form frmImages
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:01 AM"
+            TextSave        =   "2:39 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -598,6 +598,7 @@ Attribute rsMain.VB_VarHelpID = -1
 Dim mode As ActionMode
 Dim fTransaction As Boolean
 Dim DBinfo As DataBaseInfo
+Dim Junk As Long
 Private Sub cmdCancel_Click()
     Select Case mode
         Case modeDisplay
@@ -621,7 +622,7 @@ Private Sub cmdLoad_Click()
         End If
     End If
     
-    With dlgMain
+    With dlgImages
         .DialogTitle = "Select New Image"
         .FileName = vbNullString
         .Filter = "All Picture Files|*.jpg;*.gif;*.bmp;*.dib;*.ico;*.cur;*.wmf;*.emf|JPEG Images (*.jpg)|*.jpg|CompuServe GIF Images (*.gif)|*.gif|Windows Bitmaps (*.bmp;*.dib)|*.bmp;*.dib|Icons (*.ico;*.cur)|*.ico;*.cur|Metafiles (*.wmf;*.emf)|*.wmf;*.emf|All Files (*.*)|*.*"
@@ -630,6 +631,7 @@ Private Sub cmdLoad_Click()
         strImagePath = .FileName
     End With
     picImage.Picture = LoadPicture(strImagePath)
+    If Not EncodeImage(strImagePath) Then MsgBox "Unable to encode image", vbExclamation, Me.Caption
 End Sub
 Private Sub cmdOK_Click()
     Select Case mode
@@ -647,33 +649,73 @@ Private Sub cmdOK_Click()
     End Select
 End Sub
 Private Sub cmdView_Click()
-    Load frmPicture
-    frmPicture.strPictureFile = ParsePath(frmMain.gstrDBPath, DrvDir) & "temp.dat"
-    DecodeImage strTempFile
-    frmPicture.Show vbModal
+    Dim strTemp As String
+    If rsMain.BOF Or rsMain.EOF Then Exit Sub
+    strTemp = ParsePath(frmMain.gstrDBPath, DrvDir) & "temp.dat"
+    If DecodeImage(strTemp) Then
+        Load frmPicture
+        frmPicture.strPictureFile = strTemp
+        frmPicture.Show vbModal
+    End If
 End Sub
-Private Sub DecodeImage(ByVal strTempFile As String)
+Private Function DecodeImage(ByVal strTempFile As String) As Boolean
     Dim FileUnit As Integer
-    Dim TotalBytes As Long
+    Dim Bytes As Long
     Dim BytesLeft As Long
     Dim strData As String
+    
+    BytesLeft = rsMain("Image").ActualSize
+    If BytesLeft = 0 Then
+        DecodeImage = False
+        Exit Function
+    End If
     
     picImage.Picture = Nothing
     FileUnit = FreeFile
     Open strTempFile For Binary Access Write As #FileUnit
-    TotalBytes = rsMain("Image").ActualSize
-    
     While BytesLeft > 0
         If BytesLeft > ChunkSize Then
-            strData = rsMain("Image").GetChunk(ChunkSize)
+            Bytes = ChunkSize
         Else
-            strData = rsMain("Image").GetChunk(BytesLeft)
+            Bytes = BytesLeft
         End If
-        BytesLeft = bytelsleft - ChunkSize
+        strData = rsMain("Image").GetChunk(Bytes)
+        BytesLeft = BytesLeft - Bytes
         Put #FileUnit, , strData
     Wend
     Close #FileUnit
-End Sub
+    DecodeImage = True
+End Function
+Private Function EncodeImage(ByVal strImageFile As String) As Boolean
+    Dim FileUnit As Integer
+    Dim Bytes As Long
+    Dim BytesLeft As Long
+    Dim bData() As Byte
+    
+    FileUnit = FreeFile
+    Open strImageFile For Binary Access Read As #FileUnit
+    BytesLeft = FileLen(strImageFile)
+    If BytesLeft = 0 Then
+        EncodeImage = False
+        GoTo ExitSub
+    End If
+    
+    While BytesLeft > 0
+        If BytesLeft > ChunkSize Then
+            Bytes = ChunkSize
+        Else
+            Bytes = BytesLeft
+        End If
+        ReDim bData(Bytes)
+        Get #FileUnit, , bData()
+        BytesLeft = BytesLeft - Bytes
+        rsMain("Image").AppendChunk bData()
+    Wend
+    EncodeImage = True
+    
+ExitSub:
+    Close #FileUnit
+End Function
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
     Set rsMain = New ADODB.Recordset
@@ -701,6 +743,7 @@ Private Sub Form_Load()
     
     Set tsImages.SelectedItem = tsImages.Tabs(1)
     frmMain.ProtectFields Me
+    cmdLoad.Enabled = False
     mode = modeDisplay
     fTransaction = False
 End Sub
@@ -780,6 +823,7 @@ End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
+    cmdLoad.Enabled = True
     adodcMain.Enabled = False
     rsMain.AddNew
     adoConn.BeginTrans
@@ -800,6 +844,7 @@ End Sub
 Private Sub mnuActionModify_Click()
     mode = modeModify
     frmMain.OpenFields Me
+    cmdLoad.Enabled = True
     adodcMain.Enabled = False
     adoConn.BeginTrans
     fTransaction = True
@@ -850,6 +895,7 @@ End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
+    Dim strTempFile As String
     
     On Error GoTo ErrorHandler
     If rsMain.BOF And rsMain.EOF Then
@@ -866,6 +912,12 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
             sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
         End If
         sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
+    
+        strTempFile = ParsePath(frmMain.gstrDBPath, DrvDir) & "temp.dat"
+        If DecodeImage(strTempFile) Then
+            picImage.Picture = LoadPicture(strTempFile)
+            Kill strTempFile
+        End If
     End If
     
     adodcMain.Caption = Caption
@@ -904,11 +956,13 @@ Private Sub tsImages_Click()
             If i = .SelectedItem.Index - 1 Then
                 fraImages(i).Enabled = True
                 fraImages(i).ZOrder
-                If picImage.Visible Then
+                If picImage.Visible And Not rsMain.EOF Then
+                    If IsNull(rsMain("Image")) Then Exit Sub
                     strTempFile = ParsePath(frmMain.gstrDBPath, DrvDir) & "temp.dat"
-                    DecodeImage strTempFile
-                    picImage.Picture = LoadPicture(strTempFile)
-                    Kill strTempFile
+                    If DecodeImage(strTempFile) Then
+                        picImage.Picture = LoadPicture(strTempFile)
+                        Kill strTempFile
+                    End If
                 End If
             Else
                 fraImages(i).Enabled = False
