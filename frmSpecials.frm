@@ -57,7 +57,7 @@ Begin VB.Form frmSpecials
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "8:13 PM"
+            TextSave        =   "1:16 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -123,7 +123,7 @@ Begin VB.Form frmSpecials
       UserName        =   ""
       Password        =   ""
       RecordSource    =   ""
-      Caption         =   "Adodc1"
+      Caption         =   ""
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
          Size            =   7.8

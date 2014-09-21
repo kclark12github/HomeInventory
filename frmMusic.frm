@@ -49,7 +49,7 @@ Begin VB.Form frmMusic
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "8:12 PM"
+            TextSave        =   "1:15 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -100,7 +100,7 @@ Begin VB.Form frmMusic
       Top             =   2880
       Width           =   972
    End
-   Begin MSAdodcLib.Adodc adodcMusic 
+   Begin MSAdodcLib.Adodc adodcMain 
       Height          =   312
       Left            =   264
       Top             =   2400
@@ -134,7 +134,7 @@ Begin VB.Form frmMusic
       UserName        =   ""
       Password        =   ""
       RecordSource    =   ""
-      Caption         =   "Adodc1"
+      Caption         =   ""
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
          Size            =   7.8
@@ -572,7 +572,7 @@ Private Sub cmdCancel_Click()
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            adodcMusic.Enabled = True
+            adodcMain.Enabled = True
     End Select
 End Sub
 Private Sub cmdOK_Click()
@@ -590,7 +590,7 @@ Private Sub cmdOK_Click()
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            adodcMusic.Enabled = True
+            adodcMain.Enabled = True
             
             mnuActionRefresh_Click
     End Select
@@ -688,7 +688,7 @@ Private Sub Form_Load()
     rsTypes.CursorLocation = adUseClient
     rsTypes.Open "select distinct Type from [Music] order by Type", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcMusic.Recordset = rsMain
+    Set adodcMain.Recordset = rsMain
     frmMain.BindField lblID, "ID", rsMain
     frmMain.BindField dbcArtist, "Artist", rsMain, rsArtists, "Artist", "Artist"
     frmMain.BindField txtTitle, "Title", rsMain
@@ -796,7 +796,7 @@ End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
-    adodcMusic.Enabled = False
+    adodcMain.Enabled = False
     rsMain.AddNew
     adoConn.BeginTrans
     fTransaction = True
@@ -821,7 +821,7 @@ End Sub
 Private Sub mnuActionModify_Click()
     mode = modeModify
     frmMain.OpenFields Me
-    adodcMusic.Enabled = False
+    adodcMain.Enabled = False
     adoConn.BeginTrans
     fTransaction = True
     
@@ -891,7 +891,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
         sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
     End If
     
-    adodcMusic.Caption = Caption
+    adodcMain.Caption = Caption
     Exit Sub
 
 ErrorHandler:

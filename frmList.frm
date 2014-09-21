@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:37 PM"
+            TextSave        =   "12:35 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -243,21 +243,23 @@ Private Sub dgdList_DblClick()
                 lblA.Caption = col.Caption
                 WidestData = lblA.Width
                 Set ColumnFormat = col.DataFormat
-                Set rsTemp = rsList.Clone(adLockReadOnly)
-                rsTemp.MoveFirst
-                While Not rsTemp.EOF
-                    If Not IsNull(rsTemp(col.Caption).Value) Then
-                        If Not ColumnFormat Is Nothing Then
-                            lblA.Caption = Format(rsTemp(col.Caption).Value, col.DataFormat.Format)
-                        Else
-                            lblA.Caption = CStr(rsTemp(col.Caption).Value)
+                If Not rsList.BOF And Not rsList.EOF Then
+                    Set rsTemp = rsList.Clone(adLockReadOnly)
+                    rsTemp.MoveFirst
+                    While Not rsTemp.EOF
+                        If Not IsNull(rsTemp(col.Caption).Value) Then
+                            If Not ColumnFormat Is Nothing Then
+                                lblA.Caption = Format(rsTemp(col.Caption).Value, col.DataFormat.Format)
+                            Else
+                                lblA.Caption = CStr(rsTemp(col.Caption).Value)
+                            End If
+                            DataWidth = lblA.Width
+                            If DataWidth > WidestData Then WidestData = DataWidth
                         End If
-                        DataWidth = lblA.Width
-                        If DataWidth > WidestData Then WidestData = DataWidth
-                    End If
-                    rsTemp.MoveNext
-                Wend
-                CloseRecordset rsTemp, True
+                        rsTemp.MoveNext
+                    Wend
+                    CloseRecordset rsTemp, True
+                End If
                 Set ColumnFormat = Nothing
                 col.Width = WidestData + (4 * ResizeWindow)
                 If col.Width > dgdList.Width Then col.Width = col.Width - ResizeWindow
@@ -270,6 +272,7 @@ ExitSub:
     Me.MousePointer = vbDefault
 End Sub
 Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
+    If rsList.BOF And rsList.EOF Then Exit Sub
     If SortDESC(ColIndex) Then
         rsList.Sort = dgdList.Columns(ColIndex).Caption & " DESC"
     Else

@@ -49,7 +49,7 @@ Begin VB.Form frmSoftware
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "8:13 PM"
+            TextSave        =   "1:16 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -98,7 +98,7 @@ Begin VB.Form frmSoftware
       Top             =   3180
       Width           =   972
    End
-   Begin MSAdodcLib.Adodc adodcSoftware 
+   Begin MSAdodcLib.Adodc adodcMain 
       Height          =   312
       Left            =   204
       Top             =   2700
@@ -132,7 +132,7 @@ Begin VB.Form frmSoftware
       UserName        =   ""
       Password        =   ""
       RecordSource    =   ""
-      Caption         =   "Adodc1"
+      Caption         =   ""
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
          Size            =   7.8
@@ -618,7 +618,7 @@ Private Sub cmdCancel_Click()
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            adodcSoftware.Enabled = True
+            adodcMain.Enabled = True
     End Select
 End Sub
 Private Sub cmdOK_Click()
@@ -637,7 +637,7 @@ Private Sub cmdOK_Click()
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            adodcSoftware.Enabled = True
+            adodcMain.Enabled = True
             
             mnuActionRefresh_Click
     End Select
@@ -697,7 +697,7 @@ Private Sub Form_Load()
     rsTypes.CursorLocation = adUseClient
     rsTypes.Open "select distinct Type from [Software] order by Type", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcSoftware.Recordset = rsMain
+    Set adodcMain.Recordset = rsMain
     frmMain.BindField lblID, "ID", rsMain
     frmMain.BindField dbcPublisher, "Publisher", rsMain, rsPublishers, "Publisher", "Publisher"
     frmMain.BindField txtTitle, "Title", rsMain
@@ -804,7 +804,7 @@ End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
-    adodcSoftware.Enabled = False
+    adodcMain.Enabled = False
     rsMain.AddNew
     adoConn.BeginTrans
     fTransaction = True
@@ -825,7 +825,7 @@ End Sub
 Private Sub mnuActionModify_Click()
     mode = modeModify
     frmMain.OpenFields Me
-    adodcSoftware.Enabled = False
+    adodcMain.Enabled = False
     adoConn.BeginTrans
     fTransaction = True
     
@@ -893,7 +893,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
         sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
     End If
     
-    adodcSoftware.Caption = Caption
+    adodcMain.Caption = Caption
     Exit Sub
     
 ErrorHandler:

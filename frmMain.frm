@@ -197,8 +197,9 @@ Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Re
     Dim DateTimeFormat As StdDataFormat
     Select Case TypeName(ctl)
         Case "CheckBox", "Label", "RichTextBox", "TextBox"
-            Set ctl.DataSource = DataSource
+            Set ctl.DataSource = Nothing
             ctl.DataField = DataField
+            Set ctl.DataSource = DataSource
             If DataSource(DataField).Type = adDate Then
                 If ctl.DataFormat.Format = vbNullString Then
                     Set DateTimeFormat = New StdDataFormat
@@ -207,18 +208,20 @@ Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Re
                 End If
             End If
         Case "DataCombo"
-            Set ctl.DataSource = DataSource
+            Set ctl.DataSource = Nothing
             ctl.DataField = DataField
-            Set ctl.RowSource = RowSource
+            Set ctl.DataSource = DataSource
+            Set ctl.RowSource = Nothing
             ctl.BoundColumn = BoundColumn
             ctl.ListField = ListField
+            Set ctl.RowSource = RowSource
     End Select
 End Sub
 Public Sub OpenFields(pForm As Form)
     Dim ctl As Control
     For Each ctl In pForm.Controls
         Select Case TypeName(ctl)
-            Case "TextBox", "DataCombo", "ComboBox", "RichTextBox"
+            Case "ComboBox", "DataCombo", "DataGrid", "RichTextBox", "TextBox"
                 'ctl.Locked = False
                 ctl.Enabled = True
                 ctl.BackColor = vbWindowBackground
@@ -234,7 +237,7 @@ Public Sub ProtectFields(pForm As Form)
     Dim ctl As Control
     For Each ctl In pForm.Controls
         Select Case TypeName(ctl)
-            Case "TextBox", "DataCombo", "ComboBox", "RichTextBox"
+            Case "ComboBox", "DataCombo", "DataGrid", "RichTextBox", "TextBox"
                 'ctl.Locked = True
                 ctl.Enabled = False
                 ctl.BackColor = vbButtonFace

@@ -1,4 +1,5 @@
 VERSION 5.00
+Object = "{CDE57A40-8B86-11D0-B3C6-00A0C90AEA82}#1.0#0"; "MSDATGRD.OCX"
 Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
@@ -21,7 +22,7 @@ Begin VB.Form frmUSNShips
       Height          =   3132
       Index           =   0
       Left            =   156
-      TabIndex        =   17
+      TabIndex        =   16
       Top             =   780
       Width           =   7452
       Begin VB.TextBox txtZipCode 
@@ -36,7 +37,7 @@ Begin VB.Form frmUSNShips
          EndProperty
          Height          =   288
          Left            =   5532
-         TabIndex        =   8
+         TabIndex        =   7
          Text            =   "Zip Code"
          Top             =   1740
          Width           =   1812
@@ -44,7 +45,7 @@ Begin VB.Form frmUSNShips
       Begin VB.TextBox txtLocalURL 
          Height          =   288
          Left            =   1440
-         TabIndex        =   11
+         TabIndex        =   10
          Text            =   "URL_Local"
          Top             =   2760
          Width           =   5832
@@ -52,7 +53,7 @@ Begin VB.Form frmUSNShips
       Begin VB.TextBox txtURL 
          Height          =   288
          Left            =   1440
-         TabIndex        =   10
+         TabIndex        =   9
          Text            =   "URL_Internet"
          Top             =   2460
          Width           =   5832
@@ -61,29 +62,11 @@ Begin VB.Form frmUSNShips
          Height          =   288
          Left            =   2940
          Locked          =   -1  'True
-         TabIndex        =   19
+         TabIndex        =   18
          TabStop         =   0   'False
          Text            =   "Description"
          Top             =   1140
          Width           =   4392
-      End
-      Begin VB.TextBox txtNumber 
-         Alignment       =   1  'Right Justify
-         BeginProperty DataFormat 
-            Type            =   0
-            Format          =   """$""#,##0.00"
-            HaveTrueFalseNull=   0
-            FirstDayOfWeek  =   0
-            FirstWeekOfYear =   0
-            LCID            =   1033
-            SubFormatType   =   0
-         EndProperty
-         Height          =   288
-         Left            =   5556
-         TabIndex        =   2
-         Text            =   "Number"
-         Top             =   240
-         Width           =   1032
       End
       Begin VB.TextBox txtDesignation 
          Height          =   288
@@ -96,7 +79,7 @@ Begin VB.Form frmUSNShips
       Begin VB.TextBox txtName 
          Height          =   288
          Left            =   1440
-         TabIndex        =   3
+         TabIndex        =   2
          Text            =   "Name"
          Top             =   552
          Width           =   5892
@@ -113,7 +96,7 @@ Begin VB.Form frmUSNShips
          EndProperty
          Height          =   288
          Left            =   1440
-         TabIndex        =   9
+         TabIndex        =   8
          Text            =   "Commissioned"
          Top             =   2052
          Width           =   3252
@@ -121,7 +104,7 @@ Begin VB.Form frmUSNShips
       Begin MSDataListLib.DataCombo dbcClassification 
          Height          =   288
          Left            =   1440
-         TabIndex        =   5
+         TabIndex        =   4
          Top             =   1152
          Width           =   1452
          _ExtentX        =   2561
@@ -134,7 +117,7 @@ Begin VB.Form frmUSNShips
       Begin MSDataListLib.DataCombo dbcCommand 
          Height          =   288
          Left            =   1440
-         TabIndex        =   6
+         TabIndex        =   5
          Top             =   1440
          Width           =   3252
          _ExtentX        =   5736
@@ -146,7 +129,7 @@ Begin VB.Form frmUSNShips
       Begin MSDataListLib.DataCombo dbcClass 
          Height          =   288
          Left            =   1440
-         TabIndex        =   4
+         TabIndex        =   3
          Top             =   840
          Width           =   5892
          _ExtentX        =   10393
@@ -159,7 +142,7 @@ Begin VB.Form frmUSNShips
       Begin MSDataListLib.DataCombo dbcHomePort 
          Height          =   288
          Left            =   1440
-         TabIndex        =   7
+         TabIndex        =   6
          Top             =   1740
          Width           =   3252
          _ExtentX        =   5736
@@ -174,7 +157,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Home Port:"
          Height          =   192
          Left            =   516
-         TabIndex        =   29
+         TabIndex        =   27
          Top             =   1788
          Width           =   804
       End
@@ -184,7 +167,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Zip Code:"
          Height          =   192
          Left            =   4740
-         TabIndex        =   28
+         TabIndex        =   26
          Top             =   1788
          Width           =   696
       End
@@ -194,7 +177,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Local WebSite:"
          Height          =   192
          Left            =   240
-         TabIndex        =   27
+         TabIndex        =   25
          Top             =   2808
          Width           =   1092
       End
@@ -204,7 +187,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "WebSite:"
          Height          =   192
          Left            =   684
-         TabIndex        =   26
+         TabIndex        =   24
          Top             =   2508
          Width           =   660
       End
@@ -219,7 +202,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Class:"
          Height          =   192
          Left            =   888
-         TabIndex        =   25
+         TabIndex        =   23
          Top             =   900
          Width           =   444
       End
@@ -229,27 +212,9 @@ Begin VB.Form frmUSNShips
          Caption         =   "Command:"
          Height          =   192
          Left            =   552
-         TabIndex        =   24
+         TabIndex        =   22
          Top             =   1488
          Width           =   780
-      End
-      Begin VB.Label lblNumber 
-         AutoSize        =   -1  'True
-         Caption         =   "Number:"
-         BeginProperty DataFormat 
-            Type            =   0
-            Format          =   """$""#,##0.00"
-            HaveTrueFalseNull=   0
-            FirstDayOfWeek  =   0
-            FirstWeekOfYear =   0
-            LCID            =   1033
-            SubFormatType   =   0
-         EndProperty
-         Height          =   192
-         Left            =   4824
-         TabIndex        =   23
-         Top             =   288
-         Width           =   612
       End
       Begin VB.Label lblDesignation 
          Alignment       =   1  'Right Justify
@@ -257,7 +222,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Designation:"
          Height          =   192
          Left            =   432
-         TabIndex        =   22
+         TabIndex        =   21
          Top             =   300
          Width           =   900
       End
@@ -267,7 +232,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Name:"
          Height          =   192
          Left            =   852
-         TabIndex        =   21
+         TabIndex        =   20
          Top             =   600
          Width           =   480
       End
@@ -277,7 +242,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Classification:"
          Height          =   192
          Left            =   348
-         TabIndex        =   20
+         TabIndex        =   19
          Top             =   1200
          Width           =   984
       End
@@ -287,19 +252,91 @@ Begin VB.Form frmUSNShips
          Caption         =   "Commissioned:"
          Height          =   192
          Left            =   240
-         TabIndex        =   18
+         TabIndex        =   17
          Top             =   2100
          Width           =   1116
       End
    End
    Begin VB.Frame fraShips 
       Height          =   3132
-      Index           =   2
+      Index           =   5
+      Left            =   156
+      TabIndex        =   35
+      Top             =   780
+      Width           =   7452
+      Begin MSDataGridLib.DataGrid dgdImages 
+         Height          =   2832
+         Left            =   120
+         TabIndex        =   68
+         Top             =   180
+         Width           =   7212
+         _ExtentX        =   12721
+         _ExtentY        =   4995
+         _Version        =   393216
+         HeadLines       =   1
+         RowHeight       =   15
+         BeginProperty HeadFont {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   7.8
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   7.8
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ColumnCount     =   2
+         BeginProperty Column00 
+            DataField       =   ""
+            Caption         =   ""
+            BeginProperty DataFormat {6D835690-900B-11D0-9484-00A0C91110ED} 
+               Type            =   0
+               Format          =   ""
+               HaveTrueFalseNull=   0
+               FirstDayOfWeek  =   0
+               FirstWeekOfYear =   0
+               LCID            =   1033
+               SubFormatType   =   0
+            EndProperty
+         EndProperty
+         BeginProperty Column01 
+            DataField       =   ""
+            Caption         =   ""
+            BeginProperty DataFormat {6D835690-900B-11D0-9484-00A0C91110ED} 
+               Type            =   0
+               Format          =   ""
+               HaveTrueFalseNull=   0
+               FirstDayOfWeek  =   0
+               FirstWeekOfYear =   0
+               LCID            =   1033
+               SubFormatType   =   0
+            EndProperty
+         EndProperty
+         SplitCount      =   1
+         BeginProperty Split0 
+            BeginProperty Column00 
+            EndProperty
+            BeginProperty Column01 
+            EndProperty
+         EndProperty
+      End
+   End
+   Begin VB.Frame fraShips 
+      Height          =   3132
+      Index           =   4
       Left            =   156
       TabIndex        =   32
       Top             =   780
       Width           =   7452
-      Begin RichTextLib.RichTextBox rtxtHistory 
+      Begin RichTextLib.RichTextBox rtxtMoreHistory 
          Height          =   2892
          Left            =   60
          TabIndex        =   33
@@ -314,39 +351,387 @@ Begin VB.Form frmUSNShips
    End
    Begin VB.Frame fraShips 
       Height          =   3132
-      Index           =   4
-      Left            =   156
-      TabIndex        =   36
-      Top             =   780
-      Width           =   7452
-   End
-   Begin VB.Frame fraShips 
-      Height          =   3132
       Index           =   3
       Left            =   156
-      TabIndex        =   34
+      TabIndex        =   30
       Top             =   780
       Width           =   7452
-      Begin RichTextLib.RichTextBox rtxtMoreHistory 
+      Begin RichTextLib.RichTextBox rtxtHistory 
          Height          =   2892
          Left            =   60
-         TabIndex        =   35
+         TabIndex        =   31
          Top             =   180
          Width           =   7332
          _ExtentX        =   12933
          _ExtentY        =   5101
          _Version        =   393217
          Enabled         =   -1  'True
-         TextRTF         =   $"frmUSNShips.frx":00DF
+         TextRTF         =   $"frmUSNShips.frx":00E4
       End
    End
    Begin VB.Frame fraShips 
       Height          =   3132
       Index           =   1
       Left            =   156
-      TabIndex        =   31
+      TabIndex        =   34
       Top             =   780
       Width           =   7452
+      Begin VB.TextBox txtSpeed 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   49
+         Text            =   "Speed"
+         Top             =   2760
+         Width           =   6072
+      End
+      Begin RichTextLib.RichTextBox rtxtDisplacement 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   37
+         Top             =   240
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         ScrollBars      =   2
+         TextRTF         =   $"frmUSNShips.frx":01C3
+      End
+      Begin RichTextLib.RichTextBox rtxtLength 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   39
+         Top             =   600
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":02A4
+      End
+      Begin RichTextLib.RichTextBox rtxtBeam 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   41
+         Top             =   960
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":037F
+      End
+      Begin RichTextLib.RichTextBox rtxtDraft 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   43
+         Top             =   1320
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":0458
+      End
+      Begin RichTextLib.RichTextBox rtxtPropulsion 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   45
+         Top             =   1680
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":0532
+      End
+      Begin RichTextLib.RichTextBox rtxtBoilers 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   47
+         Top             =   2040
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":0611
+      End
+      Begin RichTextLib.RichTextBox rtxtManning 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   51
+         Top             =   2400
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":06ED
+      End
+      Begin VB.Label lblManning 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Manning:"
+         Height          =   192
+         Left            =   564
+         TabIndex        =   50
+         Top             =   2460
+         Width           =   648
+      End
+      Begin VB.Label lblSpeed 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Speed:"
+         Height          =   192
+         Left            =   684
+         TabIndex        =   48
+         Top             =   2820
+         Width           =   528
+      End
+      Begin VB.Label lblBoilers 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Boilers:"
+         Height          =   192
+         Left            =   672
+         TabIndex        =   46
+         Top             =   2100
+         Width           =   540
+      End
+      Begin VB.Label lblPropulsion 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Propulsion:"
+         Height          =   192
+         Left            =   408
+         TabIndex        =   44
+         Top             =   1740
+         Width           =   804
+      End
+      Begin VB.Label lblDraft 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Draft:"
+         Height          =   192
+         Left            =   840
+         TabIndex        =   42
+         Top             =   1380
+         Width           =   372
+      End
+      Begin VB.Label lblBeam 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Beam:"
+         Height          =   192
+         Left            =   744
+         TabIndex        =   40
+         Top             =   1020
+         Width           =   468
+      End
+      Begin VB.Label lblLength 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Length:"
+         Height          =   192
+         Left            =   696
+         TabIndex        =   38
+         Top             =   660
+         Width           =   516
+      End
+      Begin VB.Label lblDisplacement 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Displacement:"
+         Height          =   192
+         Left            =   180
+         TabIndex        =   36
+         Top             =   300
+         Width           =   1032
+      End
+   End
+   Begin VB.Frame fraShips 
+      Height          =   3132
+      Index           =   2
+      Left            =   156
+      TabIndex        =   29
+      Top             =   780
+      Width           =   7452
+      Begin RichTextLib.RichTextBox rtxtAircraft 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   53
+         Top             =   240
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         ScrollBars      =   2
+         TextRTF         =   $"frmUSNShips.frx":07C9
+      End
+      Begin RichTextLib.RichTextBox rtxtMissiles 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   55
+         Top             =   600
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":08A6
+      End
+      Begin RichTextLib.RichTextBox rtxtGuns 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   57
+         Top             =   960
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":0983
+      End
+      Begin RichTextLib.RichTextBox rtxtASW 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   59
+         Top             =   1320
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":0A5C
+      End
+      Begin RichTextLib.RichTextBox rtxtRadars 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   61
+         Top             =   1680
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":0B3C
+      End
+      Begin RichTextLib.RichTextBox rtxtSonars 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   63
+         Top             =   2040
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":0C17
+      End
+      Begin RichTextLib.RichTextBox rtxtFireControl 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   65
+         Top             =   2400
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":0CF2
+      End
+      Begin RichTextLib.RichTextBox rtxtEW 
+         Height          =   312
+         Left            =   1740
+         TabIndex        =   67
+         Top             =   2760
+         Width           =   5592
+         _ExtentX        =   9864
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":0DD3
+      End
+      Begin VB.Label lblEW 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Electronic Warfare:"
+         Height          =   192
+         Left            =   300
+         TabIndex        =   66
+         Top             =   2820
+         Width           =   1356
+      End
+      Begin VB.Label lblFireControl 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Fire Control:"
+         Height          =   192
+         Left            =   360
+         TabIndex        =   64
+         Top             =   2460
+         Width           =   852
+      End
+      Begin VB.Label lblSonars 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Sonars:"
+         Height          =   192
+         Left            =   660
+         TabIndex        =   62
+         Top             =   2100
+         Width           =   552
+      End
+      Begin VB.Label lblRadars 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Radars:"
+         Height          =   192
+         Left            =   636
+         TabIndex        =   60
+         Top             =   1740
+         Width           =   576
+      End
+      Begin VB.Label lblASW 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "ASW Weapons:"
+         Height          =   192
+         Left            =   60
+         TabIndex        =   58
+         Top             =   1380
+         Width           =   1152
+      End
+      Begin VB.Label lblGuns 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Guns:"
+         Height          =   192
+         Left            =   804
+         TabIndex        =   56
+         Top             =   1020
+         Width           =   408
+      End
+      Begin VB.Label lblMissiles 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Missiles:"
+         Height          =   192
+         Left            =   588
+         TabIndex        =   54
+         Top             =   660
+         Width           =   624
+      End
+      Begin VB.Label lblAircraft 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Aircraft:"
+         Height          =   192
+         Left            =   684
+         TabIndex        =   52
+         Top             =   300
+         Width           =   528
+      End
    End
    Begin MSComctlLib.TabStrip tsShips 
       Height          =   3612
@@ -358,28 +743,33 @@ Begin VB.Form frmUSNShips
       _ExtentY        =   6371
       _Version        =   393216
       BeginProperty Tabs {1EFB6598-857C-11D1-B16A-00C0F0283628} 
-         NumTabs         =   5
+         NumTabs         =   6
          BeginProperty Tab1 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
             Caption         =   "General"
             Key             =   "General"
             ImageVarType    =   2
          EndProperty
          BeginProperty Tab2 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
-            Caption         =   "Capabilities"
-            Key             =   "Capabilities"
+            Caption         =   "Characteristics"
+            Key             =   "Characteristics"
             ImageVarType    =   2
          EndProperty
          BeginProperty Tab3 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
+            Caption         =   "Weapons"
+            Key             =   "Weapons"
+            ImageVarType    =   2
+         EndProperty
+         BeginProperty Tab4 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
             Caption         =   "History..."
             Key             =   "History"
             ImageVarType    =   2
          EndProperty
-         BeginProperty Tab4 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
+         BeginProperty Tab5 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
             Caption         =   "More History..."
             Key             =   "MoreHistory"
             ImageVarType    =   2
          EndProperty
-         BeginProperty Tab5 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
+         BeginProperty Tab6 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
             Caption         =   "Images"
             Key             =   "Images"
             ImageVarType    =   2
@@ -391,7 +781,7 @@ Begin VB.Form frmUSNShips
       Default         =   -1  'True
       Height          =   372
       Left            =   5700
-      TabIndex        =   12
+      TabIndex        =   11
       Top             =   4500
       Width           =   972
    End
@@ -401,7 +791,7 @@ Begin VB.Form frmUSNShips
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6696
-      TabIndex        =   13
+      TabIndex        =   12
       Top             =   4500
       Width           =   972
    End
@@ -409,7 +799,7 @@ Begin VB.Form frmUSNShips
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   14
+      TabIndex        =   13
       Top             =   4908
       Width           =   7764
       _ExtentX        =   13695
@@ -438,12 +828,12 @@ Begin VB.Form frmUSNShips
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:18 AM"
+            TextSave        =   "2:08 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
    End
-   Begin MSAdodcLib.Adodc adodcHobby 
+   Begin MSAdodcLib.Adodc adodcMain 
       Height          =   312
       Left            =   96
       Top             =   4020
@@ -477,7 +867,7 @@ Begin VB.Form frmUSNShips
       UserName        =   ""
       Password        =   ""
       RecordSource    =   ""
-      Caption         =   "Adodc1"
+      Caption         =   ""
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
          Size            =   7.8
@@ -502,55 +892,55 @@ Begin VB.Form frmUSNShips
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   13
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":01C3
+            Picture         =   "frmUSNShips.frx":0EAA
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":04DF
+            Picture         =   "frmUSNShips.frx":11C6
             Key             =   ""
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":0807
+            Picture         =   "frmUSNShips.frx":14EE
             Key             =   ""
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":0B2F
+            Picture         =   "frmUSNShips.frx":1816
             Key             =   ""
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":32E3
+            Picture         =   "frmUSNShips.frx":3FCA
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":3737
+            Picture         =   "frmUSNShips.frx":441E
             Key             =   "List"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":4203
+            Picture         =   "frmUSNShips.frx":4EEA
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":4657
+            Picture         =   "frmUSNShips.frx":533E
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":5123
+            Picture         =   "frmUSNShips.frx":5E0A
             Key             =   ""
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":544B
+            Picture         =   "frmUSNShips.frx":6132
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":589F
+            Picture         =   "frmUSNShips.frx":6586
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":5CF3
+            Picture         =   "frmUSNShips.frx":69DA
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":6147
+            Picture         =   "frmUSNShips.frx":6E2E
             Key             =   ""
          EndProperty
       EndProperty
@@ -568,35 +958,35 @@ Begin VB.Form frmUSNShips
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   8
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":659B
+            Picture         =   "frmUSNShips.frx":7282
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":69EF
+            Picture         =   "frmUSNShips.frx":76D6
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":74BB
+            Picture         =   "frmUSNShips.frx":81A2
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":77D7
+            Picture         =   "frmUSNShips.frx":84BE
             Key             =   "List"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":82A3
+            Picture         =   "frmUSNShips.frx":8F8A
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":86F7
+            Picture         =   "frmUSNShips.frx":93DE
             Key             =   ""
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":AEAB
+            Picture         =   "frmUSNShips.frx":BB92
             Key             =   ""
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":B2FF
+            Picture         =   "frmUSNShips.frx":BFE6
             Key             =   ""
          EndProperty
       EndProperty
@@ -605,7 +995,7 @@ Begin VB.Form frmUSNShips
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   30
+      TabIndex        =   28
       Top             =   0
       Width           =   7764
       _ExtentX        =   13695
@@ -680,12 +1070,22 @@ Begin VB.Form frmUSNShips
       EndProperty
       BorderStyle     =   1
    End
+   Begin VB.Label lblA 
+      AutoSize        =   -1  'True
+      Caption         =   "A"
+      Height          =   192
+      Left            =   0
+      TabIndex        =   69
+      Top             =   0
+      Visible         =   0   'False
+      Width           =   108
+   End
    Begin VB.Label lblID 
       AutoSize        =   -1  'True
       Caption         =   "lblID"
       Height          =   192
       Left            =   360
-      TabIndex        =   16
+      TabIndex        =   15
       Top             =   4596
       Width           =   324
    End
@@ -694,7 +1094,7 @@ Begin VB.Form frmUSNShips
       Caption         =   "ID:"
       Height          =   192
       Left            =   96
-      TabIndex        =   15
+      TabIndex        =   14
       Top             =   4596
       Width           =   192
    End
@@ -748,9 +1148,54 @@ Dim rsCommands As New ADODB.Recordset
 Dim rsHomePorts As New ADODB.Recordset
 Dim rsClasses As New ADODB.Recordset
 Dim rsClassifications As New ADODB.Recordset
+Dim rsImages As New ADODB.Recordset
 Dim mode As ActionMode
 Dim fTransaction As Boolean
 Dim DBinfo As DataBaseInfo
+Dim MouseY As Single
+Dim MouseX As Single
+Private SortDESC() As Boolean
+Private Sub BindFields()
+    'General
+    frmMain.BindField txtDesignation, "HullNumber", rsMain
+    'frmMain.BindField txtNumber, "Number", rsMain
+    frmMain.BindField txtName, "Name", rsMain
+    frmMain.BindField dbcClass, "ClassID", rsMain, rsClasses, "ID", "Name"
+    frmMain.BindField dbcClassification, "Classification", rsMain, rsClassifications, "Type", "Type"
+    frmMain.BindField txtClassDesc, "Description", rsClassifications
+    frmMain.BindField dbcCommand, "Command", rsMain, rsCommands, "Command", "Command"
+    frmMain.BindField dbcHomePort, "HomePort", rsMain, rsHomePorts, "HomePort", "HomePort"
+    frmMain.BindField txtZipCode, "Zip Code", rsMain
+    frmMain.BindField txtCommissioned, "Commissioned", rsMain
+    frmMain.BindField txtURL, "URL_Internet", rsMain
+    frmMain.BindField txtLocalURL, "URL_Local", rsMain
+    
+    'Characteristics...
+    frmMain.BindField rtxtDisplacement, "Displacement", rsMain
+    frmMain.BindField rtxtLength, "Length", rsMain
+    frmMain.BindField rtxtBeam, "Beam", rsMain
+    frmMain.BindField rtxtDraft, "Draft", rsMain
+    frmMain.BindField rtxtPropulsion, "Propulsion", rsMain
+    frmMain.BindField rtxtBoilers, "Boilers", rsMain
+    frmMain.BindField txtSpeed, "Speed", rsMain
+    frmMain.BindField rtxtManning, "Manning", rsMain
+    
+    'Weapons...
+    frmMain.BindField rtxtAircraft, "Aircraft", rsMain
+    frmMain.BindField rtxtMissiles, "Missiles", rsMain
+    frmMain.BindField rtxtGuns, "Guns", rsMain
+    frmMain.BindField rtxtASW, "ASW Weapons", rsMain
+    frmMain.BindField rtxtRadars, "Radars", rsMain
+    frmMain.BindField rtxtSonars, "Sonars", rsMain
+    frmMain.BindField rtxtFireControl, "Fire Control", rsMain
+    frmMain.BindField rtxtEW, "EW", rsMain
+    
+    'History...
+    frmMain.BindField rtxtHistory, "History", rsMain
+    
+    'More History...
+    frmMain.BindField rtxtMoreHistory, "More History", rsMain
+End Sub
 Private Sub cmdCancel_Click()
     Select Case mode
         Case modeDisplay
@@ -762,7 +1207,7 @@ Private Sub cmdCancel_Click()
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            adodcHobby.Enabled = True
+            adodcMain.Enabled = True
     End Select
 End Sub
 Private Sub cmdOK_Click()
@@ -775,12 +1220,15 @@ Private Sub cmdOK_Click()
             rsMain("ClassificationID") = dbcClassification.BoundText
             rsMain("Command") = dbcCommand.BoundText
             rsMain("HomePort") = dbcHomePort.BoundText
+            If InStr(txtDesignation.Text, "-") Then
+                rsMain("Number") = Mid(txtDesignation.Text, InStr(txtDesignation.Text, "-") + 1)
+            End If
             rsMain.UpdateBatch
             adoConn.CommitTrans
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            adodcHobby.Enabled = True
+            adodcMain.Enabled = True
             
             mnuActionRefresh_Click
     End Select
@@ -817,7 +1265,112 @@ Private Sub dbcHomePort_Validate(Cancel As Boolean)
     If dbcHomePort.Text = vbNullString Then dbcHomePort.Text = "Unknown"
     If rsHomePorts.Bookmark <> dbcHomePort.SelectedItem Then rsHomePorts.Bookmark = dbcHomePort.SelectedItem
 End Sub
+Private Sub DefaultClassDetails()
+    If rsClasses Is Nothing Then Exit Sub
+    If rsClasses.State = adStateClosed Then Exit Sub
+    If rsMain.BOF Or rsMain.EOF Then Exit Sub
+    
+    rsClasses.MoveFirst
+    rsClasses.Find "ID=" & rsMain("ClassID").Value
+
+    BindFields
+    
+    'Characteristics...
+    If IsNull(rsMain("Displacement")) And Not IsNull(rsClasses("Displacement")) Then frmMain.BindField rtxtDisplacement, "Displacement", rsClasses
+    If IsNull(rsMain("Length")) And Not IsNull(rsClasses("Length")) Then frmMain.BindField rtxtLength, "Length", rsClasses
+    If IsNull(rsMain("Beam")) And Not IsNull(rsClasses("Beam")) Then frmMain.BindField rtxtBeam, "Beam", rsClasses
+    If IsNull(rsMain("Draft")) And Not IsNull(rsClasses("Draft")) Then frmMain.BindField rtxtDraft, "Draft", rsClasses
+    If IsNull(rsMain("Propulsion")) And Not IsNull(rsClasses("Propulsion")) Then frmMain.BindField rtxtPropulsion, "Propulsion", rsClasses
+    If IsNull(rsMain("Boilers")) And Not IsNull(rsClasses("Boilers")) Then frmMain.BindField rtxtBoilers, "Boilers", rsClasses
+    If IsNull(rsMain("Speed")) And Not IsNull(rsClasses("Speed")) Then frmMain.BindField txtSpeed, "Speed", rsClasses
+    If IsNull(rsMain("Manning")) And Not IsNull(rsClasses("Manning")) Then frmMain.BindField rtxtManning, "Manning", rsClasses
+    
+    'Weapons...
+    If IsNull(rsMain("Aircraft")) And Not IsNull(rsClasses("Aircraft")) Then frmMain.BindField rtxtAircraft, "Aircraft", rsClasses
+    If IsNull(rsMain("Missiles")) And Not IsNull(rsClasses("Missiles")) Then frmMain.BindField rtxtMissiles, "Missiles", rsClasses
+    If IsNull(rsMain("Guns")) And Not IsNull(rsClasses("Guns")) Then frmMain.BindField rtxtGuns, "Guns", rsClasses
+    If IsNull(rsMain("ASW Weapons")) And Not IsNull(rsClasses("ASW Weapons")) Then frmMain.BindField rtxtASW, "ASW Weapons", rsClasses
+    If IsNull(rsMain("Radars")) And Not IsNull(rsClasses("Radars")) Then frmMain.BindField rtxtRadars, "Radars", rsClasses
+    If IsNull(rsMain("Sonars")) And Not IsNull(rsClasses("Sonars")) Then frmMain.BindField rtxtSonars, "Sonars", rsClasses
+    If IsNull(rsMain("Fire Control")) And Not IsNull(rsClasses("Fire Control")) Then frmMain.BindField rtxtFireControl, "Fire Control", rsClasses
+    If IsNull(rsMain("EW")) And Not IsNull(rsClasses("EW")) Then frmMain.BindField rtxtEW, "EW", rsClasses
+    
+    'History...
+    If IsNull(rsMain("History")) And Not IsNull(rsClasses("Description")) Then frmMain.BindField rtxtHistory, "Description", rsClasses
+End Sub
+Private Sub DefaultClassificationDesc()
+    If rsClassifications Is Nothing Then Exit Sub
+    If rsClassifications.State = adStateClosed Then Exit Sub
+    If rsMain.BOF Or rsMain.EOF Then Exit Sub
+    
+    rsClassifications.MoveFirst
+    rsClassifications.Find "ID=" & rsMain("ClassificationID").Value
+End Sub
+Private Sub dgdImages_DblClick()
+    Dim col As Column
+    Dim ColRight As Single
+    Dim ColumnFormat As New StdDataFormat
+    Dim DataWidth As Long
+    Dim iCol As Integer
+    Dim ResizeWindow As Single
+    Dim rsTemp As ADODB.Recordset
+    Dim WidestData As Long
+    
+    Me.MousePointer = vbHourglass
+    
+    ResizeWindow = 36
+    For iCol = dgdImages.LeftCol To dgdImages.Columns.Count - 1
+        Set col = dgdImages.Columns(iCol)
+        If col.Visible And col.Width > 0 Then
+            ColRight = col.Left + col.Width
+            If MouseY <= col.Top And MouseX >= (ColRight - ResizeWindow) And MouseX <= (ColRight + ResizeWindow) Then
+                dgdImages.ClearSelCols
+                lblA.Caption = col.Caption
+                WidestData = lblA.Width
+                Set ColumnFormat = col.DataFormat
+                If Not rsImages.BOF And Not rsImages.EOF Then
+                    Set rsTemp = rsImages.Clone(adLockReadOnly)
+                    rsTemp.MoveFirst
+                    While Not rsTemp.EOF
+                        If Not IsNull(rsTemp(col.Caption).Value) Then
+                            If Not ColumnFormat Is Nothing Then
+                                lblA.Caption = Format(rsTemp(col.Caption).Value, col.DataFormat.Format)
+                            Else
+                                lblA.Caption = CStr(rsTemp(col.Caption).Value)
+                            End If
+                            DataWidth = lblA.Width
+                            If DataWidth > WidestData Then WidestData = DataWidth
+                        End If
+                        rsTemp.MoveNext
+                    Wend
+                    CloseRecordset rsTemp, True
+                End If
+                Set ColumnFormat = Nothing
+                col.Width = WidestData + (4 * ResizeWindow)
+                If col.Width > dgdImages.Width Then col.Width = col.Width - ResizeWindow
+                GoTo ExitSub
+            End If
+        End If
+    Next iCol
+    
+ExitSub:
+    Me.MousePointer = vbDefault
+End Sub
+Private Sub dgdImages_HeadClick(ByVal ColIndex As Integer)
+    If rsImages.BOF And rsImages.EOF Then Exit Sub
+    If SortDESC(ColIndex) Then
+        rsImages.Sort = dgdImages.Columns(ColIndex).Caption & " DESC"
+    Else
+        rsImages.Sort = dgdImages.Columns(ColIndex).Caption & " ASC"
+    End If
+    SortDESC(ColIndex) = Not SortDESC(ColIndex)
+End Sub
+Private Sub dgdImages_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    MouseX = X
+    MouseY = Y
+End Sub
 Private Sub Form_Load()
+    Me.MousePointer = vbHourglass
     Set adoConn = New ADODB.Connection
     Set rsMain = New ADODB.Recordset
     Set DBinfo = frmMain.DBcollection("US Navy Ships")
@@ -827,9 +1380,29 @@ Private Sub Form_Load()
         adoConn.ConnectionTimeout = 60
         adoConn.Open .PathName, .UserName, .Password
     End With
+    
+    rsClassifications.CursorLocation = adUseClient
+    rsClassifications.Open "select * from [Classification] order by Type", adoConn, adOpenStatic, adLockReadOnly
+    
     rsMain.CursorLocation = adUseClient
-    rsMain.Open "select * from [Ships] order by HullNumber", adoConn, adOpenKeyset, adLockBatchOptimistic
+    'rsMain.Open "select [Ships].*, [Classification].Type from [Ships],[Classification] order by [Classification].Type, [Ships].Number", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsMain.Open "select * from [Ships] order by Classification, Number", adoConn, adOpenKeyset, adLockBatchOptimistic
     rsMain.MoveFirst
+    
+    'Fixit Program Section...
+    'rsMain.MoveFirst
+    'While Not rsMain.EOF
+    '    If IsNull(rsMain("Classification")) Then
+    '        Debug.Print "Reference #" & rsMain.Bookmark & ": " & rsMain("HullNumber") & " " & rsMain("Name")
+    '        rsClassifications.MoveFirst
+    '        rsClassifications.Find "ID=" & rsMain("ClassificationID").Value
+    '        rsMain("Classification").Value = rsClassifications("Type")
+    '        rsMain.UpdateBatch
+    '    End If
+    '    rsMain.MoveNext
+    '    DoEvents
+    'Wend
+    'rsMain.MoveFirst
     
     rsCommands.CursorLocation = adUseClient
     rsCommands.Open "select distinct Command from [Ships] order by Command", adoConn, adOpenStatic, adLockReadOnly
@@ -838,41 +1411,18 @@ Private Sub Form_Load()
     rsHomePorts.Open "select distinct HomePort from [Ships] order by HomePort", adoConn, adOpenStatic, adLockReadOnly
     
     rsClasses.CursorLocation = adUseClient
-    rsClasses.Open "select ID, Name from [Class] order by Name", adoConn, adOpenStatic, adLockReadOnly
+    rsClasses.Open "select * from [Class] order by Name", adoConn, adOpenStatic, adLockReadOnly
     
-    rsClassifications.CursorLocation = adUseClient
-    rsClassifications.Open "select * from [Classification] order by Type", adoConn, adOpenStatic, adLockReadOnly
-    
-    Set adodcHobby.Recordset = rsMain
+    Set adodcMain.Recordset = rsMain
     frmMain.BindField lblID, "ID", rsMain
     
-    'General
-    frmMain.BindField txtDesignation, "HullNumber", rsMain
-    frmMain.BindField txtNumber, "Number", rsMain
-    frmMain.BindField txtName, "Name", rsMain
-    frmMain.BindField dbcClass, "ClassID", rsMain, rsClasses, "ID", "Name"
-    frmMain.BindField dbcClassification, "ClassificationID", rsMain, rsClassifications, "ID", "Type"
-    frmMain.BindField txtClassDesc, "Description", rsClassifications
-    frmMain.BindField dbcCommand, "Command", rsMain, rsCommands, "Command", "Command"
-    frmMain.BindField dbcHomePort, "HomePort", rsMain, rsHomePorts, "HomePort", "HomePort"
-    frmMain.BindField txtZipCode, "Zip Code", rsMain
-    frmMain.BindField txtCommissioned, "Commissioned", rsMain
-    frmMain.BindField txtURL, "URL_Internet", rsMain
-    frmMain.BindField txtLocalURL, "URL_Local", rsMain
-    'Capabilities...
-    
-    'History...
-    frmMain.BindField rtxtHistory, "History", rsMain
-    
-    'More History...
-    frmMain.BindField rtxtMoreHistory, "More History", rsMain
-    
-    'Images...
+    BindFields
     
     Set tsShips.SelectedItem = tsShips.Tabs(1)
     frmMain.ProtectFields Me
     mode = modeDisplay
     fTransaction = False
+    Me.MousePointer = vbDefault
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
     If fTransaction Then
@@ -885,6 +1435,7 @@ Private Sub Form_Unload(Cancel As Integer)
     CloseRecordset rsHomePorts, True
     CloseRecordset rsClasses, True
     CloseRecordset rsClassifications, True
+    CloseRecordset rsImages, True
     
     On Error Resume Next
     adoConn.Close
@@ -959,7 +1510,7 @@ Private Sub mnuActionNew_Click()
     frmMain.OpenFields Me
     txtClassDesc.Locked = True
     txtClassDesc.BackColor = vbButtonFace
-    adodcHobby.Enabled = False
+    adodcMain.Enabled = False
     rsMain.AddNew
     adoConn.BeginTrans
     fTransaction = True
@@ -981,7 +1532,7 @@ Private Sub mnuActionModify_Click()
     frmMain.OpenFields Me
     txtClassDesc.Locked = True
     txtClassDesc.BackColor = vbButtonFace
-    adodcHobby.Enabled = False
+    adodcMain.Enabled = False
     adoConn.BeginTrans
     fTransaction = True
     
@@ -1027,6 +1578,17 @@ Private Sub mnuActionSQL_Click()
     frmSQL.dbcTables.BoundText = "Kits"
     frmSQL.Show vbModal
 End Sub
+Private Sub ResetImageGrid()
+    If rsMain.BOF Or rsMain.EOF Then Exit Sub
+    
+    Set dgdImages.DataSource = Nothing
+    CloseRecordset rsImages, False
+    rsImages.CursorLocation = adUseClient
+    rsImages.Open "select * from [Images] where ShipID=" & rsMain("ID"), adoConn, adOpenKeyset, adLockReadOnly
+    Set dgdImages.DataSource = rsImages
+    ReDim SortDESC(0 To dgdImages.Columns.Count - 1)
+    dgdImages.Columns("ShipID").Visible = False
+End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
@@ -1048,14 +1610,10 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
         End If
         sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
     End If
-    
-    If Not rsClassifications Is Nothing Then
-        If rsClassifications.State <> adStateClosed Then
-            rsClassifications.MoveFirst
-            rsClassifications.Find "ID=" & rsMain("ClassificationID").Value
-        End If
-    End If
-    adodcHobby.Caption = Caption
+    DefaultClassificationDesc
+    DefaultClassDetails
+    ResetImageGrid
+    adodcMain.Caption = Caption
     Exit Sub
 
 ErrorHandler:
@@ -1126,9 +1684,6 @@ Private Sub txtName_Validate(Cancel As Boolean)
         MsgBox "Name must be specified!", vbExclamation, Me.Caption
         Cancel = True
     End If
-End Sub
-Private Sub txtNumber_GotFocus()
-    TextSelected
 End Sub
 Private Sub txtURL_GotFocus()
     TextSelected
