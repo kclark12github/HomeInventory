@@ -169,7 +169,10 @@ Public Sub FilterCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String
     End If
     CloseRecordset RS, False
     RS.Open SQLstatement, adoConn, adOpenKeyset, adLockBatchOptimistic
-    RefreshCommand RS, Key
+    'I may need to change this later, but I didn't want to go through
+    'all the screens' List commands and add the argument to ListCommand()
+    '(i.e. frmList supports a Filter command, but hasn't been passed a Key)...
+    If Key <> vbNullString Then RefreshCommand RS, Key
 End Sub
 Public Sub ListCommand(frm As Form, RS As ADODB.Recordset)
     Dim vRS As ADODB.Recordset
@@ -188,7 +191,7 @@ Public Sub ListCommand(frm As Form, RS As ADODB.Recordset)
         frmList.Height = frm.Height
     End If
     
-    If Not MakeVirtualRecordset(adoConn, RS, vRS) Then
+    If Not MakeVirtualRecordset(adoConn, RS, vRS, "Junk") Then
         MsgBox "MakeVirtualRecordset failed.", vbExclamation, frm.Caption
         Exit Sub
     End If

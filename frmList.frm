@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:42 PM"
+            TextSave        =   "9:32 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -85,6 +85,7 @@ Begin VB.Form frmList
       _ExtentX        =   2138
       _ExtentY        =   1080
       _Version        =   393216
+      AllowUpdate     =   0   'False
       HeadLines       =   1
       RowHeight       =   16
       TabAction       =   2
@@ -178,7 +179,10 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
+Public WithEvents vrsList As ADODB.Recordset
+Attribute vrsList.VB_VarHelpID = -1
 Public rsList As ADODB.Recordset
+Public HiddenFields As String
 Private Key As String
 Private MouseY As Single
 Private MouseX As Single
@@ -243,8 +247,8 @@ Private Sub dgdList_DblClick()
                 lblA.Caption = col.Caption
                 WidestData = lblA.Width
                 Set ColumnFormat = col.DataFormat
-                If Not rsList.BOF And Not rsList.EOF Then
-                    Set rsTemp = rsList.Clone(adLockReadOnly)
+                If Not vrsList.BOF And Not vrsList.EOF Then
+                    Set rsTemp = vrsList.Clone(adLockReadOnly)
                     rsTemp.MoveFirst
                     While Not rsTemp.EOF
                         If Not IsNull(rsTemp(col.Caption).Value) Then
@@ -272,11 +276,11 @@ ExitSub:
     Me.MousePointer = vbDefault
 End Sub
 Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
-    If rsList.BOF And rsList.EOF Then Exit Sub
+    If vrsList.BOF And vrsList.EOF Then Exit Sub
     If SortDESC(ColIndex) Then
-        rsList.Sort = dgdList.Columns(ColIndex).Caption & " DESC"
+        vrsList.Sort = dgdList.Columns(ColIndex).Caption & " DESC"
     Else
-        rsList.Sort = dgdList.Columns(ColIndex).Caption & " ASC"
+        vrsList.Sort = dgdList.Columns(ColIndex).Caption & " ASC"
     End If
     SortDESC(ColIndex) = Not SortDESC(ColIndex)
 End Sub
@@ -295,6 +299,13 @@ Private Sub dgdList_MouseMove(Button As Integer, Shift As Integer, X As Single, 
     MouseY = Y
 End Sub
 Private Sub dgdList_RowColChange(LastRow As Variant, ByVal LastCol As Integer)
+    Dim i As Long
+    
+    For i = 0 To dgdList.SelBookmarks.Count - 1
+        dgdList.SelBookmarks.Remove 0
+    Next i
+    dgdList.SelBookmarks.Add dgdList.Bookmark
+    dgdList.col = dgdList.Columns("Junk").ColIndex
     UpdatePosition
 End Sub
 Private Sub dgdList_RowResize(Cancel As Integer)
@@ -312,10 +323,10 @@ Private Sub Form_Activate()
     CurrencyFormat.Format = "Currency"
     DateFormat.Format = "dd-MMM-yyyy hh:nn AMPM"
     
-    Set dgdList.DataSource = frmList.rsList
+    Set dgdList.DataSource = frmList.vrsList
     ReDim SortDESC(0 To dgdList.Columns.Count - 1)
     
-    For Each fld In rsList.Fields
+    For Each fld In vrsList.Fields
         Set col = dgdList.Columns(fld.Name)
         col.Visible = True
         Select Case fld.Type
@@ -333,6 +344,7 @@ Private Sub Form_Activate()
             Case Else
                 col.Alignment = dbgGeneral
         End Select
+        If fld.Name = "Junk" Then col.Visible = False
     Next
     
     'Get the column settings for the display...
@@ -344,8 +356,8 @@ Private Sub Form_Activate()
     Me.Width = GetSetting(App.ProductName, Me.Caption & " Settings", "Form Width", Me.Width)
     Me.Height = GetSetting(App.ProductName, Me.Caption & " Settings", "Form Height", Me.Height)
         
-    If rsList.Filter <> vbNullString And rsList.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsList.Filter
+    If vrsList.Filter <> vbNullString And vrsList.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & vrsList.Filter
     Else
         sbStatus.Panels("Message").Text = vbNullString
     End If
@@ -369,7 +381,7 @@ End Sub
 Private Sub Form_Unload(Cancel As Integer)
     Dim i As Integer
     
-    rsList.UpdateBatch
+    vrsList.UpdateBatch
     
     'Save the column settings for the next display...
     For i = 0 To dgdList.Columns.Count - 1
@@ -385,34 +397,16 @@ Private Sub sbStatus_PanelClick(ByVal Panel As MSComctlLib.Panel)
     
     Select Case UCase(Panel.Key)
         Case "TOP"
-            rsList.MoveFirst
+            vrsList.MoveFirst
             UpdatePosition
         Case "BOTTOM"
-            rsList.MoveLast
+            vrsList.MoveLast
             UpdatePosition
         Case "FILTER"
-            Load frmFilter
-            frmFilter.Caption = Left(Me.Caption, Len(Me.Caption) - Len(" List")) & " Filter"
-            If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-                Set frm = frmMain
-            Else
-                Set frm = Me
-            End If
-            frmFilter.Top = frm.Top
-            frmFilter.Left = frm.Left
-            frmFilter.Width = frm.Width
-            frmFilter.Height = frm.Height
-            
-            Set frmFilter.RS = rsList
-            frmFilter.Show vbModal
-            If rsList.Filter <> vbNullString And rsList.Filter <> 0 Then
-                sbStatus.Panels("Message").Text = "Filter: " & rsList.Filter
-            Else
-                sbStatus.Panels("Message").Text = vbNullString
-            End If
+            FilterCommand Me, vrsList, ""
         Case Else
     End Select
 End Sub
 Private Sub UpdatePosition()
-    sbStatus.Panels("Position").Text = "Record " & dgdList.Bookmark & " of " & rsList.RecordCount
+    sbStatus.Panels("Position").Text = "Record " & dgdList.Bookmark & " of " & vrsList.RecordCount
 End Sub
