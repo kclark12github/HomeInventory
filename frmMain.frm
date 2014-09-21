@@ -1,18 +1,47 @@
 VERSION 5.00
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Ken's Stuff..."
-   ClientHeight    =   3960
+   ClientHeight    =   4200
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   5868
    Icon            =   "frmMain.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   3960
+   ScaleHeight     =   4200
    ScaleWidth      =   5868
    StartUpPosition =   1  'CenterOwner
+   Begin MSComctlLib.StatusBar sbStatus 
+      Align           =   2  'Align Bottom
+      Height          =   252
+      Left            =   0
+      TabIndex        =   3
+      Top             =   3948
+      Width           =   5868
+      _ExtentX        =   10351
+      _ExtentY        =   445
+      _Version        =   393216
+      BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
+         NumPanels       =   2
+         BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            AutoSize        =   1
+            Object.Width           =   9017
+            Key             =   "DatabasePath"
+         EndProperty
+         BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            Style           =   5
+            Alignment       =   2
+            AutoSize        =   2
+            Object.Width           =   1270
+            MinWidth        =   1270
+            TextSave        =   "11:42 PM"
+            Key             =   "Time"
+         EndProperty
+      EndProperty
+   End
    Begin VB.HScrollBar scrollH 
       Height          =   192
       LargeChange     =   1000
@@ -31,24 +60,42 @@ Begin VB.Form frmMain
       Top             =   0
       Width           =   192
    End
-   Begin VB.PictureBox picBackground 
-      AutoRedraw      =   -1  'True
-      AutoSize        =   -1  'True
-      Height          =   8364
-      Left            =   360
-      Picture         =   "frmMain.frx":030A
-      ScaleHeight     =   8316
-      ScaleWidth      =   10800
-      TabIndex        =   0
-      Top             =   300
-      Width           =   10848
-   End
    Begin MSComDlg.CommonDialog dlgMain 
       Left            =   120
       Top             =   60
       _ExtentX        =   677
       _ExtentY        =   677
       _Version        =   393216
+   End
+   Begin VB.PictureBox picBackground 
+      AutoRedraw      =   -1  'True
+      AutoSize        =   -1  'True
+      Height          =   8364
+      Left            =   60
+      Picture         =   "frmMain.frx":030A
+      ScaleHeight     =   8316
+      ScaleWidth      =   10800
+      TabIndex        =   0
+      Top             =   180
+      Width           =   10848
+   End
+   Begin VB.Label lblCorner 
+      Caption         =   "     "
+      Height          =   432
+      Left            =   3000
+      TabIndex        =   4
+      Top             =   0
+      Width           =   732
+   End
+   Begin VB.Shape shpCorner 
+      BackColor       =   &H8000000F&
+      BackStyle       =   1  'Opaque
+      FillColor       =   &H8000000F&
+      FillStyle       =   0  'Solid
+      Height          =   372
+      Left            =   2400
+      Top             =   60
+      Width           =   432
    End
    Begin VB.Menu mnuFile 
       Caption         =   "&File"
@@ -178,7 +225,7 @@ Const gstrDefaultImage = "F14_102.jpg"
 Const iMinWidth = 2184
 Const iMinHeight = 1440
 
-Public gstrDBlocation As String
+Public gstrDBPath As String
 Public gstrDefaultImagePath As String
 Public frmReport As Form
 Public rdcReport As CRAXDRT.Report
@@ -196,7 +243,7 @@ End Enum
 Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Recordset, Optional RowSource As ADODB.Recordset, Optional BoundColumn As String, Optional ListField As String)
     Dim DateTimeFormat As StdDataFormat
     Select Case TypeName(ctl)
-        Case "CheckBox", "Label", "RichTextBox", "TextBox"
+        Case "CheckBox", "Label", "PictureBox", "RichTextBox", "TextBox"
             Set ctl.DataSource = Nothing
             ctl.DataField = DataField
             Set ctl.DataSource = DataSource
@@ -306,18 +353,21 @@ Private Sub LoadBackground()
     Me.Move (Screen.Width - Me.Width) / 2, (Screen.Height - Me.Height) / 2
 End Sub
 Private Sub LoadDBcoll(DBname As String)
-    DBcollection.Add DBname, DBname, gstrDBlocation & "\" & DBname & ".mdb", gstrProvider, gstrRunTimeUserName, gstrRunTimePassword, DBname
+    DBcollection.Add DBname, DBname, gstrDBPath, gstrProvider, gstrRunTimeUserName, gstrRunTimePassword, DBname
 End Sub
 Private Sub Form_Activate()
-    'LoadBackground
-End Sub
-Private Sub Form_Load()
-    MinWidth = iMinWidth
-    MinHeight = iMinHeight
-    
-    gstrDBlocation = "E:\WebShare\wwwroot\Access"
-    If Dir(gstrDBlocation, vbDirectory) = vbNullString Then
-        gstrDBlocation = App.Path & "\Database"
+    Me.MousePointer = vbHourglass
+    gstrDBPath = GetSetting(App.FileDescription, "Environment", "DatabasePath", "")
+    If gstrDBPath = vbNullString Then
+        With dlgMain
+            .DialogTitle = "Select Database"
+            .FileName = gstrDBPath
+            .Filter = "Microsoft Access Databases (*.mdb)|*.mdb|All Files (*.*)|*.*"
+            .FilterIndex = 1
+            .ShowOpen
+            gstrDBPath = .FileName
+            SaveSetting App.FileDescription, "Environment", "DatabasePath", gstrDBPath
+        End With
     End If
     LoadDBcoll "Books"
     LoadDBcoll "Hobby"
@@ -328,14 +378,24 @@ Private Sub Form_Load()
     LoadDBcoll "UserAccessInfo"
     LoadDBcoll "VideoTapes"
     
+    'Me.Caption = Me.Caption & " - " & gstrDBPath
+    sbStatus.Panels("DatabasePath").Text = gstrDBPath
+    Me.MousePointer = vbDefault
+End Sub
+Private Sub Form_Load()
+    MinWidth = iMinWidth
+    MinHeight = iMinHeight
+    
     gstrDefaultImagePath = App.Path & "\Images"
     gstrImagePath = GetSetting(App.FileDescription, "Environment", "ImagePath", gstrDefaultImagePath & "\" & gstrDefaultImage)
     LoadBackground
 End Sub
 Private Sub Form_Resize()
+    shpCorner.Visible = False
+    lblCorner.Visible = False
     If Me.WindowState <> vbMinimized Then
         If scrollH.Visible Then
-            scrollH.Top = Me.ScaleHeight - scrollH.Height
+            scrollH.Top = Me.ScaleHeight - scrollH.Height - sbStatus.Height
             scrollH.Left = 0
             scrollH.Width = Me.ScaleWidth - scrollV.Width
             scrollH.Max = picBackground.Width - Me.ScaleWidth
@@ -346,10 +406,24 @@ Private Sub Form_Resize()
         If scrollV.Visible Then
             scrollV.Top = 0
             scrollV.Left = Me.ScaleWidth - scrollV.Width
-            scrollV.Height = Me.ScaleHeight - scrollH.Height
+            scrollV.Height = Me.ScaleHeight - scrollH.Height - sbStatus.Height
             scrollV.Max = picBackground.Height - Me.ScaleHeight
             scrollV.SmallChange = picBackground.Height / 1000
             scrollV.LargeChange = picBackground.Height / 50
+        End If
+    
+        'I never did get this to work the way I want it...
+        'I can't seem to get the bottom-right corner of picBackground
+        'overlayed with either a label, or shape, and I'm not sure why...
+        'The math looks right, doesn't it...?!?
+        If scrollH.Visible And scrollV.Visible Then
+            shpCorner.Visible = True
+            shpCorner.ZOrder 0
+            shpCorner.Move scrollH.Left + scrollH.Width, scrollV.Top + scrollV.Height, scrollV.Width, scrollH.Height
+        
+            lblCorner.Visible = True
+            lblCorner.ZOrder 0
+            lblCorner.Move scrollH.Left + scrollH.Width, scrollV.Top + scrollV.Height, scrollV.Width, scrollH.Height
         End If
     End If
 End Sub
