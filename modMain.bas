@@ -464,6 +464,11 @@ Public Sub ReportCommand(frm As Form, RS As ADODB.Recordset, ByVal ReportPath As
     End If
     frmViewReport.WindowState = vbMaximized
     
+    If Dir(ReportPath, vbNormal) = vbNullString Then
+        Call MsgBox(ReportPath & " not found.", vbExclamation, App.FileDescription)
+        GoTo ExitSub
+    End If
+    
     Call Trace(trcBody, "Set Report = scrApplication.OpenReport(""" & ReportPath & """, crOpenReportByTempCopy)")
     Set Report = scrApplication.OpenReport(ReportPath, crOpenReportByTempCopy)
     Call Trace(trcBody, "Report.Database.SetDataSource vRS, 3, 1")

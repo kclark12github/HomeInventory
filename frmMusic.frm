@@ -50,7 +50,7 @@ Begin VB.Form frmMusic
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:44 PM"
+            TextSave        =   "6:20 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
