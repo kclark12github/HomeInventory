@@ -319,6 +319,7 @@ Begin VB.Form frmKits
          _ExtentX        =   13356
          _ExtentY        =   4360
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmKits.frx":0442
       End
    End
@@ -355,7 +356,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "6:36 PM"
+            TextSave        =   "12:40 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -803,12 +804,19 @@ End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     
+    If pError Is Nothing Then
+        Call Trace(trcEnter, "rsMain_MoveComplete(""" & adoEventReason(adReason) & """, Nothing, """ & adoEventStatus(adStatusCancel) & """, pRecordset)")
+    Else
+        Call Trace(trcEnter, "rsMain_MoveComplete(""" & adoEventReason(adReason) & """, """ & pError.Description & """, """ & adoEventStatus(adStatusCancel) & """, pRecordset)")
+    End If
+    
     If Not pRecordset.BOF And Not pRecordset.EOF Then
         Caption = "Reference #" & pRecordset.BookMark & ": "
         If IsNumeric(rsMain("Scale")) Then Caption = Caption & "1/"
         Caption = Caption & pRecordset("Scale") & " Scale; " & pRecordset("Designation") & " " & pRecordset("Name")
     End If
     UpdatePosition Me, Caption, pRecordset
+    Call Trace(trcExit, "rsMain_MoveComplete")
 End Sub
 Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key

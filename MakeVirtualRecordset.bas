@@ -10,6 +10,7 @@ Public Function MakeVirtualRecordset(ByRef ADOConnection As ADODB.Connection, RS
     Dim iPos As Integer
     Dim SQLsource As String
     
+    Call Trace(trcEnter, "MakeVirtualRecordset(ADOConnection, RS, vRS, """ & HiddenFieldName & """)")
     On Error GoTo ErrorHandler
     MakeVirtualRecordset = True
     
@@ -58,6 +59,7 @@ Public Function MakeVirtualRecordset(ByRef ADOConnection As ADODB.Connection, RS
     adoRS.Close
     Set adoRS = Nothing
     
+    Call Trace(trcExit, "MakeVirtualRecordset")
     Exit Function
     
 ErrorHandler:
