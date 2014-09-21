@@ -47,6 +47,10 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
+Public strPictureFile As String
+Private Sub Form_Activate()
+    picImage.Picture = LoadPicture(strPictureFile)
+End Sub
 Private Sub Form_Resize()
     picImage.Move 0, 0, Me.ScaleWidth, Me.ScaleHeight
     If Me.WindowState <> vbMinimized Then
@@ -68,6 +72,9 @@ Private Sub Form_Resize()
             scrollV.LargeChange = picImage.Height / 50
         End If
     End If
+End Sub
+Private Sub Form_Unload(Cancel As Integer)
+    Kill strPictureFile
 End Sub
 Private Sub scrollH_Change()
     picImage.Left = -scrollH.Value

@@ -8,14 +8,14 @@ Begin VB.Form frmImages
    Caption         =   "Image Display"
    ClientHeight    =   4536
    ClientLeft      =   132
-   ClientTop       =   588
+   ClientTop       =   360
    ClientWidth     =   8088
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   4536
    ScaleWidth      =   8088
-   StartUpPosition =   3  'Windows Default
+   StartUpPosition =   1  'CenterOwner
    Begin MSComDlg.CommonDialog dlgImages 
       Left            =   2040
       Top             =   3840
@@ -254,7 +254,7 @@ Begin VB.Form frmImages
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:36 AM"
+            TextSave        =   "2:01 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -591,6 +591,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
+Const ChunkSize As Long = 8192
 Dim adoConn As ADODB.Connection
 Dim WithEvents rsMain As ADODB.Recordset
 Attribute rsMain.VB_VarHelpID = -1
@@ -647,7 +648,31 @@ Private Sub cmdOK_Click()
 End Sub
 Private Sub cmdView_Click()
     Load frmPicture
+    frmPicture.strPictureFile = ParsePath(frmMain.gstrDBPath, DrvDir) & "temp.dat"
+    DecodeImage strTempFile
     frmPicture.Show vbModal
+End Sub
+Private Sub DecodeImage(ByVal strTempFile As String)
+    Dim FileUnit As Integer
+    Dim TotalBytes As Long
+    Dim BytesLeft As Long
+    Dim strData As String
+    
+    picImage.Picture = Nothing
+    FileUnit = FreeFile
+    Open strTempFile For Binary Access Write As #FileUnit
+    TotalBytes = rsMain("Image").ActualSize
+    
+    While BytesLeft > 0
+        If BytesLeft > ChunkSize Then
+            strData = rsMain("Image").GetChunk(ChunkSize)
+        Else
+            strData = rsMain("Image").GetChunk(BytesLeft)
+        End If
+        BytesLeft = bytelsleft - ChunkSize
+        Put #FileUnit, , strData
+    Wend
+    Close #FileUnit
 End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
@@ -666,7 +691,7 @@ Private Sub Form_Load()
     frmMain.BindField lblID, "ID", rsMain
     frmMain.BindField txtName, "Name", rsMain
     frmMain.BindField txtURL, "URL", rsMain
-    frmMain.BindField picImage, "Image", rsMain
+    'frmMain.BindField picImage, "Image", rsMain
     frmMain.BindField chkThumbnail, "Thumbnail", rsMain
     frmMain.BindField rtxtCaption, "Caption", rsMain
 
@@ -872,12 +897,19 @@ Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
 End Sub
 Private Sub tsImages_Click()
     Dim i As Integer
+    Dim strTempFile As String
     
     With tsImages
         For i = 0 To .Tabs.Count - 1
             If i = .SelectedItem.Index - 1 Then
                 fraImages(i).Enabled = True
                 fraImages(i).ZOrder
+                If picImage.Visible Then
+                    strTempFile = ParsePath(frmMain.gstrDBPath, DrvDir) & "temp.dat"
+                    DecodeImage strTempFile
+                    picImage.Picture = LoadPicture(strTempFile)
+                    Kill strTempFile
+                End If
             Else
                 fraImages(i).Enabled = False
             End If
