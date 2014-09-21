@@ -9,6 +9,7 @@ Begin VB.Form frmTools
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
+   Icon            =   "frmTools.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -49,7 +50,7 @@ Begin VB.Form frmTools
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:44 PM"
+            TextSave        =   "2:15 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -282,63 +283,63 @@ Begin VB.Form frmTools
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":0000
+            Picture         =   "frmTools.frx":030A
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":031C
+            Picture         =   "frmTools.frx":0626
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":0644
+            Picture         =   "frmTools.frx":094E
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":096C
+            Picture         =   "frmTools.frx":0C76
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":3120
+            Picture         =   "frmTools.frx":342A
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":3574
+            Picture         =   "frmTools.frx":387E
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":39C8
+            Picture         =   "frmTools.frx":3CD2
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":4494
+            Picture         =   "frmTools.frx":479E
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":47BC
+            Picture         =   "frmTools.frx":4AC6
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":4C10
+            Picture         =   "frmTools.frx":4F1A
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":5064
+            Picture         =   "frmTools.frx":536E
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":54B8
+            Picture         =   "frmTools.frx":57C2
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":5910
+            Picture         =   "frmTools.frx":5C1A
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":5A6C
+            Picture         =   "frmTools.frx":5D76
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":5BC8
+            Picture         =   "frmTools.frx":5ED2
             Key             =   "NewRecord"
          EndProperty
       EndProperty
@@ -572,7 +573,7 @@ End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     
-    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset("Manufacturer") & " " & pRecordset("Name")
+    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("Manufacturer") & " " & pRecordset("Name")
     UpdatePosition Me, Caption, pRecordset
 End Sub
 Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
@@ -604,7 +605,7 @@ End Sub
 Private Sub dbcCatalog_Validate(Cancel As Boolean)
     If dbcCatalog.Text = vbNullString Then dbcCatalog.Text = "Unknown"
     If dbcValidate(rsMain("Catalog"), dbcCatalog) = 0 Then Cancel = True
-    If rsCatalogs.Bookmark <> dbcCatalog.SelectedItem Then rsCatalogs.Bookmark = dbcCatalog.SelectedItem
+    If rsCatalogs.BookMark <> dbcCatalog.SelectedItem Then rsCatalogs.BookMark = dbcCatalog.SelectedItem
 End Sub
 Private Sub dbcManufacturer_GotFocus()
     TextSelected
@@ -617,7 +618,7 @@ Private Sub dbcManufacturer_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Manufacturer"), dbcManufacturer) = 0 Then Cancel = True
-    If rsManufacturers.Bookmark <> dbcManufacturer.SelectedItem Then rsManufacturers.Bookmark = dbcManufacturer.SelectedItem
+    If rsManufacturers.BookMark <> dbcManufacturer.SelectedItem Then rsManufacturers.BookMark = dbcManufacturer.SelectedItem
 End Sub
 Private Sub txtCount_GotFocus()
     TextSelected

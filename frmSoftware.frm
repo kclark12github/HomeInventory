@@ -9,6 +9,7 @@ Begin VB.Form frmSoftware
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
+   Icon            =   "frmSoftware.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -49,7 +50,7 @@ Begin VB.Form frmSoftware
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:46 AM"
+            TextSave        =   "2:14 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -251,63 +252,63 @@ Begin VB.Form frmSoftware
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":0000
+            Picture         =   "frmSoftware.frx":030A
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":031C
+            Picture         =   "frmSoftware.frx":0626
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":0644
+            Picture         =   "frmSoftware.frx":094E
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":096C
+            Picture         =   "frmSoftware.frx":0C76
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":3120
+            Picture         =   "frmSoftware.frx":342A
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":3574
+            Picture         =   "frmSoftware.frx":387E
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":39C8
+            Picture         =   "frmSoftware.frx":3CD2
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":4494
+            Picture         =   "frmSoftware.frx":479E
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":47BC
+            Picture         =   "frmSoftware.frx":4AC6
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":4C10
+            Picture         =   "frmSoftware.frx":4F1A
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":5064
+            Picture         =   "frmSoftware.frx":536E
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":54B8
+            Picture         =   "frmSoftware.frx":57C2
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":5910
+            Picture         =   "frmSoftware.frx":5C1A
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":5A6C
+            Picture         =   "frmSoftware.frx":5D76
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":5BC8
+            Picture         =   "frmSoftware.frx":5ED2
             Key             =   "NewRecord"
          EndProperty
       EndProperty
@@ -719,7 +720,7 @@ End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     
-    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset("Type") & "; " & pRecordset("Title")
+    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("Type") & "; " & pRecordset("Title")
     UpdatePosition Me, Caption, pRecordset
 End Sub
 Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
@@ -756,7 +757,7 @@ Private Sub dbcLocation_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Location"), dbcLocation) = 0 Then Cancel = True
-    If rsLocations.Bookmark <> dbcLocation.SelectedItem Then rsLocations.Bookmark = dbcLocation.SelectedItem
+    If rsLocations.BookMark <> dbcLocation.SelectedItem Then rsLocations.BookMark = dbcLocation.SelectedItem
 End Sub
 Private Sub dbcMedia_GotFocus()
     TextSelected
@@ -769,7 +770,7 @@ Private Sub dbcMedia_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Media"), dbcMedia) = 0 Then Cancel = True
-    If rsMedias.Bookmark <> dbcMedia.SelectedItem Then rsMedias.Bookmark = dbcMedia.SelectedItem
+    If rsMedias.BookMark <> dbcMedia.SelectedItem Then rsMedias.BookMark = dbcMedia.SelectedItem
 End Sub
 Private Sub dbcPublisher_GotFocus()
     TextSelected
@@ -782,7 +783,7 @@ Private Sub dbcPublisher_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Publisher"), dbcPublisher) = 0 Then Cancel = True
-    If rsPublishers.Bookmark <> dbcPublisher.SelectedItem Then rsPublishers.Bookmark = dbcPublisher.SelectedItem
+    If rsPublishers.BookMark <> dbcPublisher.SelectedItem Then rsPublishers.BookMark = dbcPublisher.SelectedItem
 End Sub
 Private Sub dbcPlatform_GotFocus()
     TextSelected
@@ -795,7 +796,7 @@ Private Sub dbcPlatform_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Platform"), dbcPlatform) = 0 Then Cancel = True
-    If rsPlatforms.Bookmark <> dbcPlatform.SelectedItem Then rsPlatforms.Bookmark = dbcPlatform.SelectedItem
+    If rsPlatforms.BookMark <> dbcPlatform.SelectedItem Then rsPlatforms.BookMark = dbcPlatform.SelectedItem
 End Sub
 Private Sub dbcType_GotFocus()
     TextSelected
@@ -808,7 +809,7 @@ Private Sub dbcType_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Type"), dbcType) = 0 Then Cancel = True
-    If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
+    If rsTypes.BookMark <> dbcType.SelectedItem Then rsTypes.BookMark = dbcType.SelectedItem
 End Sub
 Private Sub txtCDkey_GotFocus()
     TextSelected
