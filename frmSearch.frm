@@ -1064,6 +1064,7 @@ Private Sub dbcFields_Validate(Index As Integer, Cancel As Boolean)
     dbcFields(Index).Text = Trim(dbcFields(Index).Text)
 End Sub
 Private Sub Form_Activate()
+    Dim Caption As String
     Dim ctl As Control
     Dim frm As Form
     Dim fUseDataCombo As Boolean
@@ -1076,6 +1077,7 @@ Private Sub Form_Activate()
     Dim NewWidth As Integer
     Dim NewLeft As Integer
     
+    Call Trace(trcEnter, Me.Name & ".Form_Activate")
     Set frm = Forms(Forms.Count - 2)
     Me.Icon = frm.Icon
     NewWidth = 5832
@@ -1091,63 +1093,76 @@ Private Sub Form_Activate()
     cmdCancel.Top = cmdApply.Top + vSpace + cmdApply.Height
     cmdCancel.Left = cmdApply.Left
     
+    iField = 0
     For i = 0 To RS.Fields.Count - 1
         fUseDataCombo = False
-        'Debug.Print "RS.Fields(i).Name", RS.Fields(i).Name
+        Caption = vbNullString
+        Call Trace(trcBody, "RS.Fields(i).Name", RS.Fields(i).Name)
         Select Case RS.Fields(i).Type
             Case adBinary, adLongVarBinary, adLongVarChar
                 'Don't deal with filtering these fields (we could do
                 'Memo fields, but eliminating them reduces the size of
                 'the filter form for these activites, so let's not)...
-                'Debug.Print vbTab & "Skipping: RS.Fields(i).Name", RS.Fields(i).Name
+                Call Trace(trcBody, vbTab & "Skipping: RS.Fields(i).Name", RS.Fields(i).Name)
             Case Else
                 If i > 31 Then
                     MsgBox "Warning: Only the first 32 fields can be used to filter your data.", vbInformation
                     Exit For
-                End If
-                
-                For Each ctl In frm.Controls
-                    If TypeName(ctl) = "DataCombo" Then
-                        If ctl.BoundColumn = RS.Fields(i).Name Then
-                            fUseDataCombo = True
-                            Set dbcFields(i).DataSource = Nothing
-                            dbcFields(i).DataField = ctl.DataField
-                            Set dbcFields(i).DataSource = ctl.DataSource
-                            Set dbcFields(i).RowSource = Nothing
-                            dbcFields(i).BoundColumn = ctl.BoundColumn
-                            dbcFields(i).ListField = ctl.ListField
-                            Set dbcFields(i).RowSource = ctl.RowSource
-                            
-                            dbcFields(i).BoundText = vbNullString
-                            dbcFields(i).Text = vbNullString
-                            Exit For
-                        End If
-                    End If
-                Next ctl
-                
-                If fUseDataCombo Then
-                    Set ctl = dbcFields(i)
                 Else
-                    Set ctl = txtFields(i)
+                    For Each ctl In frm.Controls
+                        If ctl.Tag = vbNullString Then GoTo SkipControl
+                        Select Case TypeName(ctl)
+                            Case "CheckBox", "DataCombo", "Label", "PictureBox", "RichTextBox", "TextBox"
+                                If ctl.DataField = RS.Fields(i).Name Then
+                                    Caption = ctl.Tag
+                                    Call Trace(trcBody, vbTab & "Caption: " & Caption)
+                                    If TypeName(ctl) = "DataCombo" Then
+                                        fUseDataCombo = True
+                                        Call Trace(trcBody, vbTab & "BoundColumn: " & ctl.BoundColumn & "; ListField: " & ctl.ListField & "; DataField: " & ctl.DataField)
+                                        Set dbcFields(i).DataSource = Nothing
+                                        dbcFields(i).DataField = ctl.DataField
+                                        Set dbcFields(i).DataSource = ctl.DataSource
+                                        Set dbcFields(i).RowSource = Nothing
+                                        dbcFields(i).BoundColumn = ctl.BoundColumn
+                                        dbcFields(i).ListField = ctl.ListField
+                                        Set dbcFields(i).RowSource = ctl.RowSource
+                                        
+                                        dbcFields(i).BoundText = vbNullString
+                                        dbcFields(i).Text = vbNullString
+                                    End If
+                                    Exit For
+                                End If
+                        End Select
+SkipControl:
+                    Next ctl
+                    If Caption = vbNullString Then GoTo SkipField
+                    If fUseDataCombo Then
+                        Set ctl = dbcFields(i)
+                    Else
+                        Set ctl = txtFields(i)
+                    End If
+                    
+                    ctl.Visible = True
+                    ctl.Enabled = True
+                    ctl.Top = iTop
+                    
+                    lblFields(i).Alignment = lblFields(0).Alignment 'Right
+                    lblFields(i).Visible = True
+                    'lblFields(i).Caption = RS.Fields(i).Name & ":"
+                    lblFields(i).Caption = Caption & ":"
+                    lblFields(i).Top = ctl.Top + (ctl.Height / 2) - (lblFields(i).Height / 2)
+                    lblFields(i).Left = iLeft
+                    
+                    ctl.Left = lblFields(i).Left + lblFields(i).Width + hSpace
+                    ctl.Width = Me.ScaleWidth - lblFields(i).Left - lblFields(i).Width - hSpace - hSpace - cmdApply.Width - hSpace
+                    ctl.TabIndex = i
+                    
+                    iTop = iTop + ctl.Height + vSpace
+                    iField = i
+                    Set ctl = Nothing
                 End If
-                ctl.Visible = True
-                ctl.Enabled = True
-                ctl.Top = iTop
-                
-                lblFields(i).Alignment = lblFields(0).Alignment 'Right
-                lblFields(i).Visible = True
-                lblFields(i).Caption = RS.Fields(i).Name & ":"
-                lblFields(i).Top = ctl.Top + (ctl.Height / 2) - (lblFields(i).Height / 2)
-                lblFields(i).Left = iLeft
-                
-                ctl.Left = lblFields(i).Left + lblFields(i).Width + hSpace
-                ctl.Width = Me.ScaleWidth - lblFields(i).Left - lblFields(i).Width - hSpace - hSpace - cmdApply.Width - hSpace
-                ctl.TabIndex = i
-                
-                iTop = iTop + ctl.Height + vSpace
-                iField = i
-                Set ctl = Nothing
         End Select
+SkipField:
     Next i
     
     If txtFields(iField).Enabled Then Set ctl = txtFields(iField) Else Set ctl = dbcFields(iField)
@@ -1160,9 +1175,18 @@ Private Sub Form_Activate()
     Me.Height = NewHeight
     If txtFields(0).Enabled Then Set ctl = txtFields(0) Else Set ctl = dbcFields(0)
     ctl.SetFocus
-    
+
+    'Now, take any existing filter, parse it, and populate the fields on this screen...
+    If strFilter <> vbNullString Then
+        ParseFilter strFilter
+    ElseIf SQLfilter <> vbNullString Then
+        ParseFilter SQLfilter
+    End If
+    'Now that we've populated the screen fields, start from scratch...
+    strFilter = vbNullString
     Set frm = Nothing
     Set ctl = Nothing
+    Call Trace(trcExit, Me.Name & ".Form_Activate")
 End Sub
 Private Sub Form_Load()
     Dim i As Integer
