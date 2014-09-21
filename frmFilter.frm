@@ -600,7 +600,8 @@ Private Sub cmdApply_Click()
                 Mid(txtFields(i).Text, 1, 2) = "<=" Or _
                 Mid(txtFields(i).Text, 1, 2) = ">=" Or _
                 Mid(txtFields(i).Text, 1, 1) = "<" Or _
-                Mid(txtFields(i).Text, 1, 1) = ">" Then
+                Mid(txtFields(i).Text, 1, 1) = ">" Or _
+                UCase(Mid(txtFields(i).Text, 1, 5)) = "NOT " Then
                 'Take what the user said literally...
                 sqlSource = sqlSource & RS.Fields(i).Name & " " & txtFields(i).Text & " and "
             ElseIf UCase(Mid(txtFields(i).Text, 1, 4)) = "LIKE" Then

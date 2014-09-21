@@ -20,7 +20,7 @@ Begin VB.Form frmKits
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   34
+      TabIndex        =   33
       Top             =   4884
       Width           =   7524
       _ExtentX        =   13272
@@ -49,7 +49,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:41 PM"
+            TextSave        =   "11:23 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -182,19 +182,19 @@ Begin VB.Form frmKits
          LCID            =   1033
          SubFormatType   =   2
       EndProperty
-      Height          =   288
-      Left            =   3264
+      Height          =   8052
+      Left            =   48
       TabIndex        =   4
-      Top             =   960
-      Width           =   972
+      Top             =   516
+      Width           =   13224
    End
    Begin VB.TextBox txtDesignation 
-      Height          =   288
-      Left            =   1524
+      Height          =   240
+      Left            =   72
       TabIndex        =   0
       Text            =   "Designation"
-      Top             =   372
-      Width           =   1872
+      Top             =   552
+      Width           =   0
    End
    Begin VB.TextBox txtName 
       Height          =   288
@@ -203,110 +203,6 @@ Begin VB.Form frmKits
       Text            =   "Name"
       Top             =   672
       Width           =   5892
-   End
-   Begin MSComctlLib.ImageList imlSmall 
-      Left            =   480
-      Top             =   4500
-      _ExtentX        =   804
-      _ExtentY        =   804
-      BackColor       =   -2147483643
-      ImageWidth      =   16
-      ImageHeight     =   16
-      MaskColor       =   12632256
-      _Version        =   393216
-      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   11
-         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":0000
-            Key             =   "Find"
-         EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":031C
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":0644
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":096C
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":3120
-            Key             =   "Delete"
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":3574
-            Key             =   "List"
-         EndProperty
-         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":4040
-            Key             =   "Report"
-         EndProperty
-         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":4494
-            Key             =   "Modify"
-         EndProperty
-         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":4F60
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":5288
-            Key             =   "Sort"
-         EndProperty
-         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":56DC
-            Key             =   "Filter"
-         EndProperty
-      EndProperty
-   End
-   Begin MSComctlLib.ImageList imlLarge 
-      Left            =   60
-      Top             =   4500
-      _ExtentX        =   804
-      _ExtentY        =   804
-      BackColor       =   -2147483643
-      ImageWidth      =   32
-      ImageHeight     =   32
-      MaskColor       =   12632256
-      _Version        =   393216
-      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   8
-         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":5B30
-            Key             =   "Report"
-         EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":5F84
-            Key             =   "Modify"
-         EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":6A50
-            Key             =   "Find"
-         EndProperty
-         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":6D6C
-            Key             =   "List"
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":7838
-            Key             =   "Delete"
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":7C8C
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":A440
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":A894
-            Key             =   ""
-         EndProperty
-      EndProperty
    End
    Begin MSDataListLib.DataCombo dbcCatalog 
       Height          =   288
@@ -380,11 +276,123 @@ Begin VB.Form frmKits
       MatchEntry      =   -1  'True
       Text            =   "Condition"
    End
+   Begin MSComctlLib.ImageList imlSmall 
+      Left            =   480
+      Top             =   4380
+      _ExtentX        =   804
+      _ExtentY        =   804
+      BackColor       =   -2147483643
+      ImageWidth      =   16
+      ImageHeight     =   16
+      MaskColor       =   12632256
+      _Version        =   393216
+      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+         NumListImages   =   13
+         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":0000
+            Key             =   "Find"
+         EndProperty
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":031C
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":0644
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":096C
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":3120
+            Key             =   "Delete"
+         EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":3574
+            Key             =   "List"
+         EndProperty
+         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":4040
+            Key             =   "Report"
+         EndProperty
+         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":4494
+            Key             =   "Modify"
+         EndProperty
+         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":4F60
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":5288
+            Key             =   "Sort"
+         EndProperty
+         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":56DC
+            Key             =   "Filter"
+         EndProperty
+         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":5B30
+            Key             =   "SQL"
+         EndProperty
+         BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":5F84
+            Key             =   ""
+         EndProperty
+      EndProperty
+   End
+   Begin MSComctlLib.ImageList imlLarge 
+      Left            =   60
+      Top             =   4380
+      _ExtentX        =   804
+      _ExtentY        =   804
+      BackColor       =   -2147483643
+      ImageWidth      =   32
+      ImageHeight     =   32
+      MaskColor       =   12632256
+      _Version        =   393216
+      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+         NumListImages   =   8
+         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":63D8
+            Key             =   "Report"
+         EndProperty
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":682C
+            Key             =   "Modify"
+         EndProperty
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":72F8
+            Key             =   "Find"
+         EndProperty
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":7614
+            Key             =   "List"
+         EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":80E0
+            Key             =   "Delete"
+         EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":8534
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":ACE8
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmKits.frx":B13C
+            Key             =   ""
+         EndProperty
+      EndProperty
+   End
    Begin MSComctlLib.Toolbar tbAction 
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   33
+      TabIndex        =   34
       Top             =   0
       Width           =   7524
       _ExtentX        =   13272
@@ -396,7 +404,7 @@ Begin VB.Form frmKits
       ImageList       =   "imlSmall"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   9
+         NumButtons      =   11
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Key             =   "List"
             Object.ToolTipText     =   "List all records"
@@ -448,6 +456,13 @@ Begin VB.Form frmKits
                   Text            =   "Test2"
                EndProperty
             EndProperty
+         EndProperty
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "SQL"
+            ImageIndex      =   13
          EndProperty
       EndProperty
       BorderStyle     =   1
@@ -635,6 +650,12 @@ Begin VB.Form frmKits
       End
       Begin VB.Menu mnuActionReport 
          Caption         =   "&Report"
+      End
+      Begin VB.Menu mnuActionSep3 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuActionSQL 
+         Caption         =   "&SQL"
       End
    End
 End
@@ -969,6 +990,12 @@ Private Sub mnuActionReport_Click()
     vRS.Close
     Set vRS = Nothing
 End Sub
+Private Sub mnuActionSQL_Click()
+    Load frmSQL
+    Set frmSQL.cnSQL = adoConn
+    frmSQL.sbStatus.Panels("DB").Text = "Hobby - Kits"
+    frmSQL.Show vbModal
+End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
@@ -1018,6 +1045,8 @@ Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
             mnuActionDelete_Click
         Case "Report"
             mnuActionReport_Click
+        Case "SQL"
+            mnuActionSQL_Click
     End Select
 End Sub
 Private Sub txtDateVerified_GotFocus()
