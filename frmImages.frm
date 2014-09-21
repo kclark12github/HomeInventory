@@ -18,102 +18,82 @@ Begin VB.Form frmImages
    StartUpPosition =   1  'CenterOwner
    Begin VB.Frame fraImages 
       Height          =   4752
-      Index           =   2
-      Left            =   180
-      TabIndex        =   21
-      Top             =   660
-      Width           =   7692
-      Begin VB.PictureBox picWindow 
-         AutoRedraw      =   -1  'True
-         DataField       =   "Image"
-         DataSource      =   "dtaData"
-         Height          =   4212
-         Left            =   60
-         ScaleHeight     =   4164
-         ScaleWidth      =   7524
-         TabIndex        =   28
-         Top             =   180
-         Width           =   7572
-         Begin VB.PictureBox picImage 
-            Appearance      =   0  'Flat
-            AutoRedraw      =   -1  'True
-            AutoSize        =   -1  'True
-            BackColor       =   &H80000006&
-            DataField       =   "Image"
-            DataSource      =   "dtaData"
-            ForeColor       =   &H80000008&
-            Height          =   4212
-            Left            =   0
-            ScaleHeight     =   4188
-            ScaleWidth      =   7548
-            TabIndex        =   29
-            Top             =   0
-            Width           =   7572
-         End
-      End
-      Begin VB.VScrollBar ScrollV 
-         Height          =   4092
-         Left            =   7440
-         TabIndex        =   27
-         Top             =   240
-         Width           =   192
-      End
-      Begin VB.CommandButton cmdLoad 
-         Caption         =   "&Load Image"
-         Height          =   252
-         Left            =   4800
-         TabIndex        =   23
-         Top             =   4440
-         Width           =   1392
-      End
-      Begin VB.CommandButton cmdView 
-         Caption         =   "&View Full Picture"
-         Height          =   252
-         Left            =   6240
-         TabIndex        =   22
-         Top             =   4440
-         Width           =   1392
-      End
-   End
-   Begin VB.Frame fraImages 
-      Height          =   4752
       Index           =   0
       Left            =   180
-      TabIndex        =   0
+      TabIndex        =   14
       Top             =   660
       Width           =   7692
+      Begin MSDataListLib.DataCombo dbcCategory 
+         Height          =   288
+         Left            =   1080
+         TabIndex        =   4
+         Top             =   1260
+         Width           =   3792
+         _ExtentX        =   6689
+         _ExtentY        =   508
+         _Version        =   393216
+         Text            =   "Category"
+      End
+      Begin VB.TextBox txtSort 
+         DataSource      =   "dtaData"
+         Height          =   288
+         Left            =   1080
+         TabIndex        =   6
+         Text            =   "Sort"
+         Top             =   1560
+         Width           =   6192
+      End
+      Begin VB.Frame fraCaption 
+         Caption         =   "Caption"
+         Height          =   1812
+         Left            =   60
+         TabIndex        =   31
+         Top             =   2880
+         Width           =   7572
+         Begin RichTextLib.RichTextBox rtxtCaption 
+            Height          =   1572
+            Left            =   60
+            TabIndex        =   10
+            Top             =   180
+            Width           =   7452
+            _ExtentX        =   13145
+            _ExtentY        =   2773
+            _Version        =   393217
+            TextRTF         =   $"frmImages.frx":0000
+         End
+      End
       Begin VB.TextBox txtFileName 
          BackColor       =   &H8000000F&
          DataSource      =   "dtaData"
          Height          =   288
          Left            =   1080
          Locked          =   -1  'True
-         TabIndex        =   25
+         TabIndex        =   26
          Text            =   "FileName"
          Top             =   600
-         Width           =   6192
+         Width           =   3792
       End
       Begin VB.CheckBox chkThumbnail 
          Alignment       =   1  'Right Justify
-         Caption         =   "Is this Image considered a Thumbnail (as opposed to a full image)?"
+         Caption         =   "Thumbnail?"
          DataSource      =   "dtaData"
          Height          =   252
-         Left            =   720
-         TabIndex        =   18
-         Top             =   1320
-         Width           =   5172
+         Left            =   5220
+         TabIndex        =   5
+         Top             =   1278
+         Width           =   1452
       End
       Begin VB.Frame fraRelated 
          Caption         =   "Related Information"
          Height          =   912
          Left            =   48
-         TabIndex        =   13
-         Top             =   1740
+         TabIndex        =   20
+         Top             =   1920
          Width           =   7572
          Begin MSDataListLib.DataCombo dbcTable 
             Height          =   288
             Left            =   1020
-            TabIndex        =   15
+            TabIndex        =   7
             Top             =   180
             Width           =   1752
             _ExtentX        =   3090
@@ -125,7 +105,7 @@ Begin VB.Form frmImages
          Begin MSDataListLib.DataCombo dbcRecord 
             Height          =   288
             Left            =   3708
-            TabIndex        =   17
+            TabIndex        =   8
             Top             =   180
             Width           =   2772
             _ExtentX        =   4890
@@ -137,7 +117,7 @@ Begin VB.Form frmImages
          Begin MSDataListLib.DataCombo dbcThumbnail 
             Height          =   288
             Left            =   1536
-            TabIndex        =   20
+            TabIndex        =   9
             Top             =   540
             Width           =   4932
             _ExtentX        =   8700
@@ -152,7 +132,7 @@ Begin VB.Form frmImages
             Caption         =   "Thumbnail Image:"
             Height          =   192
             Left            =   132
-            TabIndex        =   19
+            TabIndex        =   23
             Top             =   588
             Width           =   1284
          End
@@ -162,7 +142,7 @@ Begin VB.Form frmImages
             Caption         =   "Record:"
             Height          =   192
             Left            =   3012
-            TabIndex        =   16
+            TabIndex        =   22
             Top             =   228
             Width           =   576
          End
@@ -172,7 +152,7 @@ Begin VB.Form frmImages
             Caption         =   "Table:"
             Height          =   192
             Left            =   432
-            TabIndex        =   14
+            TabIndex        =   21
             Top             =   228
             Width           =   468
          End
@@ -181,7 +161,7 @@ Begin VB.Form frmImages
          DataSource      =   "dtaData"
          Height          =   288
          Left            =   1080
-         TabIndex        =   11
+         TabIndex        =   3
          Text            =   "URL"
          Top             =   960
          Width           =   6192
@@ -190,10 +170,86 @@ Begin VB.Form frmImages
          DataSource      =   "dtaData"
          Height          =   288
          Left            =   1080
-         TabIndex        =   1
+         TabIndex        =   2
          Text            =   "Name"
          Top             =   240
          Width           =   6192
+      End
+      Begin VB.Label lblCategory 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Category:"
+         Height          =   192
+         Left            =   264
+         TabIndex        =   37
+         Top             =   1308
+         Width           =   696
+      End
+      Begin VB.Label lblSort 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Sort:"
+         Height          =   192
+         Left            =   636
+         TabIndex        =   36
+         Top             =   1608
+         Width           =   324
+      End
+      Begin VB.Label lblPixels 
+         AutoSize        =   -1  'True
+         Caption         =   "(H x W in pixels)"
+         Height          =   192
+         Left            =   6240
+         TabIndex        =   35
+         Top             =   648
+         Width           =   1128
+      End
+      Begin VB.Label lblWidth 
+         AutoSize        =   -1  'True
+         Caption         =   "Width"
+         BeginProperty DataFormat 
+            Type            =   1
+            Format          =   "#,##0"
+            HaveTrueFalseNull=   0
+            FirstDayOfWeek  =   0
+            FirstWeekOfYear =   0
+            LCID            =   1033
+            SubFormatType   =   1
+         EndProperty
+         Height          =   192
+         Left            =   5760
+         TabIndex        =   34
+         Top             =   648
+         Width           =   408
+      End
+      Begin VB.Label lblX 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "x"
+         Height          =   192
+         Left            =   5616
+         TabIndex        =   33
+         Top             =   648
+         Width           =   72
+      End
+      Begin VB.Label lblHeight 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Height"
+         BeginProperty DataFormat 
+            Type            =   1
+            Format          =   "#,##0"
+            HaveTrueFalseNull=   0
+            FirstDayOfWeek  =   0
+            FirstWeekOfYear =   0
+            LCID            =   1033
+            SubFormatType   =   1
+         EndProperty
+         Height          =   192
+         Left            =   5100
+         TabIndex        =   32
+         Top             =   648
+         Width           =   468
       End
       Begin VB.Label lblFileName 
          Alignment       =   1  'Right Justify
@@ -201,7 +257,7 @@ Begin VB.Form frmImages
          Caption         =   "File Name:"
          Height          =   192
          Left            =   180
-         TabIndex        =   26
+         TabIndex        =   27
          Top             =   660
          Width           =   780
       End
@@ -211,7 +267,7 @@ Begin VB.Form frmImages
          Caption         =   "URL:"
          Height          =   192
          Left            =   600
-         TabIndex        =   12
+         TabIndex        =   19
          Top             =   1008
          Width           =   360
       End
@@ -221,9 +277,68 @@ Begin VB.Form frmImages
          Caption         =   "Name:"
          Height          =   192
          Left            =   480
-         TabIndex        =   10
+         TabIndex        =   18
          Top             =   288
          Width           =   480
+      End
+   End
+   Begin VB.Frame fraImages 
+      Height          =   4752
+      Index           =   1
+      Left            =   180
+      TabIndex        =   24
+      Top             =   660
+      Width           =   7692
+      Begin VB.CommandButton cmdView 
+         Caption         =   "&View Full Picture"
+         Height          =   252
+         Left            =   6240
+         TabIndex        =   1
+         Top             =   4440
+         Width           =   1392
+      End
+      Begin VB.CommandButton cmdLoad 
+         Caption         =   "&Load Image"
+         Height          =   252
+         Left            =   4800
+         TabIndex        =   0
+         Top             =   4440
+         Width           =   1392
+      End
+      Begin VB.PictureBox picWindow 
+         AutoRedraw      =   -1  'True
+         DataField       =   "Image"
+         DataSource      =   "dtaData"
+         Height          =   4212
+         Left            =   60
+         ScaleHeight     =   4164
+         ScaleWidth      =   7524
+         TabIndex        =   29
+         Top             =   180
+         Width           =   7572
+         Begin VB.PictureBox picImage 
+            Appearance      =   0  'Flat
+            AutoRedraw      =   -1  'True
+            AutoSize        =   -1  'True
+            BackColor       =   &H80000006&
+            DataField       =   "Image"
+            DataSource      =   "dtaData"
+            ForeColor       =   &H80000008&
+            Height          =   4212
+            Left            =   0
+            ScaleHeight     =   4188
+            ScaleWidth      =   7548
+            TabIndex        =   30
+            Top             =   0
+            Width           =   7572
+         End
+      End
+      Begin VB.VScrollBar ScrollV 
+         Height          =   4092
+         Left            =   7440
+         TabIndex        =   28
+         Top             =   240
+         Width           =   192
       End
    End
    Begin MSComDlg.CommonDialog dlgImages 
@@ -233,32 +348,12 @@ Begin VB.Form frmImages
       _ExtentY        =   677
       _Version        =   393216
    End
-   Begin VB.Frame fraImages 
-      Height          =   4752
-      Index           =   1
-      Left            =   180
-      TabIndex        =   2
-      Top             =   660
-      Width           =   7692
-      Begin RichTextLib.RichTextBox rtxtCaption 
-         Height          =   2472
-         Left            =   60
-         TabIndex        =   3
-         Top             =   180
-         Width           =   7572
-         _ExtentX        =   13356
-         _ExtentY        =   4360
-         _Version        =   393217
-         Enabled         =   -1  'True
-         TextRTF         =   $"frmImages.frx":0000
-      End
-   End
    Begin VB.CommandButton cmdOK 
       Caption         =   "OK"
       Default         =   -1  'True
       Height          =   372
       Left            =   5880
-      TabIndex        =   6
+      TabIndex        =   11
       Top             =   6000
       Width           =   972
    End
@@ -268,7 +363,7 @@ Begin VB.Form frmImages
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6900
-      TabIndex        =   5
+      TabIndex        =   12
       Top             =   6000
       Width           =   972
    End
@@ -276,7 +371,7 @@ Begin VB.Form frmImages
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   4
+      TabIndex        =   15
       Top             =   6372
       Width           =   8088
       _ExtentX        =   14266
@@ -305,7 +400,7 @@ Begin VB.Form frmImages
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:48 AM"
+            TextSave        =   "12:13 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -359,14 +454,14 @@ Begin VB.Form frmImages
    Begin MSComctlLib.TabStrip tsImages 
       Height          =   5112
       Left            =   120
-      TabIndex        =   7
+      TabIndex        =   13
       Top             =   360
       Width           =   7812
       _ExtentX        =   13780
       _ExtentY        =   9017
       _Version        =   393216
       BeginProperty Tabs {1EFB6598-857C-11D1-B16A-00C0F0283628} 
-         NumTabs         =   3
+         NumTabs         =   2
          BeginProperty Tab1 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
             Caption         =   "General"
             Key             =   "General"
@@ -375,13 +470,6 @@ Begin VB.Form frmImages
             ImageVarType    =   2
          EndProperty
          BeginProperty Tab2 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
-            Caption         =   "Caption"
-            Key             =   "Caption"
-            Object.Tag             =   "Caption"
-            Object.ToolTipText     =   "Caption"
-            ImageVarType    =   2
-         EndProperty
-         BeginProperty Tab3 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
             Caption         =   "Image"
             Key             =   "Image"
             Object.Tag             =   "Image"
@@ -394,7 +482,7 @@ Begin VB.Form frmImages
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   24
+      TabIndex        =   25
       Top             =   0
       Width           =   8088
       _ExtentX        =   14266
@@ -546,7 +634,7 @@ Begin VB.Form frmImages
       Caption         =   "ID:"
       Height          =   192
       Left            =   60
-      TabIndex        =   9
+      TabIndex        =   17
       Top             =   6120
       Width           =   192
    End
@@ -556,7 +644,7 @@ Begin VB.Form frmImages
       DataSource      =   "dtaData"
       Height          =   192
       Left            =   348
-      TabIndex        =   8
+      TabIndex        =   16
       Top             =   6120
       Width           =   324
    End
@@ -618,6 +706,7 @@ Option Explicit
 Const ChunkSize As Long = 2048
 Public WithEvents rsMain As ADODB.Recordset
 Attribute rsMain.VB_VarHelpID = -1
+Dim rsCategories As New ADODB.Recordset
 Private Sub cmdCancel_Click()
     CancelCommand Me, rsMain
     cmdLoad.Enabled = False
@@ -631,9 +720,12 @@ Private Sub cmdOK_Click()
     If IsNull(rsMain("Image")) Then cmdView.Enabled = False
 End Sub
 Private Sub Form_Activate()
-    If rsMain Is Nothing Then Exit Sub
-    If IsNull(rsMain("Image")) Then Exit Sub
-    DisplayPicture
+    'We were only doing this to make sure the image got repainted in its
+    'reduced format... we seem to have corrected where this needed to
+    'be done...
+    'If rsMain Is Nothing Then Exit Sub
+    'If IsNull(rsMain("Image")) Then Exit Sub
+    'DisplayPicture
 End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
@@ -647,10 +739,18 @@ Private Sub Form_Load()
     rsMain.Open SQLmain, adoConn, adOpenKeyset, adLockBatchOptimistic
     DBcollection.Add "rsMain", rsMain
     
+    rsCategories.CursorLocation = adUseClient
+    rsCategories.Open "select distinct Category from [Images] order by Category", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsCategories", rsCategories
+    
     Set adodcMain.Recordset = rsMain
     BindField lblID, "ID", rsMain
     BindField txtName, "Name", rsMain
     BindField txtFileName, "FileName", rsMain
+    BindField lblHeight, "Height", rsMain
+    BindField lblWidth, "Width", rsMain
+    BindField dbcCategory, "Category", rsMain, rsCategories, "Category", "Category"
+    BindField txtSort, "Sort", rsMain
     BindField txtURL, "URL", rsMain
     'BindField picImage, "Image", rsMain
     BindField chkThumbnail, "Thumbnail", rsMain
@@ -809,6 +909,7 @@ Private Function DecodeImage(ByVal strTempFile As String) As Boolean
     Dim BytesLeft As Long
     Dim strData() As Byte
     
+    Me.MousePointer = vbHourglass
     BytesLeft = rsMain("Image").ActualSize
     If BytesLeft = 0 Then
         DecodeImage = False
@@ -821,6 +922,7 @@ Private Function DecodeImage(ByVal strTempFile As String) As Boolean
     strData = rsMain("Image").Value
     Put #FileUnit, , strData
     Close #FileUnit
+    Me.MousePointer = vbDefault
     DecodeImage = True
 End Function
 Private Sub DisplayPicture()
@@ -836,6 +938,7 @@ Private Sub DisplayPicture()
         picImage.Move 0, 0, picWindow.Width, picWindow.Height
         picImage.Picture = LoadPicture(strTempFile)
         scrollV.Visible = False
+        scrollV.Value = 0
         picRatio = 1
         picWidth = picWindow.Width
         picHeight = picWindow.Height
@@ -847,7 +950,7 @@ Private Sub DisplayPicture()
         picWidth = picRatio * picImage.Picture.Width
         picHeight = picRatio * picImage.Picture.Height
         
-        If picHeight > picImage.Height Then
+        If picHeight > picWindow.Height Then
             scrollV.Visible = True
             scrollV.ZOrder
             'Recalculate picRatio to take into consideration the width of the scroll bar...
@@ -858,14 +961,16 @@ Private Sub DisplayPicture()
             picHeight = picRatio * picImage.Picture.Height
             
             scrollV.Move picWindow.Left + picWindow.Width - scrollV.Width, picWindow.Top, scrollV.Width, picWindow.Height
-            scrollV.Max = picImage.Height - picWindow.Height
-            scrollV.SmallChange = picImage.Height / 1000
-            scrollV.LargeChange = picImage.Height / 50
+            scrollV.Max = picHeight - picWindow.Height
+            scrollV.SmallChange = picHeight / 500
+            scrollV.LargeChange = picHeight / 100
         End If
         picImage.PaintPicture picImage.Picture, 0, 0, picWidth, picHeight
+        picImage.Move 0, 0, picWidth, picHeight
         Kill strTempFile
         cmdView.Enabled = True
     End If
+    picImage.Visible = True
 End Sub
 Private Function EncodeImage(ByVal strImageFile As String) As Boolean
     Dim FileUnit As Integer
@@ -873,6 +978,7 @@ Private Function EncodeImage(ByVal strImageFile As String) As Boolean
     Dim BytesLeft As Long
     Dim bData() As Byte
     
+    Me.MousePointer = vbHourglass
     FileUnit = FreeFile
     Open strImageFile For Binary Access Read As #FileUnit
     BytesLeft = FileLen(strImageFile)
@@ -892,8 +998,13 @@ Private Function EncodeImage(ByVal strImageFile As String) As Boolean
         rsMain("Image").AppendChunk bData()
         BytesLeft = BytesLeft - Bytes
     Wend
+    picImage.Visible = False
     picImage.Picture = LoadPicture(strImageFile)
     rsMain("FileName") = ParsePath(strImageFile, FileNameBaseExt)
+    rsMain("Width") = picImage.Picture.Width \ Screen.TwipsPerPixelX
+    rsMain("Height") = picImage.Picture.Height \ Screen.TwipsPerPixelY
+    DisplayPicture
+    Me.MousePointer = vbDefault
     EncodeImage = True
     
 ExitSub:
@@ -901,6 +1012,25 @@ ExitSub:
 End Function
 Private Sub scrollV_Change()
     picImage.Top = -scrollV.Value
+End Sub
+Private Sub dbcCategory_GotFocus()
+    TextSelected
+End Sub
+Private Sub dbcCategory_Validate(Cancel As Boolean)
+    If Not dbcCategory.Enabled Then Exit Sub
+    If dbcCategory.Text = "" Then
+        MsgBox "Category must be specified!", vbExclamation, Me.Caption
+        dbcCategory.SetFocus
+        Cancel = True
+    End If
+    If rsCategories.Bookmark <> dbcCategory.SelectedItem Then rsCategories.Bookmark = dbcCategory.SelectedItem
+End Sub
+Private Sub txtSort_GotFocus()
+    TextSelected
+End Sub
+Private Sub txtSort_Validate(Cancel As Boolean)
+    If Trim(txtSort.Text) <> vbNullString Then Exit Sub
+    txtSort.Text = dbcCategory.Text & ": " & txtName.Text
 End Sub
 Private Sub txtURL_GotFocus()
     TextSelected
