@@ -5,14 +5,14 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmSoftware 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Software Inventory"
-   ClientHeight    =   3720
+   ClientHeight    =   4056
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3720
+   ScaleHeight     =   4056
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
@@ -20,8 +20,8 @@ Begin VB.Form frmSoftware
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   26
-      Top             =   3468
+      TabIndex        =   27
+      Top             =   3804
       Width           =   7524
       _ExtentX        =   13272
       _ExtentY        =   445
@@ -49,7 +49,7 @@ Begin VB.Form frmSoftware
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:39 PM"
+            TextSave        =   "11:46 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -85,8 +85,8 @@ Begin VB.Form frmSoftware
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6360
-      TabIndex        =   13
-      Top             =   3060
+      TabIndex        =   14
+      Top             =   3420
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
@@ -94,14 +94,14 @@ Begin VB.Form frmSoftware
       Default         =   -1  'True
       Height          =   372
       Left            =   5340
-      TabIndex        =   12
-      Top             =   3060
+      TabIndex        =   13
+      Top             =   3420
       Width           =   972
    End
    Begin MSAdodcLib.Adodc adodcMain 
       Height          =   312
-      Left            =   186
-      Top             =   2700
+      Left            =   192
+      Top             =   3060
       Width           =   7152
       _ExtentX        =   12615
       _ExtentY        =   550
@@ -147,9 +147,9 @@ Begin VB.Form frmSoftware
    Begin VB.TextBox txtInventoried 
       Height          =   288
       Left            =   1440
-      TabIndex        =   10
+      TabIndex        =   11
       Text            =   "Inventoried"
-      Top             =   2340
+      Top             =   2700
       Width           =   1812
    End
    Begin MSDataListLib.DataCombo dbcType 
@@ -214,8 +214,8 @@ Begin VB.Form frmSoftware
       Caption         =   "Cataloged"
       Height          =   192
       Left            =   3558
-      TabIndex        =   11
-      Top             =   2388
+      TabIndex        =   12
+      Top             =   2748
       Width           =   1152
    End
    Begin VB.TextBox txtTitle 
@@ -324,11 +324,23 @@ Begin VB.Form frmSoftware
       MatchEntry      =   -1  'True
       Text            =   "Media"
    End
+   Begin MSDataListLib.DataCombo dbcLocation 
+      Height          =   288
+      Left            =   1440
+      TabIndex        =   10
+      Top             =   2340
+      Width           =   2292
+      _ExtentX        =   4043
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   "Location"
+   End
    Begin MSComctlLib.Toolbar tbMain 
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   28
+      TabIndex        =   30
       Top             =   0
       Width           =   7524
       _ExtentX        =   13272
@@ -401,12 +413,22 @@ Begin VB.Form frmSoftware
       EndProperty
       BorderStyle     =   1
    End
+   Begin VB.Label lblLocation 
+      Alignment       =   1  'Right Justify
+      AutoSize        =   -1  'True
+      Caption         =   "Location:"
+      Height          =   192
+      Left            =   708
+      TabIndex        =   29
+      Top             =   2388
+      Width           =   648
+   End
    Begin VB.Label lblMedia 
       AutoSize        =   -1  'True
       Caption         =   "Media:"
       Height          =   192
       Left            =   4272
-      TabIndex        =   27
+      TabIndex        =   28
       Top             =   1709
       Width           =   492
    End
@@ -415,7 +437,7 @@ Begin VB.Form frmSoftware
       Caption         =   "Platform:"
       Height          =   192
       Left            =   732
-      TabIndex        =   25
+      TabIndex        =   26
       Top             =   1712
       Width           =   624
    End
@@ -424,7 +446,7 @@ Begin VB.Form frmSoftware
       Caption         =   "ISBN:"
       Height          =   192
       Left            =   4320
-      TabIndex        =   24
+      TabIndex        =   25
       Top             =   1036
       Width           =   408
    End
@@ -442,7 +464,7 @@ Begin VB.Form frmSoftware
       EndProperty
       Height          =   192
       Left            =   4404
-      TabIndex        =   23
+      TabIndex        =   24
       Top             =   1374
       Width           =   360
    End
@@ -451,8 +473,8 @@ Begin VB.Form frmSoftware
       Caption         =   "ID:"
       Height          =   192
       Left            =   6744
-      TabIndex        =   22
-      Top             =   2388
+      TabIndex        =   23
+      Top             =   2748
       Width           =   192
    End
    Begin VB.Label lblDateInventoried 
@@ -460,8 +482,8 @@ Begin VB.Form frmSoftware
       Caption         =   "Date Inventoried:"
       Height          =   192
       Left            =   144
-      TabIndex        =   21
-      Top             =   2388
+      TabIndex        =   22
+      Top             =   2748
       Width           =   1212
    End
    Begin VB.Label lblCDkey 
@@ -469,7 +491,7 @@ Begin VB.Form frmSoftware
       Caption         =   "CD Key:"
       Height          =   192
       Left            =   4188
-      TabIndex        =   20
+      TabIndex        =   21
       Top             =   2050
       Width           =   576
    End
@@ -478,7 +500,7 @@ Begin VB.Form frmSoftware
       Caption         =   "Type:"
       Height          =   192
       Left            =   936
-      TabIndex        =   19
+      TabIndex        =   20
       Top             =   2050
       Width           =   420
    End
@@ -496,7 +518,7 @@ Begin VB.Form frmSoftware
       EndProperty
       Height          =   192
       Left            =   900
-      TabIndex        =   18
+      TabIndex        =   19
       Top             =   1374
       Width           =   456
    End
@@ -505,7 +527,7 @@ Begin VB.Form frmSoftware
       Caption         =   "Version:"
       Height          =   192
       Left            =   768
-      TabIndex        =   17
+      TabIndex        =   18
       Top             =   1036
       Width           =   588
    End
@@ -514,7 +536,7 @@ Begin VB.Form frmSoftware
       Caption         =   "Title:"
       Height          =   192
       Left            =   1008
-      TabIndex        =   16
+      TabIndex        =   17
       Top             =   360
       Width           =   348
    End
@@ -523,7 +545,7 @@ Begin VB.Form frmSoftware
       Caption         =   "Publisher:"
       Height          =   192
       Left            =   648
-      TabIndex        =   15
+      TabIndex        =   16
       Top             =   698
       Width           =   708
    End
@@ -532,8 +554,8 @@ Begin VB.Form frmSoftware
       Caption         =   "ID"
       Height          =   192
       Left            =   7032
-      TabIndex        =   14
-      Top             =   2388
+      TabIndex        =   15
+      Top             =   2748
       Width           =   156
    End
    Begin VB.Menu mnuFile 
@@ -597,6 +619,7 @@ Dim rsPublishers As New ADODB.Recordset
 Dim rsTypes As New ADODB.Recordset
 Dim rsPlatforms As New ADODB.Recordset
 Dim rsMedias As New ADODB.Recordset
+Dim rsLocations As New ADODB.Recordset
 Private Sub cmdCancel_Click()
     CancelCommand Me, rsMain
 End Sub
@@ -626,6 +649,10 @@ Private Sub Form_Load()
     rsMedias.Open "select distinct Media from [Software] order by Media", adoConn, adOpenStatic, adLockReadOnly
     DBcollection.Add "rsMedias", rsMedias
     
+    rsLocations.CursorLocation = adUseClient
+    rsLocations.Open "select distinct Location from [Software] order by Location", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsLocations", rsLocations
+    
     rsTypes.CursorLocation = adUseClient
     rsTypes.Open "select distinct Type from [Software] order by Type", adoConn, adOpenStatic, adLockReadOnly
     DBcollection.Add "rsTypes", rsTypes
@@ -641,6 +668,7 @@ Private Sub Form_Load()
     BindField dbcType, "Type", rsMain, rsTypes, "Type", "Type"
     BindField dbcPlatform, "Platform", rsMain, rsPlatforms, "Platform", "Platform"
     BindField dbcMedia, "Media", rsMain, rsMedias, "Media", "Media"
+    BindField dbcLocation, "Location", rsMain, rsLocations, "Location", "Location"
     BindField txtCDkey, "CDkey", rsMain
     BindField chkCataloged, "Cataloged", rsMain
     BindField txtInventoried, "DateInventoried", rsMain
@@ -717,12 +745,25 @@ Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
     End Select
 End Sub
 '=================================================================================
+Private Sub dbcLocation_GotFocus()
+    TextSelected
+End Sub
+Private Sub dbcLocation_Validate(Cancel As Boolean)
+    If Not dbcLocation.Enabled Then Exit Sub
+    If dbcLocation.Text = vbNullString Then
+        MsgBox "Location must be specified!", vbExclamation, Me.Caption
+        dbcLocation.SetFocus
+        Cancel = True
+    End If
+    If dbcValidate(rsMain("Location"), dbcLocation) = 0 Then Cancel = True
+    If rsLocations.Bookmark <> dbcLocation.SelectedItem Then rsLocations.Bookmark = dbcLocation.SelectedItem
+End Sub
 Private Sub dbcMedia_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcMedia_Validate(Cancel As Boolean)
     If Not dbcMedia.Enabled Then Exit Sub
-    If dbcMedia.Text = "" Then
+    If dbcMedia.Text = vbNullString Then
         MsgBox "Media must be specified!", vbExclamation, Me.Caption
         dbcMedia.SetFocus
         Cancel = True
