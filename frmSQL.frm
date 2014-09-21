@@ -210,7 +210,7 @@ Begin VB.Form frmSQL
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:20 AM"
+            TextSave        =   "4:00 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -391,16 +391,14 @@ Private Sub dbcTables_Click(Area As Integer)
     cboFields.ListIndex = 0
 End Sub
 Private Sub dgdList_DblClick()
-    Dim iCol As Integer
-    Dim iRow As Long
     Dim col As Column
-    Dim ResizeCol As Column
-    Dim ResizeWindow As Single
     Dim ColRight As Single
-    Dim Bookmark As Variant
-    Dim DataWidth As Single
-    Dim WidestData As Single
+    Dim ColumnFormat As New StdDataFormat
+    Dim DataWidth As Long
+    Dim iCol As Integer
+    Dim ResizeWindow As Single
     Dim rsTemp As ADODB.Recordset
+    Dim WidestData As Long
     
     Me.MousePointer = vbHourglass
     
@@ -410,28 +408,27 @@ Private Sub dgdList_DblClick()
         ColRight = col.Left + col.Width
         If MouseY <= col.Top And MouseX >= (ColRight - ResizeWindow) And MouseX <= (ColRight + ResizeWindow) Then
             dgdList.ClearSelCols
-            If Not IsEmpty(dgdList.Bookmark) Then Bookmark = dgdList.Bookmark
-            iRow = dgdList.FirstRow
             lblA.Caption = col.Caption
             WidestData = lblA.Width
+            Set ColumnFormat = col.DataFormat
             Set rsTemp = rsList.Clone(adLockReadOnly)
             rsTemp.MoveFirst
             While Not rsTemp.EOF
                 If Not IsNull(rsTemp(col.Caption).Value) Then
-                    lblA.Caption = CStr(rsTemp(col.Caption).Value)
+                    If Not ColumnFormat Is Nothing Then
+                        lblA.Caption = Format(rsTemp(col.Caption).Value, col.DataFormat.Format)
+                    Else
+                        lblA.Caption = CStr(rsTemp(col.Caption).Value)
+                    End If
                     DataWidth = lblA.Width
                     If DataWidth > WidestData Then WidestData = DataWidth
                 End If
                 rsTemp.MoveNext
             Wend
             CloseRecordset rsTemp, True
+            Set ColumnFormat = Nothing
             col.Width = WidestData + (4 * ResizeWindow)
             If col.Width > dgdList.Width Then col.Width = col.Width - ResizeWindow
-            If Not IsEmpty(Bookmark) Then
-                dgdList.Bookmark = Bookmark
-            Else
-                rsList.MoveFirst
-            End If
             GoTo ExitSub
         End If
     Next iCol
