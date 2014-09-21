@@ -355,7 +355,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:09 PM"
+            TextSave        =   "11:23 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -776,8 +776,13 @@ Private Sub mnuRecordsNew_Click()
     NewCommand Me, rsMain
     
     Set tsKits.SelectedItem = tsKits.Tabs(1)
+    
+    'Defaults...
+    dbcConditions.BoundText = "New (boxed)"
+    dbcLocations.BoundText = "Closet"
     txtDateInventoried.Text = Format(Now(), fmtDate)
     txtDateVerified.Text = Format(Now(), fmtDate)
+    
     txtDesignation.SetFocus
 End Sub
 Private Sub mnuRecordsRefresh_Click()
