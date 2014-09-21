@@ -66,6 +66,7 @@ Designer=scrDetailSetsReport.Dsr
 Designer=scrFinishingProductsReport.Dsr
 Designer=scrRocketsReport.Dsr
 Designer=scrToolsReport.Dsr
+Designer=scrTrainsReport.Dsr
 Startup="frmMain"
 HelpFile=""
 Title="HomeInventory"
