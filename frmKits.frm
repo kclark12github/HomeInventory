@@ -354,7 +354,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:21 PM"
+            TextSave        =   "10:40 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -923,6 +923,7 @@ End Sub
 Private Sub txtDateVerified_Validate(Cancel As Boolean)
     On Error Resume Next
     txtDateVerified.Text = Format(txtDateVerified.Text, "mm/dd/yyyy hh:mm AMPM")
+    If txtDateVerified.Text = vbNullString Then txtDateVerified.Text = Format(Now(), fmtDate)
     If Not IsDate(txtDateVerified.Text) Then
         MsgBox "Invalid date format", vbExclamation
         Cancel = True
@@ -941,6 +942,7 @@ End Sub
 Private Sub txtDateInventoried_Validate(Cancel As Boolean)
     On Error Resume Next
     txtDateInventoried.Text = Format(txtDateInventoried.Text, "mm/dd/yyyy hh:mm AMPM")
+    If txtDateInventoried.Text = vbNullString Then txtDateInventoried.Text = Format(Now(), fmtDate)
     If Not IsDate(txtDateInventoried.Text) Then
         MsgBox "Invalid date format", vbExclamation
         Cancel = True

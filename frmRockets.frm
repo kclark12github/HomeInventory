@@ -49,7 +49,7 @@ Begin VB.Form frmRockets
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:56 PM"
+            TextSave        =   "10:47 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -770,6 +770,16 @@ Private Sub txtDesignation_KeyPress(KeyAscii As Integer)
 End Sub
 Private Sub txtInventoried_GotFocus()
     TextSelected
+End Sub
+Private Sub txtInventoried_Validate(Cancel As Boolean)
+    On Error Resume Next
+    txtInventoried.Text = Format(txtInventoried.Text, "mm/dd/yyyy hh:mm AMPM")
+    If txtInventoried.Text = vbNullString Then txtInventoried.Text = Format(Now(), fmtDate)
+    If Not IsDate(txtInventoried.Text) Then
+        MsgBox "Invalid date format", vbExclamation
+        Cancel = True
+        Exit Sub
+    End If
 End Sub
 Private Sub txtName_GotFocus()
     TextSelected

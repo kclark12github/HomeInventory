@@ -57,7 +57,7 @@ Begin VB.Form frmMovies
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:08 PM"
+            TextSave        =   "10:46 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -619,6 +619,16 @@ Private Sub dbcSubject_Validate(Cancel As Boolean)
 End Sub
 Private Sub txtInventoried_GotFocus()
     TextSelected
+End Sub
+Private Sub txtInventoried_Validate(Cancel As Boolean)
+    On Error Resume Next
+    txtInventoried.Text = Format(txtInventoried.Text, "mm/dd/yyyy hh:mm AMPM")
+    If txtInventoried.Text = vbNullString Then txtInventoried.Text = Format(Now(), fmtDate)
+    If Not IsDate(txtInventoried.Text) Then
+        MsgBox "Invalid date format", vbExclamation
+        Cancel = True
+        Exit Sub
+    End If
 End Sub
 Private Sub txtTitle_GotFocus()
     TextSelected

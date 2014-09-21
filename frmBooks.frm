@@ -49,7 +49,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:50 PM"
+            TextSave        =   "10:43 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -731,11 +731,13 @@ Private Sub txtInventoried_GotFocus()
     TextSelected
 End Sub
 Private Sub txtInventoried_Validate(Cancel As Boolean)
-    If Not txtInventoried.Enabled Then Exit Sub
-    If txtInventoried.Text = "" Then
-        MsgBox "Date Inventoried must be specified!", vbExclamation, Me.Caption
-        txtInventoried.SetFocus
+    On Error Resume Next
+    txtInventoried.Text = Format(txtInventoried.Text, "mm/dd/yyyy hh:mm AMPM")
+    If txtInventoried.Text = vbNullString Then txtInventoried.Text = Format(Now(), fmtDate)
+    If Not IsDate(txtInventoried.Text) Then
+        MsgBox "Invalid date format", vbExclamation
         Cancel = True
+        Exit Sub
     End If
 End Sub
 Private Sub txtISBN_GotFocus()
