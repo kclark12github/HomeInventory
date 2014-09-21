@@ -587,6 +587,43 @@ Const vSpace As Integer = 60
 Const hSpace As Integer = 60
 Const StartTop As Integer = 60
 Const StartLeft As Integer = 240
+Private Sub cmdApply_Click()
+    Dim SQLsource As String
+    Dim i As Integer
+    'Parse fields on screen and build a filter for the recordset...
+    
+    SQLsource = ""
+    For i = 0 To RS.Fields.Count - 1
+        If Len(txtFields(i).Text) > 0 Then
+            If Mid(txtFields(i).Text, 1, 1) = "=" Or _
+                Mid(txtFields(i).Text, 1, 2) = "<=" Or _
+                Mid(txtFields(i).Text, 1, 2) = ">=" Or _
+                Mid(txtFields(i).Text, 1, 1) = "<" Or _
+                Mid(txtFields(i).Text, 1, 1) = ">" Or _
+                UCase(Mid(txtFields(i).Text, 1, 4)) = "LIKE" Then
+                'Take what the user said literally...
+                SQLsource = SQLsource & RS.Fields(i).Name & " " & txtFields(i).Text & " and "
+            Else
+                Select Case RS.Fields(i).Type
+                    Case adVarChar, adChar
+                        SQLsource = SQLsource & RS.Fields(i).Name & "='" & SQLQuote(txtFields(i).Text) & "' and "
+                    Case adDate, adDBDate, adDBTime, adDBTimeStamp
+                        SQLsource = SQLsource & RS.Fields(i).Name & "=#" & txtFields(i).Text & "# and "
+                    Case Else
+                        SQLsource = SQLsource & RS.Fields(i).Name & "=" & SQLQuote(txtFields(i).Text) & " and "
+                End Select
+            End If
+        End If
+    Next i
+    If Len(SQLsource) > 0 Then SQLsource = Left(SQLsource, Len(SQLsource) - 5)  'Get rid of the final " and "...
+    On Error Resume Next
+    RS.Filter = SQLsource
+    If Err.Number > 0 Then
+        MsgBox "Invalid filter specified", vbExclamation
+    Else
+        Unload Me
+    End If
+End Sub
 Private Sub cmdCancel_Click()
     Unload Me
 End Sub
@@ -625,7 +662,7 @@ Private Sub Form_Activate()
         
         iTop = iTop + txtFields(i).Height + vSpace
     Next i
-
+    
 ExitSub:
     NewHeight = (txtFields(i - 1).Top + txtFields(i - 1).Height + vSpace) + Me.Height - Me.ScaleHeight
     If NewHeight > Me.Height Then
@@ -634,6 +671,7 @@ ExitSub:
         Me.Top = Me.Top - ((NewHeight - Me.Height) / 2)
     End If
     Me.Height = NewHeight
+    txtFields(0).SetFocus
 End Sub
 Private Sub Form_Load()
     Dim i As Integer
@@ -642,4 +680,10 @@ Private Sub Form_Load()
         txtFields(i).Visible = False
         lblFields(i).Visible = False
     Next
+End Sub
+Private Sub txtFields_GotFocus(Index As Integer)
+    TextSelected
+End Sub
+Private Sub txtFields_Validate(Index As Integer, Cancel As Boolean)
+    txtFields(Index).Text = Trim(txtFields(Index).Text)
 End Sub

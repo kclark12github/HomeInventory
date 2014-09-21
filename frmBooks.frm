@@ -719,7 +719,6 @@ Private Sub mnuActionFilter_Click()
     frmFilter.Height = frm.Height
     
     Set frmFilter.RS = rsBooks
-    
     frmFilter.Show vbModal
 End Sub
 Private Sub mnuActionNew_Click()
