@@ -1,4 +1,5 @@
 VERSION 5.00
+Object = "{CDE57A40-8B86-11D0-B3C6-00A0C90AEA82}#1.0#0"; "MSDATGRD.OCX"
 Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{38911DA0-E448-11D0-84A3-00DD01104159}#1.1#0"; "COMCT332.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
@@ -15,7 +16,7 @@ Begin VB.Form frmSQL
    Begin ComCtl3.CoolBar cbToolBar 
       Height          =   648
       Left            =   0
-      TabIndex        =   5
+      TabIndex        =   8
       Top             =   0
       Width           =   7572
       _ExtentX        =   13356
@@ -46,7 +47,7 @@ Begin VB.Form frmSQL
          Height          =   288
          Left            =   876
          Locked          =   -1  'True
-         TabIndex        =   8
+         TabIndex        =   0
          Top             =   24
          Width           =   6624
       End
@@ -55,14 +56,14 @@ Begin VB.Form frmSQL
          Left            =   3636
          Sorted          =   -1  'True
          Style           =   2  'Dropdown List
-         TabIndex        =   7
+         TabIndex        =   2
          Top             =   336
          Width           =   3864
       End
       Begin MSDataListLib.DataCombo dbcTables 
          Height          =   288
          Left            =   732
-         TabIndex        =   6
+         TabIndex        =   1
          Top             =   336
          Width           =   2196
          _ExtentX        =   3874
@@ -75,9 +76,74 @@ Begin VB.Form frmSQL
       Caption         =   "Results"
       Height          =   1092
       Left            =   120
-      TabIndex        =   2
+      TabIndex        =   5
       Top             =   2160
       Width           =   3492
+      Begin MSDataGridLib.DataGrid dgdResults 
+         Height          =   852
+         Left            =   60
+         TabIndex        =   9
+         Top             =   180
+         Width           =   3372
+         _ExtentX        =   5948
+         _ExtentY        =   1503
+         _Version        =   393216
+         AllowUpdate     =   0   'False
+         HeadLines       =   1
+         RowHeight       =   15
+         BeginProperty HeadFont {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   7.8
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "MS Sans Serif"
+            Size            =   7.8
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ColumnCount     =   2
+         BeginProperty Column00 
+            DataField       =   ""
+            Caption         =   ""
+            BeginProperty DataFormat {6D835690-900B-11D0-9484-00A0C91110ED} 
+               Type            =   0
+               Format          =   ""
+               HaveTrueFalseNull=   0
+               FirstDayOfWeek  =   0
+               FirstWeekOfYear =   0
+               LCID            =   1033
+               SubFormatType   =   0
+            EndProperty
+         EndProperty
+         BeginProperty Column01 
+            DataField       =   ""
+            Caption         =   ""
+            BeginProperty DataFormat {6D835690-900B-11D0-9484-00A0C91110ED} 
+               Type            =   0
+               Format          =   ""
+               HaveTrueFalseNull=   0
+               FirstDayOfWeek  =   0
+               FirstWeekOfYear =   0
+               LCID            =   1033
+               SubFormatType   =   0
+            EndProperty
+         EndProperty
+         SplitCount      =   1
+         BeginProperty Split0 
+            BeginProperty Column00 
+            EndProperty
+            BeginProperty Column01 
+            EndProperty
+         EndProperty
+      End
       Begin VB.TextBox txtResults 
          BeginProperty Font 
             Name            =   "r_ansi"
@@ -93,7 +159,7 @@ Begin VB.Form frmSQL
          Locked          =   -1  'True
          MultiLine       =   -1  'True
          ScrollBars      =   3  'Both
-         TabIndex        =   3
+         TabIndex        =   6
          Top             =   180
          Width           =   3372
       End
@@ -102,14 +168,15 @@ Begin VB.Form frmSQL
       Caption         =   "SQL Statement"
       Height          =   1092
       Left            =   1140
-      TabIndex        =   0
+      TabIndex        =   3
       Top             =   720
       Width           =   3492
       Begin VB.TextBox txtSQL 
          Height          =   852
          Left            =   60
          MultiLine       =   -1  'True
-         TabIndex        =   1
+         ScrollBars      =   3  'Both
+         TabIndex        =   4
          Top             =   180
          Width           =   3372
       End
@@ -118,7 +185,7 @@ Begin VB.Form frmSQL
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   4
+      TabIndex        =   7
       Top             =   5004
       Width           =   7596
       _ExtentX        =   13399
@@ -143,10 +210,20 @@ Begin VB.Form frmSQL
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "8:08 PM"
+            TextSave        =   "11:26 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
+   End
+   Begin VB.Label lblA 
+      AutoSize        =   -1  'True
+      Caption         =   "A"
+      Height          =   192
+      Left            =   6360
+      TabIndex        =   10
+      Top             =   1140
+      Visible         =   0   'False
+      Width           =   108
    End
 End
 Attribute VB_Name = "frmSQL"
@@ -163,21 +240,35 @@ Dim InitialWidth As Double
 Dim InitialHeight As Double
 Dim RecordsAffected As Long
 Public cnSQL As ADODB.Connection
+Dim adoRS As ADODB.Recordset
 Dim rsTables As New ADODB.Recordset
 Dim rsFields As New ADODB.Recordset
+Dim MouseY As Single
+Dim MouseX As Single
+Private SortDESC() As Boolean
 Private Sub ExecuteSQL()
-    Dim adoRS As ADODB.Recordset
     Dim adoError As ADODB.Error
     Dim fActiveTrans As Boolean
     Dim fld As ADODB.Field
     Dim fResponse As Boolean
     Dim ErrorCount As Long
-    Dim RecordsOutput As Long
     Dim strOutput As String
+    Dim eMessage As String
+    Dim BooleanFormat As New StdDataFormat
+    Dim CurrencyFormat As New StdDataFormat
+    Dim DateFormat As New StdDataFormat
+    Dim col As Column
     
     On Error GoTo ErrorHandler
+    BooleanFormat.Format = "Yes/No"
+    CurrencyFormat.Format = "Currency"
+    DateFormat.Format = "dd-MMM-yyyy hh:nn AMPM"
+    
+    Set dgdResults.DataSource = Nothing
     txtResults.Text = vbNullString
+    txtResults.Visible = True
     txtResults.SetFocus
+    dgdResults.Visible = False
     
     fActiveTrans = False
     Select Case UCase(Mid(txtSQL.Text, 1, 6))
@@ -185,24 +276,57 @@ Private Sub ExecuteSQL()
             cnSQL.BeginTrans
             fActiveTrans = True
             Set adoRS = cnSQL.Execute(txtSQL.Text, RecordsAffected)
+            dgdResults.Visible = False
+            txtResults.Visible = True
         Case "SELECT"
+            CloseRecordset adoRS, True
             Set adoRS = New ADODB.Recordset
+            adoRS.CursorLocation = adUseClient
             adoRS.Open txtSQL.Text, cnSQL, adOpenKeyset, adLockReadOnly
+            Set dgdResults.DataSource = adoRS
+            ReDim SortDESC(0 To dgdResults.Columns.Count - 1)
+            
+            For Each fld In adoRS.Fields
+                Set col = dgdResults.Columns(fld.Name)
+                Select Case fld.Type
+                    Case adCurrency
+                        Set col.DataFormat = CurrencyFormat
+                        col.Alignment = dbgRight
+                    Case adBoolean
+                        Set col.DataFormat = BooleanFormat
+                        col.Alignment = dbgCenter
+                    Case adDate, adDBDate
+                        Set col.DataFormat = DateFormat
+                        col.Alignment = dbgCenter
+                    Case Else
+                        col.Alignment = dbgGeneral
+                End Select
+            Next
+            dgdResults.Visible = True
+            txtResults.Visible = False
     End Select
     
-    For Each adoError In cnSQL.Errors
-        If Trim(adoError.Description) <> vbNullString Then
-            txtResults.Text = txtResults.Text & adoError.Description & "(" & Hex(adoError.Number) & ")" & vbCrLf
-            txtResults.Text = txtResults.Text & vbTab & "Source: " & adoError.Source & vbCrLf & _
-                vbTab & "SQL State: " & adoError.SQLState & vbCrLf & _
-                vbTab & "Native Error: " & adoError.NativeError & vbCrLf
-            ErrorCount = ErrorCount + 1
-        End If
-    Next
-    
-    If ErrorCount > 0 Then
-        If fActiveTrans Then cnSQL.RollbackTrans
-        Exit Sub
+    If cnSQL.Errors.Count > 0 Then
+        For Each adoError In cnSQL.Errors
+            If Trim(adoError.Description) <> vbNullString Then
+                strOutput = adoError.Description & "(" & Hex(adoError.Number) & ")" & vbCrLf
+                strOutput = strOutput & vbTab & "Source: " & adoError.Source & vbCrLf & _
+                    vbTab & "SQL State: " & adoError.SQLState & vbCrLf & _
+                    vbTab & "Native Error: " & adoError.NativeError & vbCrLf
+                ErrorCount = ErrorCount + 1
+                Select Case UCase(Mid(txtSQL.Text, 1, 6))
+                    Case "DELETE", "UPDATE"
+                        txtResults = strOutput
+                        If ErrorCount > 0 Then
+                            If fActiveTrans Then cnSQL.RollbackTrans
+                            Exit Sub
+                        End If
+                    Case "SELECT"
+                        If adoRS.RecordCount = 0 Then MsgBox strOutput, vbExclamation, Me.Caption
+                    Case Else
+                End Select
+            End If
+        Next
     End If
     
     Select Case UCase(Mid(txtSQL.Text, 1, 6))
@@ -211,157 +335,7 @@ Private Sub ExecuteSQL()
         Case "UPDATE"
             fResponse = MsgBox(RecordsAffected & " Records updated... Commit transaction?", vbYesNo, Me.Caption) = vbYes
         Case "SELECT"
-            'Print Column Headers...
-            strOutput = vbNullString
-            For Each fld In adoRS.Fields
-                strOutput = strOutput & fld.Name
-                Select Case fld.Type
-                    Case adLongVarChar
-                        strOutput = strOutput & String(80 - Len(fld.Name) + 1, " ")
-                    Case adVarChar, adChar
-                        If fld.DefinedSize > 80 Then
-                            strOutput = strOutput & String(80 - Len(fld.Name) + 1, " ")
-                        Else
-                            strOutput = strOutput & String(fld.DefinedSize - Len(fld.Name) + 1, " ")
-                        End If
-                    Case adInteger, adCurrency
-                        strOutput = strOutput & String(10 - Len(fld.Name) + 1, " ")
-                    Case adDate, adDBDate, adDBTimeStamp
-                        strOutput = strOutput & String(20 - Len(fld.Name) + 1, " ")
-                    Case Else
-                        strOutput = strOutput & " "
-                End Select
-            Next
-            txtResults.Text = strOutput & vbCrLf
-            
-            'Now a column header separator line...
-            strOutput = vbNullString
-            For Each fld In adoRS.Fields
-                Select Case fld.Type
-                    Case adLongVarChar
-                        strOutput = strOutput & String(80, "=") & " "
-                    Case adVarChar, adChar
-                        If fld.DefinedSize > 80 Then
-                            strOutput = strOutput & String(80, "=") & " "
-                        Else
-                            strOutput = strOutput & String(fld.DefinedSize, "=") & " "
-                        End If
-                    Case adInteger, adCurrency
-                        strOutput = strOutput & String(10, "=") & " "
-                    Case adDate, adDBDate, adDBTimeStamp
-                        strOutput = strOutput & String(20, "=") & " "
-                    Case Else
-                        strOutput = strOutput & String(Len(fld.Name), "=") & " "
-                End Select
-            Next
-            txtResults.Text = txtResults.Text & strOutput & vbCrLf
-            
-            RecordsOutput = 0
-            If Not (adoRS.EOF And adoRS.BOF) Then
-                'Now print a row for each record...
-                adoRS.MoveFirst
-                While Not adoRS.EOF And Len(txtResults.Text) < BufferLimit
-                    strOutput = vbNullString
-                    For Each fld In adoRS.Fields
-                        If IsNull(fld.Value) Then
-                            Select Case fld.Type
-                                Case adVarChar, adChar
-                                    If Len(fld.Name) > fld.DefinedSize Then
-                                        strOutput = strOutput & "<Null>" & String(Len(fld.Name) - Len("<Null>") + 1, " ")
-                                    ElseIf fld.DefinedSize > 80 Then
-                                        strOutput = strOutput & "<Null>" & String(80 - Len("<Null>") + 1, " ")
-                                    Else
-                                        strOutput = strOutput & "<Null>" & String(fld.DefinedSize - Len("<Null>") + 1, " ")
-                                    End If
-                                Case adCurrency
-                                    If Len(fld.Name) > Len("<Null>") Then
-                                        strOutput = strOutput & "<Null>" & String(Len(fld.Name) - Len("<Null>") + 1, " ")
-                                    Else
-                                        strOutput = strOutput & "<Null>" & String(10 - Len("<Null>") + 1, " ")
-                                    End If
-                                Case adInteger
-                                    If Len(fld.Name) > 10 Then
-                                        strOutput = strOutput & "<Null>" & String(Len(fld.Name) - Len("<Null>") + 1, " ")
-                                    Else
-                                        strOutput = strOutput & "<Null>" & String(10 - Len("<Null>") + 1, " ")
-                                    End If
-                                Case adDate, adDBDate, adDBTimeStamp
-                                    If Len(fld.Name) > 20 Then
-                                        strOutput = strOutput & "<Null>" & String(Len(fld.Name) - Len("<Null>") + 1, " ")
-                                    Else
-                                        strOutput = strOutput & "<Null>" & String(20 - Len("<Null>") + 1, " ")
-                                    End If
-                                Case adBoolean
-                                    If Len(fld.Name) > Len("<Null>") Then
-                                        strOutput = strOutput & "<Null>" & String(Len(fld.Name) - Len("<Null>") + 1, " ")
-                                    Else
-                                        strOutput = strOutput & "<Null>" & String(Len("false") - Len("<Null>") + 1, " ")
-                                    End If
-                                Case Else
-                                    If Len(fld.Name) > Len("<Null>") Then
-                                        strOutput = strOutput & "<Null>" & String(Len(fld.Name) - Len("<Null>") + 1, " ")
-                                    ElseIf fld.ActualSize > 80 Then
-                                        strOutput = strOutput & "<Null>" & String(80 - Len("<Null>") + 1, " ")
-                                    ElseIf fld.DefinedSize > 80 Then
-                                        strOutput = strOutput & "<Null>" & String(80 - Len("<Null>") + 1, " ")
-                                    Else
-                                        strOutput = strOutput & "<Null>" & String(fld.DefinedSize - Len("<Null>") + 1, " ")
-                                    End If
-                            End Select
-                        Else
-                            'If fld.DefinedSize > 80 Then Debug.Print fld.Name & " (" & fld.DefinedSize & ")"
-                            Select Case fld.Type
-                                Case adVarChar, adChar
-                                    If Len(fld.Name) > fld.DefinedSize Then
-                                        strOutput = strOutput & fld.Value & String(Len(fld.Name) - Len(fld.Value) + 1, " ")
-                                    ElseIf fld.DefinedSize > 80 Then
-                                        strOutput = strOutput & Mid(fld.Value, 1, 80) & String(80 - Len(fld.Value) + 1, " ")
-                                    Else
-                                        strOutput = strOutput & fld.Value & String(fld.DefinedSize - Len(fld.Value) + 1, " ")
-                                    End If
-                                Case adCurrency
-                                    If Len(fld.Name) > Len(Format(fld.Value, "Currency")) Then
-                                        strOutput = strOutput & Format(fld.Value, "Currency") & String(Len(fld.Name) - Len(Format(fld.Value, "Currency")) + 1, " ")
-                                    Else
-                                        strOutput = strOutput & Format(fld.Value, "Currency") & String(10 - Len(Format(fld.Value, "Currency")) + 1, " ")
-                                    End If
-                                Case adInteger
-                                    If Len(fld.Name) > 10 Then
-                                        strOutput = strOutput & fld.Value & String(Len(fld.Name) - Len(fld.Value) + 1, " ")
-                                    Else
-                                        strOutput = strOutput & fld.Value & String(10 - Len(fld.Value) + 1, " ")
-                                    End If
-                                Case adDate, adDBDate, adDBTimeStamp
-                                    If Len(fld.Name) > 20 Then
-                                        strOutput = strOutput & Format(fld.Value, "dd-MMM-yyyy hh:mm AMPM") & String(Len(fld.Name) - 20 + 1, " ")
-                                    Else
-                                        strOutput = strOutput & Format(fld.Value, "dd-MMM-yyyy hh:mm AMPM") & " "
-                                    End If
-                                Case adBoolean
-                                    If Len(fld.Name) > Len("false") Then
-                                        strOutput = strOutput & fld.Value & String(Len(fld.Name) - Len(fld.Value) + 1, " ")
-                                    Else
-                                        strOutput = strOutput & fld.Value & String(Len("false") - Len(fld.Value) + 1, " ")
-                                    End If
-                                Case Else
-                                    If Len(fld.Name) > Len(fld.Value) Then
-                                        strOutput = strOutput & fld.Value & String(Len(fld.Name) - Len(fld.Value) + 1, " ")
-                                    ElseIf fld.ActualSize > 80 Then
-                                        strOutput = strOutput & Mid(fld.Value, 1, 80) & " "
-                                    ElseIf fld.DefinedSize > 80 Then
-                                        strOutput = strOutput & fld.Value & String(80 - Len(fld.Value) + 1, " ")
-                                    Else
-                                        strOutput = strOutput & fld.Value & String(fld.DefinedSize - Len(fld.Value) + 1, " ")
-                                    End If
-                            End Select
-                        End If
-                    Next
-                    txtResults.Text = txtResults.Text & strOutput & vbCrLf
-                    RecordsOutput = RecordsOutput + 1
-                    adoRS.MoveNext
-                Wend
-                RecordsAffected = adoRS.RecordCount
-            End If
+            RecordsAffected = adoRS.RecordCount
         Case Else
     End Select
     
@@ -375,15 +349,11 @@ Private Sub ExecuteSQL()
     
     Select Case UCase(Mid(txtSQL.Text, 1, 6))
         Case "SELECT"
-            If Len(txtResults.Text) >= BufferLimit Then
-                strOutput = RecordsOutput & " of " & RecordsAffected & " record(s)"
-            Else
-                strOutput = RecordsOutput & " record(s) read"
-            End If
+            strOutput = RecordsAffected & " record(s) read"
         Case "DELETE"
-            strOutput = RecordsOutput & " record(s) deleted"
+            strOutput = RecordsAffected & " record(s) deleted"
         Case "UPDATE"
-            strOutput = RecordsOutput & " record(s) updated"
+            strOutput = RecordsAffected & " record(s) updated"
     End Select
     sbStatus.Panels("Message").Text = strOutput
     txtSQL.SetFocus
@@ -391,13 +361,14 @@ Private Sub ExecuteSQL()
     
 ErrorHandler:
     Select Case Err.Number
-        Case 7  'Out of memory
-            BufferLimit = Len(txtResults.Text)
-            Resume Next
+        'Case 7, -2147024882  'Out of memory
+        '    eMessage = " (truncated at " & Format(Len(txtResults.Text), "#,###") & " bytes)"
         Case Else
             MsgBox Err.Description & " (" & Err.Number & ")", vbExclamation, Me.Caption
     End Select
+    'BufferLimit = Len(txtResults.Text)
     If fActiveTrans Then cnSQL.RollbackTrans
+    Resume Next
     Exit Sub
 End Sub
 Private Sub cbToolBar_HeightChanged(ByVal NewHeight As Single)
@@ -419,10 +390,62 @@ Private Sub dbcTables_Click(Area As Integer)
     Next fld
     cboFields.ListIndex = 0
 End Sub
+Private Sub dgdResults_DblClick()
+    Dim iCol As Integer
+    Dim iRow As Long
+    Dim col As Column
+    Dim ResizeCol As Column
+    Dim ResizeWindow As Single
+    Dim ColRight As Single
+    Dim Bookmark As Variant
+    Dim DataWidth As Long
+    Dim WidestData As Long
+    
+    ResizeWindow = 36
+    For iCol = dgdResults.LeftCol To dgdResults.LeftCol + dgdResults.VisibleCols - 1
+        Set col = dgdResults.Columns(iCol)
+        ColRight = col.Left + col.Width
+        If MouseY <= col.Top And MouseX >= (ColRight - ResizeWindow) And MouseX <= (ColRight + ResizeWindow) Then
+            dgdResults.ClearSelCols
+            If Not IsEmpty(dgdResults.Bookmark) Then Bookmark = dgdResults.Bookmark
+            iRow = dgdResults.FirstRow
+            WidestData = Len(col.Caption)
+            adoRS.MoveFirst
+            While Not adoRS.EOF
+                If Not IsNull(adoRS(col.Caption).Value) Then
+                    DataWidth = Len(CStr(adoRS(col.Caption).Value))
+                    If DataWidth > WidestData Then WidestData = DataWidth
+                End If
+                adoRS.MoveNext
+            Wend
+            col.Width = WidestData * lblA.Width
+            If col.Width > dgdResults.Width Then col.Width = col.Width - ResizeWindow
+            If Not IsEmpty(Bookmark) Then
+                dgdResults.Bookmark = Bookmark
+            Else
+                adoRS.MoveFirst
+            End If
+        End If
+    Next iCol
+End Sub
+Private Sub dgdResults_HeadClick(ByVal ColIndex As Integer)
+    If SortDESC(ColIndex) Then
+        adoRS.Sort = dgdResults.Columns(ColIndex).Caption & " DESC"
+    Else
+        adoRS.Sort = dgdResults.Columns(ColIndex).Caption & " ASC"
+    End If
+    SortDESC(ColIndex) = Not SortDESC(ColIndex)
+End Sub
+Private Sub dgdResults_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    MouseX = X
+    MouseY = Y
+End Sub
 Private Sub Form_Activate()
     Dim SQLsource As String
     
     sbStatus.Panels("Status").Text = "SQL"
+    dgdResults.Visible = False
+    txtResults.Visible = True
     
     CloseRecordset rsTables, False
     SQLsource = _
@@ -441,6 +464,7 @@ Private Sub Form_Activate()
     BufferLimit = 50 * KB
     InitialWidth = Me.Width
     InitialHeight = Me.Height
+    txtSQL.SetFocus
 End Sub
 Private Sub Form_Resize()
     Dim NewFrameWidth As Double
@@ -462,9 +486,11 @@ Private Sub Form_Resize()
     txtSQL.Move MarginTwips, 3 * MarginTwips, frameSQL.Width - (2 * MarginTwips), frameSQL.Height - (4 * MarginTwips)
     'frameResults.Move MarginTwips, frameSQL.Top + frameSQL.Height + MarginTwips, NewFrameWidth, Me.ScaleHeight - frameSQL.Height - (3 * MarginTwips) - sbStatus.Height
     frameResults.Move MarginTwips, frameSQL.Top + frameSQL.Height + MarginTwips, NewFrameWidth, Me.ScaleHeight - frameSQL.Height - (3 * MarginTwips) - sbStatus.Height - cbToolBar.Height
+    dgdResults.Move MarginTwips, 3 * MarginTwips, frameResults.Width - (2 * MarginTwips), frameResults.Height - (4 * MarginTwips)
     txtResults.Move MarginTwips, 3 * MarginTwips, frameResults.Width - (2 * MarginTwips), frameResults.Height - (4 * MarginTwips)
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
+    CloseRecordset adoRS, True
     CloseRecordset rsTables, True
     CloseRecordset rsFields, True
     Set cnSQL = Nothing
