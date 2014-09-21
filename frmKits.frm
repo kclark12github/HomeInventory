@@ -49,7 +49,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:31 AM"
+            TextSave        =   "1:20 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -946,7 +946,7 @@ Private Sub mnuActionReport_Click()
     Dim Report As New scrKitsReport
     Dim vRS As ADODB.Recordset
     
-    MakeVirtualRecordset adoConn, rsKits.Source, vRS
+    MakeVirtualRecordset adoConn, rsKits, vRS
     
     Load frmViewReport
     frmViewReport.Caption = Me.Caption & " Report"

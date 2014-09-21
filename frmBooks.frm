@@ -49,7 +49,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:33 AM"
+            TextSave        =   "1:21 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -801,7 +801,7 @@ Private Sub mnuActionReport_Click()
     Dim Report As New scrBooksReport
     Dim vRS As ADODB.Recordset
     
-    MakeVirtualRecordset adoConn, rsBooks.Source, vRS
+    MakeVirtualRecordset adoConn, rsBooks, vRS
     
     Load frmViewReport
     frmViewReport.Caption = Me.Caption & " Report"
