@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "9:34 PM"
+            TextSave        =   "10:49 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -297,6 +297,8 @@ Private Sub dgdList_KeyUp(KeyCode As Integer, Shift As Integer)
     Dim col As Column
     Dim i As Integer
     
+    On Error Resume Next
+        
     Select Case KeyCode
         Case vbKeyEscape
             If RS.EditMode = adEditInProgress Then RS.Update
@@ -348,7 +350,7 @@ Private Sub dgdList_RowColChange(LastRow As Variant, ByVal LastCol As Integer)
         For i = 0 To dgdList.SelBookmarks.Count - 1
             dgdList.SelBookmarks.Remove 0
         Next i
-        dgdList.SelBookmarks.Add dgdList.Bookmark
+        If Not IsNull(dgdList.Bookmark) Then dgdList.SelBookmarks.Add dgdList.Bookmark
     
         'Find a hidden column and use it to select the whole row...
         For Each col In dgdList.Columns
@@ -444,7 +446,10 @@ End Sub
 Private Sub Form_Unload(Cancel As Integer)
     Dim i As Integer
     
-    If (RS.Status And adRecPendingChanges) = adRecPendingChanges Then RS.UpdateBatch
+    On Error Resume Next
+    If Not RS Is Nothing Then
+        If (RS.Status And adRecPendingChanges) = adRecPendingChanges Then RS.UpdateBatch
+    End If
     
     'Save the column settings for the next display...
     For i = 0 To dgdList.Columns.Count - 1
