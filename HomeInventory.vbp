@@ -61,6 +61,7 @@ Designer=scrDesignationsReport.Dsr
 Designer=scrBlueAngelsReport.Dsr
 Form=frmBlueAngelsHistory.frm
 Designer=scrCompaniesReport.Dsr
+Designer=scrDecalsReport.Dsr
 Startup="frmMain"
 HelpFile=""
 Title="HomeInventory"
