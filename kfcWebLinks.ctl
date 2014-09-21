@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "COMCTL32.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Begin VB.UserControl kfcWebLinks 
    ClientHeight    =   3876
    ClientLeft      =   0
@@ -17,7 +17,7 @@ Begin VB.UserControl kfcWebLinks
       TabIndex        =   22
       Top             =   420
       Width           =   3252
-      Begin ComctlLib.TreeView tvwDB 
+      Begin MSComctlLib.TreeView tvwDB 
          Height          =   3072
          Left            =   60
          TabIndex        =   0
@@ -25,7 +25,7 @@ Begin VB.UserControl kfcWebLinks
          Width           =   3132
          _ExtentX        =   5525
          _ExtentY        =   5419
-         _Version        =   327682
+         _Version        =   393217
          HideSelection   =   0   'False
          Indentation     =   441
          Sorted          =   -1  'True
@@ -155,7 +155,7 @@ Begin VB.UserControl kfcWebLinks
          Visible         =   0   'False
          Width           =   1152
       End
-      Begin ComctlLib.ProgressBar prgLoad 
+      Begin MSComctlLib.ProgressBar prgLoad 
          Height          =   132
          Left            =   120
          TabIndex        =   12
@@ -163,8 +163,66 @@ Begin VB.UserControl kfcWebLinks
          Width           =   3852
          _ExtentX        =   6795
          _ExtentY        =   233
-         _Version        =   327682
+         _Version        =   393216
          Appearance      =   1
+      End
+      Begin MSComctlLib.ImageList imlIcons 
+         Left            =   300
+         Top             =   2760
+         _ExtentX        =   804
+         _ExtentY        =   804
+         BackColor       =   -2147483643
+         ImageWidth      =   16
+         ImageHeight     =   16
+         MaskColor       =   12632256
+         _Version        =   393216
+         BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+            NumListImages   =   11
+            BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "kfcWebLinks.ctx":061C
+               Key             =   "Buttons32"
+            EndProperty
+            BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "kfcWebLinks.ctx":0936
+               Key             =   "Open"
+            EndProperty
+            BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "kfcWebLinks.ctx":0C50
+               Key             =   "Open32"
+            EndProperty
+            BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "kfcWebLinks.ctx":0F6A
+               Key             =   "Closed"
+            EndProperty
+            BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "kfcWebLinks.ctx":1284
+               Key             =   "EntireNet"
+            EndProperty
+            BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "kfcWebLinks.ctx":159E
+               Key             =   "Button32"
+            EndProperty
+            BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "kfcWebLinks.ctx":18B8
+               Key             =   "IE Document"
+            EndProperty
+            BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "kfcWebLinks.ctx":1BD2
+               Key             =   "Buttons"
+            EndProperty
+            BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "kfcWebLinks.ctx":1EEC
+               Key             =   "IE Shortcut"
+            EndProperty
+            BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "kfcWebLinks.ctx":2206
+               Key             =   "Button"
+            EndProperty
+            BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+               Picture         =   "kfcWebLinks.ctx":2520
+               Key             =   "Closed32"
+            EndProperty
+         EndProperty
       End
       Begin VB.Label lblID 
          Alignment       =   1  'Right Justify
@@ -228,64 +286,6 @@ Begin VB.UserControl kfcWebLinks
          Top             =   936
          Width           =   1020
       End
-      Begin ComctlLib.ImageList imlIcons 
-         Left            =   300
-         Top             =   2760
-         _ExtentX        =   804
-         _ExtentY        =   804
-         BackColor       =   -2147483643
-         ImageWidth      =   16
-         ImageHeight     =   16
-         MaskColor       =   12632256
-         _Version        =   327682
-         BeginProperty Images {0713E8C2-850A-101B-AFC0-4210102A8DA7} 
-            NumListImages   =   11
-            BeginProperty ListImage1 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-               Picture         =   "kfcWebLinks.ctx":061C
-               Key             =   "Buttons32"
-            EndProperty
-            BeginProperty ListImage2 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-               Picture         =   "kfcWebLinks.ctx":0936
-               Key             =   "Open"
-            EndProperty
-            BeginProperty ListImage3 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-               Picture         =   "kfcWebLinks.ctx":0C50
-               Key             =   "Open32"
-            EndProperty
-            BeginProperty ListImage4 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-               Picture         =   "kfcWebLinks.ctx":0F6A
-               Key             =   "Closed"
-            EndProperty
-            BeginProperty ListImage5 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-               Picture         =   "kfcWebLinks.ctx":1284
-               Key             =   "EntireNet"
-            EndProperty
-            BeginProperty ListImage6 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-               Picture         =   "kfcWebLinks.ctx":159E
-               Key             =   "Button32"
-            EndProperty
-            BeginProperty ListImage7 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-               Picture         =   "kfcWebLinks.ctx":18B8
-               Key             =   "IE Document"
-            EndProperty
-            BeginProperty ListImage8 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-               Picture         =   "kfcWebLinks.ctx":1BD2
-               Key             =   "Buttons"
-            EndProperty
-            BeginProperty ListImage9 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-               Picture         =   "kfcWebLinks.ctx":1EEC
-               Key             =   "IE Shortcut"
-            EndProperty
-            BeginProperty ListImage10 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-               Picture         =   "kfcWebLinks.ctx":2206
-               Key             =   "Button"
-            EndProperty
-            BeginProperty ListImage11 {0713E8C3-850A-101B-AFC0-4210102A8DA7} 
-               Picture         =   "kfcWebLinks.ctx":2520
-               Key             =   "Closed32"
-            EndProperty
-         EndProperty
-      End
       Begin VB.Label lblLoad 
          AutoSize        =   -1  'True
          Caption         =   "lblLoad"
@@ -296,7 +296,7 @@ Begin VB.UserControl kfcWebLinks
          Width           =   540
       End
    End
-   Begin ComctlLib.TabStrip tsUpdate 
+   Begin MSComctlLib.TabStrip tsUpdate 
       Height          =   3792
       Left            =   60
       TabIndex        =   9
@@ -306,13 +306,11 @@ Begin VB.UserControl kfcWebLinks
       _ExtentX        =   13356
       _ExtentY        =   6689
       MultiRow        =   -1  'True
-      _Version        =   327682
-      BeginProperty Tabs {0713E432-850A-101B-AFC0-4210102A8DA7} 
+      _Version        =   393216
+      BeginProperty Tabs {1EFB6598-857C-11D1-B16A-00C0F0283628} 
          NumTabs         =   1
-         BeginProperty Tab1 {0713F341-850A-101B-AFC0-4210102A8DA7} 
+         BeginProperty Tab1 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
             Caption         =   "Web Links"
-            Key             =   ""
-            Object.Tag             =   ""
             ImageVarType    =   2
          EndProperty
       EndProperty
@@ -357,7 +355,7 @@ Attribute VB_Exposed = False
 Option Explicit
 Private RootIndex As Integer
 Private gfDragMode As Boolean
-Private DragNode As ComctlLib.Node
+Private DragNode As MSComctlLib.Node
 Private fUpdateInProgress As Boolean
 Private fAdding As Boolean
 Private fPopulateInProgress As Boolean
@@ -403,8 +401,8 @@ Private Sub AddEntry(ByRef strID As String, strLabel As String, strParentID As S
     Trace trcExit, "AddEntry()"
 End Sub
 Private Function AddNode(ParentIndex As Integer, strID As String, strLabel As String, strButton As String, strParentID As String, fHasMembers As Boolean, fSelectNode As Boolean) As Integer
-    Dim mNode As ComctlLib.Node
-    Dim xNode As ComctlLib.Node
+    Dim mNode As MSComctlLib.Node
+    Dim xNode As MSComctlLib.Node
         
     Trace trcEnter, "AddNode()"
     If ParentIndex = 0 Then
@@ -499,7 +497,7 @@ Private Sub cmdCancel_Click()
     fUpdateInProgress = False
 End Sub
 Private Sub cmdHyperlink_Click()
-    Dim mNode As ComctlLib.Node
+    Dim mNode As MSComctlLib.Node
     
     Set mNode = tvwDB.SelectedItem
     If mNode Is tvwDB.Nodes(RootIndex) Then             'Root Level...
@@ -509,7 +507,7 @@ Private Sub cmdHyperlink_Click()
     End If
 End Sub
 Private Sub cmdOK_Click()
-    Dim mNode As ComctlLib.Node
+    Dim mNode As MSComctlLib.Node
     Dim rsEntry As New ADODB.Recordset
     Dim intID As Integer
     Dim fHasMembers As Boolean
@@ -558,8 +556,8 @@ Private Sub cmdUpdate_Click()
     'tvwDB.Enabled = False
     fUpdateInProgress = True
 End Sub
-Private Sub CopyNode(TargetNode As ComctlLib.Node, SourceID As String)
-    Dim mNode As ComctlLib.Node
+Private Sub CopyNode(TargetNode As MSComctlLib.Node, SourceID As String)
+    Dim mNode As MSComctlLib.Node
     Dim rsSourceEntry As New ADODB.Recordset
     Dim rsTargetEntry As New ADODB.Recordset
     Dim TargetID As String
@@ -692,7 +690,7 @@ Private Function FilterRecordset(rsTemp As ADODB.Recordset, strFilter As String)
     rsTemp.Filter = strFilter
     Set FilterRecordset = rsTemp
 End Function
-Private Function FindEntry(Key As String) As ComctlLib.Node
+Private Function FindEntry(Key As String) As MSComctlLib.Node
     Trace trcEnter, "FindEntry()"
     
     On Error Resume Next
@@ -711,7 +709,7 @@ Private Function FindEntry(Key As String) As ComctlLib.Node
     Trace trcExit, "FindEntry()"
 End Function
 Private Sub ForceNodeSort(ParentIndex As Integer)
-    Dim xNode As ComctlLib.Node
+    Dim xNode As MSComctlLib.Node
     
     'Shouldn't need to do this, but sorting doesn't work unless we do...
     Set xNode = tvwDB.Nodes.Add(ParentIndex, tvwChild)
@@ -726,7 +724,7 @@ End Sub
 Private Sub mnuContextDelete_Click()
     Dim intID As Integer
     Dim rsEntry As New ADODB.Recordset
-    Dim mNode As ComctlLib.Node
+    Dim mNode As MSComctlLib.Node
     
     If MsgBox("Are you sure you want to delete " & tvwDB.SelectedItem.Text & "?", vbYesNo) = vbNo Then Exit Sub
     
@@ -753,7 +751,7 @@ End Sub
 Private Sub mnuContextNewGroup_Click()
     Dim intID As Integer
     Dim rsEntry As New ADODB.Recordset
-    Dim mNode As ComctlLib.Node
+    Dim mNode As MSComctlLib.Node
     
     ClearDetail
     Set mNode = tvwDB.SelectedItem
@@ -783,7 +781,7 @@ End Sub
 Private Sub mnuContextNewLink_Click()
     Dim intID As Integer
     Dim rsEntry As New ADODB.Recordset
-    Dim mNode As ComctlLib.Node
+    Dim mNode As MSComctlLib.Node
     
     ClearDetail
     Set mNode = tvwDB.SelectedItem
@@ -818,8 +816,8 @@ Private Sub mnuContextUpdate_Click()
 End Sub
 Private Sub PopulateButton(ButtonLabel As String, ParentID As String, intTreeViewIndex As Integer)
     Dim rsMenuEntries As New ADODB.Recordset
-    Dim pNode As ComctlLib.Node
-    Dim mNode As ComctlLib.Node
+    Dim pNode As MSComctlLib.Node
+    Dim mNode As MSComctlLib.Node
     Dim SQLstatement As String
     Dim NodeIndex As Integer
     
@@ -850,7 +848,7 @@ Private Sub PopulateButton(ButtonLabel As String, ParentID As String, intTreeVie
     Set rsMenuEntries = Nothing
     Trace trcExit, "PopulateButton()"
 End Sub
-Private Sub PopulateDetail(ByVal Node As ComctlLib.Node)
+Private Sub PopulateDetail(ByVal Node As MSComctlLib.Node)
     Dim intID As Integer
     Dim rsEntry As New ADODB.Recordset
     
@@ -989,7 +987,7 @@ End Sub
 Private Sub tvwDB_AfterLabelEdit(Cancel As Integer, NewString As String)
     Dim rsEntry As New ADODB.Recordset
     Dim intID As Integer
-    Dim mNode As ComctlLib.Node
+    Dim mNode As MSComctlLib.Node
     
     Trace trcEnter, "tvwDB_AfterLabelEdit()"
     If Len(NewString) = 0 Then
@@ -1011,7 +1009,7 @@ Private Sub tvwDB_AfterLabelEdit(Cancel As Integer, NewString As String)
     Trace trcExit, "tvwDB_AfterLabelEdit()"
 End Sub
 Private Sub tvwDB_BeforeLabelEdit(Cancel As Integer)
-    Dim mNode As ComctlLib.Node
+    Dim mNode As MSComctlLib.Node
     
     Trace trcEnter, "tvwDB_BeforeLabelEdit()"
     Set mNode = tvwDB.SelectedItem
@@ -1024,7 +1022,7 @@ Private Sub tvwDB_BeforeLabelEdit(Cancel As Integer)
     End If
     Trace trcExit, "tvwDB_BeforeLabelEdit()"
 End Sub
-Private Sub tvwDB_Collapse(ByVal Node As ComctlLib.Node)
+Private Sub tvwDB_Collapse(ByVal Node As MSComctlLib.Node)
     Trace trcEnter, "tvwDB_Collapse()"
     If IsGroup(Node) Then
         Node.Image = "Closed"
@@ -1036,7 +1034,7 @@ Private Sub tvwDB_DblClick()
     If IsButton(tvwDB.SelectedItem) Then tvwDB_Expand tvwDB.SelectedItem
     Trace trcExit, "tvwDB_DblClick()"
 End Sub
-Private Sub tvwDB_Expand(ByVal Node As ComctlLib.Node)
+Private Sub tvwDB_Expand(ByVal Node As MSComctlLib.Node)
     Trace trcEnter, "tvwDB_Expand()"
     If IsGroup(Node) Then
         Node.Image = "Open"
@@ -1096,7 +1094,7 @@ Private Sub tvwDB_MouseMove(Button As Integer, Shift As Integer, X As Single, Y 
     Trace trcExit, "tvwDB_MouseMove()"
 End Sub
 Private Sub tvwDB_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
-    Dim mNode As ComctlLib.Node
+    Dim mNode As MSComctlLib.Node
     Dim ctl As Control
     
     Trace trcEnter, "tvwDB_MouseUp()"
@@ -1137,7 +1135,7 @@ Private Sub tvwDB_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As
     End If
     Trace trcExit, "tvwDB_MouseUp()"
 End Sub
-Private Sub tvwDB_NodeClick(ByVal Node As ComctlLib.Node)
+Private Sub tvwDB_NodeClick(ByVal Node As MSComctlLib.Node)
     Dim intID As Integer
     
     Trace trcEnter, "tvwDB_NodeClick()"
@@ -1171,11 +1169,11 @@ Private Sub tvwDB_OLECompleteDrag(Effect As Long)
     Set DragNode = Nothing
     Screen.MousePointer = vbDefault
 End Sub
-Private Sub tvwDB_OLEDragDrop(Data As ComctlLib.DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub tvwDB_OLEDragDrop(Data As MSComctlLib.DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, Y As Single)
     Dim i As Integer
     Dim rsEntry As ADODB.Recordset
-    Dim mNode As ComctlLib.Node
-    Dim tNode As ComctlLib.Node
+    Dim mNode As MSComctlLib.Node
+    Dim tNode As MSComctlLib.Node
     Dim vFN As String
     Dim strID As String
     Dim strParentID As String
@@ -1272,8 +1270,8 @@ ExitSub:
         gfDragMode = False
     End If
 End Sub
-Private Sub tvwDB_OLEDragOver(Data As ComctlLib.DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, Y As Single, State As Integer)
-    Dim tNode As ComctlLib.Node
+Private Sub tvwDB_OLEDragOver(Data As MSComctlLib.DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, Y As Single, State As Integer)
+    Dim tNode As MSComctlLib.Node
     Dim i As Integer
     Dim vFN As String
     
@@ -1330,13 +1328,13 @@ End Sub
 Private Sub tvwDB_OLEGiveFeedback(Effect As Long, DefaultCursors As Boolean)
     'Debug.Print "OLEGiveFeedback(" & Effect & ", " & DefaultCursors & ")"
 End Sub
-Private Sub tvwDB_OLESetData(Data As ComctlLib.DataObject, DataFormat As Integer)
+Private Sub tvwDB_OLESetData(Data As MSComctlLib.DataObject, DataFormat As Integer)
     'Debug.Print "OLESetData(Data, " & DataFormat & ")"
     If DataFormat = vbCFText Then
         If gfDragMode Then Data.SetData tvwDB.SelectedItem.Text, vbCFText
    End If
 End Sub
-Private Sub tvwDB_OLEStartDrag(Data As ComctlLib.DataObject, AllowedEffects As Long)
+Private Sub tvwDB_OLEStartDrag(Data As MSComctlLib.DataObject, AllowedEffects As Long)
     'Debug.Print "OLEStartDrag(Data, " & AllowedEffects & ")"
     AllowedEffects = vbDropEffectNone
     If IsGroup(tvwDB.SelectedItem) Or IsLink(tvwDB.SelectedItem) Then

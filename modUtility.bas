@@ -129,17 +129,17 @@ Public Function VBdecode(vString As Variant) As String
         End If
     Wend
 End Function
-Public Function IsButton(ByRef Node As ComctlLib.Node) As Boolean
+Public Function IsButton(ByRef Node As MSComCtlLib.Node) As Boolean
     IsButton = False
     If Node Is Nothing Then Exit Function
     If UCase(Left(Node.Tag, 7)) = "BUTTON:" Then IsButton = True
 End Function
-Public Function IsGroup(ByRef Node As ComctlLib.Node) As Boolean
+Public Function IsGroup(ByRef Node As MSComCtlLib.Node) As Boolean
     IsGroup = False
     If Node Is Nothing Then Exit Function
     If UCase(Left(Node.Tag, 6)) = "GROUP:" Then IsGroup = True
 End Function
-Public Function IsLink(ByRef Node As ComctlLib.Node) As Boolean
+Public Function IsLink(ByRef Node As MSComCtlLib.Node) As Boolean
     IsLink = False
     If Node Is Nothing Then Exit Function
     If UCase(Left(Node.Tag, 5)) = "LINK:" Then IsLink = True
