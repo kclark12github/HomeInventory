@@ -2,24 +2,24 @@ VERSION 5.00
 Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
-Begin VB.Form frmSciFiNASAModels 
+Begin VB.Form frmRockets 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "SciFi & NASA Models"
-   ClientHeight    =   3588
+   Caption         =   "Rockets"
+   ClientHeight    =   3600
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3588
+   ScaleHeight     =   3600
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin VB.TextBox txtCount 
       Height          =   288
       Left            =   5928
-      TabIndex        =   8
+      TabIndex        =   9
       Text            =   "Count"
       Top             =   1860
       Width           =   972
@@ -27,7 +27,7 @@ Begin VB.Form frmSciFiNASAModels
    Begin VB.TextBox txtReference 
       Height          =   288
       Left            =   5928
-      TabIndex        =   6
+      TabIndex        =   7
       Text            =   "Reference"
       Top             =   1560
       Width           =   1452
@@ -38,7 +38,7 @@ Begin VB.Form frmSciFiNASAModels
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6480
-      TabIndex        =   11
+      TabIndex        =   12
       Top             =   3120
       Width           =   972
    End
@@ -47,7 +47,7 @@ Begin VB.Form frmSciFiNASAModels
       Default         =   -1  'True
       Height          =   372
       Left            =   5460
-      TabIndex        =   10
+      TabIndex        =   11
       Top             =   3120
       Width           =   972
    End
@@ -100,7 +100,7 @@ Begin VB.Form frmSciFiNASAModels
    Begin VB.TextBox txtInventoried 
       Height          =   288
       Left            =   1524
-      TabIndex        =   9
+      TabIndex        =   10
       Text            =   "Inventoried"
       Top             =   2172
       Width           =   1812
@@ -108,7 +108,7 @@ Begin VB.Form frmSciFiNASAModels
    Begin MSDataListLib.DataCombo dbcManufacturer 
       Height          =   288
       Left            =   1524
-      TabIndex        =   4
+      TabIndex        =   5
       Top             =   1272
       Width           =   5892
       _ExtentX        =   10393
@@ -130,7 +130,7 @@ Begin VB.Form frmSciFiNASAModels
       EndProperty
       Height          =   288
       Left            =   4944
-      TabIndex        =   3
+      TabIndex        =   4
       Top             =   960
       Width           =   972
    End
@@ -145,7 +145,7 @@ Begin VB.Form frmSciFiNASAModels
    Begin VB.TextBox txtName 
       Height          =   288
       Left            =   1524
-      TabIndex        =   1
+      TabIndex        =   2
       Text            =   "Name"
       Top             =   672
       Width           =   5892
@@ -163,43 +163,43 @@ Begin VB.Form frmSciFiNASAModels
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   10
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":0000
+            Picture         =   "frmRockets.frx":0000
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":031C
+            Picture         =   "frmRockets.frx":031C
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":0638
+            Picture         =   "frmRockets.frx":0638
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":0A8C
+            Picture         =   "frmRockets.frx":0A8C
             Key             =   "List"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":1558
+            Picture         =   "frmRockets.frx":1558
             Key             =   "Copy"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":2224
+            Picture         =   "frmRockets.frx":2224
             Key             =   "New2"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":2CF0
+            Picture         =   "frmRockets.frx":2CF0
             Key             =   "Delete2"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":37BC
+            Picture         =   "frmRockets.frx":37BC
             Key             =   "Modify2"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":4288
+            Picture         =   "frmRockets.frx":4288
             Key             =   "New"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":4D54
+            Picture         =   "frmRockets.frx":4D54
             Key             =   "Report"
          EndProperty
       EndProperty
@@ -217,43 +217,43 @@ Begin VB.Form frmSciFiNASAModels
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   10
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":51A8
+            Picture         =   "frmRockets.frx":51A8
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":55FC
+            Picture         =   "frmRockets.frx":55FC
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":5918
+            Picture         =   "frmRockets.frx":5918
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":5C34
+            Picture         =   "frmRockets.frx":5C34
             Key             =   "New2"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":6700
+            Picture         =   "frmRockets.frx":6700
             Key             =   "Copy"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":73CC
+            Picture         =   "frmRockets.frx":73CC
             Key             =   "List"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":7E98
+            Picture         =   "frmRockets.frx":7E98
             Key             =   "Delete2"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":8964
+            Picture         =   "frmRockets.frx":8964
             Key             =   "Modify2"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":9430
+            Picture         =   "frmRockets.frx":9430
             Key             =   "New"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":9EFC
+            Picture         =   "frmRockets.frx":9EFC
             Key             =   "Delete"
          EndProperty
       EndProperty
@@ -261,7 +261,7 @@ Begin VB.Form frmSciFiNASAModels
    Begin MSDataListLib.DataCombo dbcCatalog 
       Height          =   288
       Left            =   1524
-      TabIndex        =   5
+      TabIndex        =   6
       Top             =   1560
       Width           =   3252
       _ExtentX        =   5736
@@ -273,7 +273,7 @@ Begin VB.Form frmSciFiNASAModels
    Begin MSDataListLib.DataCombo dbcNation 
       Height          =   288
       Left            =   1524
-      TabIndex        =   7
+      TabIndex        =   8
       Top             =   1860
       Width           =   3252
       _ExtentX        =   5736
@@ -285,7 +285,7 @@ Begin VB.Form frmSciFiNASAModels
    Begin MSDataListLib.DataCombo dbcScale 
       Height          =   288
       Left            =   1524
-      TabIndex        =   2
+      TabIndex        =   3
       Top             =   972
       Width           =   1092
       _ExtentX        =   1926
@@ -294,11 +294,23 @@ Begin VB.Form frmSciFiNASAModels
       MatchEntry      =   -1  'True
       Text            =   "Scale"
    End
+   Begin MSDataListLib.DataCombo dbcType 
+      Height          =   288
+      Left            =   4944
+      TabIndex        =   1
+      Top             =   360
+      Width           =   1512
+      _ExtentX        =   2667
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   "Type"
+   End
    Begin MSComctlLib.Toolbar tbHobby 
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   24
+      TabIndex        =   26
       Top             =   0
       Width           =   7524
       _ExtentX        =   13272
@@ -350,12 +362,21 @@ Begin VB.Form frmSciFiNASAModels
          EndProperty
       EndProperty
    End
+   Begin VB.Label lblType 
+      AutoSize        =   -1  'True
+      Caption         =   "Type:"
+      Height          =   192
+      Left            =   4440
+      TabIndex        =   25
+      Top             =   420
+      Width           =   420
+   End
    Begin VB.Label lblCount 
       AutoSize        =   -1  'True
       Caption         =   "Count:"
       Height          =   192
       Left            =   5340
-      TabIndex        =   23
+      TabIndex        =   24
       Top             =   1908
       Width           =   444
    End
@@ -364,7 +385,7 @@ Begin VB.Form frmSciFiNASAModels
       Caption         =   "Catalog:"
       Height          =   192
       Left            =   816
-      TabIndex        =   22
+      TabIndex        =   23
       Top             =   1608
       Width           =   600
    End
@@ -373,7 +394,7 @@ Begin VB.Form frmSciFiNASAModels
       Caption         =   "Reference:"
       Height          =   192
       Left            =   5040
-      TabIndex        =   21
+      TabIndex        =   22
       Top             =   1608
       Width           =   792
    End
@@ -382,7 +403,7 @@ Begin VB.Form frmSciFiNASAModels
       Caption         =   "Scale:"
       Height          =   192
       Left            =   960
-      TabIndex        =   20
+      TabIndex        =   21
       Top             =   1020
       Width           =   456
    End
@@ -391,7 +412,7 @@ Begin VB.Form frmSciFiNASAModels
       Caption         =   "ID:"
       Height          =   192
       Left            =   6804
-      TabIndex        =   19
+      TabIndex        =   20
       Top             =   2220
       Width           =   192
    End
@@ -400,7 +421,7 @@ Begin VB.Form frmSciFiNASAModels
       Caption         =   "Date Inventoried:"
       Height          =   192
       Left            =   204
-      TabIndex        =   18
+      TabIndex        =   19
       Top             =   2220
       Width           =   1212
    End
@@ -409,7 +430,7 @@ Begin VB.Form frmSciFiNASAModels
       Caption         =   "Nation:"
       Height          =   192
       Left            =   912
-      TabIndex        =   17
+      TabIndex        =   18
       Top             =   1908
       Width           =   504
    End
@@ -427,7 +448,7 @@ Begin VB.Form frmSciFiNASAModels
       EndProperty
       Height          =   192
       Left            =   4428
-      TabIndex        =   16
+      TabIndex        =   17
       Top             =   1020
       Width           =   408
    End
@@ -436,7 +457,7 @@ Begin VB.Form frmSciFiNASAModels
       Caption         =   "Designation:"
       Height          =   192
       Left            =   516
-      TabIndex        =   15
+      TabIndex        =   16
       Top             =   420
       Width           =   900
    End
@@ -445,7 +466,7 @@ Begin VB.Form frmSciFiNASAModels
       Caption         =   "Name:"
       Height          =   192
       Left            =   936
-      TabIndex        =   14
+      TabIndex        =   15
       Top             =   720
       Width           =   480
    End
@@ -454,7 +475,7 @@ Begin VB.Form frmSciFiNASAModels
       Caption         =   "Manufacturer:"
       Height          =   192
       Left            =   456
-      TabIndex        =   13
+      TabIndex        =   14
       Top             =   1320
       Width           =   960
    End
@@ -463,7 +484,7 @@ Begin VB.Form frmSciFiNASAModels
       Caption         =   "lblID"
       Height          =   192
       Left            =   7092
-      TabIndex        =   12
+      TabIndex        =   13
       Top             =   2220
       Width           =   324
    End
@@ -492,19 +513,20 @@ Begin VB.Form frmSciFiNASAModels
       End
    End
 End
-Attribute VB_Name = "frmSciFiNASAModels"
+Attribute VB_Name = "frmRockets"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 Dim adoConn As ADODB.Connection
-Dim WithEvents rsSciFiNASAModels As ADODB.Recordset
-Attribute rsSciFiNASAModels.VB_VarHelpID = -1
+Dim WithEvents rsRockets As ADODB.Recordset
+Attribute rsRockets.VB_VarHelpID = -1
 Dim rsManufacturers As New ADODB.Recordset
 Dim rsCatalogs As New ADODB.Recordset
 Dim rsScales As New ADODB.Recordset
 Dim rsNations As New ADODB.Recordset
+Dim rsTypes As New ADODB.Recordset
 Dim mode As ActionMode
 Dim fTransaction As Boolean
 Dim DBinfo As DataBaseInfo
@@ -513,7 +535,7 @@ Private Sub cmdCancel_Click()
         Case modeDisplay
             Unload Me
         Case modeAdd, modeModify
-            rsSciFiNASAModels.CancelUpdate
+            rsRockets.CancelUpdate
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -529,22 +551,23 @@ Private Sub cmdOK_Click()
             Unload Me
         Case modeAdd, modeModify
             'Why we need to do this is buggy...
-            rsSciFiNASAModels("Manufacturer") = dbcManufacturer.BoundText
-            rsSciFiNASAModels("Catalog") = dbcCatalog.BoundText
-            rsSciFiNASAModels.UpdateBatch
+            rsRockets("Manufacturer") = dbcManufacturer.BoundText
+            rsRockets("Catalog") = dbcCatalog.BoundText
+            rsRockets.UpdateBatch
             adoConn.CommitTrans
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
             adodcHobby.Enabled = True
             
-            SaveBookmark = rsSciFiNASAModels("Reference")
-            rsSciFiNASAModels.Requery
-            rsSciFiNASAModels.Find "Reference='" & SaveBookmark & "'"
+            SaveBookmark = rsRockets("Reference")
+            rsRockets.Requery
+            rsRockets.Find "Reference='" & SaveBookmark & "'"
             rsManufacturers.Requery
             rsCatalogs.Requery
             rsScales.Requery
             rsNations.Requery
+            rsTypes.Requery
     End Select
 End Sub
 Private Sub dbcCatalog_GotFocus()
@@ -580,13 +603,26 @@ Private Sub dbcScale_GotFocus()
 End Sub
 Private Sub dbcScale_Validate(Cancel As Boolean)
     If dbcScale.Text = "" Then
-        MsgBox "Scale should be specified!", vbExclamation, Me.Caption
+        MsgBox "Scale must be specified!", vbExclamation, Me.Caption
+        dbcScale.SetFocus
+        Cancel = True
     End If
     If rsScales.Bookmark <> dbcScale.SelectedItem Then rsScales.Bookmark = dbcScale.SelectedItem
 End Sub
+Private Sub dbcType_GotFocus()
+    TextSelected
+End Sub
+Private Sub dbcType_Validate(Cancel As Boolean)
+    If dbcType.Text = "" Then
+        MsgBox "Type must be specified!", vbExclamation, Me.Caption
+        dbcType.SetFocus
+        Cancel = True
+    End If
+    If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
+End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
-    Set rsSciFiNASAModels = New ADODB.Recordset
+    Set rsRockets = New ADODB.Recordset
     Set DBinfo = frmMain.DBcollection("Hobby")
     With DBinfo
         adoConn.Provider = .Provider
@@ -594,33 +630,37 @@ Private Sub Form_Load()
         adoConn.ConnectionTimeout = 60
         adoConn.Open .PathName, .UserName, .Password
     End With
-    rsSciFiNASAModels.CursorLocation = adUseClient
-    rsSciFiNASAModels.Open "select * from [SciFi & NASA Models] order by Scale,Designation,Name", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsRockets.CursorLocation = adUseClient
+    rsRockets.Open "select * from [Rockets] order by Scale,Designation,Name", adoConn, adOpenKeyset, adLockBatchOptimistic
     
     rsManufacturers.CursorLocation = adUseClient
-    rsManufacturers.Open "select distinct Manufacturer from [SciFi & NASA Models] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
+    rsManufacturers.Open "select distinct Manufacturer from [Rockets] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
     
     rsCatalogs.CursorLocation = adUseClient
-    rsCatalogs.Open "select distinct Catalog from [SciFi & NASA Models] order by Catalog", adoConn, adOpenStatic, adLockReadOnly
+    rsCatalogs.Open "select distinct Catalog from [Rockets] order by Catalog", adoConn, adOpenStatic, adLockReadOnly
     
     rsScales.CursorLocation = adUseClient
-    rsScales.Open "select distinct Scale from [SciFi & NASA Models] order by Scale", adoConn, adOpenStatic, adLockReadOnly
+    rsScales.Open "select distinct Scale from [Rockets] order by Scale", adoConn, adOpenStatic, adLockReadOnly
     
     rsNations.CursorLocation = adUseClient
-    rsNations.Open "select distinct Nation from [SciFi & NASA Models] order by Nation", adoConn, adOpenStatic, adLockReadOnly
+    rsNations.Open "select distinct Nation from [Rockets] order by Nation", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcHobby.Recordset = rsSciFiNASAModels
-    frmMain.BindField lblID, "ID", rsSciFiNASAModels
-    frmMain.BindField dbcManufacturer, "Manufacturer", rsSciFiNASAModels, rsManufacturers, "Manufacturer", "Manufacturer"
-    frmMain.BindField txtDesignation, "Designation", rsSciFiNASAModels
-    frmMain.BindField txtName, "Name", rsSciFiNASAModels
-    frmMain.BindField txtPrice, "Price", rsSciFiNASAModels
-    frmMain.BindField dbcScale, "Scale", rsSciFiNASAModels, rsScales, "Scale", "Scale"
-    frmMain.BindField txtReference, "Reference", rsSciFiNASAModels
-    frmMain.BindField dbcCatalog, "Catalog", rsSciFiNASAModels, rsCatalogs, "Catalog", "Catalog"
-    frmMain.BindField dbcNation, "Nation", rsSciFiNASAModels, rsNations, "Nation", "Nation"
-    frmMain.BindField txtCount, "Count", rsSciFiNASAModels
-    frmMain.BindField txtInventoried, "DateInventoried", rsSciFiNASAModels
+    rsTypes.CursorLocation = adUseClient
+    rsTypes.Open "select distinct Type from [Rockets] order by Type", adoConn, adOpenStatic, adLockReadOnly
+    
+    Set adodcHobby.Recordset = rsRockets
+    frmMain.BindField lblID, "ID", rsRockets
+    frmMain.BindField dbcManufacturer, "Manufacturer", rsRockets, rsManufacturers, "Manufacturer", "Manufacturer"
+    frmMain.BindField txtDesignation, "Designation", rsRockets
+    frmMain.BindField txtName, "Name", rsRockets
+    frmMain.BindField txtPrice, "Price", rsRockets
+    frmMain.BindField dbcScale, "Scale", rsRockets, rsScales, "Scale", "Scale"
+    frmMain.BindField txtReference, "Reference", rsRockets
+    frmMain.BindField dbcCatalog, "Catalog", rsRockets, rsCatalogs, "Catalog", "Catalog"
+    frmMain.BindField dbcNation, "Nation", rsRockets, rsNations, "Nation", "Nation"
+    frmMain.BindField dbcType, "Type", rsRockets, rsTypes, "Type", "Type"
+    frmMain.BindField txtCount, "Count", rsRockets
+    frmMain.BindField txtInventoried, "DateInventoried", rsRockets
 
     frmMain.ProtectFields Me
     mode = modeDisplay
@@ -633,9 +673,9 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If rsSciFiNASAModels.EditMode <> adEditNone Then rsSciFiNASAModels.CancelUpdate
-    If rsSciFiNASAModels.State = adStateOpen Then rsSciFiNASAModels.Close
-    Set rsSciFiNASAModels = Nothing
+    If rsRockets.EditMode <> adEditNone Then rsRockets.CancelUpdate
+    If rsRockets.State = adStateOpen Then rsRockets.Close
+    Set rsRockets = Nothing
     rsManufacturers.Close
     Set rsManufacturers = Nothing
     rsCatalogs.Close
@@ -644,6 +684,8 @@ Private Sub Form_Unload(Cancel As Integer)
     Set rsScales = Nothing
     rsNations.Close
     Set rsNations = Nothing
+    rsTypes.Close
+    Set rsTypes = Nothing
     
     On Error Resume Next
     adoConn.Close
@@ -673,7 +715,7 @@ Private Sub mnuActionList_Click()
     frmList.Width = frm.Width
     frmList.Height = frm.Height
     
-    Set frmList.rsList = rsSciFiNASAModels
+    Set frmList.rsList = rsRockets
     Set frmList.mnuList = mnuAction
     Set frmList.dgdList.DataSource = frmList.rsList
     Set frmList.dgdList.Columns("Price").DataFormat = CurrencyFormat
@@ -691,7 +733,7 @@ Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
     adodcHobby.Enabled = False
-    rsSciFiNASAModels.AddNew
+    rsRockets.AddNew
     adoConn.BeginTrans
     fTransaction = True
     
@@ -701,9 +743,9 @@ End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete
     If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsSciFiNASAModels.Delete
-        rsSciFiNASAModels.MoveNext
-        If rsSciFiNASAModels.EOF Then rsSciFiNASAModels.MoveLast
+        rsRockets.Delete
+        rsRockets.MoveNext
+        If rsRockets.EOF Then rsRockets.MoveLast
     End If
     mode = modeDisplay
 End Sub
@@ -719,7 +761,7 @@ End Sub
 Private Sub mnuActionReport_Click()
     'Dim Report As New scrHobbyReport
     
-    'Report.Database.SetDataSource rsSciFiNASAModels, 3, 1
+    'Report.Database.SetDataSource rsRockets, 3, 1
     'Set frmMain.rdcReport = Report
     'Set frmMain.frmReport = Me
     
@@ -727,19 +769,19 @@ Private Sub mnuActionReport_Click()
     
     'Set Report = Nothing
 End Sub
-Private Sub rsSciFiNASAModels_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+Private Sub rsRockets_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsSciFiNASAModels.BOF And rsSciFiNASAModels.EOF Then
+    If rsRockets.BOF And rsRockets.EOF Then
         Caption = "No Records"
-    ElseIf rsSciFiNASAModels.EOF Then
+    ElseIf rsRockets.EOF Then
         Caption = "EOF"
-    ElseIf rsSciFiNASAModels.BOF Then
+    ElseIf rsRockets.BOF Then
         Caption = "BOF"
     Else
-        Caption = "Reference #" & rsSciFiNASAModels.Bookmark & ": 1/" & rsSciFiNASAModels("Scale") & " Scale; " & rsSciFiNASAModels("Designation") & " " & rsSciFiNASAModels("Name")
+        Caption = "Reference #" & rsRockets.Bookmark & ": 1/" & rsRockets("Scale") & " Scale; " & rsRockets("Designation") & " " & rsRockets("Name")
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)

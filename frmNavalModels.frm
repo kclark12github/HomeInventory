@@ -597,24 +597,6 @@ Private Sub Form_Load()
     rsNavalModels.CursorLocation = adUseClient
     rsNavalModels.Open "select * from [Naval Models] order by Scale,Designation,Name", adoConn, adOpenKeyset, adLockBatchOptimistic
     
-''One Time
-'    rsNavalModels.MoveFirst
-'    While Not rsNavalModels.EOF
-'        Debug.Print rsNavalModels("ID")
-'        If Not IsNull(rsNavalModels("ManufacturerID")) Then
-'            rsManufacturers.Open "select ID, ShortName from [Companies] where id=" & rsNavalModels("ManufacturerID"), adoConn, adOpenStatic, adLockReadOnly
-'            rsNavalModels("Manufacturer") = rsManufacturers("ShortName")
-'            rsManufacturers.Close
-'        End If
-'        If Not IsNull(rsNavalModels("CatalogID")) Then
-'            rsCatalogs.Open "select ID, ShortName from [Companies] where id=" & rsNavalModels("CatalogID"), adoConn, adOpenStatic, adLockReadOnly
-'            rsNavalModels("Catalog") = rsCatalogs("ShortName")
-'            rsCatalogs.Close
-'        End If
-'        rsNavalModels.UpdateBatch
-'        rsNavalModels.MoveNext
-'    Wend
-    
     rsManufacturers.CursorLocation = adUseClient
     rsManufacturers.Open "select distinct Manufacturer from [Naval Models] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
     

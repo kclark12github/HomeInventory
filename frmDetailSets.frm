@@ -2,34 +2,34 @@ VERSION 5.00
 Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
-Begin VB.Form frmSciFiNASAModels 
+Begin VB.Form frmDetailSets 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "SciFi & NASA Models"
-   ClientHeight    =   3588
+   Caption         =   "Detail Sets"
+   ClientHeight    =   3276
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3588
+   ScaleHeight     =   3276
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin VB.TextBox txtCount 
       Height          =   288
-      Left            =   5928
+      Left            =   5934
       TabIndex        =   8
       Text            =   "Count"
-      Top             =   1860
+      Top             =   1560
       Width           =   972
    End
    Begin VB.TextBox txtReference 
       Height          =   288
-      Left            =   5928
+      Left            =   5934
       TabIndex        =   6
       Text            =   "Reference"
-      Top             =   1560
+      Top             =   1260
       Width           =   1452
    End
    Begin VB.CommandButton cmdCancel 
@@ -37,24 +37,24 @@ Begin VB.Form frmSciFiNASAModels
       Caption         =   "Cancel"
       CausesValidation=   0   'False
       Height          =   372
-      Left            =   6480
+      Left            =   6486
       TabIndex        =   11
-      Top             =   3120
+      Top             =   2820
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
       Caption         =   "OK"
       Default         =   -1  'True
       Height          =   372
-      Left            =   5460
+      Left            =   5466
       TabIndex        =   10
-      Top             =   3120
+      Top             =   2820
       Width           =   972
    End
    Begin MSAdodcLib.Adodc adodcHobby 
       Height          =   312
-      Left            =   264
-      Top             =   2640
+      Left            =   270
+      Top             =   2340
       Width           =   7152
       _ExtentX        =   12615
       _ExtentY        =   550
@@ -99,17 +99,17 @@ Begin VB.Form frmSciFiNASAModels
    End
    Begin VB.TextBox txtInventoried 
       Height          =   288
-      Left            =   1524
+      Left            =   1530
       TabIndex        =   9
       Text            =   "Inventoried"
-      Top             =   2172
+      Top             =   1872
       Width           =   1812
    End
    Begin MSDataListLib.DataCombo dbcManufacturer 
       Height          =   288
-      Left            =   1524
+      Left            =   1530
       TabIndex        =   4
-      Top             =   1272
+      Top             =   972
       Width           =   5892
       _ExtentX        =   10393
       _ExtentY        =   508
@@ -129,30 +129,22 @@ Begin VB.Form frmSciFiNASAModels
          SubFormatType   =   2
       EndProperty
       Height          =   288
-      Left            =   4944
+      Left            =   5934
       TabIndex        =   3
-      Top             =   960
+      Top             =   660
       Width           =   972
-   End
-   Begin VB.TextBox txtDesignation 
-      Height          =   288
-      Left            =   1524
-      TabIndex        =   0
-      Text            =   "Designation"
-      Top             =   372
-      Width           =   1872
    End
    Begin VB.TextBox txtName 
       Height          =   288
-      Left            =   1524
-      TabIndex        =   1
+      Left            =   1530
+      TabIndex        =   0
       Text            =   "Name"
-      Top             =   672
+      Top             =   372
       Width           =   5892
    End
    Begin MSComctlLib.ImageList imlSmall 
-      Left            =   480
-      Top             =   3120
+      Left            =   486
+      Top             =   2820
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -163,50 +155,50 @@ Begin VB.Form frmSciFiNASAModels
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   10
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":0000
+            Picture         =   "frmDetailSets.frx":0000
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":031C
+            Picture         =   "frmDetailSets.frx":031C
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":0638
+            Picture         =   "frmDetailSets.frx":0638
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":0A8C
+            Picture         =   "frmDetailSets.frx":0A8C
             Key             =   "List"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":1558
+            Picture         =   "frmDetailSets.frx":1558
             Key             =   "Copy"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":2224
+            Picture         =   "frmDetailSets.frx":2224
             Key             =   "New2"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":2CF0
+            Picture         =   "frmDetailSets.frx":2CF0
             Key             =   "Delete2"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":37BC
+            Picture         =   "frmDetailSets.frx":37BC
             Key             =   "Modify2"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":4288
+            Picture         =   "frmDetailSets.frx":4288
             Key             =   "New"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":4D54
+            Picture         =   "frmDetailSets.frx":4D54
             Key             =   "Report"
          EndProperty
       EndProperty
    End
    Begin MSComctlLib.ImageList imlLarge 
-      Left            =   60
-      Top             =   3120
+      Left            =   66
+      Top             =   2820
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -217,52 +209,52 @@ Begin VB.Form frmSciFiNASAModels
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   10
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":51A8
+            Picture         =   "frmDetailSets.frx":51A8
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":55FC
+            Picture         =   "frmDetailSets.frx":55FC
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":5918
+            Picture         =   "frmDetailSets.frx":5918
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":5C34
+            Picture         =   "frmDetailSets.frx":5C34
             Key             =   "New2"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":6700
+            Picture         =   "frmDetailSets.frx":6700
             Key             =   "Copy"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":73CC
+            Picture         =   "frmDetailSets.frx":73CC
             Key             =   "List"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":7E98
+            Picture         =   "frmDetailSets.frx":7E98
             Key             =   "Delete2"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":8964
+            Picture         =   "frmDetailSets.frx":8964
             Key             =   "Modify2"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":9430
+            Picture         =   "frmDetailSets.frx":9430
             Key             =   "New"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSciFiNASAModels.frx":9EFC
+            Picture         =   "frmDetailSets.frx":9EFC
             Key             =   "Delete"
          EndProperty
       EndProperty
    End
    Begin MSDataListLib.DataCombo dbcCatalog 
       Height          =   288
-      Left            =   1524
+      Left            =   1530
       TabIndex        =   5
-      Top             =   1560
+      Top             =   1260
       Width           =   3252
       _ExtentX        =   5736
       _ExtentY        =   508
@@ -272,9 +264,9 @@ Begin VB.Form frmSciFiNASAModels
    End
    Begin MSDataListLib.DataCombo dbcNation 
       Height          =   288
-      Left            =   1524
+      Left            =   1530
       TabIndex        =   7
-      Top             =   1860
+      Top             =   1560
       Width           =   3252
       _ExtentX        =   5736
       _ExtentY        =   508
@@ -284,15 +276,27 @@ Begin VB.Form frmSciFiNASAModels
    End
    Begin MSDataListLib.DataCombo dbcScale 
       Height          =   288
-      Left            =   1524
-      TabIndex        =   2
-      Top             =   972
+      Left            =   1530
+      TabIndex        =   1
+      Top             =   672
       Width           =   1092
       _ExtentX        =   1926
       _ExtentY        =   508
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   "Scale"
+   End
+   Begin MSDataListLib.DataCombo dbcType 
+      Height          =   288
+      Left            =   3510
+      TabIndex        =   2
+      Top             =   660
+      Width           =   1512
+      _ExtentX        =   2667
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   "Type"
    End
    Begin MSComctlLib.Toolbar tbHobby 
       Align           =   1  'Align Top
@@ -350,67 +354,76 @@ Begin VB.Form frmSciFiNASAModels
          EndProperty
       EndProperty
    End
+   Begin VB.Label lblType 
+      AutoSize        =   -1  'True
+      Caption         =   "Type:"
+      Height          =   192
+      Left            =   3006
+      TabIndex        =   23
+      Top             =   720
+      Width           =   420
+   End
    Begin VB.Label lblCount 
       AutoSize        =   -1  'True
       Caption         =   "Count:"
       Height          =   192
-      Left            =   5340
-      TabIndex        =   23
-      Top             =   1908
+      Left            =   5346
+      TabIndex        =   22
+      Top             =   1608
       Width           =   444
    End
    Begin VB.Label lblCatalog 
       AutoSize        =   -1  'True
       Caption         =   "Catalog:"
       Height          =   192
-      Left            =   816
-      TabIndex        =   22
-      Top             =   1608
+      Left            =   822
+      TabIndex        =   21
+      Top             =   1308
       Width           =   600
    End
    Begin VB.Label lblReference 
       AutoSize        =   -1  'True
       Caption         =   "Reference:"
       Height          =   192
-      Left            =   5040
-      TabIndex        =   21
-      Top             =   1608
+      Left            =   5046
+      TabIndex        =   20
+      Top             =   1308
       Width           =   792
    End
    Begin VB.Label lblScale 
       AutoSize        =   -1  'True
       Caption         =   "Scale:"
       Height          =   192
-      Left            =   960
-      TabIndex        =   20
-      Top             =   1020
+      Left            =   966
+      TabIndex        =   19
+      Top             =   720
       Width           =   456
    End
    Begin VB.Label lblIDlabel 
       AutoSize        =   -1  'True
       Caption         =   "ID:"
       Height          =   192
-      Left            =   6804
-      TabIndex        =   19
-      Top             =   2220
+      Left            =   6810
+      TabIndex        =   18
+      Top             =   1920
       Width           =   192
    End
    Begin VB.Label lblDateInventoried 
       AutoSize        =   -1  'True
       Caption         =   "Date Inventoried:"
       Height          =   192
-      Left            =   204
-      TabIndex        =   18
-      Top             =   2220
+      Left            =   210
+      TabIndex        =   17
+      Top             =   1920
       Width           =   1212
    End
    Begin VB.Label lblNation 
       AutoSize        =   -1  'True
       Caption         =   "Nation:"
       Height          =   192
-      Left            =   912
-      TabIndex        =   17
-      Top             =   1908
+      Left            =   918
+      TabIndex        =   16
+      Top             =   1608
       Width           =   504
    End
    Begin VB.Label lblPrice 
@@ -426,45 +439,36 @@ Begin VB.Form frmSciFiNASAModels
          SubFormatType   =   0
       EndProperty
       Height          =   192
-      Left            =   4428
-      TabIndex        =   16
-      Top             =   1020
-      Width           =   408
-   End
-   Begin VB.Label lblDesignation 
-      AutoSize        =   -1  'True
-      Caption         =   "Designation:"
-      Height          =   192
-      Left            =   516
+      Left            =   5394
       TabIndex        =   15
-      Top             =   420
-      Width           =   900
+      Top             =   720
+      Width           =   408
    End
    Begin VB.Label lblName 
       AutoSize        =   -1  'True
       Caption         =   "Name:"
       Height          =   192
-      Left            =   936
+      Left            =   942
       TabIndex        =   14
-      Top             =   720
+      Top             =   420
       Width           =   480
    End
    Begin VB.Label lblManufacturer 
       AutoSize        =   -1  'True
       Caption         =   "Manufacturer:"
       Height          =   192
-      Left            =   456
+      Left            =   462
       TabIndex        =   13
-      Top             =   1320
+      Top             =   1020
       Width           =   960
    End
    Begin VB.Label lblID 
       AutoSize        =   -1  'True
       Caption         =   "lblID"
       Height          =   192
-      Left            =   7092
+      Left            =   7098
       TabIndex        =   12
-      Top             =   2220
+      Top             =   1920
       Width           =   324
    End
    Begin VB.Menu mnuAction 
@@ -492,19 +496,20 @@ Begin VB.Form frmSciFiNASAModels
       End
    End
 End
-Attribute VB_Name = "frmSciFiNASAModels"
+Attribute VB_Name = "frmDetailSets"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 Dim adoConn As ADODB.Connection
-Dim WithEvents rsSciFiNASAModels As ADODB.Recordset
-Attribute rsSciFiNASAModels.VB_VarHelpID = -1
+Dim WithEvents rsDetailSets As ADODB.Recordset
+Attribute rsDetailSets.VB_VarHelpID = -1
 Dim rsManufacturers As New ADODB.Recordset
 Dim rsCatalogs As New ADODB.Recordset
 Dim rsScales As New ADODB.Recordset
 Dim rsNations As New ADODB.Recordset
+Dim rsTypes As New ADODB.Recordset
 Dim mode As ActionMode
 Dim fTransaction As Boolean
 Dim DBinfo As DataBaseInfo
@@ -513,7 +518,7 @@ Private Sub cmdCancel_Click()
         Case modeDisplay
             Unload Me
         Case modeAdd, modeModify
-            rsSciFiNASAModels.CancelUpdate
+            rsDetailSets.CancelUpdate
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -529,22 +534,23 @@ Private Sub cmdOK_Click()
             Unload Me
         Case modeAdd, modeModify
             'Why we need to do this is buggy...
-            rsSciFiNASAModels("Manufacturer") = dbcManufacturer.BoundText
-            rsSciFiNASAModels("Catalog") = dbcCatalog.BoundText
-            rsSciFiNASAModels.UpdateBatch
+            rsDetailSets("Manufacturer") = dbcManufacturer.BoundText
+            rsDetailSets("Catalog") = dbcCatalog.BoundText
+            rsDetailSets.UpdateBatch
             adoConn.CommitTrans
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
             adodcHobby.Enabled = True
             
-            SaveBookmark = rsSciFiNASAModels("Reference")
-            rsSciFiNASAModels.Requery
-            rsSciFiNASAModels.Find "Reference='" & SaveBookmark & "'"
+            SaveBookmark = rsDetailSets("Reference")
+            rsDetailSets.Requery
+            rsDetailSets.Find "Reference='" & SaveBookmark & "'"
             rsManufacturers.Requery
             rsCatalogs.Requery
             rsScales.Requery
             rsNations.Requery
+            rsTypes.Requery
     End Select
 End Sub
 Private Sub dbcCatalog_GotFocus()
@@ -580,13 +586,26 @@ Private Sub dbcScale_GotFocus()
 End Sub
 Private Sub dbcScale_Validate(Cancel As Boolean)
     If dbcScale.Text = "" Then
-        MsgBox "Scale should be specified!", vbExclamation, Me.Caption
+        MsgBox "Scale must be specified!", vbExclamation, Me.Caption
+        dbcScale.SetFocus
+        Cancel = True
     End If
     If rsScales.Bookmark <> dbcScale.SelectedItem Then rsScales.Bookmark = dbcScale.SelectedItem
 End Sub
+Private Sub dbcType_GotFocus()
+    TextSelected
+End Sub
+Private Sub dbcType_Validate(Cancel As Boolean)
+    If dbcType.Text = "" Then
+        MsgBox "Type must be specified!", vbExclamation, Me.Caption
+        dbcType.SetFocus
+        Cancel = True
+    End If
+    If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
+End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
-    Set rsSciFiNASAModels = New ADODB.Recordset
+    Set rsDetailSets = New ADODB.Recordset
     Set DBinfo = frmMain.DBcollection("Hobby")
     With DBinfo
         adoConn.Provider = .Provider
@@ -594,33 +613,36 @@ Private Sub Form_Load()
         adoConn.ConnectionTimeout = 60
         adoConn.Open .PathName, .UserName, .Password
     End With
-    rsSciFiNASAModels.CursorLocation = adUseClient
-    rsSciFiNASAModels.Open "select * from [SciFi & NASA Models] order by Scale,Designation,Name", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsDetailSets.CursorLocation = adUseClient
+    rsDetailSets.Open "select * from [Detail Sets] order by Scale,Name", adoConn, adOpenKeyset, adLockBatchOptimistic
     
     rsManufacturers.CursorLocation = adUseClient
-    rsManufacturers.Open "select distinct Manufacturer from [SciFi & NASA Models] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
+    rsManufacturers.Open "select distinct Manufacturer from [Detail Sets] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
     
     rsCatalogs.CursorLocation = adUseClient
-    rsCatalogs.Open "select distinct Catalog from [SciFi & NASA Models] order by Catalog", adoConn, adOpenStatic, adLockReadOnly
+    rsCatalogs.Open "select distinct Catalog from [Detail Sets] order by Catalog", adoConn, adOpenStatic, adLockReadOnly
     
     rsScales.CursorLocation = adUseClient
-    rsScales.Open "select distinct Scale from [SciFi & NASA Models] order by Scale", adoConn, adOpenStatic, adLockReadOnly
+    rsScales.Open "select distinct Scale from [Detail Sets] order by Scale", adoConn, adOpenStatic, adLockReadOnly
     
     rsNations.CursorLocation = adUseClient
-    rsNations.Open "select distinct Nation from [SciFi & NASA Models] order by Nation", adoConn, adOpenStatic, adLockReadOnly
+    rsNations.Open "select distinct Nation from [Detail Sets] order by Nation", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcHobby.Recordset = rsSciFiNASAModels
-    frmMain.BindField lblID, "ID", rsSciFiNASAModels
-    frmMain.BindField dbcManufacturer, "Manufacturer", rsSciFiNASAModels, rsManufacturers, "Manufacturer", "Manufacturer"
-    frmMain.BindField txtDesignation, "Designation", rsSciFiNASAModels
-    frmMain.BindField txtName, "Name", rsSciFiNASAModels
-    frmMain.BindField txtPrice, "Price", rsSciFiNASAModels
-    frmMain.BindField dbcScale, "Scale", rsSciFiNASAModels, rsScales, "Scale", "Scale"
-    frmMain.BindField txtReference, "Reference", rsSciFiNASAModels
-    frmMain.BindField dbcCatalog, "Catalog", rsSciFiNASAModels, rsCatalogs, "Catalog", "Catalog"
-    frmMain.BindField dbcNation, "Nation", rsSciFiNASAModels, rsNations, "Nation", "Nation"
-    frmMain.BindField txtCount, "Count", rsSciFiNASAModels
-    frmMain.BindField txtInventoried, "DateInventoried", rsSciFiNASAModels
+    rsTypes.CursorLocation = adUseClient
+    rsTypes.Open "select distinct Type from [Detail Sets] order by Type", adoConn, adOpenStatic, adLockReadOnly
+    
+    Set adodcHobby.Recordset = rsDetailSets
+    frmMain.BindField lblID, "ID", rsDetailSets
+    frmMain.BindField dbcManufacturer, "Manufacturer", rsDetailSets, rsManufacturers, "Manufacturer", "Manufacturer"
+    frmMain.BindField txtName, "Name", rsDetailSets
+    frmMain.BindField txtPrice, "Price", rsDetailSets
+    frmMain.BindField dbcScale, "Scale", rsDetailSets, rsScales, "Scale", "Scale"
+    frmMain.BindField txtReference, "Reference", rsDetailSets
+    frmMain.BindField dbcCatalog, "Catalog", rsDetailSets, rsCatalogs, "Catalog", "Catalog"
+    frmMain.BindField dbcNation, "Nation", rsDetailSets, rsNations, "Nation", "Nation"
+    frmMain.BindField dbcType, "Type", rsDetailSets, rsTypes, "Type", "Type"
+    frmMain.BindField txtCount, "Count", rsDetailSets
+    frmMain.BindField txtInventoried, "DateInventoried", rsDetailSets
 
     frmMain.ProtectFields Me
     mode = modeDisplay
@@ -633,9 +655,9 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If rsSciFiNASAModels.EditMode <> adEditNone Then rsSciFiNASAModels.CancelUpdate
-    If rsSciFiNASAModels.State = adStateOpen Then rsSciFiNASAModels.Close
-    Set rsSciFiNASAModels = Nothing
+    If rsDetailSets.EditMode <> adEditNone Then rsDetailSets.CancelUpdate
+    If rsDetailSets.State = adStateOpen Then rsDetailSets.Close
+    Set rsDetailSets = Nothing
     rsManufacturers.Close
     Set rsManufacturers = Nothing
     rsCatalogs.Close
@@ -644,6 +666,8 @@ Private Sub Form_Unload(Cancel As Integer)
     Set rsScales = Nothing
     rsNations.Close
     Set rsNations = Nothing
+    rsTypes.Close
+    Set rsTypes = Nothing
     
     On Error Resume Next
     adoConn.Close
@@ -673,7 +697,7 @@ Private Sub mnuActionList_Click()
     frmList.Width = frm.Width
     frmList.Height = frm.Height
     
-    Set frmList.rsList = rsSciFiNASAModels
+    Set frmList.rsList = rsDetailSets
     Set frmList.mnuList = mnuAction
     Set frmList.dgdList.DataSource = frmList.rsList
     Set frmList.dgdList.Columns("Price").DataFormat = CurrencyFormat
@@ -691,19 +715,19 @@ Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
     adodcHobby.Enabled = False
-    rsSciFiNASAModels.AddNew
+    rsDetailSets.AddNew
     adoConn.BeginTrans
     fTransaction = True
     
     txtInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
-    txtDesignation.SetFocus
+    txtName.SetFocus
 End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete
     If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsSciFiNASAModels.Delete
-        rsSciFiNASAModels.MoveNext
-        If rsSciFiNASAModels.EOF Then rsSciFiNASAModels.MoveLast
+        rsDetailSets.Delete
+        rsDetailSets.MoveNext
+        If rsDetailSets.EOF Then rsDetailSets.MoveLast
     End If
     mode = modeDisplay
 End Sub
@@ -714,12 +738,12 @@ Private Sub mnuActionModify_Click()
     adoConn.BeginTrans
     fTransaction = True
     
-    txtDesignation.SetFocus
+    txtName.SetFocus
 End Sub
 Private Sub mnuActionReport_Click()
     'Dim Report As New scrHobbyReport
     
-    'Report.Database.SetDataSource rsSciFiNASAModels, 3, 1
+    'Report.Database.SetDataSource rsDetailSets, 3, 1
     'Set frmMain.rdcReport = Report
     'Set frmMain.frmReport = Me
     
@@ -727,19 +751,19 @@ Private Sub mnuActionReport_Click()
     
     'Set Report = Nothing
 End Sub
-Private Sub rsSciFiNASAModels_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+Private Sub rsDetailSets_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsSciFiNASAModels.BOF And rsSciFiNASAModels.EOF Then
+    If rsDetailSets.BOF And rsDetailSets.EOF Then
         Caption = "No Records"
-    ElseIf rsSciFiNASAModels.EOF Then
+    ElseIf rsDetailSets.EOF Then
         Caption = "EOF"
-    ElseIf rsSciFiNASAModels.BOF Then
+    ElseIf rsDetailSets.BOF Then
         Caption = "BOF"
     Else
-        Caption = "Reference #" & rsSciFiNASAModels.Bookmark & ": 1/" & rsSciFiNASAModels("Scale") & " Scale; " & rsSciFiNASAModels("Designation") & " " & rsSciFiNASAModels("Name")
+        Caption = "Reference #" & rsDetailSets.Bookmark & ": 1/" & rsDetailSets("Scale") & " Scale; " & rsDetailSets("Name")
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
@@ -771,14 +795,6 @@ Private Sub txtCount_GotFocus()
 End Sub
 Private Sub txtCount_Validate(Cancel As Boolean)
     If txtCount.Text = "" Then txtCount.Text = 1
-End Sub
-Private Sub txtDesignation_GotFocus()
-    TextSelected
-End Sub
-Private Sub txtDesignation_KeyPress(KeyAscii As Integer)
-    Dim Char As String
-    Char = Chr(KeyAscii)
-    KeyAscii = Asc(UCase(Char))
 End Sub
 Private Sub txtInventoried_GotFocus()
     TextSelected

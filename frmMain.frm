@@ -103,6 +103,21 @@ Begin VB.Form frmMain
       End
       Begin VB.Menu mnuDataBaseUSNavyShips 
          Caption         =   "&US Navy Ships"
+         Begin VB.Menu mnuUSNavyShipsClasses 
+            Caption         =   "&Classes"
+         End
+         Begin VB.Menu mnuUSNavyShipsClassifications 
+            Caption         =   "Classificatio&ns"
+         End
+         Begin VB.Menu mnuUSNavyShipsCommands 
+            Caption         =   "C&ommands"
+         End
+         Begin VB.Menu mnuUSNavyShipsHomePorts 
+            Caption         =   "&Home Ports"
+         End
+         Begin VB.Menu mnuUSNavyShipsShips 
+            Caption         =   "&Ships"
+         End
       End
       Begin VB.Menu mnuDataBaseVideoTapes 
          Caption         =   "&Video Tapes"
@@ -240,20 +255,50 @@ End Sub
 Private Sub mnuDataBaseHobbyAircraftModels_Click()
     frmAircraftModels.Show vbModal
 End Sub
+Private Sub mnuDataBaseHobbyArmorCarModels_Click()
+    frmArmorCarModels.Show vbModal
+End Sub
+Private Sub mnuDataBaseHobbyBlueAngelsHistory_Click()
+    frmBlueAngelsHistory.Show vbModal
+End Sub
 Private Sub mnuDataBaseHobbyCompanies_Click()
     frmCompanies.Show vbModal
+End Sub
+Private Sub mnuDataBaseHobbyDecals_Click()
+    frmDecals.Show vbModal
+End Sub
+Private Sub mnuDataBaseHobbyDetailSets_Click()
+    frmDetailSets.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyNavalModels_Click()
     frmNavalModels.Show vbModal
 End Sub
+Private Sub mnuDataBaseHobbyPaintsBrushes_Click()
+    frmPaintsBrushes.Show vbModal
+End Sub
+Private Sub mnuDataBaseHobbyRockets_Click()
+    frmRockets.Show vbModal
+End Sub
 Private Sub mnuDataBaseHobbySciFiSpaceModels_Click()
     frmSciFiNASAModels.Show vbModal
+End Sub
+Private Sub mnuDataBaseHobbyTools_Click()
+    frmTools.Show vbModal
+End Sub
+Private Sub mnuDataBaseHobbyTrains_Click()
+    frmTrains.Show vbModal
+End Sub
+Private Sub mnuDataBaseHobbyVideoResearch_Click()
+    frmVideoResearch.Show vbModal
 End Sub
 Private Sub mnuDataBaseMusic_Click()
     frmMusic.Show vbModal
 End Sub
 Private Sub mnuDataBaseSoftware_Click()
     frmSoftware.Show vbModal
+End Sub
+Private Sub mnuDataBaseVideoTapes_Click()
+    'frmVideoTapes.Show vbModal
 End Sub
 Private Sub mnuFileBackground_Click()
     Dim CurrentPath As String

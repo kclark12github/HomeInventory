@@ -597,24 +597,6 @@ Private Sub Form_Load()
     rsAircraftModels.CursorLocation = adUseClient
     rsAircraftModels.Open "select * from [Aircraft Models] order by Scale,Designation,Name", adoConn, adOpenKeyset, adLockBatchOptimistic
     
-''One Time
-'    rsAircraftModels.MoveFirst
-'    While Not rsAircraftModels.EOF
-'        Debug.Print rsAircraftModels("ID")
-'        If Not IsNull(rsAircraftModels("ManufacturerID")) Then
-'            rsManufacturers.Open "select ID, ShortName from [Companies] where id=" & rsAircraftModels("ManufacturerID"), adoConn, adOpenStatic, adLockReadOnly
-'            rsAircraftModels("Manufacturer") = rsManufacturers("ShortName")
-'            rsManufacturers.Close
-'        End If
-'        If Not IsNull(rsAircraftModels("CatalogID")) Then
-'            rsCatalogs.Open "select ID, ShortName from [Companies] where id=" & rsAircraftModels("CatalogID"), adoConn, adOpenStatic, adLockReadOnly
-'            rsAircraftModels("Catalog") = rsCatalogs("ShortName")
-'            rsCatalogs.Close
-'        End If
-'        rsAircraftModels.UpdateBatch
-'        rsAircraftModels.MoveNext
-'    Wend
-    
     rsManufacturers.CursorLocation = adUseClient
     rsManufacturers.Open "select distinct Manufacturer from [Aircraft Models] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
     
