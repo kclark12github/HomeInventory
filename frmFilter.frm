@@ -5,12 +5,12 @@ Begin VB.Form frmFilter
    ClientHeight    =   3876
    ClientLeft      =   36
    ClientTop       =   264
-   ClientWidth     =   5760
+   ClientWidth     =   6876
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   3876
-   ScaleWidth      =   5760
+   ScaleWidth      =   6876
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin VB.TextBox txtFields 
@@ -643,6 +643,13 @@ Private Sub Form_Activate()
     Dim iLeft As Integer
     Dim NewHeight As Integer
     Dim NewTop As Integer
+    Dim NewWidth As Integer
+    Dim NewLeft As Integer
+    
+    NewWidth = 5832
+    NewLeft = Me.Left + (Me.Width - NewWidth) / 2
+    Me.Left = NewLeft
+    Me.Width = NewWidth
     
     iTop = StartTop
     iLeft = StartLeft

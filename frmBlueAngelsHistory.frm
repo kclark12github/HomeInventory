@@ -4,17 +4,55 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmBlueAngelsHistory 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Blue Angels History"
-   ClientHeight    =   3288
+   ClientHeight    =   3480
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3288
+   ScaleHeight     =   3480
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
+   Begin MSComctlLib.StatusBar sbStatus 
+      Align           =   2  'Align Bottom
+      Height          =   252
+      Left            =   0
+      TabIndex        =   13
+      Top             =   3228
+      Width           =   7524
+      _ExtentX        =   13272
+      _ExtentY        =   445
+      _Version        =   393216
+      BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
+         NumPanels       =   4
+         BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            AutoSize        =   2
+            Object.Width           =   1270
+            MinWidth        =   1270
+            Key             =   "Position"
+         EndProperty
+         BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            AutoSize        =   2
+            Key             =   "Status"
+         EndProperty
+         BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            AutoSize        =   1
+            Object.Width           =   8086
+            Key             =   "Message"
+         EndProperty
+         BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            Style           =   5
+            Alignment       =   2
+            AutoSize        =   2
+            Object.Width           =   1270
+            MinWidth        =   1270
+            TextSave        =   "1:50 AM"
+            Key             =   "Time"
+         EndProperty
+      EndProperty
+   End
    Begin VB.TextBox txtDecalSets 
       Height          =   888
       Left            =   5100
@@ -393,6 +431,7 @@ Private Sub cmdCancel_Click()
             Unload Me
         Case modeAdd, modeModify
             rsBlueAngelsHistory.CancelUpdate
+            If mode = modeAdd Then rsBlueAngelsHistory.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -490,6 +529,9 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
+    If rsBlueAngelsHistory.Filter <> vbNullString Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsBlueAngelsHistory.Filter
+    End If
     adoConn.CommitTrans
     fTransaction = False
 End Sub
@@ -501,7 +543,25 @@ Private Sub mnuActionRefresh_Click()
     rsBlueAngelsHistory.Find "Aircraft Type='" & SQLQuote(SaveBookmark) & "'"
 End Sub
 Private Sub mnuActionFilter_Click()
-    Debug.Print "mnuActionFilter_Click()"
+    Dim frm As Form
+    
+    Load frmFilter
+    frmFilter.Caption = Me.Caption & " Filter"
+    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
+        Set frm = frmMain
+    Else
+        Set frm = Me
+    End If
+    frmFilter.Top = frm.Top
+    frmFilter.Left = frm.Left
+    frmFilter.Width = frm.Width
+    frmFilter.Height = frm.Height
+    
+    Set frmFilter.RS = rsBlueAngelsHistory
+    frmFilter.Show vbModal
+    If rsBlueAngelsHistory.Filter <> vbNullString Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsBlueAngelsHistory.Filter
+    End If
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
@@ -532,15 +592,34 @@ Private Sub mnuActionModify_Click()
     txtAircraftType.SetFocus
 End Sub
 Private Sub mnuActionReport_Click()
-    'Dim Report As New scrHobbyReport
+    Dim frm As Form
+    'Dim Report As New scrBlueAngelsHistoryReport
+    Dim vRS As ADODB.Recordset
     
-    'Report.Database.SetDataSource rsBlueAngelsHistory, 3, 1
-    'Set frmMain.rdcReport = Report
-    'Set frmMain.frmReport = Me
+    MakeVirtualRecordset adoConn, rsBlueAngelsHistory, vRS
     
-    'frmViewReport.Show vbModal
+    Load frmViewReport
+    frmViewReport.Caption = Me.Caption & " Report"
+    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
+        Set frm = frmMain
+    Else
+        Set frm = Me
+    End If
+    frmViewReport.Top = frm.Top
+    frmViewReport.Left = frm.Left
+    frmViewReport.Width = frm.Width
+    frmViewReport.Height = frm.Height
+    frmViewReport.WindowState = vbMaximized
+    
+    'Report.Database.SetDataSource vRS, 3, 1
+    'Report.ReadRecords
+    
+    'frmViewReport.scrViewer.ReportSource = Report
+    frmViewReport.Show vbModal
     
     'Set Report = Nothing
+    vRS.Close
+    Set vRS = Nothing
 End Sub
 Private Sub rsBlueAngelsHistory_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
@@ -558,6 +637,7 @@ Private Sub rsBlueAngelsHistory_MoveComplete(ByVal adReason As ADODB.EventReason
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
+        sbStatus.Panels("Position").Text = "Record " & rsBlueAngelsHistory.Bookmark & " of " & rsBlueAngelsHistory.RecordCount
     End If
     
     adodcHobby.Caption = Caption
