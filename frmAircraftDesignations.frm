@@ -695,7 +695,8 @@ Private Sub mnuActionModify_Click()
 End Sub
 Private Sub mnuActionReport_Click()
     Dim frm As Form
-    Dim Report As New scrDesignationsReport
+    Dim scrApplication As New CRAXDRT.Application
+    Dim Report As New CRAXDRT.Report
     Dim vRS As ADODB.Recordset
     
     MakeVirtualRecordset adoConn, rsMain, vRS
@@ -713,12 +714,14 @@ Private Sub mnuActionReport_Click()
     frmViewReport.Height = frm.Height
     frmViewReport.WindowState = vbMaximized
     
+    Set Report = scrApplication.OpenReport(app.path & "\Reports\AircraftDesignations.rpt", crOpenReportByTempCopy)
     Report.Database.SetDataSource vRS, 3, 1
     Report.ReadRecords
     
     frmViewReport.scrViewer.ReportSource = Report
     frmViewReport.Show vbModal
     
+    Set scrApplication = Nothing
     Set Report = Nothing
     vRS.Close
     Set vRS = Nothing

@@ -49,7 +49,7 @@ Begin VB.Form frmTrains
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "8:45 PM"
+            TextSave        =   "5:46 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -760,7 +760,8 @@ Private Sub mnuActionModify_Click()
 End Sub
 Private Sub mnuActionReport_Click()
     Dim frm As Form
-    Dim Report As New scrTrainsReport
+    Dim scrApplication As New CRAXDRT.Application
+    Dim Report As New CRAXDRT.Report
     Dim vRS As ADODB.Recordset
     
     MakeVirtualRecordset adoConn, rsMain, vRS
@@ -778,12 +779,14 @@ Private Sub mnuActionReport_Click()
     frmViewReport.Height = frm.Height
     frmViewReport.WindowState = vbMaximized
     
+    Set Report = scrApplication.OpenReport(App.Path & "\Reports\Trains.rpt", crOpenReportByTempCopy)
     Report.Database.SetDataSource vRS, 3, 1
     Report.ReadRecords
     
     frmViewReport.scrViewer.ReportSource = Report
     frmViewReport.Show vbModal
     
+    Set scrApplication = Nothing
     Set Report = Nothing
     vRS.Close
     Set vRS = Nothing
