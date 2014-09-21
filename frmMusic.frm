@@ -1,17 +1,18 @@
 VERSION 5.00
 Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmMusic 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Music Inventory"
-   ClientHeight    =   3048
+   ClientHeight    =   3360
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3048
+   ScaleHeight     =   3360
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
@@ -19,27 +20,27 @@ Begin VB.Form frmMusic
       Alignment       =   1  'Right Justify
       Caption         =   "LP:"
       Height          =   192
-      Left            =   5400
-      TabIndex        =   21
-      Top             =   1020
+      Left            =   5460
+      TabIndex        =   7
+      Top             =   1320
       Width           =   492
    End
    Begin VB.CheckBox chkCS 
       Alignment       =   1  'Right Justify
       Caption         =   "Cassette:"
       Height          =   192
-      Left            =   4320
-      TabIndex        =   20
-      Top             =   1020
+      Left            =   4380
+      TabIndex        =   6
+      Top             =   1320
       Width           =   972
    End
    Begin VB.CheckBox chkCD 
       Alignment       =   1  'Right Justify
       Caption         =   "CD:"
       Height          =   192
-      Left            =   3660
-      TabIndex        =   19
-      Top             =   1020
+      Left            =   3720
+      TabIndex        =   5
+      Top             =   1320
       Width           =   552
    End
    Begin VB.CommandButton cmdCancel 
@@ -47,24 +48,24 @@ Begin VB.Form frmMusic
       Caption         =   "Cancel"
       CausesValidation=   0   'False
       Height          =   372
-      Left            =   6420
-      TabIndex        =   18
-      Top             =   2580
+      Left            =   6480
+      TabIndex        =   12
+      Top             =   2880
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
       Caption         =   "OK"
       Default         =   -1  'True
       Height          =   372
-      Left            =   5400
-      TabIndex        =   17
-      Top             =   2580
+      Left            =   5460
+      TabIndex        =   11
+      Top             =   2880
       Width           =   972
    End
    Begin MSAdodcLib.Adodc adodcMusic 
       Height          =   312
-      Left            =   204
-      Top             =   2100
+      Left            =   264
+      Top             =   2400
       Width           =   7152
       _ExtentX        =   12615
       _ExtentY        =   550
@@ -109,25 +110,25 @@ Begin VB.Form frmMusic
    End
    Begin VB.TextBox txtAlphaSort 
       Height          =   288
-      Left            =   1458
-      TabIndex        =   5
+      Left            =   1524
+      TabIndex        =   8
       Text            =   "AlphaSort"
-      Top             =   1296
+      Top             =   1596
       Width           =   5832
    End
    Begin VB.TextBox txtInventoried 
       Height          =   288
-      Left            =   1458
-      TabIndex        =   6
+      Left            =   1524
+      TabIndex        =   9
       Text            =   "Inventoried"
-      Top             =   1632
+      Top             =   1932
       Width           =   1812
    End
    Begin MSDataListLib.DataCombo dbcType 
       Height          =   288
-      Left            =   1464
+      Left            =   1524
       TabIndex        =   4
-      Top             =   972
+      Top             =   1260
       Width           =   2052
       _ExtentX        =   3620
       _ExtentY        =   508
@@ -137,9 +138,9 @@ Begin VB.Form frmMusic
    End
    Begin MSDataListLib.DataCombo dbcArtist 
       Height          =   288
-      Left            =   1458
+      Left            =   1524
       TabIndex        =   0
-      Top             =   72
+      Top             =   372
       Width           =   5892
       _ExtentX        =   10393
       _ExtentY        =   508
@@ -159,70 +160,233 @@ Begin VB.Form frmMusic
          SubFormatType   =   2
       EndProperty
       Height          =   288
-      Left            =   5244
+      Left            =   5304
       TabIndex        =   3
-      Top             =   672
+      Top             =   972
       Width           =   972
    End
    Begin VB.TextBox txtYear 
       Height          =   288
-      Left            =   1458
+      Left            =   1524
       TabIndex        =   2
       Text            =   "Year"
-      Top             =   672
+      Top             =   972
       Width           =   972
    End
    Begin VB.CheckBox chkInventoried 
       Alignment       =   1  'Right Justify
       Caption         =   "Inventoried"
       Height          =   192
-      Left            =   3558
-      TabIndex        =   7
-      Top             =   1680
+      Left            =   3624
+      TabIndex        =   10
+      Top             =   1980
       Width           =   1152
    End
    Begin VB.TextBox txtTitle 
       Height          =   288
-      Left            =   1458
+      Left            =   1524
       TabIndex        =   1
       Text            =   "Title"
-      Top             =   372
+      Top             =   672
       Width           =   5892
+   End
+   Begin MSComctlLib.ImageList imlSmall 
+      Left            =   180
+      Top             =   300
+      _ExtentX        =   804
+      _ExtentY        =   804
+      BackColor       =   -2147483643
+      ImageWidth      =   16
+      ImageHeight     =   16
+      MaskColor       =   12632256
+      _Version        =   393216
+      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+         NumListImages   =   10
+         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":0000
+            Key             =   "Modify"
+         EndProperty
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":031C
+            Key             =   "Find"
+         EndProperty
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":0638
+            Key             =   "Delete"
+         EndProperty
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":0A8C
+            Key             =   "List"
+         EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":1558
+            Key             =   "Copy"
+         EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":2224
+            Key             =   "New2"
+         EndProperty
+         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":2CF0
+            Key             =   "Delete2"
+         EndProperty
+         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":37BC
+            Key             =   "Modify2"
+         EndProperty
+         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":4288
+            Key             =   "New"
+         EndProperty
+         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":4D54
+            Key             =   "Report"
+         EndProperty
+      EndProperty
+   End
+   Begin MSComctlLib.ImageList imlLarge 
+      Left            =   120
+      Top             =   780
+      _ExtentX        =   804
+      _ExtentY        =   804
+      BackColor       =   -2147483643
+      ImageWidth      =   32
+      ImageHeight     =   32
+      MaskColor       =   12632256
+      _Version        =   393216
+      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+         NumListImages   =   10
+         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":51A8
+            Key             =   "Report"
+         EndProperty
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":55FC
+            Key             =   "Modify"
+         EndProperty
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":5918
+            Key             =   "Find"
+         EndProperty
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":5C34
+            Key             =   "New2"
+         EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":6700
+            Key             =   "Copy"
+         EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":73CC
+            Key             =   "List"
+         EndProperty
+         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":7E98
+            Key             =   "Delete2"
+         EndProperty
+         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":8964
+            Key             =   "Modify2"
+         EndProperty
+         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":9430
+            Key             =   "New"
+         EndProperty
+         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":9EFC
+            Key             =   "Delete"
+         EndProperty
+      EndProperty
+   End
+   Begin MSComctlLib.Toolbar tbMusic 
+      Align           =   1  'Align Top
+      Height          =   288
+      Left            =   0
+      TabIndex        =   22
+      Top             =   0
+      Width           =   7524
+      _ExtentX        =   13272
+      _ExtentY        =   508
+      ButtonWidth     =   1439
+      Appearance      =   1
+      Style           =   1
+      TextAlignment   =   1
+      ImageList       =   "imlSmall"
+      _Version        =   393216
+      BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
+         NumButtons      =   7
+         BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "List"
+            Key             =   "List"
+            Object.ToolTipText     =   "List all records"
+            ImageKey        =   "List"
+         EndProperty
+         BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "New"
+            Key             =   "New"
+            Object.ToolTipText     =   "New record"
+            ImageKey        =   "New"
+         EndProperty
+         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Modify"
+            Key             =   "Modify"
+            Object.ToolTipText     =   "Modify record"
+            ImageKey        =   "Modify"
+         EndProperty
+         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Delete"
+            Key             =   "Delete"
+            Object.ToolTipText     =   "Delete record"
+            ImageKey        =   "Delete"
+         EndProperty
+         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   4
+         EndProperty
+         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Caption         =   "Report"
+            Key             =   "Report"
+            Object.ToolTipText     =   "Report"
+            ImageKey        =   "Report"
+         EndProperty
+      EndProperty
    End
    Begin VB.Label lblIDlabel 
       AutoSize        =   -1  'True
       Caption         =   "ID:"
       Height          =   192
-      Left            =   6744
-      TabIndex        =   16
-      Top             =   1680
+      Left            =   6804
+      TabIndex        =   21
+      Top             =   1980
       Width           =   192
    End
    Begin VB.Label lblDateInventoried 
       AutoSize        =   -1  'True
       Caption         =   "Date Inventoried:"
       Height          =   192
-      Left            =   144
-      TabIndex        =   15
-      Top             =   1680
+      Left            =   204
+      TabIndex        =   20
+      Top             =   1980
       Width           =   1212
    End
    Begin VB.Label lblAlphaSort 
       AutoSize        =   -1  'True
       Caption         =   "AlphaSort:"
       Height          =   192
-      Left            =   612
-      TabIndex        =   14
-      Top             =   1320
+      Left            =   672
+      TabIndex        =   19
+      Top             =   1620
       Width           =   744
    End
    Begin VB.Label lblType 
       AutoSize        =   -1  'True
       Caption         =   "Type:"
       Height          =   192
-      Left            =   936
-      TabIndex        =   13
-      Top             =   1020
+      Left            =   996
+      TabIndex        =   18
+      Top             =   1320
       Width           =   420
    End
    Begin VB.Label lblPrice 
@@ -238,45 +402,45 @@ Begin VB.Form frmMusic
          SubFormatType   =   0
       EndProperty
       Height          =   192
-      Left            =   4728
-      TabIndex        =   12
-      Top             =   720
+      Left            =   4788
+      TabIndex        =   17
+      Top             =   1020
       Width           =   408
    End
    Begin VB.Label lblYear 
       AutoSize        =   -1  'True
       Caption         =   "Year:"
       Height          =   192
-      Left            =   966
-      TabIndex        =   11
-      Top             =   720
+      Left            =   1032
+      TabIndex        =   16
+      Top             =   1020
       Width           =   384
    End
    Begin VB.Label lblTitle 
       AutoSize        =   -1  'True
       Caption         =   "Title:"
       Height          =   192
-      Left            =   1002
-      TabIndex        =   10
-      Top             =   420
+      Left            =   1068
+      TabIndex        =   15
+      Top             =   720
       Width           =   348
    End
    Begin VB.Label lblArtist 
       AutoSize        =   -1  'True
       Caption         =   "Artist:"
       Height          =   192
-      Left            =   864
-      TabIndex        =   9
-      Top             =   120
+      Left            =   1032
+      TabIndex        =   14
+      Top             =   420
       Width           =   384
    End
    Begin VB.Label lblID 
       AutoSize        =   -1  'True
       Caption         =   "lblID"
       Height          =   192
-      Left            =   7032
-      TabIndex        =   8
-      Top             =   1680
+      Left            =   7092
+      TabIndex        =   13
+      Top             =   1980
       Width           =   324
    End
    Begin VB.Menu mnuAction 
@@ -333,16 +497,27 @@ Private Sub cmdCancel_Click()
     End Select
 End Sub
 Private Sub cmdOK_Click()
+    Dim SaveBookmark As String
+    
     Select Case mode
         Case modeDisplay
             Unload Me
         Case modeAdd, modeModify
+            'Why we need to do this is buggy...
+            rsMusic("Artist") = dbcArtist.Text
+            rsMusic("Type") = dbcType.Text
             rsMusic.UpdateBatch
             adoConn.CommitTrans
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
             adodcMusic.Enabled = True
+            
+            SaveBookmark = rsMusic("AlphaSort")
+            rsMusic.Requery
+            rsMusic.Find "AlphaSort='" & SaveBookmark & "'"
+            rsArtists.Requery
+            rsTypes.Requery
     End Select
 End Sub
 Private Sub dbcArtist_GotFocus()
@@ -354,10 +529,12 @@ Private Sub dbcArtist_Validate(Cancel As Boolean)
         dbcArtist.SetFocus
         Cancel = True
     End If
+    If rsArtists.Bookmark <> dbcArtist.SelectedItem Then rsArtists.Bookmark = dbcArtist.SelectedItem
 End Sub
 Private Sub dbcType_GotFocus()
     TextSelected
 End Sub
+
 Private Function DefaultAlphaSort() As String
     Dim LastName As String
     Dim Title As String
@@ -397,7 +574,7 @@ Private Function DefaultAlphaSort() As String
     'Grab the last word on the line and assume it's his last name...
     If InStr(LastName, " ") Then
         iSeparator = InStrRev(LastName, " ", Len(LastName))
-        LastName = Mid(LastName, 5)
+        LastName = Mid(LastName, iSeparator + 1)
     End If
     
     'Check for "The" at the beginning of the title...
@@ -406,8 +583,17 @@ Private Function DefaultAlphaSort() As String
         Title = Mid(Title, 5) & ", " & Mid(Title, 1, 3)
     End If
     
-    DefaultAlphaSort = dbcType.Text & ": " & UCase(LastName) & ": " & txtYear.Text & "; " & Title
+    If UCase(dbcType.Text) = "SOUNDTRACK" Then
+        DefaultAlphaSort = UCase(dbcType.Text & ": " & txtYear.Text & "; " & Title)
+    ElseIf InStr(UCase(dbcArtist.Text), "TIME LIFE") > 0 Then
+        DefaultAlphaSort = UCase(dbcType.Text & ": TIME LIFE: " & txtYear.Text & "; " & Title)
+    Else
+        DefaultAlphaSort = UCase(dbcType.Text & ": " & UCase(LastName) & ": " & txtYear.Text & "; " & Title)
+    End If
 End Function
+Private Sub dbcType_Validate(Cancel As Boolean)
+    If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
+End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
     Set rsMusic = New ADODB.Recordset
@@ -511,7 +697,10 @@ Private Sub mnuActionNew_Click()
     fTransaction = True
     
     txtInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
-    chkCataloged.Value = vbChecked
+    chkInventoried.Value = vbChecked
+    chkCD.Value = vbUnchecked
+    chkCS.Value = vbUnchecked
+    chkLP.Value = vbUnchecked
     strDefaultAlphaSort = ""
     dbcArtist.SetFocus
 End Sub
@@ -534,32 +723,62 @@ Private Sub mnuActionModify_Click()
     dbcArtist.SetFocus
 End Sub
 Private Sub mnuActionReport_Click()
-    Dim Report As New scrMusicReport
+    'Dim Report As New scrMusicReport
     
-    Report.Database.SetDataSource rsMusic, 3, 1
-    Set frmMain.rdcReport = Report
-    Set frmMain.frmReport = Me
+    'Report.Database.SetDataSource rsMusic, 3, 1
+    'Set frmMain.rdcReport = Report
+    'Set frmMain.frmReport = Me
     
-    frmViewReport.Show vbModal
+    'frmViewReport.Show vbModal
     
-    Set Report = Nothing
+    'Set Report = Nothing
 End Sub
 Private Sub rsMusic_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+    Dim Caption As String
+    Dim i As Integer
+    
     On Error GoTo ErrorHandler
     If rsMusic.EOF Then rsMusic.MoveLast
     If rsMusic.BOF Then rsMusic.MoveFirst
     If rsMusic.BOF And rsMusic.EOF Then adodcMusic.Caption = "No Records"
-    'adodcMusic.Caption = "Music ID #" & rsMusic("ID")
-    adodcMusic.Caption = "Reference #" & rsMusic.Bookmark & ": " & rsMusic("ALPHASORT")
-    Exit Sub
+    Caption = "Reference #" & rsMusic.Bookmark & ": " & rsMusic("ALPHASORT")
     
+    i = InStr(Caption, "&")
+    If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
+    
+    adodcMusic.Caption = Caption
+    Exit Sub
+
 ErrorHandler:
     MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
     Resume Next
 End Sub
+Private Sub tbMusic_ButtonClick(ByVal Button As MSComctlLib.Button)
+    Select Case Button.Key
+        Case "List"
+            mnuActionList_Click
+        Case "New"
+            mnuActionNew_Click
+        Case "Modify"
+            mnuActionModify_Click
+        Case "Delete"
+            mnuActionDelete_Click
+        Case "Report"
+            mnuActionReport_Click
+    End Select
+End Sub
 Private Sub txtAlphaSort_GotFocus()
-    If txtAlphaSort.Text = "" Then txtAlphaSort.Text = DefaultAlphaSort
+    If txtAlphaSort.Text = "" Then
+        txtAlphaSort.Text = DefaultAlphaSort
+    Else
+        txtAlphaSort.Text = UCase(txtAlphaSort.Text)
+    End If
     TextSelected
+End Sub
+Private Sub txtAlphaSort_KeyPress(KeyAscii As Integer)
+    Dim Char As String
+    Char = Chr(KeyAscii)
+    KeyAscii = Asc(UCase(Char))
 End Sub
 Private Sub txtAlphaSort_Validate(Cancel As Boolean)
     If txtAlphaSort.Text = "" Then

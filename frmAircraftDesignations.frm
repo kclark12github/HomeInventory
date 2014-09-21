@@ -2,25 +2,33 @@ VERSION 5.00
 Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
-Begin VB.Form frmBooks 
+Begin VB.Form frmAircraftDesignations 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Book Inventory"
-   ClientHeight    =   4044
+   Caption         =   "Aircraft Designations"
+   ClientHeight    =   4860
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4044
+   ScaleHeight     =   4860
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
-   Begin MSComctlLib.Toolbar tbBooks 
+   Begin VB.TextBox txtNumber 
+      Height          =   288
+      Left            =   1458
+      TabIndex        =   19
+      Text            =   "Number"
+      Top             =   1596
+      Width           =   1872
+   End
+   Begin MSComctlLib.Toolbar tbDesignations 
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   21
+      TabIndex        =   18
       Top             =   0
       Width           =   7524
       _ExtentX        =   13272
@@ -73,7 +81,7 @@ Begin VB.Form frmBooks
    End
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   120
-      Top             =   1200
+      Top             =   4380
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -84,43 +92,43 @@ Begin VB.Form frmBooks
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   10
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":0000
+            Picture         =   "frmAircraftDesignations.frx":0000
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":031C
+            Picture         =   "frmAircraftDesignations.frx":031C
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":0638
+            Picture         =   "frmAircraftDesignations.frx":0638
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":0A8C
+            Picture         =   "frmAircraftDesignations.frx":0A8C
             Key             =   "List"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":1558
+            Picture         =   "frmAircraftDesignations.frx":1558
             Key             =   "Copy"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":2224
+            Picture         =   "frmAircraftDesignations.frx":2224
             Key             =   "New2"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":2CF0
+            Picture         =   "frmAircraftDesignations.frx":2CF0
             Key             =   "Delete2"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":37BC
+            Picture         =   "frmAircraftDesignations.frx":37BC
             Key             =   "Modify2"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":4288
+            Picture         =   "frmAircraftDesignations.frx":4288
             Key             =   "New"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":4D54
+            Picture         =   "frmAircraftDesignations.frx":4D54
             Key             =   "Report"
          EndProperty
       EndProperty
@@ -131,8 +139,8 @@ Begin VB.Form frmBooks
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6420
-      TabIndex        =   10
-      Top             =   3540
+      TabIndex        =   8
+      Top             =   4380
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
@@ -140,14 +148,14 @@ Begin VB.Form frmBooks
       Default         =   -1  'True
       Height          =   372
       Left            =   5400
-      TabIndex        =   9
-      Top             =   3540
+      TabIndex        =   7
+      Top             =   4380
       Width           =   972
    End
-   Begin MSAdodcLib.Adodc adodcBooks 
+   Begin MSAdodcLib.Adodc adodcDesignations 
       Height          =   312
       Left            =   204
-      Top             =   3060
+      Top             =   3900
       Width           =   7152
       _ExtentX        =   12615
       _ExtentY        =   550
@@ -190,99 +198,74 @@ Begin VB.Form frmBooks
       EndProperty
       _Version        =   393216
    End
-   Begin VB.TextBox txtAlphaSort 
-      Height          =   288
+   Begin VB.TextBox txtNotes 
+      Height          =   1428
       Left            =   1458
-      TabIndex        =   6
-      Text            =   "AlphaSort"
-      Top             =   2256
+      MultiLine       =   -1  'True
+      TabIndex        =   5
+      Text            =   "frmAircraftDesignations.frx":51A8
+      Top             =   1956
       Width           =   5832
    End
-   Begin VB.TextBox txtInventoried 
+   Begin VB.TextBox txtServiceDate 
       Height          =   288
-      Left            =   1458
-      TabIndex        =   7
-      Text            =   "Inventoried"
-      Top             =   2592
+      Left            =   4284
+      TabIndex        =   6
+      Text            =   "Service Date"
+      Top             =   972
       Width           =   1812
    End
-   Begin MSDataListLib.DataCombo dbcSubject 
-      Height          =   288
-      Left            =   1464
-      TabIndex        =   4
-      Top             =   1572
-      Width           =   5892
-      _ExtentX        =   10393
-      _ExtentY        =   508
-      _Version        =   393216
-      MatchEntry      =   -1  'True
-      Text            =   "Subject"
-   End
-   Begin MSDataListLib.DataCombo dbcAuthor 
-      Height          =   288
-      Left            =   1464
-      TabIndex        =   0
-      Top             =   372
-      Width           =   5892
-      _ExtentX        =   10393
-      _ExtentY        =   508
-      _Version        =   393216
-      MatchEntry      =   -1  'True
-      Text            =   "Author"
-   End
-   Begin VB.TextBox txtMisc 
-      Height          =   288
-      Left            =   1458
-      TabIndex        =   5
-      Text            =   "Misc"
-      Top             =   1896
-      Width           =   3792
-   End
-   Begin VB.TextBox txtPrice 
-      Alignment       =   1  'Right Justify
-      BeginProperty DataFormat 
-         Type            =   1
-         Format          =   """$""#,##0.00"
-         HaveTrueFalseNull=   0
-         FirstDayOfWeek  =   0
-         FirstWeekOfYear =   0
-         LCID            =   1033
-         SubFormatType   =   2
-      EndProperty
+   Begin MSDataListLib.DataCombo dbcType 
       Height          =   288
       Left            =   1458
       TabIndex        =   3
       Top             =   1272
-      Width           =   972
+      Width           =   5892
+      _ExtentX        =   10393
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   "Type"
    End
-   Begin VB.TextBox txtISBN 
+   Begin MSDataListLib.DataCombo dbcManufacturer 
+      Height          =   288
+      Left            =   1458
+      TabIndex        =   0
+      Top             =   672
+      Width           =   5892
+      _ExtentX        =   10393
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   "Manufacturer"
+   End
+   Begin VB.TextBox txtVersion 
+      Height          =   288
+      Left            =   5184
+      TabIndex        =   4
+      Text            =   "Version"
+      Top             =   1596
+      Width           =   1872
+   End
+   Begin VB.TextBox txtDesignation 
       Height          =   288
       Left            =   1458
       TabIndex        =   2
-      Text            =   "ISBN"
+      Text            =   "Designation"
       Top             =   972
       Width           =   1512
    End
-   Begin VB.CheckBox chkCataloged 
-      Alignment       =   1  'Right Justify
-      Caption         =   "Cataloged"
-      Height          =   192
-      Left            =   3558
-      TabIndex        =   8
-      Top             =   2640
-      Width           =   1152
-   End
-   Begin VB.TextBox txtTitle 
+   Begin VB.TextBox txtName 
       Height          =   288
       Left            =   1458
       TabIndex        =   1
-      Text            =   "Title"
-      Top             =   672
+      Text            =   "Name"
+      Top             =   372
       Width           =   5892
    End
    Begin MSComctlLib.ImageList imlLarge 
-      Left            =   60
-      Top             =   1680
+      Left            =   540
+      Top             =   4380
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -293,144 +276,135 @@ Begin VB.Form frmBooks
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   10
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":51A8
+            Picture         =   "frmAircraftDesignations.frx":51AE
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":55FC
+            Picture         =   "frmAircraftDesignations.frx":5602
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":5918
+            Picture         =   "frmAircraftDesignations.frx":591E
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":5C34
+            Picture         =   "frmAircraftDesignations.frx":5C3A
             Key             =   "New2"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":6700
+            Picture         =   "frmAircraftDesignations.frx":6706
             Key             =   "Copy"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":73CC
+            Picture         =   "frmAircraftDesignations.frx":73D2
             Key             =   "List"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":7E98
+            Picture         =   "frmAircraftDesignations.frx":7E9E
             Key             =   "Delete2"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":8964
+            Picture         =   "frmAircraftDesignations.frx":896A
             Key             =   "Modify2"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":9430
+            Picture         =   "frmAircraftDesignations.frx":9436
             Key             =   "New"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":9EFC
+            Picture         =   "frmAircraftDesignations.frx":9F02
             Key             =   "Delete"
          EndProperty
       EndProperty
+   End
+   Begin VB.Label lblNumber 
+      AutoSize        =   -1  'True
+      Caption         =   "Number:"
+      Height          =   192
+      Left            =   780
+      TabIndex        =   20
+      Top             =   1644
+      Width           =   612
    End
    Begin VB.Label lblIDlabel 
       AutoSize        =   -1  'True
       Caption         =   "ID:"
       Height          =   192
       Left            =   6744
-      TabIndex        =   20
-      Top             =   2640
+      TabIndex        =   17
+      Top             =   3480
       Width           =   192
    End
-   Begin VB.Label lblDateInventoried 
+   Begin VB.Label lblServiceDate 
       AutoSize        =   -1  'True
-      Caption         =   "Date Inventoried:"
+      Caption         =   "Service Date:"
       Height          =   192
-      Left            =   144
-      TabIndex        =   19
-      Top             =   2640
-      Width           =   1212
-   End
-   Begin VB.Label lblAlphaSort 
-      AutoSize        =   -1  'True
-      Caption         =   "AlphaSort:"
-      Height          =   192
-      Left            =   612
-      TabIndex        =   18
-      Top             =   2280
-      Width           =   744
-   End
-   Begin VB.Label lblMisc 
-      AutoSize        =   -1  'True
-      Caption         =   "Miscellaneous:"
-      Height          =   192
-      Left            =   276
-      TabIndex        =   17
-      Top             =   1920
-      Width           =   1080
-   End
-   Begin VB.Label lblSubject 
-      AutoSize        =   -1  'True
-      Caption         =   "Subject:"
-      Height          =   192
-      Left            =   780
+      Left            =   3204
       TabIndex        =   16
-      Top             =   1620
-      Width           =   576
-   End
-   Begin VB.Label lblPrice 
-      AutoSize        =   -1  'True
-      Caption         =   "Price:"
-      BeginProperty DataFormat 
-         Type            =   0
-         Format          =   """$""#,##0.00"
-         HaveTrueFalseNull=   0
-         FirstDayOfWeek  =   0
-         FirstWeekOfYear =   0
-         LCID            =   1033
-         SubFormatType   =   0
-      EndProperty
-      Height          =   192
-      Left            =   948
-      TabIndex        =   15
-      Top             =   1320
-      Width           =   408
-   End
-   Begin VB.Label lblISBN 
-      AutoSize        =   -1  'True
-      Caption         =   "ISBN:"
-      Height          =   192
-      Left            =   948
-      TabIndex        =   14
       Top             =   1020
-      Width           =   408
+      Width           =   972
    End
-   Begin VB.Label lblTitle 
+   Begin VB.Label lblNotes 
       AutoSize        =   -1  'True
-      Caption         =   "Title:"
+      Caption         =   "Notes:"
       Height          =   192
-      Left            =   1008
+      Left            =   924
+      TabIndex        =   15
+      Top             =   1980
+      Width           =   468
+   End
+   Begin VB.Label lblVersion 
+      AutoSize        =   -1  'True
+      Caption         =   "Version:"
+      Height          =   192
+      Left            =   4488
+      TabIndex        =   14
+      Top             =   1644
+      Width           =   588
+   End
+   Begin VB.Label lblType 
+      AutoSize        =   -1  'True
+      Caption         =   "Type:"
+      Height          =   192
+      Left            =   936
       TabIndex        =   13
-      Top             =   720
-      Width           =   348
+      Top             =   1320
+      Width           =   420
    End
-   Begin VB.Label lblAuthor 
+   Begin VB.Label lblDesignation 
       AutoSize        =   -1  'True
-      Caption         =   "Author:"
+      Caption         =   "Designation:"
       Height          =   192
-      Left            =   864
+      Left            =   456
       TabIndex        =   12
+      Top             =   1020
+      Width           =   900
+   End
+   Begin VB.Label lblManufacturer 
+      AutoSize        =   -1  'True
+      Caption         =   "Manufacturer:"
+      Height          =   192
+      Left            =   396
+      TabIndex        =   11
+      Top             =   720
+      Width           =   960
+   End
+   Begin VB.Label lblName 
+      AutoSize        =   -1  'True
+      Caption         =   "Name:"
+      Height          =   192
+      Left            =   876
+      TabIndex        =   10
       Top             =   420
-      Width           =   492
+      Width           =   480
    End
    Begin VB.Label lblID 
       AutoSize        =   -1  'True
       Caption         =   "lblID"
       Height          =   192
       Left            =   7032
-      TabIndex        =   11
-      Top             =   2640
+      TabIndex        =   9
+      Top             =   3480
       Width           =   324
    End
    Begin VB.Menu mnuAction 
@@ -458,18 +432,17 @@ Begin VB.Form frmBooks
       End
    End
 End
-Attribute VB_Name = "frmBooks"
+Attribute VB_Name = "frmAircraftDesignations"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 Dim adoConn As ADODB.Connection
-Dim WithEvents rsBooks As ADODB.Recordset
-Attribute rsBooks.VB_VarHelpID = -1
-Dim rsAuthors As New ADODB.Recordset
-Dim rsSubjects As New ADODB.Recordset
-Dim strDefaultAlphaSort As String
+Dim WithEvents rsDesignations As ADODB.Recordset
+Attribute rsDesignations.VB_VarHelpID = -1
+Dim rsManufacturers As New ADODB.Recordset
+Dim rsTypes As New ADODB.Recordset
 Dim mode As ActionMode
 Dim fTransaction As Boolean
 Dim DBinfo As DataBaseInfo
@@ -478,12 +451,12 @@ Private Sub cmdCancel_Click()
         Case modeDisplay
             Unload Me
         Case modeAdd, modeModify
-            rsBooks.CancelUpdate
+            rsDesignations.CancelUpdate
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            adodcBooks.Enabled = True
+            adodcDesignations.Enabled = True
     End Select
 End Sub
 Private Sub cmdOK_Click()
@@ -494,115 +467,64 @@ Private Sub cmdOK_Click()
             Unload Me
         Case modeAdd, modeModify
             'Why we need to do this is buggy...
-            rsBooks("Author") = dbcAuthor.Text
-            rsBooks("Subject") = dbcSubject.Text
-            rsBooks.UpdateBatch
+            rsDesignations("Manufacturer") = dbcManufacturer.Text
+            rsDesignations("Type") = dbcType.Text
+            rsDesignations.UpdateBatch
             adoConn.CommitTrans
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            adodcBooks.Enabled = True
+            adodcDesignations.Enabled = True
             
-            SaveBookmark = rsBooks("AlphaSort")
-            rsBooks.Requery
-            rsBooks.Find "AlphaSort='" & SaveBookmark & "'"
-            rsAuthors.Requery
-            rsSubjects.Requery
+            SaveBookmark = rsDesignations("Name")
+            rsDesignations.Requery
+            rsDesignations.Find "Name='" & SaveBookmark & "'"
+            rsManufacturers.Requery
+            rsTypes.Requery
     End Select
 End Sub
-Private Sub dbcAuthor_GotFocus()
+Private Sub dbcManufacturer_GotFocus()
     TextSelected
 End Sub
-Private Sub dbcAuthor_Validate(Cancel As Boolean)
-    If dbcAuthor.Text = "" Then
-        MsgBox "Author must be specified!", vbExclamation, Me.Caption
-        dbcAuthor.SetFocus
+Private Sub dbcManufacturer_Validate(Cancel As Boolean)
+    If dbcManufacturer.Text = "" Then
+        MsgBox "Manufacturer must be specified!", vbExclamation, Me.Caption
+        dbcManufacturer.SetFocus
         Cancel = True
     End If
 End Sub
-Private Sub dbcSubject_GotFocus()
+Private Sub dbcType_GotFocus()
     TextSelected
 End Sub
-Private Function DefaultAlphaSort() As String
-    Dim LastName As String
-    Dim Title As String
-    Dim iAnd As Integer
-    Dim iAmpersand As Integer
-    Dim iComma As Integer
-    Dim iSemiColon As Integer
-    Dim iSeparator As Integer
-    
-    'Start with the Author's last name...
-    LastName = dbcAuthor.Text
-    iAnd = InStr(dbcAuthor.Text, " and ")
-    iAmpersand = InStr(dbcAuthor.Text, " & ")
-    iComma = InStr(dbcAuthor.Text, ",")
-    iSemiColon = InStr(dbcAuthor.Text, ";")
-    
-    If iComma > 0 Then
-        'Assume the comma separates authors, and...
-        iSeparator = iComma
-    ElseIf iSemiColon > 0 Then
-        'Assume the semicolon separates authors, and...
-        iSeparator = iSemiColon
-    ElseIf iAnd > 0 Then
-        'Assume the "and" separates authors, and...
-        iSeparator = iAnd
-    ElseIf iAmpersand > 0 Then
-        'Assume the "&" separates authors, and...
-        iSeparator = iAmpersand
-    End If
-    
-    If iSeparator > 0 Then
-        '...take the first Author...
-        LastName = Mid(LastName, 1, iSeparator - 1)
-    End If
-        
-    'OK, we have a single person's name (theoretically)...
-    'Grab the last word on the line and assume it's his last name...
-    If InStr(LastName, " ") Then
-        iSeparator = InStrRev(LastName, " ", Len(LastName))
-        LastName = Mid(LastName, iSeparator + 1)
-    End If
-    
-    'Check for "The" at the beginning of the title...
-    Title = txtTitle.Text
-    If Mid(UCase(Title), 1, 4) = "THE " Then
-        Title = Mid(Title, 5) & ", " & Mid(Title, 1, 3)
-    End If
-    
-    DefaultAlphaSort = UCase(LastName & ": " & Title)
-End Function
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
-    Set rsBooks = New ADODB.Recordset
-    Set DBinfo = frmMain.DBcollection("Books")
+    Set rsDesignations = New ADODB.Recordset
+    Set DBinfo = frmMain.DBcollection("Hobby")
     With DBinfo
         adoConn.Provider = .Provider
         adoConn.CommandTimeout = 60
         adoConn.ConnectionTimeout = 60
         adoConn.Open .PathName, .UserName, .Password
     End With
-    rsBooks.CursorLocation = adUseClient
-    rsBooks.Open "select * from [Master Book List] order by AlphaSort", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsDesignations.CursorLocation = adUseClient
+    rsDesignations.Open "select * from [Aircraft Designations] order by Type,Number,Version", adoConn, adOpenKeyset, adLockBatchOptimistic
 
-    rsAuthors.CursorLocation = adUseClient
-    rsAuthors.Open "select distinct Author from [Master Book List] order by Author", adoConn, adOpenStatic, adLockReadOnly
+    rsManufacturers.CursorLocation = adUseClient
+    rsManufacturers.Open "select distinct Manufacturer from [Aircraft Designations] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
     
-    rsSubjects.CursorLocation = adUseClient
-    rsSubjects.Open "select distinct Subject from [Master Book List] order by Subject", adoConn, adOpenStatic, adLockReadOnly
+    rsTypes.CursorLocation = adUseClient
+    rsTypes.Open "select distinct Type from [Aircraft Designations] order by Type", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcBooks.Recordset = rsBooks
-    frmMain.BindField lblID, "ID", rsBooks
-    frmMain.BindField dbcAuthor, "Author", rsBooks, rsAuthors, "Author", "Author"
-    frmMain.BindField txtTitle, "Title", rsBooks
-    frmMain.BindField txtISBN, "ISBN", rsBooks
-    frmMain.BindField txtPrice, "Price", rsBooks
-    frmMain.BindField txtAlphaSort, "AlphaSort", rsBooks
-    frmMain.BindField dbcSubject, "Subject", rsBooks, rsSubjects, "Subject", "Subject"
-    frmMain.BindField txtMisc, "Misc", rsBooks
-    frmMain.BindField chkCataloged, "Cataloged", rsBooks
-    frmMain.BindField txtInventoried, "Inventoried", rsBooks
+    Set adodcDesignations.Recordset = rsDesignations
+    frmMain.BindField lblID, "ID", rsDesignations
+    frmMain.BindField dbcManufacturer, "Manufacturer", rsDesignations, rsManufacturers, "Manufacturer", "Manufacturer"
+    frmMain.BindField txtName, "Name", rsDesignations
+    frmMain.BindField txtNumber, "Number", rsDesignations
+    frmMain.BindField txtDesignation, "Designation", rsDesignations
+    frmMain.BindField txtVersion, "Version", rsDesignations
+    frmMain.BindField dbcType, "Type", rsDesignations, rsTypes, "Type", "Type"
+    frmMain.BindField txtNotes, "Notes", rsDesignations
+    frmMain.BindField txtServiceDate, "Service Date", rsDesignations
     
     frmMain.ProtectFields Me
     mode = modeDisplay
@@ -615,13 +537,13 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If rsBooks.EditMode <> adEditNone Then rsBooks.CancelUpdate
-    If rsBooks.State = adStateOpen Then rsBooks.Close
-    Set rsBooks = Nothing
-    rsAuthors.Close
-    Set rsAuthors = Nothing
-    rsSubjects.Close
-    Set rsSubjects = Nothing
+    If rsDesignations.EditMode <> adEditNone Then rsDesignations.CancelUpdate
+    If rsDesignations.State = adStateOpen Then rsDesignations.Close
+    Set rsDesignations = Nothing
+    rsManufacturers.Close
+    Set rsManufacturers = Nothing
+    rsTypes.Close
+    Set rsTypes = Nothing
     
     On Error Resume Next
     adoConn.Close
@@ -651,10 +573,10 @@ Private Sub mnuActionList_Click()
     frmList.Width = frm.Width
     frmList.Height = frm.Height
     
-    Set frmList.rsList = rsBooks
+    Set frmList.rsList = rsDesignations
     Set frmList.mnuList = mnuAction
     Set frmList.dgdList.DataSource = frmList.rsList
-    Set frmList.dgdList.Columns("Price").DataFormat = CurrencyFormat
+    'Set frmList.dgdList.Columns("Price").DataFormat = CurrencyFormat
     For Each Col In frmList.dgdList.Columns
         Col.Alignment = dbgGeneral
     Next Col
@@ -668,66 +590,63 @@ End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
-    adodcBooks.Enabled = False
-    rsBooks.AddNew
+    adodcDesignations.Enabled = False
+    rsDesignations.AddNew
     adoConn.BeginTrans
     fTransaction = True
     
-    txtInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
-    chkCataloged.Value = vbChecked
-    strDefaultAlphaSort = ""
-    dbcAuthor.SetFocus
+    dbcManufacturer.SetFocus
 End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete
     If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsBooks.Delete
-        rsBooks.MoveNext
-        If rsBooks.EOF Then rsBooks.MoveLast
+        rsDesignations.Delete
+        rsDesignations.MoveNext
+        If rsDesignations.EOF Then rsDesignations.MoveLast
     End If
     mode = modeDisplay
 End Sub
 Private Sub mnuActionModify_Click()
     mode = modeModify
     frmMain.OpenFields Me
-    adodcBooks.Enabled = False
+    adodcDesignations.Enabled = False
     adoConn.BeginTrans
     fTransaction = True
     
-    dbcAuthor.SetFocus
+    dbcManufacturer.SetFocus
 End Sub
 Private Sub mnuActionReport_Click()
-    Dim Report As New scrBooksReport
+    'Dim Report As New scrMusicReport
     
-    Report.Database.SetDataSource rsBooks, 3, 1
-    Set frmMain.rdcReport = Report
-    Set frmMain.frmReport = Me
+    'Report.Database.SetDataSource rsMusic, 3, 1
+    'Set frmMain.rdcReport = Report
+    'Set frmMain.frmReport = Me
     
-    frmViewReport.Show vbModal
+    'frmViewReport.Show vbModal
     
-    Set Report = Nothing
+    'Set Report = Nothing
 End Sub
-Private Sub rsBooks_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+Private Sub rsDesignations_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsBooks.EOF Then rsBooks.MoveLast
-    If rsBooks.BOF Then rsBooks.MoveFirst
-    If rsBooks.BOF And rsBooks.EOF Then adodcBooks.Caption = "No Records"
-    Caption = "Reference #" & rsBooks.Bookmark & ": " & rsBooks("ALPHASORT")
+    If rsDesignations.EOF Then rsDesignations.MoveLast
+    If rsDesignations.BOF Then rsDesignations.MoveFirst
+    If rsDesignations.BOF And rsDesignations.EOF Then adodcDesignations.Caption = "No Records"
+    Caption = "Reference #" & rsDesignations.Bookmark & ": " & rsDesignations("Designation") & " " & rsDesignations("Name")
     
     i = InStr(Caption, "&")
     If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
     
-    adodcBooks.Caption = Caption
+    adodcDesignations.Caption = Caption
     Exit Sub
     
 ErrorHandler:
     MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
     Resume Next
 End Sub
-Private Sub tbBooks_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbDesignations_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
         Case "List"
             mnuActionList_Click
@@ -741,62 +660,40 @@ Private Sub tbBooks_ButtonClick(ByVal Button As MSComctlLib.Button)
             mnuActionReport_Click
     End Select
 End Sub
-Private Sub txtAlphaSort_GotFocus()
+Private Sub txtDesignation_GotFocus()
     TextSelected
 End Sub
-Private Sub txtAlphaSort_KeyPress(KeyAscii As Integer)
+Private Sub txtDesignation_KeyPress(KeyAscii As Integer)
     Dim Char As String
     Char = Chr(KeyAscii)
     KeyAscii = Asc(UCase(Char))
 End Sub
-Private Sub txtAlphaSort_Validate(Cancel As Boolean)
-    If txtAlphaSort.Text = "" Then
-        MsgBox "AlphaSort must be specified!", vbExclamation, Me.Caption
-        txtAlphaSort.SetFocus
+Private Sub txtDesignation_Validate(Cancel As Boolean)
+    If txtDesignation.Text = "" Then
+        MsgBox "Designation must be specified!", vbExclamation, Me.Caption
+        txtDesignation.SetFocus
         Cancel = True
     End If
 End Sub
-Private Sub txtInventoried_GotFocus()
+Private Sub txtServiceDate_GotFocus()
     TextSelected
 End Sub
-Private Sub txtInventoried_Validate(Cancel As Boolean)
-    If txtInventoried.Text = "" Then
-        MsgBox "Date Inventoried must be specified!", vbExclamation, Me.Caption
-        txtInventoried.SetFocus
+Private Sub txtVersion_GotFocus()
+    TextSelected
+End Sub
+Private Sub txtNotes_GotFocus()
+    TextSelected
+End Sub
+Private Sub txtNumber_GotFocus()
+    TextSelected
+End Sub
+Private Sub txtName_GotFocus()
+    TextSelected
+End Sub
+Private Sub txtName_Validate(Cancel As Boolean)
+    If txtName.Text = "" Then
+        MsgBox "Name must be specified!", vbExclamation, Me.Caption
+        txtName.SetFocus
         Cancel = True
     End If
-End Sub
-Private Sub txtISBN_GotFocus()
-    TextSelected
-End Sub
-Private Sub txtISBN_Validate(Cancel As Boolean)
-    If txtISBN.Text = "" Then
-        MsgBox "ISBN must be specified!", vbExclamation, Me.Caption
-        txtISBN.SetFocus
-        Cancel = True
-    End If
-End Sub
-Private Sub txtMisc_GotFocus()
-    TextSelected
-End Sub
-Private Sub txtPrice_GotFocus()
-    TextSelected
-End Sub
-Private Sub txtPrice_Validate(Cancel As Boolean)
-    If txtPrice.Text = "" Then
-        MsgBox "Price must be specified!", vbExclamation, Me.Caption
-        txtPrice.SetFocus
-        Cancel = True
-    End If
-End Sub
-Private Sub txtTitle_GotFocus()
-    TextSelected
-End Sub
-Private Sub txtTitle_Validate(Cancel As Boolean)
-    If txtTitle.Text = "" Then
-        MsgBox "Title must be specified!", vbExclamation, Me.Caption
-        txtTitle.SetFocus
-        Cancel = True
-    End If
-    If txtAlphaSort.Text = "" Then txtAlphaSort.Text = DefaultAlphaSort
 End Sub

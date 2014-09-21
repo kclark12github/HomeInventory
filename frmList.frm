@@ -83,11 +83,20 @@ Attribute VB_Exposed = False
 Option Explicit
 Public mnuList As Menu
 Public rsList As ADODB.Recordset
+Private SortDESC() As Boolean
 Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
-    rsList.Sort = dgdList.Columns(ColIndex).Caption
+    If SortDESC(ColIndex) Then
+        rsList.Sort = dgdList.Columns(ColIndex).Caption & " DESC"
+    Else
+        rsList.Sort = dgdList.Columns(ColIndex).Caption & " ASC"
+    End If
+    SortDESC(ColIndex) = Not SortDESC(ColIndex)
 End Sub
 Private Sub dgdList_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     If Button = vbKeyRButton Then PopupMenu mnuList
+End Sub
+Private Sub Form_Activate()
+    ReDim SortDESC(0 To dgdList.Columns.Count - 1)
 End Sub
 Private Sub Form_Load()
     dgdList.Top = 0

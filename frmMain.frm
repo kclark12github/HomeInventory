@@ -3,16 +3,16 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Home Inventory"
-   ClientHeight    =   912
+   ClientHeight    =   1920
    ClientLeft      =   36
    ClientTop       =   492
-   ClientWidth     =   2112
+   ClientWidth     =   3612
    Icon            =   "frmMain.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   912
-   ScaleWidth      =   2112
+   ScaleHeight     =   1920
+   ScaleWidth      =   3612
    StartUpPosition =   2  'CenterScreen
    Begin MSComDlg.CommonDialog dlgMain 
       Left            =   120
@@ -25,12 +25,12 @@ Begin VB.Form frmMain
       AutoRedraw      =   -1  'True
       AutoSize        =   -1  'True
       Height          =   8364
-      Left            =   60
+      Left            =   360
       Picture         =   "frmMain.frx":030A
       ScaleHeight     =   8316
       ScaleWidth      =   10800
       TabIndex        =   0
-      Top             =   60
+      Top             =   300
       Width           =   10848
    End
    Begin VB.Menu mnuFile 
@@ -48,25 +48,64 @@ Begin VB.Form frmMain
    Begin VB.Menu mnuDataBase 
       Caption         =   "&DataBase"
       Begin VB.Menu mnuDataBaseBooks 
-         Caption         =   "&Books..."
+         Caption         =   "&Books"
       End
       Begin VB.Menu mnuDataBaseHobby 
-         Caption         =   "&Hobby..."
+         Caption         =   "&Hobby"
+         Begin VB.Menu mnuDataBaseHobbyAircraftDesignations 
+            Caption         =   "Aircraft Designations"
+         End
+         Begin VB.Menu mnuDataBaseHobbyAircraftModels 
+            Caption         =   "&Aircraft Models"
+         End
+         Begin VB.Menu mnuDataBaseHobbyArmorCarModels 
+            Caption         =   "Armor && &Car Models"
+         End
+         Begin VB.Menu mnuDataBaseHobbyBlueAngelsHistory 
+            Caption         =   "&Blue Angels History"
+         End
+         Begin VB.Menu mnuDataBaseHobbyDecals 
+            Caption         =   "&Decals"
+         End
+         Begin VB.Menu mnuDataBaseHobbyDetailSets 
+            Caption         =   "Detai&l Sets"
+         End
+         Begin VB.Menu mnuDataBaseHobbyNavalModels 
+            Caption         =   "&Naval Models"
+         End
+         Begin VB.Menu mnuDataBaseHobbyPaintsBrushes 
+            Caption         =   "&Paints && Brushes"
+         End
+         Begin VB.Menu mnuDataBaseHobbyRockets 
+            Caption         =   "&Rockets"
+         End
+         Begin VB.Menu mnuDataBaseHobbySciFiSpaceModels 
+            Caption         =   "&SciFi && Space Models"
+         End
+         Begin VB.Menu mnuDataBaseHobbyTools 
+            Caption         =   "&Tools"
+         End
+         Begin VB.Menu mnuDataBaseHobbyTrains 
+            Caption         =   "T&rains"
+         End
+         Begin VB.Menu mnuDataBaseHobbyVideoResearch 
+            Caption         =   "&Video Research"
+         End
       End
       Begin VB.Menu mnuDataBaseMusic 
-         Caption         =   "&Music..."
+         Caption         =   "&Music"
       End
       Begin VB.Menu mnuDataBaseSoftware 
          Caption         =   "&Software"
       End
       Begin VB.Menu mnuDataBaseUSNavyShips 
-         Caption         =   "&US Navy Ships..."
+         Caption         =   "&US Navy Ships"
       End
       Begin VB.Menu mnuDataBaseVideoTapes 
-         Caption         =   "&Video Tapes..."
+         Caption         =   "&Video Tapes"
       End
       Begin VB.Menu mnuDataBaseKFC 
-         Caption         =   "&WebLinks (KFC)..."
+         Caption         =   "&WebLinks (KFC)"
       End
    End
    Begin VB.Menu mnuHelp 
@@ -107,6 +146,19 @@ Public Enum ActionMode
     modeModify = 2
     modeDelete = 3
 End Enum
+Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Recordset, Optional RowSource As ADODB.Recordset, Optional BoundColumn As String, Optional ListField As String)
+    Select Case TypeName(ctl)
+        Case "CheckBox", "Label", "TextBox"
+            Set ctl.DataSource = DataSource
+            ctl.DataField = DataField
+        Case "DataCombo"
+            Set ctl.DataSource = DataSource
+            ctl.DataField = DataField
+            Set ctl.RowSource = RowSource
+            ctl.BoundColumn = BoundColumn
+            ctl.ListField = ListField
+    End Select
+End Sub
 Public Sub OpenFields(pForm As Form)
     Dim ctl As Control
     For Each ctl In pForm.Controls
@@ -178,6 +230,15 @@ Private Sub Form_Load()
 End Sub
 Private Sub mnuDataBaseBooks_Click()
     frmBooks.Show vbModal
+End Sub
+Private Sub mnuDataBaseHobbyAircraftDesignations_Click()
+    frmAircraftDesignations.Show vbModal
+End Sub
+Private Sub mnuDataBaseMusic_Click()
+    frmMusic.Show vbModal
+End Sub
+Private Sub mnuDataBaseSoftware_Click()
+    frmSoftware.Show vbModal
 End Sub
 Private Sub mnuFileBackground_Click()
     Dim CurrentPath As String
