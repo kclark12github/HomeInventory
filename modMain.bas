@@ -163,7 +163,8 @@ Public Sub EstablishConnection(cn As ADODB.Connection)
     'cn.mode = adModeShareDenyNone
     cn.CursorLocation = adUseClient
     'cn.Open "Provider=Microsoft.Jet.OLEDB.4.0;Persist Security Info=False;Data Source=c:\My Documents\Home Inventory\Database\Ken's Stuff.mdb;;"
-    cn.Open "Provider=MSDASQL;FileDSN=" & gstrFileDSN
+    'cn.Open "Provider=MSDASQL;FileDSN=" & gstrFileDSN
+    cn.Open "FileDSN=" & gstrFileDSN
 End Sub
 Public Sub FilterCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String)
     Dim FieldList As String
