@@ -50,7 +50,7 @@ Begin VB.Form frmFinishingProducts
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:43 PM"
+            TextSave        =   "1:39 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -545,15 +545,15 @@ Private Sub Form_Load()
     DBcollection.Add "rsTypes", rsTypes
     
     Set adodcMain.Recordset = rsMain
-    BindField lblID, "ID", rsMain
-    BindField dbcManufacturer, "Manufacturer", rsMain, rsManufacturers, "Manufacturer", "Manufacturer"
-    BindField txtName, "Name", rsMain
-    BindField txtPrice, "Price", rsMain
-    BindField txtReference, "Reference", rsMain
-    BindField dbcCatalog, "Catalog", rsMain, rsCatalogs, "Catalog", "Catalog"
-    BindField dbcType, "Type", rsMain, rsTypes, "Type", "Type"
-    BindField txtCount, "Count", rsMain
-    BindField txtInventoried, "DateInventoried", rsMain
+    BindField lblID, "ID", rsMain, "ID"
+    BindField dbcManufacturer, "Manufacturer", rsMain, "Manufacturer", rsManufacturers, "Manufacturer", "Manufacturer"
+    BindField txtName, "Name", rsMain, "Name"
+    BindField txtPrice, "Price", rsMain, "Price"
+    BindField txtReference, "Reference", rsMain, "Reference"
+    BindField dbcCatalog, "Catalog", rsMain, "Catalog", rsCatalogs, "Catalog", "Catalog"
+    BindField dbcType, "Type", rsMain, "Type", rsTypes, "Type", "Type"
+    BindField txtCount, "Count", rsMain, "Count"
+    BindField txtInventoried, "DateInventoried", rsMain, "Date Inventoried"
 
     ProtectFields Me
     mode = modeDisplay
@@ -603,7 +603,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("Type") & ": " & pRecordset("Name")
     UpdatePosition Me, Caption, pRecordset
 End Sub
-Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComCtlLib.Button)
     Select Case Button.Key
         Case "Report"
             mnuFileReport_Click

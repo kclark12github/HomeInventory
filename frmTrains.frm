@@ -50,7 +50,7 @@ Begin VB.Form frmTrains
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:28 PM"
+            TextSave        =   "1:55 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -554,15 +554,15 @@ Private Sub Form_Load()
     DBcollection.Add "rsTypes", rsTypes
     
     Set adodcMain.Recordset = rsMain
-    BindField lblID, "ID", rsMain
-    BindField dbcManufacturer, "Manufacturer", rsMain, rsManufacturers, "Manufacturer", "Manufacturer"
-    BindField txtLine, "Line", rsMain
-    BindField txtPrice, "Price", rsMain
-    BindField dbcScale, "Scale", rsMain, rsScales, "Scale", "Scale"
-    BindField txtReference, "Reference", rsMain
-    BindField dbcCatalog, "Catalog", rsMain, rsCatalogs, "Catalog", "Catalog"
-    BindField dbcType, "Type", rsMain, rsTypes, "Type", "Type"
-    BindField txtInventoried, "DateInventoried", rsMain
+    BindField lblID, "ID", rsMain, "ID"
+    BindField dbcManufacturer, "Manufacturer", rsMain, "Manufacturer", rsManufacturers, "Manufacturer", "Manufacturer"
+    BindField txtLine, "Line", rsMain, "Line"
+    BindField txtPrice, "Price", rsMain, "Price"
+    BindField dbcScale, "Scale", rsMain, "Scale", rsScales, "Scale", "Scale"
+    BindField txtReference, "Reference", rsMain, "Reference"
+    BindField dbcCatalog, "Catalog", rsMain, "Catalog", rsCatalogs, "Catalog", "Catalog"
+    BindField dbcType, "Type", rsMain, "Type", rsTypes, "Type", "Type"
+    BindField txtInventoried, "DateInventoried", rsMain, "Date Inventoried"
 
     ProtectFields Me
     mode = modeDisplay
@@ -612,7 +612,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("Scale") & " Scale; " & pRecordset("Type") & "; " & pRecordset("Line")
     UpdatePosition Me, Caption, pRecordset
 End Sub
-Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComCtlLib.Button)
     Select Case Button.Key
         Case "Report"
             mnuFileReport_Click

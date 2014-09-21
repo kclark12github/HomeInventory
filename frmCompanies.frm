@@ -50,7 +50,7 @@ Begin VB.Form frmCompanies
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:08 PM"
+            TextSave        =   "1:35 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -529,15 +529,15 @@ Private Sub Form_Load()
     DBcollection.Add "rsProductTypes", rsProductTypes
     
     Set adodcMain.Recordset = rsMain
-    BindField lblID, "ID", rsMain
-    BindField txtName, "Name", rsMain
-    BindField txtShortName, "ShortName", rsMain
-    BindField txtCode, "Code", rsMain
-    BindField txtAccount, "Account", rsMain
-    BindField txtPhone, "Phone", rsMain
-    BindField txtAddress, "Address", rsMain
-    BindField txtWebSite, "Website", rsMain
-    BindField dbcProductType, "ProductType", rsMain, rsProductTypes, "ProductType", "ProductType"
+    BindField lblID, "ID", rsMain, "ID"
+    BindField txtName, "Name", rsMain, "Name"
+    BindField txtShortName, "ShortName", rsMain, "Short Name"
+    BindField txtCode, "Code", rsMain, "Code"
+    BindField txtAccount, "Account", rsMain, "Account"
+    BindField txtPhone, "Phone", rsMain, "Phone"
+    BindField txtAddress, "Address", rsMain, "Address"
+    BindField txtWebSite, "Website", rsMain, "Website"
+    BindField dbcProductType, "ProductType", rsMain, "Product Type", rsProductTypes, "ProductType", "ProductType"
 
     ProtectFields Me
     mode = modeDisplay
@@ -586,7 +586,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("Name")
     UpdatePosition Me, Caption, pRecordset
 End Sub
-Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComCtlLib.Button)
     Select Case Button.Key
         Case "Report"
             mnuFileReport_Click

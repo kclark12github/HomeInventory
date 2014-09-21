@@ -74,7 +74,7 @@ Begin VB.Form frmTVEpisodes
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:02 AM"
+            TextSave        =   "1:57 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -571,17 +571,17 @@ Private Sub Form_Load()
     DBcollection.Add "rsFormats", rsFormats
     
     Set adodcMain.Recordset = rsMain
-    BindField lblID, "ID", rsMain
-    BindField dbcSeries, "Series", rsMain, rsSeries, "Series", "Series"
-    BindField dbcDistributor, "Distributor", rsMain, rsDistributors, "Distributor", "Distributor"
-    BindField dbcFormat, "Format", rsMain, rsFormats, "Format", "Format"
-    BindField txtTitle, "Title", rsMain
-    BindField txtCost, "Cost", rsMain
-    BindField dbcSubject, "Subject", rsMain, rsSubjects, "Subject", "Subject"
-    BindField txtNumber, "Number", rsMain
-    BindField txtInventoried, "DateInventoried", rsMain
-    BindField chkStoreBought, "StoreBought", rsMain
-    BindField chkTaped, "Taped", rsMain
+    BindField lblID, "ID", rsMain, "ID"
+    BindField dbcSeries, "Series", rsMain, "Series", rsSeries, "Series", "Series"
+    BindField dbcDistributor, "Distributor", rsMain, "Distributor", rsDistributors, "Distributor", "Distributor"
+    BindField dbcFormat, "Format", rsMain, "Format", rsFormats, "Format", "Format"
+    BindField txtTitle, "Title", rsMain, "Title"
+    BindField txtCost, "Cost", rsMain, "Cost"
+    BindField dbcSubject, "Subject", rsMain, "Subject", rsSubjects, "Subject", "Subject"
+    BindField txtNumber, "Number", rsMain, "Number"
+    BindField txtInventoried, "DateInventoried", rsMain, "Date Inventoried"
+    BindField chkStoreBought, "StoreBought", rsMain, "Store Bought"
+    BindField chkTaped, "Taped", rsMain, "Taped"
 
     ProtectFields Me
     mode = modeDisplay
@@ -638,7 +638,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     End If
     UpdatePosition Me, Caption, pRecordset
 End Sub
-Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComCtlLib.Button)
     Select Case Button.Key
         Case "Report"
             mnuFileReport_Click

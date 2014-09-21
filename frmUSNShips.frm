@@ -282,7 +282,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmUSNShips.frx":0682
       End
@@ -295,7 +294,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0757
       End
@@ -308,7 +306,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0826
       End
@@ -321,7 +318,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":08F3
       End
@@ -334,7 +330,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":09C1
       End
@@ -347,7 +342,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0A94
       End
@@ -360,7 +354,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0B64
       End
@@ -533,6 +526,7 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   12933
          _ExtentY        =   5101
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmUSNShips.frx":0C34
       End
    End
@@ -552,6 +546,7 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   12933
          _ExtentY        =   5101
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmUSNShips.frx":0D0C
       End
    End
@@ -571,7 +566,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmUSNShips.frx":0DDF
       End
@@ -584,7 +578,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0EB0
       End
@@ -597,7 +590,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0F81
       End
@@ -610,7 +602,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":104E
       End
@@ -623,7 +614,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":1122
       End
@@ -636,7 +626,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":11F1
       End
@@ -649,7 +638,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":12C0
       End
@@ -662,7 +650,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   9864
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":1395
       End
@@ -842,7 +829,7 @@ Begin VB.Form frmUSNShips
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:25 AM"
+            TextSave        =   "2:06 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -1178,7 +1165,7 @@ Private Sub Form_Load()
     DBcollection.Add "rsClasses", rsClasses
     
     Set adodcMain.Recordset = rsMain
-    BindField lblID, "ID", rsMain
+    BindField lblID, "ID", rsMain, "ID"
 
     BindFields
     
@@ -1275,44 +1262,44 @@ End Sub
 '=================================================================================
 Private Sub BindFields()
     'General
-    BindField txtDesignation, "HullNumber", rsMain
+    BindField txtDesignation, "HullNumber", rsMain, "Hull Number"
     'BindField txtNumber, "Number", rsMain
-    BindField txtName, "Name", rsMain
-    BindField dbcClass, "ClassID", rsMain, rsClasses, "ID", "Name"
-    BindField dbcClassification, "Classification", rsMain, rsClassifications, "Type", "Type"
-    BindField txtClassDesc, "Description", rsClassifications
-    BindField dbcCommand, "Command", rsMain, rsCommands, "Command", "Command"
-    BindField dbcHomePort, "HomePort", rsMain, rsHomePorts, "HomePort", "HomePort"
-    BindField txtZipCode, "Zip Code", rsMain
-    BindField txtCommissioned, "Commissioned", rsMain
-    BindField txtURL, "URL_Internet", rsMain
-    BindField txtLocalURL, "URL_Local", rsMain
+    BindField txtName, "Name", rsMain, "Name"
+    BindField dbcClass, "ClassID", rsMain, "Class", rsClasses, "ID", "Name"
+    BindField dbcClassification, "Classification", rsMain, "Type", rsClassifications, "Type", "Type"
+    BindField txtClassDesc, "Description", rsClassifications, "Description"
+    BindField dbcCommand, "Command", rsMain, "Command", rsCommands, "Command", "Command"
+    BindField dbcHomePort, "HomePort", rsMain, "Home Port", rsHomePorts, "HomePort", "HomePort"
+    BindField txtZipCode, "Zip Code", rsMain, "Zip Code"
+    BindField txtCommissioned, "Commissioned", rsMain, "Commissioned"
+    BindField txtURL, "URL_Internet", rsMain, "Internet URL"
+    BindField txtLocalURL, "URL_Local", rsMain, "Local URL"
     
     'Characteristics...
-    BindField rtxtDisplacement, "Displacement", rsMain
-    BindField rtxtLength, "Length", rsMain
-    BindField rtxtBeam, "Beam", rsMain
-    BindField rtxtDraft, "Draft", rsMain
-    BindField rtxtPropulsion, "Propulsion", rsMain
-    BindField rtxtBoilers, "Boilers", rsMain
-    BindField txtSpeed, "Speed", rsMain
-    BindField rtxtManning, "Manning", rsMain
+    BindField rtxtDisplacement, "Displacement", rsMain, vbNullString
+    BindField rtxtLength, "Length", rsMain, vbNullString
+    BindField rtxtBeam, "Beam", rsMain, vbNullString
+    BindField rtxtDraft, "Draft", rsMain, vbNullString
+    BindField rtxtPropulsion, "Propulsion", rsMain, vbNullString
+    BindField rtxtBoilers, "Boilers", rsMain, vbNullString
+    BindField txtSpeed, "Speed", rsMain, vbNullString
+    BindField rtxtManning, "Manning", rsMain, vbNullString
     
     'Weapons...
-    BindField rtxtAircraft, "Aircraft", rsMain
-    BindField rtxtMissiles, "Missiles", rsMain
-    BindField rtxtGuns, "Guns", rsMain
-    BindField rtxtASW, "ASW Weapons", rsMain
-    BindField rtxtRadars, "Radars", rsMain
-    BindField rtxtSonars, "Sonars", rsMain
-    BindField rtxtFireControl, "Fire Control", rsMain
-    BindField rtxtEW, "EW", rsMain
+    BindField rtxtAircraft, "Aircraft", rsMain, vbNullString
+    BindField rtxtMissiles, "Missiles", rsMain, vbNullString
+    BindField rtxtGuns, "Guns", rsMain, vbNullString
+    BindField rtxtASW, "ASW Weapons", rsMain, vbNullString
+    BindField rtxtRadars, "Radars", rsMain, vbNullString
+    BindField rtxtSonars, "Sonars", rsMain, vbNullString
+    BindField rtxtFireControl, "Fire Control", rsMain, vbNullString
+    BindField rtxtEW, "EW", rsMain, vbNullString
     
     'History...
-    BindField rtxtHistory, "History", rsMain
+    BindField rtxtHistory, "History", rsMain, vbNullString
     
     'More History...
-    BindField rtxtMoreHistory, "More History", rsMain
+    BindField rtxtMoreHistory, "More History", rsMain, vbNullString
 End Sub
 Private Sub dbcClass_Validate(Cancel As Boolean)
     If Not dbcClass.Enabled Then Exit Sub
@@ -1361,27 +1348,27 @@ Private Sub DefaultClassDetails()
     BindFields
     
     'Characteristics...
-    If IsNull(rsMain("Displacement")) And Not IsNull(rsClasses("Displacement")) Then BindField rtxtDisplacement, "Displacement", rsClasses
-    If IsNull(rsMain("Length")) And Not IsNull(rsClasses("Length")) Then BindField rtxtLength, "Length", rsClasses
-    If IsNull(rsMain("Beam")) And Not IsNull(rsClasses("Beam")) Then BindField rtxtBeam, "Beam", rsClasses
-    If IsNull(rsMain("Draft")) And Not IsNull(rsClasses("Draft")) Then BindField rtxtDraft, "Draft", rsClasses
-    If IsNull(rsMain("Propulsion")) And Not IsNull(rsClasses("Propulsion")) Then BindField rtxtPropulsion, "Propulsion", rsClasses
-    If IsNull(rsMain("Boilers")) And Not IsNull(rsClasses("Boilers")) Then BindField rtxtBoilers, "Boilers", rsClasses
-    If IsNull(rsMain("Speed")) And Not IsNull(rsClasses("Speed")) Then BindField txtSpeed, "Speed", rsClasses
-    If IsNull(rsMain("Manning")) And Not IsNull(rsClasses("Manning")) Then BindField rtxtManning, "Manning", rsClasses
+    If IsNull(rsMain("Displacement")) And Not IsNull(rsClasses("Displacement")) Then BindField rtxtDisplacement, "Displacement", rsClasses, vbNullString
+    If IsNull(rsMain("Length")) And Not IsNull(rsClasses("Length")) Then BindField rtxtLength, "Length", rsClasses, vbNullString
+    If IsNull(rsMain("Beam")) And Not IsNull(rsClasses("Beam")) Then BindField rtxtBeam, "Beam", rsClasses, vbNullString
+    If IsNull(rsMain("Draft")) And Not IsNull(rsClasses("Draft")) Then BindField rtxtDraft, "Draft", rsClasses, vbNullString
+    If IsNull(rsMain("Propulsion")) And Not IsNull(rsClasses("Propulsion")) Then BindField rtxtPropulsion, "Propulsion", rsClasses, vbNullString
+    If IsNull(rsMain("Boilers")) And Not IsNull(rsClasses("Boilers")) Then BindField rtxtBoilers, "Boilers", rsClasses, vbNullString
+    If IsNull(rsMain("Speed")) And Not IsNull(rsClasses("Speed")) Then BindField txtSpeed, "Speed", rsClasses, vbNullString
+    If IsNull(rsMain("Manning")) And Not IsNull(rsClasses("Manning")) Then BindField rtxtManning, "Manning", rsClasses, vbNullString
     
     'Weapons...
-    If IsNull(rsMain("Aircraft")) And Not IsNull(rsClasses("Aircraft")) Then BindField rtxtAircraft, "Aircraft", rsClasses
-    If IsNull(rsMain("Missiles")) And Not IsNull(rsClasses("Missiles")) Then BindField rtxtMissiles, "Missiles", rsClasses
-    If IsNull(rsMain("Guns")) And Not IsNull(rsClasses("Guns")) Then BindField rtxtGuns, "Guns", rsClasses
-    If IsNull(rsMain("ASW Weapons")) And Not IsNull(rsClasses("ASW Weapons")) Then BindField rtxtASW, "ASW Weapons", rsClasses
-    If IsNull(rsMain("Radars")) And Not IsNull(rsClasses("Radars")) Then BindField rtxtRadars, "Radars", rsClasses
-    If IsNull(rsMain("Sonars")) And Not IsNull(rsClasses("Sonars")) Then BindField rtxtSonars, "Sonars", rsClasses
-    If IsNull(rsMain("Fire Control")) And Not IsNull(rsClasses("Fire Control")) Then BindField rtxtFireControl, "Fire Control", rsClasses
-    If IsNull(rsMain("EW")) And Not IsNull(rsClasses("EW")) Then BindField rtxtEW, "EW", rsClasses
+    If IsNull(rsMain("Aircraft")) And Not IsNull(rsClasses("Aircraft")) Then BindField rtxtAircraft, "Aircraft", rsClasses, vbNullString
+    If IsNull(rsMain("Missiles")) And Not IsNull(rsClasses("Missiles")) Then BindField rtxtMissiles, "Missiles", rsClasses, vbNullString
+    If IsNull(rsMain("Guns")) And Not IsNull(rsClasses("Guns")) Then BindField rtxtGuns, "Guns", rsClasses, vbNullString
+    If IsNull(rsMain("ASW Weapons")) And Not IsNull(rsClasses("ASW Weapons")) Then BindField rtxtASW, "ASW Weapons", rsClasses, vbNullString
+    If IsNull(rsMain("Radars")) And Not IsNull(rsClasses("Radars")) Then BindField rtxtRadars, "Radars", rsClasses, vbNullString
+    If IsNull(rsMain("Sonars")) And Not IsNull(rsClasses("Sonars")) Then BindField rtxtSonars, "Sonars", rsClasses, vbNullString
+    If IsNull(rsMain("Fire Control")) And Not IsNull(rsClasses("Fire Control")) Then BindField rtxtFireControl, "Fire Control", rsClasses, vbNullString
+    If IsNull(rsMain("EW")) And Not IsNull(rsClasses("EW")) Then BindField rtxtEW, "EW", rsClasses, vbNullString
     
     'History...
-    If IsNull(rsMain("History")) And Not IsNull(rsClasses("Description")) Then BindField rtxtHistory, "Description", rsClasses
+    If IsNull(rsMain("History")) And Not IsNull(rsClasses("Description")) Then BindField rtxtHistory, "Description", rsClasses, vbNullString
 End Sub
 Private Sub DefaultClassificationDesc()
     If rsClassifications Is Nothing Then Exit Sub

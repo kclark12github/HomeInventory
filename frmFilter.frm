@@ -1099,13 +1099,13 @@ Private Sub Form_Activate()
     For i = 0 To RS.Fields.Count - 1
         fUseDataCombo = False
         Caption = vbNullString
-        Call Trace(trcBody, "RS.Fields(i).Name", RS.Fields(i).Name)
+        Call Trace(trcBody, "RS.Fields(i).Name: " & RS.Fields(i).Name)
         Select Case RS.Fields(i).Type
             Case adBinary, adLongVarBinary, adLongVarChar
                 'Don't deal with filtering these fields (we could do
                 'Memo fields, but eliminating them reduces the size of
                 'the filter form for these activites, so let's not)...
-                Call Trace(trcBody, vbTab & "Skipping: RS.Fields(i).Name", RS.Fields(i).Name)
+                Call Trace(trcBody, vbTab & "Skipping: RS.Fields(i).Name:" & RS.Fields(i).Name)
             Case Else
                 If i > 31 Then
                     MsgBox "Warning: Only the first 32 fields can be used to filter your data.", vbInformation

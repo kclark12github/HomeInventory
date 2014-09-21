@@ -49,7 +49,7 @@ Begin VB.Form frmBlueAngelsHistory
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:06 PM"
+            TextSave        =   "1:32 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -433,11 +433,11 @@ Private Sub Form_Load()
     DBcollection.Add "rsMain", rsMain
     
     Set adodcMain.Recordset = rsMain
-    BindField lblID, "ID", rsMain
-    BindField txtAircraftType, "Aircraft Type", rsMain
-    BindField txtDates, "Dates", rsMain
-    BindField txtKits, "Kits", rsMain
-    BindField txtDecalSets, "Decal Sets", rsMain
+    BindField lblID, "ID", rsMain, "ID"
+    BindField txtAircraftType, "Aircraft Type", rsMain, "Aircraft Type"
+    BindField txtDates, "Dates", rsMain, "Dates"
+    BindField txtKits, "Kits", rsMain, "Kits"
+    BindField txtDecalSets, "Decal Sets", rsMain, "Decal Sets"
     
     ProtectFields Me
     mode = modeDisplay
@@ -486,7 +486,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("Dates") & ": " & pRecordset("Aircraft Type")
     UpdatePosition Me, Caption, pRecordset
 End Sub
-Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComCtlLib.Button)
     Select Case Button.Key
         Case "Report"
             mnuFileReport_Click

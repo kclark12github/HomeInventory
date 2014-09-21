@@ -52,11 +52,13 @@ Public mode As ActionMode
 Public SQLmain As String
 Public SQLfilter As String
 Public SQLkey As String
-Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Recordset, Optional RowSource As ADODB.Recordset, Optional BoundColumn As String, Optional ListField As String)
+Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Recordset, Caption As String, Optional RowSource As ADODB.Recordset, Optional BoundColumn As String, Optional ListField As String)
     Dim DateTimeFormat As StdDataFormat
+    
     Call Trace(trcEnter, "BindField(""" & ctl.Name & """, """ & DataField & """, DataSource, RowSource, """ & BoundColumn & """, """ & ListField & """)")
     Select Case TypeName(ctl)
         Case "CheckBox", "Label", "PictureBox", "RichTextBox", "TextBox"
+            ctl.Tag = Caption
             Set ctl.DataSource = Nothing
             ctl.DataField = DataField
             Set ctl.DataSource = DataSource
@@ -69,6 +71,7 @@ Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Re
                 End If
             End If
         Case "DataCombo"
+            ctl.Tag = Caption
             Set ctl.DataSource = Nothing
             ctl.DataField = DataField
             Set ctl.DataSource = DataSource

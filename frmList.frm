@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:06 AM"
+            TextSave        =   "1:30 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -265,6 +265,7 @@ Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
     Dim iCol As Integer
     Dim ResizeWindow As Single
     
+    On Error Resume Next
     ColName = dgdList.Columns(ColIndex).Caption
     If RS.BOF And RS.EOF Then Exit Sub
     'kfc - 05/27/00; This seems to be working now without reassignment of the DataSource (and the
@@ -603,13 +604,13 @@ Private Sub ResetColumns()
     Dim ctl As Control
     Dim fld As ADODB.Field
     Dim frm As Form
+    Dim fFoundControl As Boolean
     
     Set frm = Forms(Forms.Count - 2)
     For Each fld In RS.Fields
         Set col = dgdList.Columns(fld.Name)
         col.Visible = True
         col.Locked = True
-        ColLinkMap(col.ColIndex) = False
         Select Case fld.Type
             Case adCurrency
                 col.NumberFormat = "Currency"
@@ -627,19 +628,29 @@ Private Sub ResetColumns()
         End Select
         If fld.Name = "Junk" Then col.Visible = False
         
-        'How can we tell if this is an integer linkage field pointing to a record in
-        'another table...? I can rely on naming conventions for now, but I'm not happy
-        'with this...
-        If Len(col.Caption) > 2 And Right(col.Caption, 2) = "ID" Then
+        'I'm not taking the time to do what Access does in displying Lookup fields...
+        'I'm just going to live with making such linkage fields invisible...
+        fFoundControl = False
+        If Not (Len(col.Caption) > 2 And Right(col.Caption, 2) = "ID") Then
+            For Each ctl In frm.Controls
+                If ctl.Tag = vbNullString Then GoTo SkipControl
+                Select Case TypeName(ctl)
+                    Case "CheckBox", "DataCombo", "Label", "PictureBox", "RichTextBox", "TextBox"
+                        If ctl.DataField = fld.Name Then
+                            If ctl.Tag <> vbNullString Then fFoundControl = True
+                            Exit For
+                        End If
+                End Select
+SkipControl:
+            Next ctl
+        End If
+        If fFoundControl Then
+            ColLinkMap(col.ColIndex) = False
+            col.Visible = True
+        Else
             ColLinkMap(col.ColIndex) = True
             col.Visible = False
         End If
-    
-'        For Each ctl In frm.Controls
-'            If TypeName(ctl) = "DataCombo" Then
-'
-'            End If
-'        Next ctl
     Next fld
     
     Set fld = Nothing

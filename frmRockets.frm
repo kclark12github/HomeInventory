@@ -50,7 +50,7 @@ Begin VB.Form frmRockets
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "9:05 PM"
+            TextSave        =   "1:46 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -614,18 +614,18 @@ Private Sub Form_Load()
     DBcollection.Add "rsTypes", rsTypes
     
     Set adodcMain.Recordset = rsMain
-    BindField lblID, "ID", rsMain
-    BindField dbcManufacturer, "Manufacturer", rsMain, rsManufacturers, "Manufacturer", "Manufacturer"
-    BindField txtDesignation, "Designation", rsMain
-    BindField txtName, "Name", rsMain
-    BindField txtPrice, "Price", rsMain
-    BindField dbcScale, "Scale", rsMain, rsScales, "Scale", "Scale"
-    BindField txtReference, "Reference", rsMain
-    BindField dbcCatalog, "Catalog", rsMain, rsCatalogs, "Catalog", "Catalog"
-    BindField dbcNation, "Nation", rsMain, rsNations, "Nation", "Nation"
-    BindField dbcType, "Type", rsMain, rsTypes, "Type", "Type"
-    BindField txtCount, "Count", rsMain
-    BindField txtInventoried, "DateInventoried", rsMain
+    BindField lblID, "ID", rsMain, "ID"
+    BindField dbcManufacturer, "Manufacturer", rsMain, "Manufacturer", rsManufacturers, "Manufacturer", "Manufacturer"
+    BindField txtDesignation, "Designation", rsMain, "Designation"
+    BindField txtName, "Name", rsMain, "Name"
+    BindField txtPrice, "Price", rsMain, "Price"
+    BindField dbcScale, "Scale", rsMain, "Scale", rsScales, "Scale", "Scale"
+    BindField txtReference, "Reference", rsMain, "Reference"
+    BindField dbcCatalog, "Catalog", rsMain, "Catalog", rsCatalogs, "Catalog", "Catalog"
+    BindField dbcNation, "Nation", rsMain, "Nation", rsNations, "Nation", "Nation"
+    BindField dbcType, "Type", rsMain, "Type", rsTypes, "Type", "Type"
+    BindField txtCount, "Count", rsMain, "Count"
+    BindField txtInventoried, "DateInventoried", rsMain, "Date Inventoried"
 
     ProtectFields Me
     mode = modeDisplay
@@ -673,13 +673,13 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     Dim Caption As String
     
     If Not pRecordset.BOF And Not pRecordset.EOF Then
-        Caption = "Reference #" & pRecordset.Bookmark & ": "
+        Caption = "Reference #" & pRecordset.BookMark & ": "
         If IsNumeric(rsMain("Scale")) Then Caption = Caption & "1/"
         Caption = Caption & pRecordset("Scale") & " Scale; " & pRecordset("Designation") & " " & pRecordset("Name")
     End If
     UpdatePosition Me, Caption, pRecordset
 End Sub
-Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComCtlLib.Button)
     Select Case Button.Key
         Case "Report"
             mnuFileReport_Click
@@ -708,7 +708,7 @@ End Sub
 Private Sub dbcCatalog_Validate(Cancel As Boolean)
     If Trim(dbcCatalog.Text) = vbNullString Then dbcCatalog.Text = "Unknown"
     If dbcValidate(rsMain("Catalog"), dbcCatalog) = 0 Then Cancel = True
-    If rsCatalogs.Bookmark <> dbcCatalog.SelectedItem Then rsCatalogs.Bookmark = dbcCatalog.SelectedItem
+    If rsCatalogs.BookMark <> dbcCatalog.SelectedItem Then rsCatalogs.BookMark = dbcCatalog.SelectedItem
 End Sub
 Private Sub dbcManufacturer_GotFocus()
     TextSelected
@@ -721,7 +721,7 @@ Private Sub dbcManufacturer_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Manufacturer"), dbcManufacturer) = 0 Then Cancel = True
-    If rsManufacturers.Bookmark <> dbcManufacturer.SelectedItem Then rsManufacturers.Bookmark = dbcManufacturer.SelectedItem
+    If rsManufacturers.BookMark <> dbcManufacturer.SelectedItem Then rsManufacturers.BookMark = dbcManufacturer.SelectedItem
 End Sub
 Private Sub dbcNation_GotFocus()
     TextSelected
@@ -734,7 +734,7 @@ Private Sub dbcNation_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Nation"), dbcNation) = 0 Then Cancel = True
-    If rsNations.Bookmark <> dbcNation.SelectedItem Then rsNations.Bookmark = dbcNation.SelectedItem
+    If rsNations.BookMark <> dbcNation.SelectedItem Then rsNations.BookMark = dbcNation.SelectedItem
 End Sub
 Private Sub dbcScale_GotFocus()
     TextSelected
@@ -742,7 +742,7 @@ End Sub
 Private Sub dbcScale_Validate(Cancel As Boolean)
     If dbcScale.Text = vbNullString Then dbcScale.Text = "Unknown"
     If dbcValidate(rsMain("Scale"), dbcScale) = 0 Then Cancel = True
-    If rsScales.Bookmark <> dbcScale.SelectedItem Then rsScales.Bookmark = dbcScale.SelectedItem
+    If rsScales.BookMark <> dbcScale.SelectedItem Then rsScales.BookMark = dbcScale.SelectedItem
 End Sub
 Private Sub dbcType_GotFocus()
     TextSelected
@@ -755,7 +755,7 @@ Private Sub dbcType_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Type"), dbcType) = 0 Then Cancel = True
-    If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
+    If rsTypes.BookMark <> dbcType.SelectedItem Then rsTypes.BookMark = dbcType.SelectedItem
 End Sub
 Private Sub txtCount_GotFocus()
     TextSelected

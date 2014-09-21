@@ -50,7 +50,7 @@ Begin VB.Form frmAircraftDesignations
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "9:05 PM"
+            TextSave        =   "1:32 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -519,15 +519,15 @@ Private Sub Form_Load()
     DBcollection.Add "rsTypes", rsTypes
     
     Set adodcMain.Recordset = rsMain
-    BindField lblID, "ID", rsMain
-    BindField dbcManufacturer, "Manufacturer", rsMain, rsManufacturers, "Manufacturer", "Manufacturer"
-    BindField txtName, "Name", rsMain
-    BindField txtNumber, "Number", rsMain
-    BindField txtDesignation, "Designation", rsMain
-    BindField txtVersion, "Version", rsMain
-    BindField dbcType, "Type", rsMain, rsTypes, "Type", "Type"
-    BindField txtNotes, "Notes", rsMain
-    BindField txtServiceDate, "Service Date", rsMain
+    BindField lblID, "ID", rsMain, "ID"
+    BindField dbcManufacturer, "Manufacturer", rsMain, "Manufacturer", rsManufacturers, "Manufacturer", "Manufacturer"
+    BindField txtName, "Name", rsMain, "Name"
+    BindField txtNumber, "Number", rsMain, "Number"
+    BindField txtDesignation, "Designation", rsMain, "Designation"
+    BindField txtVersion, "Version", rsMain, "Version"
+    BindField dbcType, "Type", rsMain, "Type", rsTypes, "Type", "Type"
+    BindField txtNotes, "Notes", rsMain, vbNullString
+    BindField txtServiceDate, "Service Date", rsMain, "Service Date"
     
     ProtectFields Me
     mode = modeDisplay
@@ -573,10 +573,10 @@ End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     
-    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset("Designation") & " " & pRecordset("Name")
+    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("Designation") & " " & pRecordset("Name")
     UpdatePosition Me, Caption, pRecordset
 End Sub
-Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComCtlLib.Button)
     Select Case Button.Key
         Case "Report"
             mnuFileReport_Click
@@ -610,7 +610,7 @@ Private Sub dbcManufacturer_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Manufacturer"), dbcManufacturer) = 0 Then Cancel = True
-    If rsManufacturers.Bookmark <> dbcManufacturer.SelectedItem Then rsManufacturers.Bookmark = dbcManufacturer.SelectedItem
+    If rsManufacturers.BookMark <> dbcManufacturer.SelectedItem Then rsManufacturers.BookMark = dbcManufacturer.SelectedItem
 End Sub
 Private Sub dbcType_GotFocus()
     TextSelected
@@ -623,7 +623,7 @@ Private Sub dbcType_Validate(Cancel As Boolean)
     '    Cancel = True
     'End If
     If dbcValidate(rsMain("Type"), dbcType) = 0 Then Cancel = True
-    If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
+    If rsTypes.BookMark <> dbcType.SelectedItem Then rsTypes.BookMark = dbcType.SelectedItem
 End Sub
 Private Sub txtDesignation_GotFocus()
     TextSelected

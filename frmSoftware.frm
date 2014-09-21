@@ -50,7 +50,7 @@ Begin VB.Form frmSoftware
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:14 PM"
+            TextSave        =   "1:47 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -659,20 +659,20 @@ Private Sub Form_Load()
     DBcollection.Add "rsTypes", rsTypes
     
     Set adodcMain.Recordset = rsMain
-    BindField lblID, "ID", rsMain
-    BindField dbcPublisher, "Publisher", rsMain, rsPublishers, "Publisher", "Publisher"
-    BindField txtTitle, "Title", rsMain
-    BindField txtVersion, "Version", rsMain
-    BindField txtISBN, "ISBN", rsMain
-    BindField txtValue, "Value", rsMain
-    BindField txtCost, "Cost", rsMain
-    BindField dbcType, "Type", rsMain, rsTypes, "Type", "Type"
-    BindField dbcPlatform, "Platform", rsMain, rsPlatforms, "Platform", "Platform"
-    BindField dbcMedia, "Media", rsMain, rsMedias, "Media", "Media"
-    BindField dbcLocation, "Location", rsMain, rsLocations, "Location", "Location"
-    BindField txtCDkey, "CDkey", rsMain
-    BindField chkCataloged, "Cataloged", rsMain
-    BindField txtInventoried, "DateInventoried", rsMain
+    BindField lblID, "ID", rsMain, "ID"
+    BindField dbcPublisher, "Publisher", rsMain, "Publisher", rsPublishers, "Publisher", "Publisher"
+    BindField txtTitle, "Title", rsMain, "Title"
+    BindField txtVersion, "Version", rsMain, "Version"
+    BindField txtISBN, "ISBN", rsMain, "ISBN"
+    BindField txtValue, "Value", rsMain, "Value"
+    BindField txtCost, "Cost", rsMain, "Cost"
+    BindField dbcType, "Type", rsMain, "Type", rsTypes, "Type", "Type"
+    BindField dbcPlatform, "Platform", rsMain, "Platform", rsPlatforms, "Platform", "Platform"
+    BindField dbcMedia, "Media", rsMain, "Media", rsMedias, "Media", "Media"
+    BindField dbcLocation, "Location", rsMain, "Location", rsLocations, "Location", "Location"
+    BindField txtCDkey, "CDkey", rsMain, "CDkey"
+    BindField chkCataloged, "Cataloged", rsMain, "Cataloged"
+    BindField txtInventoried, "DateInventoried", rsMain, "Date Inventoried"
 
     ProtectFields Me
     mode = modeDisplay
@@ -723,7 +723,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("Type") & "; " & pRecordset("Title")
     UpdatePosition Me, Caption, pRecordset
 End Sub
-Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComCtlLib.Button)
     Select Case Button.Key
         Case "Report"
             mnuFileReport_Click

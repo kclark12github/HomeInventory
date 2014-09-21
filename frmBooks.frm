@@ -50,7 +50,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:06 PM"
+            TextSave        =   "1:34 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -548,16 +548,16 @@ Private Sub Form_Load()
     DBcollection.Add "rsSubjects", rsSubjects
     
     Set adodcMain.Recordset = rsMain
-    BindField lblID, "ID", rsMain
-    BindField dbcAuthor, "Author", rsMain, rsAuthors, "Author", "Author"
-    BindField txtTitle, "Title", rsMain
-    BindField txtISBN, "ISBN", rsMain
-    BindField txtPrice, "Price", rsMain
-    BindField txtAlphaSort, "AlphaSort", rsMain
-    BindField dbcSubject, "Subject", rsMain, rsSubjects, "Subject", "Subject"
-    BindField txtMisc, "Misc", rsMain
-    BindField chkCataloged, "Cataloged", rsMain
-    BindField txtInventoried, "Inventoried", rsMain
+    BindField lblID, "ID", rsMain, "ID"
+    BindField dbcAuthor, "Author", rsMain, "Author", rsAuthors, "Author", "Author"
+    BindField txtTitle, "Title", rsMain, "Title"
+    BindField txtISBN, "ISBN", rsMain, "ISBN"
+    BindField txtPrice, "Price", rsMain, "Price"
+    BindField txtAlphaSort, "AlphaSort", rsMain, "AlphaSort"
+    BindField dbcSubject, "Subject", rsMain, "Subject", rsSubjects, "Subject", "Subject"
+    BindField txtMisc, "Misc", rsMain, "Misc"
+    BindField chkCataloged, "Cataloged", rsMain, "Cataloged"
+    BindField txtInventoried, "Inventoried", rsMain, "Inventoried"
 
     ProtectFields Me
     mode = modeDisplay
@@ -609,7 +609,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset(SQLkey)
     UpdatePosition Me, Caption, pRecordset
 End Sub
-Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComCtlLib.Button)
     Select Case Button.Key
         Case "Report"
             mnuFileReport_Click

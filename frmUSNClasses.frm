@@ -128,7 +128,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmUSNClasses.frx":0682
       End
@@ -141,7 +140,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0757
       End
@@ -154,7 +152,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0826
       End
@@ -167,7 +164,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":08F3
       End
@@ -180,7 +176,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":09C1
       End
@@ -193,7 +188,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0A94
       End
@@ -206,7 +200,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0B64
       End
@@ -307,7 +300,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmUSNClasses.frx":0C34
       End
@@ -320,7 +312,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0D05
       End
@@ -333,7 +324,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0DD6
       End
@@ -346,7 +336,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0EA3
       End
@@ -359,7 +348,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0F77
       End
@@ -372,7 +360,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":1046
       End
@@ -385,7 +372,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":1115
       End
@@ -398,7 +384,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   9864
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":11EA
       End
@@ -499,6 +484,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   12933
          _ExtentY        =   5101
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmUSNClasses.frx":12B5
       End
    End
@@ -587,7 +573,7 @@ Begin VB.Form frmUSNClasses
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:38 PM"
+            TextSave        =   "2:06 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -956,7 +942,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     UpdatePosition Me, Caption, pRecordset
     DefaultClassificationDesc
 End Sub
-Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComCtlLib.Button)
     Select Case Button.Key
         Case "Report"
             mnuFileReport_Click
@@ -995,33 +981,33 @@ End Sub
 '=================================================================================
 Private Sub BindFields()
     'General
-    BindField txtName, "Name", rsMain
-    BindField dbcClassification, "Classification", rsMain, rsClassifications, "Type", "Type"
-    BindField txtClassDesc, "Description", rsClassifications
-    BindField txtYear, "Year", rsMain
+    BindField txtName, "Name", rsMain, "Name"
+    BindField dbcClassification, "Classification", rsMain, "Type", rsClassifications, "Type", "Type"
+    BindField txtClassDesc, "Description", rsClassifications, "Description"
+    BindField txtYear, "Year", rsMain, "Year"
     
     'Characteristics...
-    BindField rtxtDisplacement, "Displacement", rsMain
-    BindField rtxtLength, "Length", rsMain
-    BindField rtxtBeam, "Beam", rsMain
-    BindField rtxtDraft, "Draft", rsMain
-    BindField rtxtPropulsion, "Propulsion", rsMain
-    BindField rtxtBoilers, "Boilers", rsMain
-    BindField txtSpeed, "Speed", rsMain
-    BindField rtxtManning, "Manning", rsMain
+    BindField rtxtDisplacement, "Displacement", rsMain, vbNullString
+    BindField rtxtLength, "Length", rsMain, vbNullString
+    BindField rtxtBeam, "Beam", rsMain, vbNullString
+    BindField rtxtDraft, "Draft", rsMain, vbNullString
+    BindField rtxtPropulsion, "Propulsion", rsMain, vbNullString
+    BindField rtxtBoilers, "Boilers", rsMain, vbNullString
+    BindField txtSpeed, "Speed", rsMain, vbNullString
+    BindField rtxtManning, "Manning", rsMain, vbNullString
     
     'Weapons...
-    BindField rtxtAircraft, "Aircraft", rsMain
-    BindField rtxtMissiles, "Missiles", rsMain
-    BindField rtxtGuns, "Guns", rsMain
-    BindField rtxtASW, "ASW Weapons", rsMain
-    BindField rtxtRadars, "Radars", rsMain
-    BindField rtxtSonars, "Sonars", rsMain
-    BindField rtxtFireControl, "Fire Control", rsMain
-    BindField rtxtEW, "EW", rsMain
+    BindField rtxtAircraft, "Aircraft", rsMain, vbNullString
+    BindField rtxtMissiles, "Missiles", rsMain, vbNullString
+    BindField rtxtGuns, "Guns", rsMain, vbNullString
+    BindField rtxtASW, "ASW Weapons", rsMain, vbNullString
+    BindField rtxtRadars, "Radars", rsMain, vbNullString
+    BindField rtxtSonars, "Sonars", rsMain, vbNullString
+    BindField rtxtFireControl, "Fire Control", rsMain, vbNullString
+    BindField rtxtEW, "EW", rsMain, vbNullString
     
     'Description...
-    BindField rtxtDescription, "Description", rsMain
+    BindField rtxtDescription, "Description", rsMain, vbNullString
 End Sub
 Private Sub dbcClassification_Validate(Cancel As Boolean)
     If Not dbcClassification.Enabled Then Exit Sub

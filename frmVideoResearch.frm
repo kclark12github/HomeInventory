@@ -50,7 +50,7 @@ Begin VB.Form frmVideoResearch
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:15 PM"
+            TextSave        =   "2:02 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -503,13 +503,13 @@ Private Sub Form_Load()
     DBcollection.Add "rsSubjects", rsSubjects
     
     Set adodcMain.Recordset = rsMain
-    BindField lblID, "ID", rsMain
-    BindField dbcDistributor, "Distributor", rsMain, rsDistributors, "Distributor", "Distributor"
-    BindField txtTitle, "Title", rsMain
-    BindField txtCost, "Cost", rsMain
-    BindField dbcSubject, "Subject", rsMain, rsSubjects, "Subject", "Subject"
-    BindField txtSort, "Sort", rsMain
-    BindField txtInventoried, "DateInventoried", rsMain
+    BindField lblID, "ID", rsMain, "ID"
+    BindField dbcDistributor, "Distributor", rsMain, "Distributor", rsDistributors, "Distributor", "Distributor"
+    BindField txtTitle, "Title", rsMain, "Title"
+    BindField txtCost, "Cost", rsMain, "Cost"
+    BindField dbcSubject, "Subject", rsMain, "Subject", rsSubjects, "Subject", "Subject"
+    BindField txtSort, "Sort", rsMain, "Sort"
+    BindField txtInventoried, "DateInventoried", rsMain, "Date Inventoried"
 
     ProtectFields Me
     mode = modeDisplay
@@ -560,7 +560,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset(SQLkey)
     UpdatePosition Me, Caption, pRecordset
 End Sub
-Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComCtlLib.Button)
     Select Case Button.Key
         Case "Report"
             mnuFileReport_Click

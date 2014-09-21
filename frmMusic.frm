@@ -50,7 +50,7 @@ Begin VB.Form frmMusic
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "7:42 PM"
+            TextSave        =   "1:44 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -556,18 +556,18 @@ Private Sub Form_Load()
     DBcollection.Add "rsTypes", rsTypes
     
     Set adodcMain.Recordset = rsMain
-    BindField lblID, "ID", rsMain
-    BindField dbcArtist, "Artist", rsMain, rsArtists, "Artist", "Artist"
-    BindField txtTitle, "Title", rsMain
-    BindField txtYear, "Year", rsMain
-    BindField txtPrice, "Price", rsMain
-    BindField chkCD, "CD", rsMain
-    BindField chkCS, "CS", rsMain
-    BindField chkLP, "LP", rsMain
-    BindField txtAlphaSort, "AlphaSort", rsMain
-    BindField dbcType, "Type", rsMain, rsTypes, "Type", "Type"
-    BindField chkInventoried, "Inventoried", rsMain
-    BindField txtInventoried, "DateInventoried", rsMain
+    BindField lblID, "ID", rsMain, "ID"
+    BindField dbcArtist, "Artist", rsMain, "Artist", rsArtists, "Artist", "Artist"
+    BindField txtTitle, "Title", rsMain, "Title"
+    BindField txtYear, "Year", rsMain, "Year"
+    BindField txtPrice, "Price", rsMain, "Price"
+    BindField chkCD, "CD", rsMain, "CD"
+    BindField chkCS, "CS", rsMain, "CS"
+    BindField chkLP, "LP", rsMain, "LP"
+    BindField txtAlphaSort, "AlphaSort", rsMain, "AlphaSort"
+    BindField dbcType, "Type", rsMain, "Type", rsTypes, "Type", "Type"
+    BindField chkInventoried, "Inventoried", rsMain, "Inventoried"
+    BindField txtInventoried, "DateInventoried", rsMain, "Date Inventoried"
 
     ProtectFields Me
     mode = modeDisplay
@@ -619,10 +619,10 @@ End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     
-    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset(SQLkey)
+    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset(SQLkey)
     UpdatePosition Me, Caption, pRecordset
 End Sub
-Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComCtlLib.Button)
     Select Case Button.Key
         Case "Report"
             mnuFileReport_Click
@@ -656,7 +656,7 @@ Private Sub dbcArtist_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Artist"), dbcArtist) = 0 Then Cancel = True
-    If rsArtists.Bookmark <> dbcArtist.SelectedItem Then rsArtists.Bookmark = dbcArtist.SelectedItem
+    If rsArtists.BookMark <> dbcArtist.SelectedItem Then rsArtists.BookMark = dbcArtist.SelectedItem
 End Sub
 Private Sub dbcType_GotFocus()
     TextSelected
@@ -669,7 +669,7 @@ Private Sub dbcType_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Type"), dbcType) = 0 Then Cancel = True
-    If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
+    If rsTypes.BookMark <> dbcType.SelectedItem Then rsTypes.BookMark = dbcType.SelectedItem
 End Sub
 Private Function DefaultAlphaSort() As String
     Dim LastName As String

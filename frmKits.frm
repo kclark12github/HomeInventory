@@ -319,7 +319,6 @@ Begin VB.Form frmKits
          _ExtentX        =   13356
          _ExtentY        =   4360
          _Version        =   393217
-         Enabled         =   -1  'True
          TextRTF         =   $"frmKits.frx":0442
       End
    End
@@ -356,7 +355,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:40 AM"
+            TextSave        =   "1:42 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -732,23 +731,23 @@ Private Sub Form_Load()
     DBcollection.Add "rsLocations", rsLocations
     
     Set adodcMain.Recordset = rsMain
-    BindField lblID, "ID", rsMain
-    BindField dbcManufacturer, "Manufacturer", rsMain, rsManufacturers, "Manufacturer", "Manufacturer"
-    BindField txtDesignation, "Designation", rsMain
-    BindField txtName, "Name", rsMain
-    BindField txtPrice, "Price", rsMain
-    BindField dbcScale, "Scale", rsMain, rsScales, "Scale", "Scale"
-    BindField dbcType, "Type", rsMain, rsTypes, "Type", "Type"
-    BindField txtReference, "Reference", rsMain
-    BindField dbcCatalog, "Catalog", rsMain, rsCatalogs, "Catalog", "Catalog"
-    BindField dbcNation, "Nation", rsMain, rsNations, "Nation", "Nation"
-    BindField dbcCondition, "Condition", rsMain, rsConditions, "Condition", "Condition"
-    BindField dbcLocation, "Location", rsMain, rsLocations, "Location", "Location"
-    BindField chkOutOfProduction, "OutOfProduction", rsMain
-    'BindField txtCount, "Count", rsMain
-    BindField txtDateInventoried, "DateInventoried", rsMain
-    BindField txtDateVerified, "DateVerified", rsMain
-    BindField rtxtNotes, "Notes", rsMain
+    BindField lblID, "ID", rsMain, "ID"
+    BindField dbcManufacturer, "Manufacturer", rsMain, "Manufacturer", rsManufacturers, "Manufacturer", "Manufacturer"
+    BindField txtDesignation, "Designation", rsMain, "Designation"
+    BindField txtName, "Name", rsMain, "Name"
+    BindField txtPrice, "Price", rsMain, "Price"
+    BindField dbcScale, "Scale", rsMain, "Scale", rsScales, "Scale", "Scale"
+    BindField dbcType, "Type", rsMain, "Type", rsTypes, "Type", "Type"
+    BindField txtReference, "Reference", rsMain, "Reference"
+    BindField dbcCatalog, "Catalog", rsMain, "Catalog", rsCatalogs, "Catalog", "Catalog"
+    BindField dbcNation, "Nation", rsMain, "Nation", rsNations, "Nation", "Nation"
+    BindField dbcCondition, "Condition", rsMain, "Condition", rsConditions, "Condition", "Condition"
+    BindField dbcLocation, "Location", rsMain, "Location", rsLocations, "Location", "Location"
+    BindField chkOutOfProduction, "OutOfProduction", rsMain, "Out of Production"
+    'BindField txtCount, "Count", rsMain, "Count"
+    BindField txtDateInventoried, "DateInventoried", rsMain, "Date Inventoried"
+    BindField txtDateVerified, "DateVerified", rsMain, "Date Verified"
+    BindField rtxtNotes, "Notes", rsMain, vbNullString
 
     Set tsKits.SelectedItem = tsKits.Tabs(1)
     ProtectFields Me
@@ -818,7 +817,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     UpdatePosition Me, Caption, pRecordset
     Call Trace(trcExit, "rsMain_MoveComplete")
 End Sub
-Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComCtlLib.Button)
     Select Case Button.Key
         Case "Report"
             mnuFileReport_Click

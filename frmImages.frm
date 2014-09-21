@@ -60,6 +60,7 @@ Begin VB.Form frmImages
             _ExtentX        =   13145
             _ExtentY        =   2773
             _Version        =   393217
+            Enabled         =   -1  'True
             TextRTF         =   $"frmImages.frx":2CFA
          End
       End
@@ -400,7 +401,7 @@ Begin VB.Form frmImages
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:28 PM"
+            TextSave        =   "1:40 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -743,17 +744,17 @@ Private Sub Form_Load()
     DBcollection.Add "rsCategories", rsCategories
     
     Set adodcMain.Recordset = rsMain
-    BindField lblID, "ID", rsMain
-    BindField txtName, "Name", rsMain
-    BindField txtFileName, "FileName", rsMain
-    BindField lblHeight, "Height", rsMain
-    BindField lblWidth, "Width", rsMain
-    BindField dbcCategory, "Category", rsMain, rsCategories, "Category", "Category"
-    BindField txtSort, "Sort", rsMain
-    BindField txtURL, "URL", rsMain
-    'BindField picImage, "Image", rsMain
-    BindField chkThumbnail, "Thumbnail", rsMain
-    BindField rtxtCaption, "Caption", rsMain
+    BindField lblID, "ID", rsMain, "ID"
+    BindField txtName, "Name", rsMain, "Name"
+    BindField txtFileName, "FileName", rsMain, "File Name"
+    BindField lblHeight, "Height", rsMain, "Height"
+    BindField lblWidth, "Width", rsMain, "Width"
+    BindField dbcCategory, "Category", rsMain, "Category", rsCategories, "Category", "Category"
+    BindField txtSort, "Sort", rsMain, "Sort"
+    BindField txtURL, "URL", rsMain, "URL"
+    'BindField picImage, "Image", rsMain,vbnullstring
+    BindField chkThumbnail, "Thumbnail", rsMain, "Thumbnail"
+    BindField rtxtCaption, "Caption", rsMain, "Caption"
 
     dbcTable.Enabled = False
     dbcRecord.Enabled = False
@@ -824,7 +825,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     End If
     UpdatePosition Me, Caption, pRecordset
 End Sub
-Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComCtlLib.Button)
     Select Case Button.Key
         Case "Report"
             mnuFileReport_Click
@@ -936,8 +937,8 @@ Private Sub DisplayPicture()
     Else
         picImage.Move 0, 0, picWindow.Width, picWindow.Height
         picImage.Picture = LoadPicture(strTempFile)
-        scrollV.Visible = False
-        scrollV.Value = 0
+        ScrollV.Visible = False
+        ScrollV.Value = 0
         picRatio = 1
         picWidth = picWindow.Width
         picHeight = picWindow.Height
@@ -950,19 +951,19 @@ Private Sub DisplayPicture()
         picHeight = picRatio * picImage.Picture.Height
         
         If picHeight > picWindow.Height Then
-            scrollV.Visible = True
-            scrollV.ZOrder
+            ScrollV.Visible = True
+            ScrollV.ZOrder
             'Recalculate picRatio to take into consideration the width of the scroll bar...
-            picWidth = picWindow.Width - scrollV.Width
+            picWidth = picWindow.Width - ScrollV.Width
             picHeight = picWindow.Height
             picRatio = picWidth / picImage.Picture.Width
             picWidth = picRatio * picImage.Picture.Width
             picHeight = picRatio * picImage.Picture.Height
             
-            scrollV.Move picWindow.Left + picWindow.Width - scrollV.Width, picWindow.Top, scrollV.Width, picWindow.Height
-            scrollV.Max = picHeight - picWindow.Height
-            scrollV.SmallChange = picHeight / 500
-            scrollV.LargeChange = picHeight / 100
+            ScrollV.Move picWindow.Left + picWindow.Width - ScrollV.Width, picWindow.Top, ScrollV.Width, picWindow.Height
+            ScrollV.Max = picHeight - picWindow.Height
+            ScrollV.SmallChange = picHeight / 500
+            ScrollV.LargeChange = picHeight / 100
         End If
         picImage.PaintPicture picImage.Picture, 0, 0, picWidth, picHeight
         picImage.Move 0, 0, picWidth, picHeight
@@ -1010,7 +1011,7 @@ ExitSub:
     Close #FileUnit
 End Function
 Private Sub scrollV_Change()
-    picImage.Top = -scrollV.Value
+    picImage.Top = -ScrollV.Value
 End Sub
 Private Sub dbcCategory_GotFocus()
     TextSelected

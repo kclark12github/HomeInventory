@@ -86,7 +86,7 @@ Begin VB.Form frmUSNClassifications
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:38 PM"
+            TextSave        =   "2:04 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -408,9 +408,9 @@ Private Sub Form_Load()
     DBcollection.Add "rsMain", rsMain
     
     Set adodcMain.Recordset = rsMain
-    BindField lblID, "ID", rsMain
-    BindField txtType, "Type", rsMain
-    BindField txtDescription, "Description", rsMain
+    BindField lblID, "ID", rsMain, "ID"
+    BindField txtType, "Type", rsMain, "Type"
+    BindField txtDescription, "Description", rsMain, "Description"
 
     ProtectFields Me
     mode = modeDisplay
@@ -459,7 +459,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("Type") & " - " & pRecordset("Description")
     UpdatePosition Me, Caption, pRecordset
 End Sub
-Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComCtlLib.Button)
     Select Case Button.Key
         Case "Report"
             mnuFileReport_Click
