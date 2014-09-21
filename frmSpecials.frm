@@ -5,14 +5,15 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmSpecials 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Specials"
-   ClientHeight    =   3168
+   ClientHeight    =   3480
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
+   Icon            =   "frmSpecials.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3168
+   ScaleHeight     =   3480
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
@@ -20,16 +21,16 @@ Begin VB.Form frmSpecials
       Caption         =   "Store Bought"
       Height          =   192
       Left            =   3780
-      TabIndex        =   17
-      Top             =   1620
+      TabIndex        =   18
+      Top             =   1920
       Width           =   1212
    End
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   16
-      Top             =   2916
+      TabIndex        =   17
+      Top             =   3228
       Width           =   7524
       _ExtentX        =   13272
       _ExtentY        =   445
@@ -57,7 +58,7 @@ Begin VB.Form frmSpecials
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:45 PM"
+            TextSave        =   "10:02 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -65,9 +66,9 @@ Begin VB.Form frmSpecials
    Begin VB.TextBox txtSort 
       Height          =   288
       Left            =   1530
-      TabIndex        =   4
+      TabIndex        =   5
       Text            =   "Sort"
-      Top             =   1260
+      Top             =   1560
       Width           =   5892
    End
    Begin VB.CommandButton cmdCancel 
@@ -76,8 +77,8 @@ Begin VB.Form frmSpecials
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6486
-      TabIndex        =   7
-      Top             =   2520
+      TabIndex        =   8
+      Top             =   2820
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
@@ -85,14 +86,14 @@ Begin VB.Form frmSpecials
       Default         =   -1  'True
       Height          =   372
       Left            =   5466
-      TabIndex        =   6
-      Top             =   2520
+      TabIndex        =   7
+      Top             =   2820
       Width           =   972
    End
    Begin MSAdodcLib.Adodc adodcMain 
       Height          =   312
       Left            =   276
-      Top             =   2040
+      Top             =   2340
       Width           =   7152
       _ExtentX        =   12615
       _ExtentY        =   550
@@ -138,16 +139,16 @@ Begin VB.Form frmSpecials
    Begin VB.TextBox txtInventoried 
       Height          =   288
       Left            =   1536
-      TabIndex        =   5
+      TabIndex        =   6
       Text            =   "Inventoried"
-      Top             =   1560
+      Top             =   1860
       Width           =   1812
    End
    Begin MSDataListLib.DataCombo dbcDistributor 
       Height          =   288
-      Left            =   1530
-      TabIndex        =   3
-      Top             =   972
+      Left            =   1536
+      TabIndex        =   4
+      Top             =   1272
       Width           =   5892
       _ExtentX        =   10393
       _ExtentY        =   508
@@ -192,11 +193,97 @@ Begin VB.Form frmSpecials
       MatchEntry      =   -1  'True
       Text            =   "Subject"
    End
+   Begin MSComctlLib.ImageList imlSmall 
+      Left            =   240
+      Top             =   60
+      _ExtentX        =   804
+      _ExtentY        =   804
+      BackColor       =   -2147483643
+      ImageWidth      =   16
+      ImageHeight     =   16
+      MaskColor       =   12632256
+      _Version        =   393216
+      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+         NumListImages   =   15
+         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSpecials.frx":0ABA
+            Key             =   "Find"
+         EndProperty
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSpecials.frx":0DD6
+            Key             =   "Warning"
+         EndProperty
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSpecials.frx":10FE
+            Key             =   "List"
+         EndProperty
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSpecials.frx":1426
+            Key             =   "xNew"
+         EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSpecials.frx":3BDA
+            Key             =   "Stop"
+         EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSpecials.frx":402E
+            Key             =   "Report"
+         EndProperty
+         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSpecials.frx":4482
+            Key             =   "Modify"
+         EndProperty
+         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSpecials.frx":4F4E
+            Key             =   "Refresh"
+         EndProperty
+         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSpecials.frx":5276
+            Key             =   "Sort"
+         EndProperty
+         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSpecials.frx":56CA
+            Key             =   "SQL"
+         EndProperty
+         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSpecials.frx":5B1E
+            Key             =   "Search"
+         EndProperty
+         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSpecials.frx":5F72
+            Key             =   "Filter"
+         EndProperty
+         BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSpecials.frx":63CA
+            Key             =   "Delete"
+         EndProperty
+         BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSpecials.frx":6526
+            Key             =   "Blank"
+         EndProperty
+         BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSpecials.frx":6682
+            Key             =   "NewRecord"
+         EndProperty
+      EndProperty
+   End
+   Begin MSDataListLib.DataCombo dbcFormat 
+      Height          =   288
+      Left            =   1530
+      TabIndex        =   3
+      Top             =   960
+      Width           =   3252
+      _ExtentX        =   5736
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   "Format"
+   End
    Begin MSComctlLib.Toolbar tbMain 
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   18
+      TabIndex        =   20
       Top             =   0
       Width           =   7524
       _ExtentX        =   13272
@@ -269,87 +356,22 @@ Begin VB.Form frmSpecials
       EndProperty
       BorderStyle     =   1
    End
-   Begin MSComctlLib.ImageList imlSmall 
-      Left            =   240
-      Top             =   60
-      _ExtentX        =   804
-      _ExtentY        =   804
-      BackColor       =   -2147483643
-      ImageWidth      =   16
-      ImageHeight     =   16
-      MaskColor       =   12632256
-      _Version        =   393216
-      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   15
-         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSpecials.frx":0000
-            Key             =   "Find"
-         EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSpecials.frx":031C
-            Key             =   "Warning"
-         EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSpecials.frx":0644
-            Key             =   "List"
-         EndProperty
-         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSpecials.frx":096C
-            Key             =   "xNew"
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSpecials.frx":3120
-            Key             =   "Stop"
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSpecials.frx":3574
-            Key             =   "Report"
-         EndProperty
-         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSpecials.frx":39C8
-            Key             =   "Modify"
-         EndProperty
-         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSpecials.frx":4494
-            Key             =   "Refresh"
-         EndProperty
-         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSpecials.frx":47BC
-            Key             =   "Sort"
-         EndProperty
-         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSpecials.frx":4C10
-            Key             =   "SQL"
-         EndProperty
-         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSpecials.frx":5064
-            Key             =   "Search"
-         EndProperty
-         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSpecials.frx":54B8
-            Key             =   "Filter"
-         EndProperty
-         BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSpecials.frx":5910
-            Key             =   "Delete"
-         EndProperty
-         BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSpecials.frx":5A6C
-            Key             =   "Blank"
-         EndProperty
-         BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSpecials.frx":5BC8
-            Key             =   "NewRecord"
-         EndProperty
-      EndProperty
+   Begin VB.Label lblFormat 
+      AutoSize        =   -1  'True
+      Caption         =   "Format:"
+      Height          =   192
+      Left            =   882
+      TabIndex        =   19
+      Top             =   1008
+      Width           =   540
    End
    Begin VB.Label lblSort 
       AutoSize        =   -1  'True
       Caption         =   "Sort:"
       Height          =   192
       Left            =   984
-      TabIndex        =   15
-      Top             =   1308
+      TabIndex        =   16
+      Top             =   1608
       Width           =   324
    End
    Begin VB.Label lblSubject 
@@ -357,7 +379,7 @@ Begin VB.Form frmSpecials
       Caption         =   "Subject:"
       Height          =   192
       Left            =   846
-      TabIndex        =   14
+      TabIndex        =   15
       Top             =   720
       Width           =   576
    End
@@ -366,8 +388,8 @@ Begin VB.Form frmSpecials
       Caption         =   "ID:"
       Height          =   192
       Left            =   6816
-      TabIndex        =   13
-      Top             =   1620
+      TabIndex        =   14
+      Top             =   1920
       Width           =   192
    End
    Begin VB.Label lblDateInventoried 
@@ -375,8 +397,8 @@ Begin VB.Form frmSpecials
       Caption         =   "Date Inventoried:"
       Height          =   192
       Left            =   216
-      TabIndex        =   12
-      Top             =   1608
+      TabIndex        =   13
+      Top             =   1908
       Width           =   1212
    End
    Begin VB.Label lblCost 
@@ -393,7 +415,7 @@ Begin VB.Form frmSpecials
       EndProperty
       Height          =   192
       Left            =   5400
-      TabIndex        =   11
+      TabIndex        =   12
       Top             =   720
       Width           =   360
    End
@@ -402,7 +424,7 @@ Begin VB.Form frmSpecials
       Caption         =   "Title:"
       Height          =   192
       Left            =   1074
-      TabIndex        =   10
+      TabIndex        =   11
       Top             =   420
       Width           =   348
    End
@@ -410,9 +432,9 @@ Begin VB.Form frmSpecials
       AutoSize        =   -1  'True
       Caption         =   "Distributor:"
       Height          =   192
-      Left            =   666
-      TabIndex        =   9
-      Top             =   1020
+      Left            =   672
+      TabIndex        =   10
+      Top             =   1320
       Width           =   756
    End
    Begin VB.Label lblID 
@@ -420,8 +442,8 @@ Begin VB.Form frmSpecials
       Caption         =   "lblID"
       Height          =   192
       Left            =   7104
-      TabIndex        =   8
-      Top             =   1620
+      TabIndex        =   9
+      Top             =   1920
       Width           =   324
    End
    Begin VB.Menu mnuFile 
@@ -481,6 +503,7 @@ Attribute VB_Exposed = False
 Option Explicit
 Dim WithEvents rsMain As ADODB.Recordset
 Attribute rsMain.VB_VarHelpID = -1
+Dim rsFormats As New ADODB.Recordset
 Dim rsDistributors As New ADODB.Recordset
 Dim rsSubjects As New ADODB.Recordset
 Dim strDefaultSort As String
@@ -509,9 +532,14 @@ Private Sub Form_Load()
     rsSubjects.Open "select distinct Subject from [Specials] order by Subject", adoConn, adOpenStatic, adLockReadOnly
     DBcollection.Add "rsSubjects", rsSubjects
     
+    rsFormats.CursorLocation = adUseClient
+    rsFormats.Open "select distinct Format from [Movies] order by Format", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsFormats", rsFormats
+    
     Set adodcMain.Recordset = rsMain
     BindField lblID, "ID", rsMain
     BindField dbcDistributor, "Distributor", rsMain, rsDistributors, "Distributor", "Distributor"
+    BindField dbcFormat, "Format", rsMain, rsFormats, "Format", "Format"
     BindField txtTitle, "Title", rsMain
     BindField txtCost, "Cost", rsMain
     BindField dbcSubject, "Subject", rsMain, rsSubjects, "Subject", "Subject"
@@ -565,7 +593,7 @@ End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     
-    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset(SQLkey)
+    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset(SQLkey)
     UpdatePosition Me, Caption, pRecordset
 End Sub
 Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
@@ -602,7 +630,20 @@ Private Sub dbcDistributor_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Distributor"), dbcDistributor) = 0 Then Cancel = True
-    If rsDistributors.Bookmark <> dbcDistributor.SelectedItem Then rsDistributors.Bookmark = dbcDistributor.SelectedItem
+    If rsDistributors.BookMark <> dbcDistributor.SelectedItem Then rsDistributors.BookMark = dbcDistributor.SelectedItem
+End Sub
+Private Sub dbcFormat_GotFocus()
+    TextSelected
+End Sub
+Private Sub dbcFormat_Validate(Cancel As Boolean)
+    If Not dbcFormat.Enabled Then Exit Sub
+    If dbcFormat.Text = "" Then
+        MsgBox "Format must be specified!", vbExclamation, Me.Caption
+        dbcFormat.SetFocus
+        Cancel = True
+    End If
+    If dbcValidate(rsMain("Format"), dbcFormat) = 0 Then Cancel = True
+    If rsFormats.BookMark <> dbcFormat.SelectedItem Then rsFormats.BookMark = dbcFormat.SelectedItem
 End Sub
 Private Sub dbcSubject_GotFocus()
     TextSelected
@@ -615,7 +656,7 @@ Private Sub dbcSubject_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Subject"), dbcSubject) = 0 Then Cancel = True
-    If rsSubjects.Bookmark <> dbcSubject.SelectedItem Then rsSubjects.Bookmark = dbcSubject.SelectedItem
+    If rsSubjects.BookMark <> dbcSubject.SelectedItem Then rsSubjects.BookMark = dbcSubject.SelectedItem
 End Sub
 Private Sub txtInventoried_GotFocus()
     TextSelected

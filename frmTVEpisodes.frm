@@ -5,7 +5,7 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmTVEpisodes 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "TV Episodes"
-   ClientHeight    =   3168
+   ClientHeight    =   3480
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
@@ -13,7 +13,7 @@ Begin VB.Form frmTVEpisodes
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3168
+   ScaleHeight     =   3480
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
@@ -21,16 +21,16 @@ Begin VB.Form frmTVEpisodes
       Caption         =   "Taped"
       Height          =   192
       Left            =   4980
-      TabIndex        =   8
-      Top             =   1680
+      TabIndex        =   9
+      Top             =   1980
       Width           =   1212
    End
    Begin VB.CheckBox chkStoreBought 
       Caption         =   "Store Bought"
       Height          =   192
       Left            =   3480
-      TabIndex        =   7
-      Top             =   1680
+      TabIndex        =   8
+      Top             =   1980
       Width           =   1212
    End
    Begin VB.TextBox txtNumber 
@@ -45,8 +45,8 @@ Begin VB.Form frmTVEpisodes
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   19
-      Top             =   2916
+      TabIndex        =   20
+      Top             =   3228
       Width           =   7524
       _ExtentX        =   13272
       _ExtentY        =   445
@@ -74,7 +74,7 @@ Begin VB.Form frmTVEpisodes
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "9:05 PM"
+            TextSave        =   "10:02 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -85,8 +85,8 @@ Begin VB.Form frmTVEpisodes
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6486
-      TabIndex        =   10
-      Top             =   2520
+      TabIndex        =   11
+      Top             =   2820
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
@@ -94,14 +94,14 @@ Begin VB.Form frmTVEpisodes
       Default         =   -1  'True
       Height          =   372
       Left            =   5466
-      TabIndex        =   9
-      Top             =   2520
+      TabIndex        =   10
+      Top             =   2820
       Width           =   972
    End
    Begin MSAdodcLib.Adodc adodcMain 
       Height          =   312
       Left            =   276
-      Top             =   2040
+      Top             =   2340
       Width           =   7152
       _ExtentX        =   12615
       _ExtentY        =   550
@@ -147,16 +147,16 @@ Begin VB.Form frmTVEpisodes
    Begin VB.TextBox txtInventoried 
       Height          =   288
       Left            =   1530
-      TabIndex        =   6
+      TabIndex        =   7
       Text            =   "Inventoried"
-      Top             =   1620
+      Top             =   1920
       Width           =   1812
    End
    Begin MSDataListLib.DataCombo dbcDistributor 
       Height          =   288
       Left            =   1530
-      TabIndex        =   3
-      Top             =   972
+      TabIndex        =   4
+      Top             =   1272
       Width           =   5892
       _ExtentX        =   10393
       _ExtentY        =   508
@@ -177,8 +177,8 @@ Begin VB.Form frmTVEpisodes
       EndProperty
       Height          =   288
       Left            =   5580
-      TabIndex        =   5
-      Top             =   1320
+      TabIndex        =   6
+      Top             =   1620
       Width           =   972
    End
    Begin VB.TextBox txtTitle 
@@ -192,8 +192,8 @@ Begin VB.Form frmTVEpisodes
    Begin MSDataListLib.DataCombo dbcSubject 
       Height          =   288
       Left            =   1530
-      TabIndex        =   4
-      Top             =   1320
+      TabIndex        =   5
+      Top             =   1620
       Width           =   3252
       _ExtentX        =   5736
       _ExtentY        =   508
@@ -212,83 +212,6 @@ Begin VB.Form frmTVEpisodes
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   "Series"
-   End
-   Begin MSComctlLib.Toolbar tbMain 
-      Align           =   1  'Align Top
-      Height          =   288
-      Left            =   0
-      TabIndex        =   21
-      Top             =   0
-      Width           =   7524
-      _ExtentX        =   13272
-      _ExtentY        =   508
-      ButtonWidth     =   487
-      ButtonHeight    =   466
-      Appearance      =   1
-      Style           =   1
-      ImageList       =   "imlSmall"
-      _Version        =   393216
-      BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   13
-         BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Report"
-            Object.ToolTipText     =   "Report"
-            ImageKey        =   "Report"
-         EndProperty
-         BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "SQL"
-            Object.ToolTipText     =   "SQL Window"
-            ImageKey        =   "SQL"
-         EndProperty
-         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
-         EndProperty
-         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "New"
-            Object.ToolTipText     =   "New record"
-            ImageKey        =   "NewRecord"
-         EndProperty
-         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Modify"
-            Object.ToolTipText     =   "Modify record"
-            ImageKey        =   "Modify"
-         EndProperty
-         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Delete"
-            Object.ToolTipText     =   "Delete record"
-            ImageKey        =   "Delete"
-         EndProperty
-         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
-         EndProperty
-         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Refresh"
-            Object.ToolTipText     =   "Refresh data"
-            ImageKey        =   "Refresh"
-         EndProperty
-         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
-         EndProperty
-         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Filter"
-            Object.ToolTipText     =   "Filter"
-            ImageKey        =   "Filter"
-         EndProperty
-         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Search"
-            Object.ToolTipText     =   "Search"
-            ImageKey        =   "Search"
-         EndProperty
-         BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
-         EndProperty
-         BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "List"
-            Object.ToolTipText     =   "List all records"
-            ImageKey        =   "List"
-         EndProperty
-      EndProperty
-      BorderStyle     =   1
    End
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   240
@@ -364,12 +287,110 @@ Begin VB.Form frmTVEpisodes
          EndProperty
       EndProperty
    End
+   Begin MSDataListLib.DataCombo dbcFormat 
+      Height          =   288
+      Left            =   1530
+      TabIndex        =   3
+      Top             =   960
+      Width           =   3252
+      _ExtentX        =   5736
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   "Format"
+   End
+   Begin MSComctlLib.Toolbar tbMain 
+      Align           =   1  'Align Top
+      Height          =   288
+      Left            =   0
+      TabIndex        =   23
+      Top             =   0
+      Width           =   7524
+      _ExtentX        =   13272
+      _ExtentY        =   508
+      ButtonWidth     =   487
+      ButtonHeight    =   466
+      Appearance      =   1
+      Style           =   1
+      ImageList       =   "imlSmall"
+      _Version        =   393216
+      BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
+         NumButtons      =   13
+         BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Report"
+            Object.ToolTipText     =   "Report"
+            ImageKey        =   "Report"
+         EndProperty
+         BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "SQL"
+            Object.ToolTipText     =   "SQL Window"
+            ImageKey        =   "SQL"
+         EndProperty
+         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "New"
+            Object.ToolTipText     =   "New record"
+            ImageKey        =   "NewRecord"
+         EndProperty
+         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Modify"
+            Object.ToolTipText     =   "Modify record"
+            ImageKey        =   "Modify"
+         EndProperty
+         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Delete"
+            Object.ToolTipText     =   "Delete record"
+            ImageKey        =   "Delete"
+         EndProperty
+         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Refresh"
+            Object.ToolTipText     =   "Refresh data"
+            ImageKey        =   "Refresh"
+         EndProperty
+         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Filter"
+            Object.ToolTipText     =   "Filter"
+            ImageKey        =   "Filter"
+         EndProperty
+         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Search"
+            Object.ToolTipText     =   "Search"
+            ImageKey        =   "Search"
+         EndProperty
+         BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "List"
+            Object.ToolTipText     =   "List all records"
+            ImageKey        =   "List"
+         EndProperty
+      EndProperty
+      BorderStyle     =   1
+   End
+   Begin VB.Label lblFormat 
+      AutoSize        =   -1  'True
+      Caption         =   "Format:"
+      Height          =   192
+      Left            =   888
+      TabIndex        =   22
+      Top             =   1008
+      Width           =   540
+   End
    Begin VB.Label lblNumber 
       AutoSize        =   -1  'True
       Caption         =   "Number:"
       Height          =   192
       Left            =   5340
-      TabIndex        =   20
+      TabIndex        =   21
       Top             =   708
       Width           =   612
    End
@@ -378,7 +399,7 @@ Begin VB.Form frmTVEpisodes
       Caption         =   "Series:"
       Height          =   192
       Left            =   924
-      TabIndex        =   18
+      TabIndex        =   19
       Top             =   708
       Width           =   504
    End
@@ -387,8 +408,8 @@ Begin VB.Form frmTVEpisodes
       Caption         =   "Subject:"
       Height          =   192
       Left            =   852
-      TabIndex        =   17
-      Top             =   1380
+      TabIndex        =   18
+      Top             =   1680
       Width           =   576
    End
    Begin VB.Label lblIDlabel 
@@ -396,8 +417,8 @@ Begin VB.Form frmTVEpisodes
       Caption         =   "ID:"
       Height          =   192
       Left            =   6816
-      TabIndex        =   16
-      Top             =   1680
+      TabIndex        =   17
+      Top             =   1980
       Width           =   192
    End
    Begin VB.Label lblDateInventoried 
@@ -405,8 +426,8 @@ Begin VB.Form frmTVEpisodes
       Caption         =   "Date Inventoried:"
       Height          =   192
       Left            =   216
-      TabIndex        =   15
-      Top             =   1668
+      TabIndex        =   16
+      Top             =   1968
       Width           =   1212
    End
    Begin VB.Label lblCost 
@@ -423,8 +444,8 @@ Begin VB.Form frmTVEpisodes
       EndProperty
       Height          =   192
       Left            =   5040
-      TabIndex        =   14
-      Top             =   1380
+      TabIndex        =   15
+      Top             =   1680
       Width           =   360
    End
    Begin VB.Label lblTitle 
@@ -432,7 +453,7 @@ Begin VB.Form frmTVEpisodes
       Caption         =   "Title:"
       Height          =   192
       Left            =   1080
-      TabIndex        =   13
+      TabIndex        =   14
       Top             =   360
       Width           =   348
    End
@@ -440,9 +461,9 @@ Begin VB.Form frmTVEpisodes
       AutoSize        =   -1  'True
       Caption         =   "Distributor:"
       Height          =   192
-      Left            =   666
-      TabIndex        =   12
-      Top             =   1020
+      Left            =   672
+      TabIndex        =   13
+      Top             =   1320
       Width           =   756
    End
    Begin VB.Label lblID 
@@ -450,8 +471,8 @@ Begin VB.Form frmTVEpisodes
       Caption         =   "lblID"
       Height          =   192
       Left            =   7104
-      TabIndex        =   11
-      Top             =   1680
+      TabIndex        =   12
+      Top             =   1980
       Width           =   324
    End
    Begin VB.Menu mnuFile 
@@ -513,6 +534,7 @@ Dim WithEvents rsMain As ADODB.Recordset
 Attribute rsMain.VB_VarHelpID = -1
 Dim rsSeries As New ADODB.Recordset
 Dim rsDistributors As New ADODB.Recordset
+Dim rsFormats As New ADODB.Recordset
 Dim rsSubjects As New ADODB.Recordset
 Dim strDefaultSort As String
 Private Sub cmdCancel_Click()
@@ -544,10 +566,15 @@ Private Sub Form_Load()
     rsSubjects.Open "select distinct Subject from [Episodes] order by Subject", adoConn, adOpenStatic, adLockReadOnly
     DBcollection.Add "rsSubjects", rsSubjects
     
+    rsFormats.CursorLocation = adUseClient
+    rsFormats.Open "select distinct Format from [Movies] order by Format", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsFormats", rsFormats
+    
     Set adodcMain.Recordset = rsMain
     BindField lblID, "ID", rsMain
     BindField dbcSeries, "Series", rsMain, rsSeries, "Series", "Series"
     BindField dbcDistributor, "Distributor", rsMain, rsDistributors, "Distributor", "Distributor"
+    BindField dbcFormat, "Format", rsMain, rsFormats, "Format", "Format"
     BindField txtTitle, "Title", rsMain
     BindField txtCost, "Cost", rsMain
     BindField dbcSubject, "Subject", rsMain, rsSubjects, "Subject", "Subject"
@@ -602,7 +629,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     Dim Caption As String
     
     If Not pRecordset.BOF And Not pRecordset.EOF Then
-        Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset("Series")
+        Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("Series")
         If Trim(pRecordset("Number")) <> vbNullString Then
             Caption = Caption & " Episode #" & pRecordset("Number")
         Else
@@ -645,7 +672,20 @@ Private Sub dbcDistributor_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Distributor"), dbcDistributor) = 0 Then Cancel = True
-    If rsDistributors.Bookmark <> dbcDistributor.SelectedItem Then rsDistributors.Bookmark = dbcDistributor.SelectedItem
+    If rsDistributors.BookMark <> dbcDistributor.SelectedItem Then rsDistributors.BookMark = dbcDistributor.SelectedItem
+End Sub
+Private Sub dbcFormat_GotFocus()
+    TextSelected
+End Sub
+Private Sub dbcFormat_Validate(Cancel As Boolean)
+    If Not dbcFormat.Enabled Then Exit Sub
+    If dbcFormat.Text = "" Then
+        MsgBox "Format must be specified!", vbExclamation, Me.Caption
+        dbcFormat.SetFocus
+        Cancel = True
+    End If
+    If dbcValidate(rsMain("Format"), dbcFormat) = 0 Then Cancel = True
+    If rsFormats.BookMark <> dbcFormat.SelectedItem Then rsFormats.BookMark = dbcFormat.SelectedItem
 End Sub
 Private Sub dbcSeries_GotFocus()
     TextSelected
@@ -658,7 +698,7 @@ Private Sub dbcSeries_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Series"), dbcSeries) = 0 Then Cancel = True
-    If rsSeries.Bookmark <> dbcSeries.SelectedItem Then rsSeries.Bookmark = dbcSeries.SelectedItem
+    If rsSeries.BookMark <> dbcSeries.SelectedItem Then rsSeries.BookMark = dbcSeries.SelectedItem
 End Sub
 Private Sub dbcSubject_GotFocus()
     TextSelected
@@ -671,7 +711,7 @@ Private Sub dbcSubject_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Subject"), dbcSubject) = 0 Then Cancel = True
-    If rsSubjects.Bookmark <> dbcSubject.SelectedItem Then rsSubjects.Bookmark = dbcSubject.SelectedItem
+    If rsSubjects.BookMark <> dbcSubject.SelectedItem Then rsSubjects.BookMark = dbcSubject.SelectedItem
 End Sub
 Private Sub txtInventoried_GotFocus()
     TextSelected
