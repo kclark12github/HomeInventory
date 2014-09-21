@@ -841,7 +841,7 @@ Begin VB.Form frmUSNShips
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:09 AM"
+            TextSave        =   "12:34 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -1149,8 +1149,7 @@ Private Sub cmdOK_Click()
     OKCommand Me, rsMain
 End Sub
 Private Sub Form_Load()
-    Set adoConn = New ADODB.Connection
-    adoConn.Open "FileDSN=" & gstrFileDSN
+    EstablishConnection adoConn
     
     Set rsMain = New ADODB.Recordset
     rsMain.CursorLocation = adUseClient
@@ -1439,6 +1438,7 @@ ExitSub:
 End Sub
 Private Sub dgdImages_HeadClick(ByVal ColIndex As Integer)
     If rsImages.BOF And rsImages.EOF Then Exit Sub
+    rsImages.Sort = vbNullString
     If SortDESC(ColIndex) Then
         rsImages.Sort = dgdImages.Columns(ColIndex).Caption & " DESC"
     Else

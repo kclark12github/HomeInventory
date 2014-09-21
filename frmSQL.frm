@@ -24,7 +24,7 @@ Begin VB.Form frmSQL
       FixedOrder      =   -1  'True
       _CBWidth        =   7572
       _CBHeight       =   648
-      _Version        =   "6.0.8169"
+      _Version        =   "6.0.8450"
       Caption1        =   "Database:"
       Child1          =   "txtDatabase"
       MinHeight1      =   288
@@ -210,7 +210,7 @@ Begin VB.Form frmSQL
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "6:25 PM"
+            TextSave        =   "12:34 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -452,6 +452,7 @@ ExitSub:
 End Sub
 Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
     If rsList.BOF And rsList.EOF Then Exit Sub
+    rsList.Sort = vbNullString
     If SortDESC(ColIndex) Then
         rsList.Sort = dgdList.Columns(ColIndex).Caption & " DESC"
     Else

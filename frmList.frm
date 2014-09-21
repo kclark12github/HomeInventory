@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "9:32 PM"
+            TextSave        =   "12:34 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -247,8 +247,8 @@ Private Sub dgdList_DblClick()
                 lblA.Caption = col.Caption
                 WidestData = lblA.Width
                 Set ColumnFormat = col.DataFormat
-                If Not vrsList.BOF And Not vrsList.EOF Then
-                    Set rsTemp = vrsList.Clone(adLockReadOnly)
+                If Not dgdList.DataSource.BOF And Not dgdList.DataSource.EOF Then
+                    Set rsTemp = dgdList.DataSource.Clone(adLockReadOnly)
                     rsTemp.MoveFirst
                     While Not rsTemp.EOF
                         If Not IsNull(rsTemp(col.Caption).Value) Then
@@ -276,11 +276,12 @@ ExitSub:
     Me.MousePointer = vbDefault
 End Sub
 Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
-    If vrsList.BOF And vrsList.EOF Then Exit Sub
+    If dgdList.DataSource.BOF And dgdList.DataSource.EOF Then Exit Sub
+    dgdList.DataSource.Sort = vbNullString
     If SortDESC(ColIndex) Then
-        vrsList.Sort = dgdList.Columns(ColIndex).Caption & " DESC"
+        dgdList.DataSource.Sort = dgdList.Columns(ColIndex).Caption & " DESC"
     Else
-        vrsList.Sort = dgdList.Columns(ColIndex).Caption & " ASC"
+        dgdList.DataSource.Sort = dgdList.Columns(ColIndex).Caption & " ASC"
     End If
     SortDESC(ColIndex) = Not SortDESC(ColIndex)
 End Sub
@@ -301,11 +302,13 @@ End Sub
 Private Sub dgdList_RowColChange(LastRow As Variant, ByVal LastCol As Integer)
     Dim i As Long
     
-    For i = 0 To dgdList.SelBookmarks.Count - 1
-        dgdList.SelBookmarks.Remove 0
-    Next i
-    dgdList.SelBookmarks.Add dgdList.Bookmark
-    dgdList.col = dgdList.Columns("Junk").ColIndex
+    If Not dgdList.AllowUpdate Then
+        For i = 0 To dgdList.SelBookmarks.Count - 1
+            dgdList.SelBookmarks.Remove 0
+        Next i
+        dgdList.SelBookmarks.Add dgdList.Bookmark
+        dgdList.col = dgdList.Columns("Junk").ColIndex
+    End If
     UpdatePosition
 End Sub
 Private Sub dgdList_RowResize(Cancel As Integer)
@@ -323,10 +326,17 @@ Private Sub Form_Activate()
     CurrencyFormat.Format = "Currency"
     DateFormat.Format = "dd-MMM-yyyy hh:nn AMPM"
     
-    Set dgdList.DataSource = frmList.vrsList
+    dgdList.AllowUpdate = True
+    dgdList.AllowAddNew = True
+    
+    If vrsList Is Nothing Then
+        Set dgdList.DataSource = frmList.rsList
+    Else
+        Set dgdList.DataSource = frmList.vrsList
+    End If
     ReDim SortDESC(0 To dgdList.Columns.Count - 1)
     
-    For Each fld In vrsList.Fields
+    For Each fld In dgdList.DataSource.Fields
         Set col = dgdList.Columns(fld.Name)
         col.Visible = True
         Select Case fld.Type
@@ -356,8 +366,8 @@ Private Sub Form_Activate()
     Me.Width = GetSetting(App.ProductName, Me.Caption & " Settings", "Form Width", Me.Width)
     Me.Height = GetSetting(App.ProductName, Me.Caption & " Settings", "Form Height", Me.Height)
         
-    If vrsList.Filter <> vbNullString And vrsList.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & vrsList.Filter
+    If dgdList.DataSource.Filter <> vbNullString And dgdList.DataSource.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & dgdList.DataSource.Filter
     Else
         sbStatus.Panels("Message").Text = vbNullString
     End If
@@ -381,7 +391,7 @@ End Sub
 Private Sub Form_Unload(Cancel As Integer)
     Dim i As Integer
     
-    vrsList.UpdateBatch
+    If dgdList.AllowUpdate Then dgdList.DataSource.UpdateBatch
     
     'Save the column settings for the next display...
     For i = 0 To dgdList.Columns.Count - 1
@@ -397,16 +407,16 @@ Private Sub sbStatus_PanelClick(ByVal Panel As MSComctlLib.Panel)
     
     Select Case UCase(Panel.Key)
         Case "TOP"
-            vrsList.MoveFirst
+            dgdList.DataSource.MoveFirst
             UpdatePosition
         Case "BOTTOM"
-            vrsList.MoveLast
+            dgdList.DataSource.MoveLast
             UpdatePosition
         Case "FILTER"
-            FilterCommand Me, vrsList, ""
+            FilterCommand Me, dgdList.DataSource, ""
         Case Else
     End Select
 End Sub
 Private Sub UpdatePosition()
-    sbStatus.Panels("Position").Text = "Record " & dgdList.Bookmark & " of " & vrsList.RecordCount
+    sbStatus.Panels("Position").Text = "Record " & dgdList.Bookmark & " of " & dgdList.DataSource.RecordCount
 End Sub

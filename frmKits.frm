@@ -355,7 +355,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:09 AM"
+            TextSave        =   "4:45 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -691,15 +691,14 @@ Private Sub cmdOK_Click()
     OKCommand Me, rsMain
 End Sub
 Private Sub Form_Load()
-    Set adoConn = New ADODB.Connection
-    adoConn.Open "FileDSN=" & gstrFileDSN
+    EstablishConnection adoConn
     
     Set rsMain = New ADODB.Recordset
-    rsMain.CursorLocation = adUseClient
+    rsMain.CursorLocation = adUseServer
     SQLmain = "select * from [Kits] order by Manufacturer,Type,Reference,Scale"
     SQLfilter = vbNullString
     SQLkey = "Reference"
-    rsMain.Open SQLmain, adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsMain.Open SQLmain, adoConn, adOpenKeyset, adLockOptimistic
     DBcollection.Add "rsMain", rsMain
     
     rsManufacturers.CursorLocation = adUseClient
@@ -764,7 +763,7 @@ Private Sub mnuRecordsDelete_Click()
     DeleteCommand Me, rsMain
 End Sub
 Private Sub mnuRecordsList_Click()
-    ListCommand Me, rsMain
+    ListCommand Me, rsMain, SQLkey
 End Sub
 Private Sub mnuRecordsModify_Click()
     ModifyCommand Me

@@ -124,6 +124,18 @@ Public Sub DeleteCommand(frm As Form, RS As ADODB.Recordset)
     End If
     mode = modeDisplay
 End Sub
+Public Sub EstablishConnection(cn As ADODB.Connection)
+    If Not cn Is Nothing Then
+        If (cn.State And adStateOpen) = adStateOpen Then cn.Close
+        Set cn = Nothing
+    End If
+    Set cn = New ADODB.Connection
+    'cn.IsolationLevel = adXactCursorStability
+    'cn.mode = adModeShareDenyNone
+    cn.CursorLocation = adUseClient
+    'cn.Open "Provider=Microsoft.Jet.OLEDB.4.0;Persist Security Info=False;Data Source=F:\Program Files\Home Inventory\Database\Ken's Stuff.mdb;;"
+    cn.Open "FileDSN=" & gstrFileDSN
+End Sub
 Public Sub FilterCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String)
     Dim FieldList As String
     Dim TableList As String
@@ -168,7 +180,7 @@ Public Sub FilterCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String
         frm.sbStatus.Panels("Message").Text = vbNullString
     End If
     CloseRecordset RS, False
-    RS.Open SQLstatement, adoConn, adOpenKeyset, adLockBatchOptimistic
+    RS.Open SQLstatement, adoConn, adOpenKeyset, adLockOptimistic
     'I may need to change this later, but I didn't want to go through
     'all the screens' List commands and add the argument to ListCommand()
     '(i.e. frmList supports a Filter command, but hasn't been passed a Key)...

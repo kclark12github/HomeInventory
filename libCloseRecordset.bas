@@ -1,7 +1,7 @@
 Attribute VB_Name = "libCloseRecordset"
 Option Explicit
 Public Sub CloseRecordset(adoRS As ADODB.Recordset, Destroy As Boolean)
-    On Error Resume Next
+    'On Error Resume Next
     If Not adoRS Is Nothing Then
         If (adoRS.State And adStateOpen) = adStateOpen Then
             adoRS.CancelUpdate

@@ -57,7 +57,7 @@ Begin VB.Form frmSpecials
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:09 AM"
+            TextSave        =   "4:45 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -491,8 +491,7 @@ Private Sub cmdOK_Click()
     OKCommand Me, rsMain
 End Sub
 Private Sub Form_Load()
-    Set adoConn = New ADODB.Connection
-    adoConn.Open "FileDSN=" & gstrFileDSN
+    EstablishConnection adoConn
     
     Set rsMain = New ADODB.Recordset
     rsMain.CursorLocation = adUseClient
