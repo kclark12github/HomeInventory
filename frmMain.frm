@@ -243,6 +243,12 @@ End Sub
 Private Sub mnuDataBaseHobbyCompanies_Click()
     frmCompanies.Show vbModal
 End Sub
+Private Sub mnuDataBaseHobbyNavalModels_Click()
+    frmNavalModels.Show vbModal
+End Sub
+Private Sub mnuDataBaseHobbySciFiSpaceModels_Click()
+    frmSciFiNASAModels.Show vbModal
+End Sub
 Private Sub mnuDataBaseMusic_Click()
     frmMusic.Show vbModal
 End Sub

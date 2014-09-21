@@ -739,7 +739,7 @@ Private Sub rsMusic_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal 
     
     On Error GoTo ErrorHandler
     If rsMusic.BOF And rsMusic.EOF Then
-        adodcMusic.Caption = "No Records"
+        Caption = "No Records"
     ElseIf rsMusic.EOF Then
         Caption = "EOF"
     ElseIf rsMusic.BOF Then

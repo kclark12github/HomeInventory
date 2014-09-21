@@ -745,7 +745,7 @@ Private Sub rsSoftware_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByV
     
     On Error GoTo ErrorHandler
     If rsSoftware.BOF And rsSoftware.EOF Then
-        adodcSoftware.Caption = "No Records"
+        Caption = "No Records"
     ElseIf rsSoftware.EOF Then
         Caption = "EOF"
     ElseIf rsSoftware.BOF Then
@@ -780,13 +780,6 @@ Private Sub tbSoftware_ButtonClick(ByVal Button As MSComctlLib.Button)
 End Sub
 Private Sub txtCDkey_GotFocus()
     TextSelected
-End Sub
-Private Sub txtCDkey_Validate(Cancel As Boolean)
-    If txtCDkey.Text = "" Then
-        MsgBox "CDkey must be specified!", vbExclamation, Me.Caption
-        txtCDkey.SetFocus
-        Cancel = True
-    End If
 End Sub
 Private Sub txtCost_GotFocus()
     TextSelected

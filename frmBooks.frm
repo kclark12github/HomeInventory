@@ -731,7 +731,7 @@ Private Sub rsBooks_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal 
     
     On Error GoTo ErrorHandler
     If rsBooks.BOF And rsBooks.EOF Then
-        adodcBooks.Caption = "No Records"
+        Caption = "No Records"
     ElseIf rsBooks.EOF Then
         Caption = "EOF"
     ElseIf rsBooks.BOF Then
@@ -794,9 +794,7 @@ Private Sub txtISBN_GotFocus()
 End Sub
 Private Sub txtISBN_Validate(Cancel As Boolean)
     If txtISBN.Text = "" Then
-        MsgBox "ISBN must be specified!", vbExclamation, Me.Caption
-        txtISBN.SetFocus
-        Cancel = True
+        MsgBox "ISBN should be specified!", vbExclamation, Me.Caption
     End If
 End Sub
 Private Sub txtMisc_GotFocus()

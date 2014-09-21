@@ -19,7 +19,7 @@ Begin VB.Form frmAircraftModels
    Begin VB.TextBox txtCount 
       Height          =   288
       Left            =   5928
-      TabIndex        =   6
+      TabIndex        =   8
       Text            =   "Count"
       Top             =   1860
       Width           =   972
@@ -27,7 +27,7 @@ Begin VB.Form frmAircraftModels
    Begin VB.TextBox txtReference 
       Height          =   288
       Left            =   5928
-      TabIndex        =   5
+      TabIndex        =   6
       Text            =   "Reference"
       Top             =   1560
       Width           =   1452
@@ -38,7 +38,7 @@ Begin VB.Form frmAircraftModels
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6480
-      TabIndex        =   9
+      TabIndex        =   11
       Top             =   3120
       Width           =   972
    End
@@ -47,7 +47,7 @@ Begin VB.Form frmAircraftModels
       Default         =   -1  'True
       Height          =   372
       Left            =   5460
-      TabIndex        =   8
+      TabIndex        =   10
       Top             =   3120
       Width           =   972
    End
@@ -100,7 +100,7 @@ Begin VB.Form frmAircraftModels
    Begin VB.TextBox txtInventoried 
       Height          =   288
       Left            =   1524
-      TabIndex        =   7
+      TabIndex        =   9
       Text            =   "Inventoried"
       Top             =   2172
       Width           =   1812
@@ -108,7 +108,7 @@ Begin VB.Form frmAircraftModels
    Begin MSDataListLib.DataCombo dbcManufacturer 
       Height          =   288
       Left            =   1524
-      TabIndex        =   3
+      TabIndex        =   4
       Top             =   1272
       Width           =   5892
       _ExtentX        =   10393
@@ -130,7 +130,7 @@ Begin VB.Form frmAircraftModels
       EndProperty
       Height          =   288
       Left            =   4944
-      TabIndex        =   2
+      TabIndex        =   3
       Top             =   960
       Width           =   972
    End
@@ -140,7 +140,7 @@ Begin VB.Form frmAircraftModels
       TabIndex        =   0
       Text            =   "Designation"
       Top             =   372
-      Width           =   972
+      Width           =   1872
    End
    Begin VB.TextBox txtName 
       Height          =   288
@@ -261,7 +261,7 @@ Begin VB.Form frmAircraftModels
    Begin MSDataListLib.DataCombo dbcCatalog 
       Height          =   288
       Left            =   1524
-      TabIndex        =   4
+      TabIndex        =   5
       Top             =   1560
       Width           =   3252
       _ExtentX        =   5736
@@ -273,7 +273,7 @@ Begin VB.Form frmAircraftModels
    Begin MSDataListLib.DataCombo dbcNation 
       Height          =   288
       Left            =   1524
-      TabIndex        =   22
+      TabIndex        =   7
       Top             =   1860
       Width           =   3252
       _ExtentX        =   5736
@@ -285,7 +285,7 @@ Begin VB.Form frmAircraftModels
    Begin MSDataListLib.DataCombo dbcScale 
       Height          =   288
       Left            =   1524
-      TabIndex        =   23
+      TabIndex        =   2
       Top             =   972
       Width           =   1092
       _ExtentX        =   1926
@@ -355,7 +355,7 @@ Begin VB.Form frmAircraftModels
       Caption         =   "Count:"
       Height          =   192
       Left            =   5340
-      TabIndex        =   21
+      TabIndex        =   23
       Top             =   1908
       Width           =   444
    End
@@ -364,7 +364,7 @@ Begin VB.Form frmAircraftModels
       Caption         =   "Catalog:"
       Height          =   192
       Left            =   816
-      TabIndex        =   20
+      TabIndex        =   22
       Top             =   1608
       Width           =   600
    End
@@ -373,7 +373,7 @@ Begin VB.Form frmAircraftModels
       Caption         =   "Reference:"
       Height          =   192
       Left            =   5040
-      TabIndex        =   19
+      TabIndex        =   21
       Top             =   1608
       Width           =   792
    End
@@ -382,7 +382,7 @@ Begin VB.Form frmAircraftModels
       Caption         =   "Scale:"
       Height          =   192
       Left            =   960
-      TabIndex        =   18
+      TabIndex        =   20
       Top             =   1020
       Width           =   456
    End
@@ -391,7 +391,7 @@ Begin VB.Form frmAircraftModels
       Caption         =   "ID:"
       Height          =   192
       Left            =   6804
-      TabIndex        =   17
+      TabIndex        =   19
       Top             =   2220
       Width           =   192
    End
@@ -400,7 +400,7 @@ Begin VB.Form frmAircraftModels
       Caption         =   "Date Inventoried:"
       Height          =   192
       Left            =   204
-      TabIndex        =   16
+      TabIndex        =   18
       Top             =   2220
       Width           =   1212
    End
@@ -409,7 +409,7 @@ Begin VB.Form frmAircraftModels
       Caption         =   "Nation:"
       Height          =   192
       Left            =   912
-      TabIndex        =   15
+      TabIndex        =   17
       Top             =   1908
       Width           =   504
    End
@@ -427,7 +427,7 @@ Begin VB.Form frmAircraftModels
       EndProperty
       Height          =   192
       Left            =   4428
-      TabIndex        =   14
+      TabIndex        =   16
       Top             =   1020
       Width           =   408
    End
@@ -436,7 +436,7 @@ Begin VB.Form frmAircraftModels
       Caption         =   "Designation:"
       Height          =   192
       Left            =   516
-      TabIndex        =   13
+      TabIndex        =   15
       Top             =   420
       Width           =   900
    End
@@ -445,7 +445,7 @@ Begin VB.Form frmAircraftModels
       Caption         =   "Name:"
       Height          =   192
       Left            =   936
-      TabIndex        =   12
+      TabIndex        =   14
       Top             =   720
       Width           =   480
    End
@@ -454,7 +454,7 @@ Begin VB.Form frmAircraftModels
       Caption         =   "Manufacturer:"
       Height          =   192
       Left            =   456
-      TabIndex        =   11
+      TabIndex        =   13
       Top             =   1320
       Width           =   960
    End
@@ -463,7 +463,7 @@ Begin VB.Form frmAircraftModels
       Caption         =   "lblID"
       Height          =   192
       Left            =   7092
-      TabIndex        =   10
+      TabIndex        =   12
       Top             =   2220
       Width           =   324
    End
@@ -580,9 +580,7 @@ Private Sub dbcScale_GotFocus()
 End Sub
 Private Sub dbcScale_Validate(Cancel As Boolean)
     If dbcScale.Text = "" Then
-        MsgBox "Scale must be specified!", vbExclamation, Me.Caption
-        dbcScale.SetFocus
-        Cancel = True
+        MsgBox "Scale should be specified!", vbExclamation, Me.Caption
     End If
     If rsScales.Bookmark <> dbcScale.SelectedItem Then rsScales.Bookmark = dbcScale.SelectedItem
 End Sub
@@ -753,7 +751,7 @@ Private Sub rsAircraftModels_MoveComplete(ByVal adReason As ADODB.EventReasonEnu
     
     On Error GoTo ErrorHandler
     If rsAircraftModels.BOF And rsAircraftModels.EOF Then
-        adodcAircraftModels.Caption = "No Records"
+        Caption = "No Records"
     ElseIf rsAircraftModels.EOF Then
         Caption = "EOF"
     ElseIf rsAircraftModels.BOF Then

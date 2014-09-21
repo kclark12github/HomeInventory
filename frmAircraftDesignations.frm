@@ -24,7 +24,7 @@ Begin VB.Form frmAircraftDesignations
       Top             =   1596
       Width           =   1872
    End
-   Begin MSComctlLib.Toolbar tbDesignations 
+   Begin MSComctlLib.Toolbar tbHobby 
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
@@ -34,6 +34,7 @@ Begin VB.Form frmAircraftDesignations
       _ExtentX        =   13272
       _ExtentY        =   508
       ButtonWidth     =   1439
+      ButtonHeight    =   466
       Appearance      =   1
       Style           =   1
       TextAlignment   =   1
@@ -152,7 +153,7 @@ Begin VB.Form frmAircraftDesignations
       Top             =   4380
       Width           =   972
    End
-   Begin MSAdodcLib.Adodc adodcDesignations 
+   Begin MSAdodcLib.Adodc adodcHobby 
       Height          =   312
       Left            =   204
       Top             =   3900
@@ -456,7 +457,7 @@ Private Sub cmdCancel_Click()
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            adodcDesignations.Enabled = True
+            adodcHobby.Enabled = True
     End Select
 End Sub
 Private Sub cmdOK_Click()
@@ -474,7 +475,7 @@ Private Sub cmdOK_Click()
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            adodcDesignations.Enabled = True
+            adodcHobby.Enabled = True
             
             SaveBookmark = rsDesignations("Name")
             rsDesignations.Requery
@@ -515,7 +516,7 @@ Private Sub Form_Load()
     rsTypes.CursorLocation = adUseClient
     rsTypes.Open "select distinct Type from [Aircraft Designations] order by Type", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcDesignations.Recordset = rsDesignations
+    Set adodcHobby.Recordset = rsDesignations
     frmMain.BindField lblID, "ID", rsDesignations
     frmMain.BindField dbcManufacturer, "Manufacturer", rsDesignations, rsManufacturers, "Manufacturer", "Manufacturer"
     frmMain.BindField txtName, "Name", rsDesignations
@@ -590,7 +591,7 @@ End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
-    adodcDesignations.Enabled = False
+    adodcHobby.Enabled = False
     rsDesignations.AddNew
     adoConn.BeginTrans
     fTransaction = True
@@ -609,7 +610,7 @@ End Sub
 Private Sub mnuActionModify_Click()
     mode = modeModify
     frmMain.OpenFields Me
-    adodcDesignations.Enabled = False
+    adodcHobby.Enabled = False
     adoConn.BeginTrans
     fTransaction = True
     
@@ -632,7 +633,7 @@ Private Sub rsDesignations_MoveComplete(ByVal adReason As ADODB.EventReasonEnum,
     
     On Error GoTo ErrorHandler
     If rsDesignations.BOF And rsDesignations.EOF Then
-        adodcDesignations.Caption = "No Records"
+        Caption = "No Records"
     ElseIf rsDesignations.EOF Then
         Caption = "EOF"
     ElseIf rsDesignations.BOF Then
@@ -644,14 +645,14 @@ Private Sub rsDesignations_MoveComplete(ByVal adReason As ADODB.EventReasonEnum,
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
     End If
     
-    adodcDesignations.Caption = Caption
+    adodcHobby.Caption = Caption
     Exit Sub
     
 ErrorHandler:
     MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
     Resume Next
 End Sub
-Private Sub tbDesignations_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbHobby_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
         Case "List"
             mnuActionList_Click
@@ -675,9 +676,7 @@ Private Sub txtDesignation_KeyPress(KeyAscii As Integer)
 End Sub
 Private Sub txtDesignation_Validate(Cancel As Boolean)
     If txtDesignation.Text = "" Then
-        MsgBox "Designation must be specified!", vbExclamation, Me.Caption
-        txtDesignation.SetFocus
-        Cancel = True
+        MsgBox "Designation should be specified!", vbExclamation, Me.Caption
     End If
 End Sub
 Private Sub txtServiceDate_GotFocus()
