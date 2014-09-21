@@ -359,7 +359,7 @@ Private Sub mnuDataBaseHobbyKits_Click()
     frmKits.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyFinishingProducts_Click()
-    frmPaintsBrushes.Show vbModal
+    frmFinishingProducts.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyRockets_Click()
     frmRockets.Show vbModal

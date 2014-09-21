@@ -48,7 +48,7 @@ Begin VB.Form frmBlueAngelsHistory
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:45 PM"
+            TextSave        =   "8:00 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -529,7 +529,7 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
-    If rsBlueAngelsHistory.Filter <> vbNullString Then
+    If rsBlueAngelsHistory.Filter <> vbNullString And rsBlueAngelsHistory.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsBlueAngelsHistory.Filter
     End If
     adoConn.CommitTrans
@@ -559,7 +559,7 @@ Private Sub mnuActionFilter_Click()
     
     Set frmFilter.RS = rsBlueAngelsHistory
     frmFilter.Show vbModal
-    If rsBlueAngelsHistory.Filter <> vbNullString Then
+    If rsBlueAngelsHistory.Filter <> vbNullString And rsBlueAngelsHistory.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsBlueAngelsHistory.Filter
     End If
 End Sub
@@ -637,7 +637,9 @@ Private Sub rsBlueAngelsHistory_MoveComplete(ByVal adReason As ADODB.EventReason
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        sbStatus.Panels("Position").Text = "Record " & rsBlueAngelsHistory.Bookmark & " of " & rsBlueAngelsHistory.RecordCount
+        If rsBlueAngelsHistory.Filter <> vbNullString And rsBlueAngelsHistory.Filter <> 0 Then
+            sbStatus.Panels("Message").Text = "Filter: " & rsBlueAngelsHistory.Filter
+        End If
     End If
     
     adodcHobby.Caption = Caption

@@ -49,7 +49,7 @@ Begin VB.Form frmAircraftDesignations
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "3:46 PM"
+            TextSave        =   "7:59 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -643,7 +643,7 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
-    If rsDesignations.Filter <> vbNullString Then
+    If rsDesignations.Filter <> vbNullString And rsDesignations.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsDesignations.Filter
     End If
     adoConn.CommitTrans
@@ -670,7 +670,7 @@ Private Sub mnuActionFilter_Click()
     
     Set frmFilter.RS = rsDesignations
     frmFilter.Show vbModal
-    If rsDesignations.Filter <> vbNullString Then
+    If rsDesignations.Filter <> vbNullString And rsDesignations.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsDesignations.Filter
     End If
 End Sub
@@ -748,7 +748,9 @@ Private Sub rsDesignations_MoveComplete(ByVal adReason As ADODB.EventReasonEnum,
     
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        sbStatus.Panels("Position").Text = "Record " & rsDesignations.Bookmark & " of " & rsDesignations.RecordCount
+        If rsDesignations.Filter <> vbNullString And rsDesignations.Filter <> 0 Then
+            sbStatus.Panels("Message").Text = "Filter: " & rsDesignations.Filter
+        End If
     End If
     
     adodcHobby.Caption = Caption

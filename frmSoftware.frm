@@ -49,7 +49,7 @@ Begin VB.Form frmSoftware
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:08 AM"
+            TextSave        =   "7:55 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -664,7 +664,7 @@ Private Sub Form_Load()
         adoConn.Open .PathName, .UserName, .Password
     End With
     rsSoftware.CursorLocation = adUseClient
-    rsSoftware.Open "select ID,Type,Publisher,Title,Version,ISBN,Platform,Value,Cost,CDkey,DateInventoried,Cataloged from [Software] order by Type,Title", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsSoftware.Open "select * from [Software] order by Type,Title", adoConn, adOpenKeyset, adLockBatchOptimistic
 
     rsPublishers.CursorLocation = adUseClient
     rsPublishers.Open "select distinct Publisher from [Software] order by Publisher", adoConn, adOpenStatic, adLockReadOnly
@@ -751,7 +751,7 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
-    If rsSoftware.Filter <> vbNullString Then
+    If rsSoftware.Filter <> vbNullString And rsSoftware.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsSoftware.Filter
     End If
     adoConn.CommitTrans
@@ -781,7 +781,7 @@ Private Sub mnuActionFilter_Click()
     
     Set frmFilter.RS = rsSoftware
     frmFilter.Show vbModal
-    If rsSoftware.Filter <> vbNullString Then
+    If rsSoftware.Filter <> vbNullString And rsSoftware.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsSoftware.Filter
     End If
 End Sub
@@ -817,7 +817,7 @@ Private Sub mnuActionModify_Click()
 End Sub
 Private Sub mnuActionReport_Click()
     Dim frm As Form
-    'Dim Report As New scrSoftwareReport
+    Dim Report As New scrSoftwareReport
     Dim vRS As ADODB.Recordset
     
     MakeVirtualRecordset adoConn, rsSoftware, vRS
@@ -835,13 +835,13 @@ Private Sub mnuActionReport_Click()
     frmViewReport.Height = frm.Height
     frmViewReport.WindowState = vbMaximized
     
-    'Report.Database.SetDataSource vRS, 3, 1
-    'Report.ReadRecords
+    Report.Database.SetDataSource vRS, 3, 1
+    Report.ReadRecords
     
-    'frmViewReport.scrViewer.ReportSource = Report
+    frmViewReport.scrViewer.ReportSource = Report
     frmViewReport.Show vbModal
     
-    'Set Report = Nothing
+    Set Report = Nothing
     vRS.Close
     Set vRS = Nothing
 End Sub
@@ -861,7 +861,9 @@ Private Sub rsSoftware_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByV
     
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        sbStatus.Panels("Message").Text = "Filter: " & rsSoftware.Filter
+        If rsSoftware.Filter <> vbNullString And rsSoftware.Filter <> 0 Then
+            sbStatus.Panels("Message").Text = "Filter: " & rsSoftware.Filter
+        End If
     End If
     
     adodcSoftware.Caption = Caption
