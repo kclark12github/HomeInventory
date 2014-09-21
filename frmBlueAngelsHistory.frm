@@ -8,6 +8,7 @@ Begin VB.Form frmBlueAngelsHistory
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
+   Icon            =   "frmBlueAngelsHistory.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -48,7 +49,7 @@ Begin VB.Form frmBlueAngelsHistory
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:46 PM"
+            TextSave        =   "1:06 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -58,7 +59,7 @@ Begin VB.Form frmBlueAngelsHistory
       Left            =   5100
       MultiLine       =   -1  'True
       TabIndex        =   3
-      Text            =   "frmBlueAngelsHistory.frx":0000
+      Text            =   "frmBlueAngelsHistory.frx":0442
       Top             =   960
       Width           =   2292
    End
@@ -67,7 +68,7 @@ Begin VB.Form frmBlueAngelsHistory
       Left            =   1530
       MultiLine       =   -1  'True
       TabIndex        =   2
-      Text            =   "frmBlueAngelsHistory.frx":000B
+      Text            =   "frmBlueAngelsHistory.frx":044D
       Top             =   960
       Width           =   2592
    End
@@ -242,63 +243,63 @@ Begin VB.Form frmBlueAngelsHistory
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":0010
+            Picture         =   "frmBlueAngelsHistory.frx":0452
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":032C
+            Picture         =   "frmBlueAngelsHistory.frx":076E
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":0654
+            Picture         =   "frmBlueAngelsHistory.frx":0A96
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":097C
+            Picture         =   "frmBlueAngelsHistory.frx":0DBE
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":3130
+            Picture         =   "frmBlueAngelsHistory.frx":3572
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":3584
+            Picture         =   "frmBlueAngelsHistory.frx":39C6
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":39D8
+            Picture         =   "frmBlueAngelsHistory.frx":3E1A
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":44A4
+            Picture         =   "frmBlueAngelsHistory.frx":48E6
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":47CC
+            Picture         =   "frmBlueAngelsHistory.frx":4C0E
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":4C20
+            Picture         =   "frmBlueAngelsHistory.frx":5062
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":5074
+            Picture         =   "frmBlueAngelsHistory.frx":54B6
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":54C8
+            Picture         =   "frmBlueAngelsHistory.frx":590A
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":5920
+            Picture         =   "frmBlueAngelsHistory.frx":5D62
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":5A7C
+            Picture         =   "frmBlueAngelsHistory.frx":5EBE
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":5BD8
+            Picture         =   "frmBlueAngelsHistory.frx":601A
             Key             =   "NewRecord"
          EndProperty
       EndProperty
@@ -482,7 +483,7 @@ End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     
-    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset("Dates") & ": " & pRecordset("Aircraft Type")
+    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("Dates") & ": " & pRecordset("Aircraft Type")
     UpdatePosition Me, Caption, pRecordset
 End Sub
 Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)

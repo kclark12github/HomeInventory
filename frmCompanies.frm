@@ -9,6 +9,7 @@ Begin VB.Form frmCompanies
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
+   Icon            =   "frmCompanies.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -49,7 +50,7 @@ Begin VB.Form frmCompanies
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:50 PM"
+            TextSave        =   "1:08 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -140,7 +141,7 @@ Begin VB.Form frmCompanies
       Left            =   1374
       MultiLine       =   -1  'True
       TabIndex        =   6
-      Text            =   "frmCompanies.frx":0000
+      Text            =   "frmCompanies.frx":0442
       Top             =   1596
       Width           =   5832
    End
@@ -288,63 +289,63 @@ Begin VB.Form frmCompanies
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":0008
+            Picture         =   "frmCompanies.frx":044A
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":0324
+            Picture         =   "frmCompanies.frx":0766
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":064C
+            Picture         =   "frmCompanies.frx":0A8E
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":0974
+            Picture         =   "frmCompanies.frx":0DB6
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":3128
+            Picture         =   "frmCompanies.frx":356A
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":357C
+            Picture         =   "frmCompanies.frx":39BE
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":39D0
+            Picture         =   "frmCompanies.frx":3E12
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":449C
+            Picture         =   "frmCompanies.frx":48DE
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":47C4
+            Picture         =   "frmCompanies.frx":4C06
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":4C18
+            Picture         =   "frmCompanies.frx":505A
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":506C
+            Picture         =   "frmCompanies.frx":54AE
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":54C0
+            Picture         =   "frmCompanies.frx":5902
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":5918
+            Picture         =   "frmCompanies.frx":5D5A
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":5A74
+            Picture         =   "frmCompanies.frx":5EB6
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":5BD0
+            Picture         =   "frmCompanies.frx":6012
             Key             =   "NewRecord"
          EndProperty
       EndProperty
@@ -582,7 +583,7 @@ End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     
-    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset("Name")
+    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("Name")
     UpdatePosition Me, Caption, pRecordset
 End Sub
 Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
@@ -619,7 +620,7 @@ Private Sub dbcProductType_Validate(Cancel As Boolean)
     '    Cancel = True
     'End If
     If dbcValidate(rsMain("ProductType"), dbcProductType) = 0 Then Cancel = True
-    If rsProductTypes.Bookmark <> dbcProductType.SelectedItem Then rsProductTypes.Bookmark = dbcProductType.SelectedItem
+    If rsProductTypes.BookMark <> dbcProductType.SelectedItem Then rsProductTypes.BookMark = dbcProductType.SelectedItem
 End Sub
 Private Sub txtName_GotFocus()
     TextSelected
