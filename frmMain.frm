@@ -10,6 +10,7 @@ Begin VB.Form frmMain
    Icon            =   "frmMain.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
+   MinButton       =   0   'False
    ScaleHeight     =   912
    ScaleWidth      =   2112
    StartUpPosition =   2  'CenterScreen
@@ -130,11 +131,21 @@ End Sub
 Private Sub LoadBackground()
     Dim iWidth As Integer
     Dim iHeight As Integer
+    Dim scWidth As Integer
+    Dim scHeight As Integer
+    Dim borderWidth As Integer
+    Dim borderHeight As Integer
+    
+    scWidth = Screen.Width / Screen.TwipsPerPixelX
+    scHeight = Screen.Height / Screen.TwipsPerPixelY
+    
+    borderWidth = Me.Width - Me.ScaleWidth
+    borderHeight = Me.Height - Me.ScaleHeight
     
     picBackground.Picture = LoadPicture(gstrImagePath)
-    picBackground.Move 0, 0
-    iWidth = picBackground.Width + (2 * picBackground.Left)
-    iHeight = picBackground.Height + (2 * picBackground.Top)
+    picBackground.Move Me.ScaleLeft, Me.ScaleTop
+    iWidth = picBackground.Width + (2 * picBackground.Left) + borderWidth
+    iHeight = picBackground.Height + (2 * picBackground.Top) + borderHeight
     If iWidth < iMinWidth Then iWidth = iMinWidth
     If iHeight < iMinHeight Then iHeight = iMinHeight
     Me.Width = iWidth
