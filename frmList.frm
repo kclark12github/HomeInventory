@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:30 AM"
+            TextSave        =   "7:13 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -272,44 +272,45 @@ Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
         ColName = ColName & " ASC"
     End If
     SortDESC(ColIndex) = Not SortDESC(ColIndex)
+    RS.Sort = ColName
     
-    'Working around bug Q230167...
-    If Not rsTemp Is Nothing Then
-        CloseRecordset rsTemp, False
-    Else
-        Set rsTemp = New ADODB.Recordset
-    End If
-    
-    For Each fld In RS.Fields
-        rsTemp.Fields.Append fld.Name, fld.Type, fld.DefinedSize, fld.Attributes
-    Next fld
-    'Add the hidden field (assuming the value does not matter - usually used for Grids)...
-    'If Not IsMissing(HiddenFieldName) Then rsTemp.Fields.Append HiddenFieldName, adVarChar, 1
-    rsTemp.CursorType = adOpenStatic    'Updatable snapshot
-    rsTemp.LockType = adLockOptimistic  'Allow updates
-    rsTemp.Open
-    
-    'Copy the data from the real recordset to the virtual one...
-    If Not (RS.BOF And RS.EOF) Then
-        RS.MoveFirst
-        While Not RS.EOF
-            'Populate the grid with the recordset data...
-            rsTemp.AddNew
-            For Each fld In RS.Fields
-                rsTemp(fld.Name).Value = RS(fld.Name).Value
-            Next fld
-            rsTemp.Update
-            RS.MoveNext
-        Wend
-        rsTemp.MoveFirst
-    End If
-    RS.Close
-    Set RS = Nothing
-    
-    rsTemp.Sort = ColName
-    Set RS = rsTemp
-    Set rsTemp = Nothing
-    Set dgdList.DataSource = RS
+'    'Working around bug Q230167...
+'    If Not rsTemp Is Nothing Then
+'        CloseRecordset rsTemp, False
+'    Else
+'        Set rsTemp = New ADODB.Recordset
+'    End If
+'
+'    For Each fld In RS.Fields
+'        rsTemp.Fields.Append fld.Name, fld.Type, fld.DefinedSize, fld.Attributes
+'    Next fld
+'    'Add the hidden field (assuming the value does not matter - usually used for Grids)...
+'    'If Not IsMissing(HiddenFieldName) Then rsTemp.Fields.Append HiddenFieldName, adVarChar, 1
+'    rsTemp.CursorType = adOpenStatic    'Updatable snapshot
+'    rsTemp.LockType = adLockOptimistic  'Allow updates
+'    rsTemp.Open
+'
+'    'Copy the data from the real recordset to the virtual one...
+'    If Not (RS.BOF And RS.EOF) Then
+'        RS.MoveFirst
+'        While Not RS.EOF
+'            'Populate the grid with the recordset data...
+'            rsTemp.AddNew
+'            For Each fld In RS.Fields
+'                rsTemp(fld.Name).Value = RS(fld.Name).Value
+'            Next fld
+'            rsTemp.Update
+'            RS.MoveNext
+'        Wend
+'        rsTemp.MoveFirst
+'    End If
+'    RS.Close
+'    Set RS = Nothing
+'
+'    rsTemp.Sort = ColName
+'    Set RS = rsTemp
+'    Set rsTemp = Nothing
+'    Set dgdList.DataSource = RS
 End Sub
 Private Sub dgdList_KeyUp(KeyCode As Integer, Shift As Integer)
     Dim col As Column
@@ -319,6 +320,8 @@ Private Sub dgdList_KeyUp(KeyCode As Integer, Shift As Integer)
     On Error Resume Next
         
     Select Case KeyCode
+        Case vbKeyTab
+            If fDebug Then Debug.Print "Row: " & dgdList.BookMark & "; Column: " & dgdList.Columns(dgdList.col).Caption & "(" & dgdList.col & ")"
         Case vbKeyEscape
             If RS.EditMode = adEditInProgress Then RS.Update
             fEditMode = False
@@ -329,12 +332,14 @@ Private Sub dgdList_KeyUp(KeyCode As Integer, Shift As Integer)
                 If Not col.Locked Then col.Locked = True
             Next col
             dgdList.AllowUpdate = False
+            dgdList.TabAction = dbgControlNavigation
             sbStatus.Panels("Status").Text = vbNullString
         Case vbKeyF2
             If Not fEditMode Then
                 fEditMode = True
                 EditRow = dgdList.Row
                 dgdList.AllowUpdate = True
+                dgdList.TabAction = dbgGridNavigation
                 
                 'Position to the first non-hidden column...
                 Set sCol = Nothing

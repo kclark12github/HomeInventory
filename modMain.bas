@@ -12,7 +12,7 @@ Global Const gstrDefaultImage As String = "F14_102.jpg"
 Global Const iMinWidth As Single = 2184
 Global Const iMinHeight As Single = 1440
 Global Const ResizeWindow As Single = 36
-Global Const gfUseFilterMethod As Boolean = True
+Global Const gfUseFilterMethod As Boolean = False
 
 Private Const LOCALE_SSHORTDATE = &H1F
 Private Const WM_SETTINGCHANGE = &H1A
