@@ -236,7 +236,11 @@ Public Sub OKCommand(frm As Form, RS As ADODB.Recordset)
             'Why we need to do this is buggy...
             'rsMain("Manufacturer") = dbcManufacturer.BoundText
             'rsMain("Catalog") = dbcCatalog.BoundText
-            RS.UpdateBatch
+            If RS.LockType = adLockBatchOptimistic Then
+                RS.UpdateBatch
+            Else
+                RS.Update
+            End If
             adoConn.CommitTrans
             fTransaction = False
             ProtectFields frm
