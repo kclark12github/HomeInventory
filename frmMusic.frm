@@ -638,8 +638,10 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If rsMusic.EditMode <> adEditNone Then rsMusic.CancelUpdate
-    If rsMusic.State = adStateOpen Then rsMusic.Close
+    If Not rsMusic.EOF Then
+        If rsMusic.EditMode <> adEditNone Then rsMusic.CancelUpdate
+    End If
+    If (rsMusic.State And adStateOpen) = adStateOpen Then rsMusic.Close
     Set rsMusic = Nothing
     rsArtists.Close
     Set rsArtists = Nothing
@@ -808,10 +810,19 @@ End Sub
 Private Sub txtPrice_GotFocus()
     TextSelected
 End Sub
+Private Sub txtPrice_KeyPress(KeyAscii As Integer)
+    If KeyAscii < vbKey0 Or KeyAscii > vbKey9 Then
+        If KeyAscii <> Asc(".") Then
+            KeyAscii = 0    'Cancel the character.
+            Beep            'Sound error signal.
+        End If
+    End If
+End Sub
 Private Sub txtPrice_Validate(Cancel As Boolean)
-    If txtPrice.Text = "" Then
-        MsgBox "Price must be specified!", vbExclamation, Me.Caption
-        txtPrice.SetFocus
+    If txtPrice.Text = vbNullString Then txtPrice.Text = Format(0, "Currency")
+    If Not IsNumeric(txtPrice.Text) Then
+        MsgBox "Invalid price entered.", vbExclamation, Me.Caption
+        TextSelected
         Cancel = True
     End If
 End Sub

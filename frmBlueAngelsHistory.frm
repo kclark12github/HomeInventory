@@ -433,8 +433,10 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If rsBlueAngelsHistory.EditMode <> adEditNone Then rsBlueAngelsHistory.CancelUpdate
-    If rsBlueAngelsHistory.State = adStateOpen Then rsBlueAngelsHistory.Close
+    If Not rsBlueAngelsHistory.EOF Then
+        If rsBlueAngelsHistory.EditMode <> adEditNone Then rsBlueAngelsHistory.CancelUpdate
+    End If
+    If (rsBlueAngelsHistory.State And adStateOpen) = adStateOpen Then rsBlueAngelsHistory.Close
     Set rsBlueAngelsHistory = Nothing
     
     On Error Resume Next

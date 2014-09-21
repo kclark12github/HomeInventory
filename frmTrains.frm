@@ -517,13 +517,14 @@ Private Sub dbcCatalog_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcCatalog_Validate(Cancel As Boolean)
+    If dbcCatalog.Text = vbNullString Then dbcCatalog.Text = "Unknown"
     If rsCatalogs.Bookmark <> dbcCatalog.SelectedItem Then rsCatalogs.Bookmark = dbcCatalog.SelectedItem
 End Sub
 Private Sub dbcManufacturer_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcManufacturer_Validate(Cancel As Boolean)
-    If dbcManufacturer.Text = "" Then
+    If dbcManufacturer.Text = vbNullString Then
         MsgBox "Manufacturer must be specified!", vbExclamation, Me.Caption
         dbcManufacturer.SetFocus
         Cancel = True
@@ -534,18 +535,14 @@ Private Sub dbcScale_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcScale_Validate(Cancel As Boolean)
-    If dbcScale.Text = "" Then
-        MsgBox "Scale must be specified!", vbExclamation, Me.Caption
-        dbcScale.SetFocus
-        Cancel = True
-    End If
+    If dbcScale.Text = vbNullString Then dbcScale.Text = "Unknown"
     If rsScales.Bookmark <> dbcScale.SelectedItem Then rsScales.Bookmark = dbcScale.SelectedItem
 End Sub
 Private Sub dbcType_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcType_Validate(Cancel As Boolean)
-    If dbcType.Text = "" Then
+    If dbcType.Text = vbNullString Then
         MsgBox "Type must be specified!", vbExclamation, Me.Caption
         dbcType.SetFocus
         Cancel = True
@@ -599,8 +596,10 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If rsTrains.EditMode <> adEditNone Then rsTrains.CancelUpdate
-    If rsTrains.State = adStateOpen Then rsTrains.Close
+    If Not rsTrains.EOF Then
+        If rsTrains.EditMode <> adEditNone Then rsTrains.CancelUpdate
+    End If
+    If (rsTrains.State And adStateOpen) = adStateOpen Then rsTrains.Close
     Set rsTrains = Nothing
     rsManufacturers.Close
     Set rsManufacturers = Nothing
@@ -739,19 +738,27 @@ Private Sub txtline_GotFocus()
     TextSelected
 End Sub
 Private Sub txtline_Validate(Cancel As Boolean)
-    If txtLine.Text = "" Then
+    If txtLine.Text = vbNullString Then
         MsgBox "Line must be specified!", vbExclamation, Me.Caption
-        txtLine.SetFocus
         Cancel = True
     End If
 End Sub
 Private Sub txtPrice_GotFocus()
     TextSelected
 End Sub
+Private Sub txtPrice_KeyPress(KeyAscii As Integer)
+    If KeyAscii < vbKey0 Or KeyAscii > vbKey9 Then
+        If KeyAscii <> Asc(".") Then
+            KeyAscii = 0    'Cancel the character.
+            Beep            'Sound error signal.
+        End If
+    End If
+End Sub
 Private Sub txtPrice_Validate(Cancel As Boolean)
-    If txtPrice.Text = "" Then
-        MsgBox "Price must be specified!", vbExclamation, Me.Caption
-        txtPrice.SetFocus
+    If txtPrice.Text = vbNullString Then txtPrice.Text = Format(0, "Currency")
+    If Not IsNumeric(txtPrice.Text) Then
+        MsgBox "Invalid price entered.", vbExclamation, Me.Caption
+        TextSelected
         Cancel = True
     End If
 End Sub
@@ -764,9 +771,5 @@ Private Sub txtReference_KeyPress(KeyAscii As Integer)
     KeyAscii = Asc(UCase(Char))
 End Sub
 Private Sub txtReference_Validate(Cancel As Boolean)
-    If txtReference.Text = "" Then
-        MsgBox "Reference should be specified!", vbExclamation, Me.Caption
-        txtReference.SetFocus
-        'Cancel = True
-    End If
+    If txtReference.Text = vbNullString Then txtReference.Text = "Unknown"
 End Sub

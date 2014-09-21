@@ -645,8 +645,10 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If rsSoftware.EditMode <> adEditNone Then rsSoftware.CancelUpdate
-    If rsSoftware.State = adStateOpen Then rsSoftware.Close
+    If Not rsSoftware.EOF Then
+        If rsSoftware.EditMode <> adEditNone Then rsSoftware.CancelUpdate
+    End If
+    If (rsSoftware.State And adStateOpen) = adStateOpen Then rsSoftware.Close
     Set rsSoftware = Nothing
     rsPublishers.Close
     Set rsPublishers = Nothing
@@ -784,10 +786,19 @@ End Sub
 Private Sub txtCost_GotFocus()
     TextSelected
 End Sub
+Private Sub txtCost_KeyPress(KeyAscii As Integer)
+    If KeyAscii < vbKey0 Or KeyAscii > vbKey9 Then
+        If KeyAscii <> Asc(".") Then
+            KeyAscii = 0    'Cancel the character.
+            Beep            'Sound error signal.
+        End If
+    End If
+End Sub
 Private Sub txtCost_Validate(Cancel As Boolean)
-    If txtCost.Text = "" Then
-        MsgBox "Cost must be specified!", vbExclamation, Me.Caption
-        txtCost.SetFocus
+    If txtCost.Text = vbNullString Then txtCost.Text = Format(0, "Currency")
+    If Not IsNumeric(txtCost.Text) Then
+        MsgBox "Invalid Cost entered.", vbExclamation, Me.Caption
+        TextSelected
         Cancel = True
     End If
 End Sub
@@ -822,10 +833,19 @@ End Sub
 Private Sub txtValue_GotFocus()
     TextSelected
 End Sub
+Private Sub txtValue_KeyPress(KeyAscii As Integer)
+    If KeyAscii < vbKey0 Or KeyAscii > vbKey9 Then
+        If KeyAscii <> Asc(".") Then
+            KeyAscii = 0    'Cancel the character.
+            Beep            'Sound error signal.
+        End If
+    End If
+End Sub
 Private Sub txtValue_Validate(Cancel As Boolean)
-    If txtValue.Text = "" Then
-        MsgBox "Value must be specified!", vbExclamation, Me.Caption
-        txtValue.SetFocus
+    If txtValue.Text = vbNullString Then txtValue.Text = Format(0, "Currency")
+    If Not IsNumeric(txtValue.Text) Then
+        MsgBox "Invalid Value entered.", vbExclamation, Me.Caption
+        TextSelected
         Cancel = True
     End If
 End Sub

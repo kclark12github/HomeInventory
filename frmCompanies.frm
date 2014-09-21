@@ -540,8 +540,10 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If rsCompanies.EditMode <> adEditNone Then rsCompanies.CancelUpdate
-    If rsCompanies.State = adStateOpen Then rsCompanies.Close
+    If Not rsCompanies.EOF Then
+        If rsCompanies.EditMode <> adEditNone Then rsCompanies.CancelUpdate
+    End If
+    If (rsCompanies.State And adStateOpen) = adStateOpen Then rsCompanies.Close
     Set rsCompanies = Nothing
     rsProductTypes.Close
     Set rsProductTypes = Nothing

@@ -146,7 +146,7 @@ Begin VB.Form frmMain
          End
       End
       Begin VB.Menu mnuDataBaseKFC 
-         Caption         =   "&WebLinks (KFC)"
+         Caption         =   "&WebLinks"
       End
    End
    Begin VB.Menu mnuHelp 
@@ -168,7 +168,7 @@ Private cmdKFC As New ADODB.Command
 Const gstrProvider = "Microsoft.Jet.OLEDB.3.51"
 'Const gstrConnectionString = "E:\WebShare\wwwroot\Access\KFC.mdb"
 Const gstrRunTimeUserName = "admin"
-Const gstrRunTimePassword = ""
+Const gstrRunTimePassword = vbNullString
 Const gstrDBlocation = "E:\WebShare\wwwroot\Access\"
 Const gstrDefaultImagePath = "E:\WebShare\wwwroot\Aircraft\Fighter Aircraft\F-14 Tomcat\F14_102.jpg"
 Const iMinWidth = 2184
@@ -397,7 +397,7 @@ End Sub
 Private Sub mnuHelpAbout_Click()
     frmAbout.Show vbModal
 End Sub
-Private Sub picBackground_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub picBackground_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     If Button = vbKeyRButton Then PopupMenu mnuFile
 End Sub
 Private Sub scrollH_Change()

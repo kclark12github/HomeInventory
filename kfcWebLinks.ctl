@@ -382,7 +382,7 @@ Private Sub AddEntry(ByRef strID As String, strLabel As String, strParentID As S
     Else
         rsEntry("Label") = VBencode(strLabel)
     End If
-    rsEntry("ParentID") = strParentID
+    rsEntry("ParentID") = VBencode(strParentID)
     rsEntry("TargetFrame") = VBencode(strTargetFrame)
     rsEntry("ButtonLabel") = VBencode(strButton)
     rsEntry("URL") = URLencode(strURL)

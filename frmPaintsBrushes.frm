@@ -517,7 +517,7 @@ Private Sub dbcManufacturer_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcManufacturer_Validate(Cancel As Boolean)
-    If dbcManufacturer.Text = "" Then
+    If dbcManufacturer.Text = vbNullString Then
         MsgBox "Manufacturer must be specified!", vbExclamation, Me.Caption
         dbcManufacturer.SetFocus
         Cancel = True
@@ -528,7 +528,7 @@ Private Sub dbcType_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcType_Validate(Cancel As Boolean)
-    If dbcType.Text = "" Then
+    If dbcType.Text = vbNullString Then
         MsgBox "Type must be specified!", vbExclamation, Me.Caption
         dbcType.SetFocus
         Cancel = True
@@ -579,8 +579,10 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If rsPaintsBrushes.EditMode <> adEditNone Then rsPaintsBrushes.CancelUpdate
-    If rsPaintsBrushes.State = adStateOpen Then rsPaintsBrushes.Close
+    If Not rsPaintsBrushes.EOF Then
+        If rsPaintsBrushes.EditMode <> adEditNone Then rsPaintsBrushes.CancelUpdate
+    End If
+    If (rsPaintsBrushes.State And adStateOpen) = adStateOpen Then rsPaintsBrushes.Close
     Set rsPaintsBrushes = Nothing
     rsManufacturers.Close
     Set rsManufacturers = Nothing
@@ -714,7 +716,7 @@ Private Sub txtCount_GotFocus()
     TextSelected
 End Sub
 Private Sub txtCount_Validate(Cancel As Boolean)
-    If txtCount.Text = "" Then txtCount.Text = 1
+    If txtCount.Text = vbNullString Then txtCount.Text = 1
 End Sub
 Private Sub txtInventoried_GotFocus()
     TextSelected
@@ -723,7 +725,7 @@ Private Sub txtName_GotFocus()
     TextSelected
 End Sub
 Private Sub txtName_Validate(Cancel As Boolean)
-    If txtName.Text = "" Then
+    If txtName.Text = vbNullString Then
         MsgBox "Name must be specified!", vbExclamation, Me.Caption
         txtName.SetFocus
         Cancel = True
@@ -732,10 +734,19 @@ End Sub
 Private Sub txtPrice_GotFocus()
     TextSelected
 End Sub
+Private Sub txtPrice_KeyPress(KeyAscii As Integer)
+    If KeyAscii < vbKey0 Or KeyAscii > vbKey9 Then
+        If KeyAscii <> Asc(".") Then
+            KeyAscii = 0    'Cancel the character.
+            Beep            'Sound error signal.
+        End If
+    End If
+End Sub
 Private Sub txtPrice_Validate(Cancel As Boolean)
-    If txtPrice.Text = "" Then
-        MsgBox "Price must be specified!", vbExclamation, Me.Caption
-        txtPrice.SetFocus
+    If txtPrice.Text = vbNullString Then txtPrice.Text = Format(0, "Currency")
+    If Not IsNumeric(txtPrice.Text) Then
+        MsgBox "Invalid price entered.", vbExclamation, Me.Caption
+        TextSelected
         Cancel = True
     End If
 End Sub
@@ -748,9 +759,5 @@ Private Sub txtReference_KeyPress(KeyAscii As Integer)
     KeyAscii = Asc(UCase(Char))
 End Sub
 Private Sub txtReference_Validate(Cancel As Boolean)
-    If txtReference.Text = "" Then
-        MsgBox "Reference should be specified!", vbExclamation, Me.Caption
-        txtReference.SetFocus
-        'Cancel = True
-    End If
+    If txtReference.Text = vbNullString Then txtReference.Text = "Unknown"
 End Sub

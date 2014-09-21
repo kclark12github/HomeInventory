@@ -83,6 +83,7 @@ Attribute VB_Exposed = False
 Option Explicit
 Public mnuList As Menu
 Public rsList As ADODB.Recordset
+Private Key As String
 Private SortDESC() As Boolean
 Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
     If SortDESC(ColIndex) Then
@@ -96,7 +97,14 @@ Private Sub dgdList_MouseUp(Button As Integer, Shift As Integer, X As Single, Y 
     If Button = vbKeyRButton Then PopupMenu mnuList
 End Sub
 Private Sub Form_Activate()
+    Dim i As Integer
+    
     ReDim SortDESC(0 To dgdList.Columns.Count - 1)
+    
+    'Get the column settings for the display...
+    For i = 0 To dgdList.Columns.Count - 1
+        dgdList.Columns(i).Width = GetSetting(App.ProductName, Me.Caption & " Settings", dgdList.Columns(i).Caption & " Width", dgdList.Columns(i).Width)
+    Next
 End Sub
 Private Sub Form_Load()
     dgdList.Top = 0
@@ -111,5 +119,12 @@ Private Sub Form_Resize()
     dgdList.Height = Me.ScaleHeight
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
+    Dim i As Integer
+    
     rsList.UpdateBatch
+    
+    'Save the column settings for the next display...
+    For i = 0 To dgdList.Columns.Count - 1
+        SaveSetting App.ProductName, Me.Caption & " Settings", dgdList.Columns(i).Caption & " Width", dgdList.Columns(i).Width
+    Next
 End Sub

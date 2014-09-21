@@ -529,8 +529,10 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If rsVideoResearch.EditMode <> adEditNone Then rsVideoResearch.CancelUpdate
-    If rsVideoResearch.State = adStateOpen Then rsVideoResearch.Close
+    If Not rsVideoResearch.EOF Then
+        If rsVideoResearch.EditMode <> adEditNone Then rsVideoResearch.CancelUpdate
+    End If
+    If (rsVideoResearch.State And adStateOpen) = adStateOpen Then rsVideoResearch.Close
     Set rsVideoResearch = Nothing
     rsDistributors.Close
     Set rsDistributors = Nothing
@@ -675,10 +677,19 @@ End Sub
 Private Sub txtCost_GotFocus()
     TextSelected
 End Sub
+Private Sub txtCost_KeyPress(KeyAscii As Integer)
+    If KeyAscii < vbKey0 Or KeyAscii > vbKey9 Then
+        If KeyAscii <> Asc(".") Then
+            KeyAscii = 0    'Cancel the character.
+            Beep            'Sound error signal.
+        End If
+    End If
+End Sub
 Private Sub txtCost_Validate(Cancel As Boolean)
-    If txtCost.Text = "" Then
-        MsgBox "Cost must be specified!", vbExclamation, Me.Caption
-        txtCost.SetFocus
+    If txtCost.Text = vbNullString Then txtCost.Text = Format(0, "Currency")
+    If Not IsNumeric(txtCost.Text) Then
+        MsgBox "Invalid Cost entered.", vbExclamation, Me.Caption
+        TextSelected
         Cancel = True
     End If
 End Sub
