@@ -2,17 +2,17 @@ VERSION 5.00
 Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
-Begin VB.Form frmCompanies 
+Begin VB.Form frmVideoResearch1 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Hobby Companies"
-   ClientHeight    =   4608
+   Caption         =   "Specials"
+   ClientHeight    =   3168
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4608
+   ScaleHeight     =   3168
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
@@ -20,8 +20,8 @@ Begin VB.Form frmCompanies
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   21
-      Top             =   4356
+      TabIndex        =   17
+      Top             =   2916
       Width           =   7524
       _ExtentX        =   13272
       _ExtentY        =   445
@@ -49,25 +49,17 @@ Begin VB.Form frmCompanies
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:37 PM"
+            TextSave        =   "11:47 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
    End
-   Begin VB.TextBox txtWebSite 
+   Begin VB.TextBox txtSort 
       Height          =   288
-      Left            =   1356
-      TabIndex        =   7
-      Text            =   "WebSite"
-      Top             =   2940
-      Width           =   5292
-   End
-   Begin VB.TextBox txtName 
-      Height          =   288
-      Left            =   1374
-      TabIndex        =   0
-      Text            =   "Name"
-      Top             =   372
+      Left            =   1530
+      TabIndex        =   4
+      Text            =   "Sort"
+      Top             =   1260
       Width           =   5892
    End
    Begin VB.CommandButton cmdCancel 
@@ -75,24 +67,24 @@ Begin VB.Form frmCompanies
       Caption         =   "Cancel"
       CausesValidation=   0   'False
       Height          =   372
-      Left            =   6480
-      TabIndex        =   9
-      Top             =   3960
+      Left            =   6486
+      TabIndex        =   7
+      Top             =   2520
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
       Caption         =   "OK"
       Default         =   -1  'True
       Height          =   372
-      Left            =   5460
-      TabIndex        =   8
-      Top             =   3960
+      Left            =   5466
+      TabIndex        =   6
+      Top             =   2520
       Width           =   972
    End
-   Begin MSAdodcLib.Adodc adodcCompanies 
+   Begin MSAdodcLib.Adodc adodcHobby 
       Height          =   312
-      Left            =   264
-      Top             =   3480
+      Left            =   276
+      Top             =   2040
       Width           =   7152
       _ExtentX        =   12615
       _ExtentY        =   550
@@ -135,72 +127,66 @@ Begin VB.Form frmCompanies
       EndProperty
       _Version        =   393216
    End
-   Begin VB.TextBox txtAddress 
-      Height          =   1308
-      Left            =   1374
-      MultiLine       =   -1  'True
-      TabIndex        =   6
-      Text            =   "frmCompanies.frx":0000
-      Top             =   1596
-      Width           =   5832
-   End
-   Begin VB.TextBox txtPhone 
+   Begin VB.TextBox txtInventoried 
       Height          =   288
-      Left            =   4314
+      Left            =   1536
       TabIndex        =   5
-      Text            =   "Phone"
-      Top             =   1272
+      Text            =   "Inventoried"
+      Top             =   1560
       Width           =   1812
    End
-   Begin MSDataListLib.DataCombo dbcProductType 
+   Begin MSDataListLib.DataCombo dbcDistributor 
       Height          =   288
-      Left            =   1374
-      TabIndex        =   4
-      Top             =   1260
-      Width           =   2052
-      _ExtentX        =   3620
+      Left            =   1530
+      TabIndex        =   3
+      Top             =   972
+      Width           =   5892
+      _ExtentX        =   10393
       _ExtentY        =   508
       _Version        =   393216
       MatchEntry      =   -1  'True
-      Text            =   "ProductType"
+      Text            =   "Distributor"
    End
-   Begin VB.TextBox txtAccount 
+   Begin VB.TextBox txtCost 
       Alignment       =   1  'Right Justify
       BeginProperty DataFormat 
-         Type            =   0
+         Type            =   1
          Format          =   """$""#,##0.00"
          HaveTrueFalseNull=   0
          FirstDayOfWeek  =   0
          FirstWeekOfYear =   0
          LCID            =   1033
-         SubFormatType   =   0
+         SubFormatType   =   2
       EndProperty
       Height          =   288
-      Left            =   4314
-      TabIndex        =   3
-      Text            =   "Account"
-      Top             =   972
-      Width           =   2352
-   End
-   Begin VB.TextBox txtCode 
-      Height          =   288
-      Left            =   1374
+      Left            =   5934
       TabIndex        =   2
-      Text            =   "Code"
-      Top             =   972
-      Width           =   1692
+      Top             =   660
+      Width           =   972
    End
-   Begin VB.TextBox txtShortName 
+   Begin VB.TextBox txtTitle 
       Height          =   288
-      Left            =   1374
-      TabIndex        =   1
-      Text            =   "Short Name"
-      Top             =   672
+      Left            =   1530
+      TabIndex        =   0
+      Text            =   "Title"
+      Top             =   372
       Width           =   5892
+   End
+   Begin MSDataListLib.DataCombo dbcSubject 
+      Height          =   288
+      Left            =   1530
+      TabIndex        =   1
+      Top             =   660
+      Width           =   3252
+      _ExtentX        =   5736
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   "Subject"
    End
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   480
-      Top             =   3840
+      Top             =   2400
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -211,54 +197,54 @@ Begin VB.Form frmCompanies
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   11
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":0008
+            Picture         =   "frmSpecials.frx":0000
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":0324
+            Picture         =   "frmSpecials.frx":031C
             Key             =   ""
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":064C
+            Picture         =   "frmSpecials.frx":0644
             Key             =   ""
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":0974
+            Picture         =   "frmSpecials.frx":096C
             Key             =   ""
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":3128
+            Picture         =   "frmSpecials.frx":3120
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":357C
+            Picture         =   "frmSpecials.frx":3574
             Key             =   "List"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":4048
+            Picture         =   "frmSpecials.frx":4040
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":449C
+            Picture         =   "frmSpecials.frx":4494
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":4F68
+            Picture         =   "frmSpecials.frx":4F60
             Key             =   ""
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":5290
+            Picture         =   "frmSpecials.frx":5288
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":56E4
+            Picture         =   "frmSpecials.frx":56DC
             Key             =   "Filter"
          EndProperty
       EndProperty
    End
    Begin MSComctlLib.ImageList imlLarge 
       Left            =   60
-      Top             =   3840
+      Top             =   2400
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -269,35 +255,35 @@ Begin VB.Form frmCompanies
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   8
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":5B38
+            Picture         =   "frmSpecials.frx":5B30
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":5F8C
+            Picture         =   "frmSpecials.frx":5F84
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":6A58
+            Picture         =   "frmSpecials.frx":6A50
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":6D74
+            Picture         =   "frmSpecials.frx":6D6C
             Key             =   "List"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":7840
+            Picture         =   "frmSpecials.frx":7838
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":7C94
+            Picture         =   "frmSpecials.frx":7C8C
             Key             =   ""
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":A448
+            Picture         =   "frmSpecials.frx":A440
             Key             =   ""
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":A89C
+            Picture         =   "frmSpecials.frx":A894
             Key             =   ""
          EndProperty
       EndProperty
@@ -306,7 +292,7 @@ Begin VB.Form frmCompanies
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   20
+      TabIndex        =   16
       Top             =   0
       Width           =   7524
       _ExtentX        =   13272
@@ -374,54 +360,45 @@ Begin VB.Form frmCompanies
       EndProperty
       BorderStyle     =   1
    End
-   Begin VB.Label lblWebSite 
+   Begin VB.Label lblSort 
       AutoSize        =   -1  'True
-      Caption         =   "Web Site:"
+      Caption         =   "Sort:"
       Height          =   192
-      Left            =   360
-      TabIndex        =   19
-      Top             =   2988
-      Width           =   696
+      Left            =   984
+      TabIndex        =   15
+      Top             =   1308
+      Width           =   324
+   End
+   Begin VB.Label lblSubject 
+      AutoSize        =   -1  'True
+      Caption         =   "Subject:"
+      Height          =   192
+      Left            =   846
+      TabIndex        =   14
+      Top             =   720
+      Width           =   576
    End
    Begin VB.Label lblIDlabel 
       AutoSize        =   -1  'True
       Caption         =   "ID:"
       Height          =   192
-      Left            =   6804
-      TabIndex        =   18
-      Top             =   3060
+      Left            =   6816
+      TabIndex        =   13
+      Top             =   1620
       Width           =   192
    End
-   Begin VB.Label lblPhone 
+   Begin VB.Label lblDateInventoried 
       AutoSize        =   -1  'True
-      Caption         =   "Phone:"
+      Caption         =   "Date Inventoried:"
       Height          =   192
-      Left            =   3702
-      TabIndex        =   17
-      Top             =   1320
-      Width           =   504
+      Left            =   216
+      TabIndex        =   12
+      Top             =   1608
+      Width           =   1212
    End
-   Begin VB.Label lblAddress 
+   Begin VB.Label lblCost 
       AutoSize        =   -1  'True
-      Caption         =   "Address"
-      Height          =   192
-      Left            =   522
-      TabIndex        =   16
-      Top             =   1620
-      Width           =   612
-   End
-   Begin VB.Label lblProductType 
-      AutoSize        =   -1  'True
-      Caption         =   "Product Type:"
-      Height          =   192
-      Left            =   258
-      TabIndex        =   15
-      Top             =   1320
-      Width           =   1008
-   End
-   Begin VB.Label lblAccount 
-      AutoSize        =   -1  'True
-      Caption         =   "Account:"
+      Caption         =   "Cost:"
       BeginProperty DataFormat 
          Type            =   0
          Format          =   """$""#,##0.00"
@@ -432,45 +409,36 @@ Begin VB.Form frmCompanies
          SubFormatType   =   0
       EndProperty
       Height          =   192
-      Left            =   3570
-      TabIndex        =   14
-      Top             =   1020
-      Width           =   612
-   End
-   Begin VB.Label lblCode 
-      AutoSize        =   -1  'True
-      Caption         =   "Code:"
-      Height          =   192
-      Left            =   834
-      TabIndex        =   13
-      Top             =   1020
-      Width           =   432
-   End
-   Begin VB.Label lblShortName 
-      AutoSize        =   -1  'True
-      Caption         =   "Short Name:"
-      Height          =   192
-      Left            =   378
-      TabIndex        =   12
-      Top             =   720
-      Width           =   888
-   End
-   Begin VB.Label lblName 
-      AutoSize        =   -1  'True
-      Caption         =   "Name:"
-      Height          =   192
-      Left            =   786
+      Left            =   5400
       TabIndex        =   11
+      Top             =   720
+      Width           =   360
+   End
+   Begin VB.Label lblTitle 
+      AutoSize        =   -1  'True
+      Caption         =   "Title:"
+      Height          =   192
+      Left            =   1074
+      TabIndex        =   10
       Top             =   420
-      Width           =   480
+      Width           =   348
+   End
+   Begin VB.Label lblDistributor 
+      AutoSize        =   -1  'True
+      Caption         =   "Distributor:"
+      Height          =   192
+      Left            =   666
+      TabIndex        =   9
+      Top             =   1020
+      Width           =   756
    End
    Begin VB.Label lblID 
       AutoSize        =   -1  'True
       Caption         =   "lblID"
       Height          =   192
-      Left            =   7092
-      TabIndex        =   10
-      Top             =   3060
+      Left            =   7104
+      TabIndex        =   8
+      Top             =   1620
       Width           =   324
    End
    Begin VB.Menu mnuAction 
@@ -504,7 +472,7 @@ Begin VB.Form frmCompanies
       End
    End
 End
-Attribute VB_Name = "frmCompanies"
+Attribute VB_Name = "frmVideoResearch1"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
@@ -513,7 +481,9 @@ Option Explicit
 Dim adoConn As ADODB.Connection
 Dim WithEvents rsMain As ADODB.Recordset
 Attribute rsMain.VB_VarHelpID = -1
-Dim rsProductTypes As New ADODB.Recordset
+Dim rsDistributors As New ADODB.Recordset
+Dim rsSubjects As New ADODB.Recordset
+Dim strDefaultSort As String
 Dim mode As ActionMode
 Dim fTransaction As Boolean
 Dim DBinfo As DataBaseInfo
@@ -528,7 +498,7 @@ Private Sub cmdCancel_Click()
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            adodcCompanies.Enabled = True
+            adodcHobby.Enabled = True
     End Select
 End Sub
 Private Sub cmdOK_Click()
@@ -539,22 +509,40 @@ Private Sub cmdOK_Click()
             Unload Me
         Case modeAdd, modeModify
             'Why we need to do this is buggy...
-            rsMain("ProductType") = dbcProductType.Text
+            rsMain("Distributor") = dbcDistributor.BoundText
+            rsMain("Subject") = dbcSubject.BoundText
             rsMain.UpdateBatch
             adoConn.CommitTrans
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            adodcCompanies.Enabled = True
+            adodcHobby.Enabled = True
             
-            rsProductTypes.Requery
+            rsDistributors.Requery
+            rsSubjects.Requery
     End Select
 End Sub
-Private Sub dbcProductType_GotFocus()
+Private Sub dbcDistributor_GotFocus()
     TextSelected
 End Sub
-Private Sub dbcProductType_Validate(Cancel As Boolean)
-    If rsProductTypes.Bookmark <> dbcProductType.SelectedItem Then rsProductTypes.Bookmark = dbcProductType.SelectedItem
+Private Sub dbcDistributor_Validate(Cancel As Boolean)
+    If dbcDistributor.Text = "" Then
+        MsgBox "Distributor must be specified!", vbExclamation, Me.Caption
+        dbcDistributor.SetFocus
+        Cancel = True
+    End If
+    If rsDistributors.Bookmark <> dbcDistributor.SelectedItem Then rsDistributors.Bookmark = dbcDistributor.SelectedItem
+End Sub
+Private Sub dbcSubject_GotFocus()
+    TextSelected
+End Sub
+Private Sub dbcSubject_Validate(Cancel As Boolean)
+    If dbcSubject.Text = "" Then
+        MsgBox "Subject must be specified!", vbExclamation, Me.Caption
+        dbcSubject.SetFocus
+        Cancel = True
+    End If
+    If rsSubjects.Bookmark <> dbcSubject.SelectedItem Then rsSubjects.Bookmark = dbcSubject.SelectedItem
 End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
@@ -567,21 +555,22 @@ Private Sub Form_Load()
         adoConn.Open .PathName, .UserName, .Password
     End With
     rsMain.CursorLocation = adUseClient
-    rsMain.Open "select * from [Companies] order by Code", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsMain.Open "select * from [Video Research] order by Sort", adoConn, adOpenKeyset, adLockBatchOptimistic
     
-    rsProductTypes.CursorLocation = adUseClient
-    rsProductTypes.Open "select distinct ProductType from [Companies] order by ProductType", adoConn, adOpenStatic, adLockReadOnly
+    rsDistributors.CursorLocation = adUseClient
+    rsDistributors.Open "select distinct Distributor from [Video Research] order by Distributor", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcCompanies.Recordset = rsMain
+    rsSubjects.CursorLocation = adUseClient
+    rsSubjects.Open "select distinct Subject from [Video Research] order by Subject", adoConn, adOpenStatic, adLockReadOnly
+    
+    Set adodcHobby.Recordset = rsMain
     frmMain.BindField lblID, "ID", rsMain
-    frmMain.BindField txtName, "Name", rsMain
-    frmMain.BindField txtShortName, "ShortName", rsMain
-    frmMain.BindField txtCode, "Code", rsMain
-    frmMain.BindField txtAccount, "Account", rsMain
-    frmMain.BindField txtPhone, "Phone", rsMain
-    frmMain.BindField txtAddress, "Address", rsMain
-    frmMain.BindField txtWebSite, "Website", rsMain
-    frmMain.BindField dbcProductType, "ProductType", rsMain, rsProductTypes, "ProductType", "ProductType"
+    frmMain.BindField dbcDistributor, "Distributor", rsMain, rsDistributors, "Distributor", "Distributor"
+    frmMain.BindField txtTitle, "Title", rsMain
+    frmMain.BindField txtCost, "Cost", rsMain
+    frmMain.BindField dbcSubject, "Subject", rsMain, rsSubjects, "Subject", "Subject"
+    frmMain.BindField txtSort, "Sort", rsMain
+    frmMain.BindField txtInventoried, "DateInventoried", rsMain
 
     frmMain.ProtectFields Me
     mode = modeDisplay
@@ -599,8 +588,10 @@ Private Sub Form_Unload(Cancel As Integer)
     End If
     If (rsMain.State And adStateOpen) = adStateOpen Then rsMain.Close
     Set rsMain = Nothing
-    rsProductTypes.Close
-    Set rsProductTypes = Nothing
+    rsDistributors.Close
+    Set rsDistributors = Nothing
+    rsSubjects.Close
+    Set rsSubjects = Nothing
     
     On Error Resume Next
     adoConn.Close
@@ -641,9 +632,9 @@ Private Sub mnuActionRefresh_Click()
     Dim SaveBookmark As String
     
     On Error Resume Next
-    SaveBookmark = rsMain("Code")
+    SaveBookmark = rsMain("Sort")
     rsMain.Requery
-    rsMain.Find "Code='" & SQLQuote(SaveBookmark) & "'"
+    rsMain.Find "Sort='" & SQLQuote(SaveBookmark) & "'"
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form
@@ -669,12 +660,14 @@ End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
-    adodcCompanies.Enabled = False
+    adodcHobby.Enabled = False
     rsMain.AddNew
     adoConn.BeginTrans
     fTransaction = True
     
-    txtName.SetFocus
+    txtInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
+    strDefaultSort = ""
+    txtTitle.SetFocus
 End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete
@@ -688,15 +681,15 @@ End Sub
 Private Sub mnuActionModify_Click()
     mode = modeModify
     frmMain.OpenFields Me
-    adodcCompanies.Enabled = False
+    adodcHobby.Enabled = False
     adoConn.BeginTrans
     fTransaction = True
     
-    txtName.SetFocus
+    txtTitle.SetFocus
 End Sub
 Private Sub mnuActionReport_Click()
     Dim frm As Form
-    Dim Report As New scrCompaniesReport
+    Dim Report As New scrVideoResearchReport
     Dim vRS As ADODB.Recordset
     
     MakeVirtualRecordset adoConn, rsMain, vRS
@@ -736,7 +729,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     ElseIf rsMain.BOF Then
         Caption = "BOF"
     Else
-        Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("Name")
+        Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("Sort")
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
@@ -746,7 +739,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
         sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
     End If
     
-    adodcCompanies.Caption = Caption
+    adodcHobby.Caption = Caption
     Exit Sub
 
 ErrorHandler:
@@ -771,46 +764,33 @@ Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
             mnuActionReport_Click
     End Select
 End Sub
-Private Sub txtName_GotFocus()
+Private Sub txtInventoried_GotFocus()
     TextSelected
 End Sub
-Private Sub txtName_Validate(Cancel As Boolean)
-    If txtName.Text = "" Then
-        MsgBox "Name must be specified!", vbExclamation, Me.Caption
-        txtName.SetFocus
+Private Sub txtTitle_GotFocus()
+    TextSelected
+End Sub
+Private Sub txtTitle_Validate(Cancel As Boolean)
+    If txtTitle.Text = "" Then
+        MsgBox "Title must be specified!", vbExclamation, Me.Caption
+        txtTitle.SetFocus
         Cancel = True
     End If
 End Sub
-Private Sub txtShortName_GotFocus()
+Private Sub txtCost_GotFocus()
     TextSelected
 End Sub
-Private Sub txtShortName_Validate(Cancel As Boolean)
-    If txtShortName.Text = "" Then
-        MsgBox "Short Name must be specified!", vbExclamation, Me.Caption
-        txtShortName.SetFocus
-        Cancel = True
+Private Sub txtCost_Validate(Cancel As Boolean)
+    ValidateCurrency txtCost.Text, Cancel
+End Sub
+Private Sub txtSort_GotFocus()
+    TextSelected
+    If txtSort.Text = "" Then txtSort.Text = dbcSubject.Text & ": " & txtTitle.Text
+End Sub
+Private Sub txtSort_Validate(Cancel As Boolean)
+    If txtSort.Text = "" Then
+        MsgBox "Sort should be specified!", vbExclamation, Me.Caption
+        txtSort.SetFocus
+        'Cancel = True
     End If
-End Sub
-Private Sub txtCode_GotFocus()
-    TextSelected
-End Sub
-Private Sub txtCode_KeyPress(KeyAscii As Integer)
-    KeyPressUcase KeyAscii
-End Sub
-Private Sub txtCode_Validate(Cancel As Boolean)
-    If txtCode.Text = "" Then
-        MsgBox "Code should be specified!", vbExclamation, Me.Caption
-    End If
-End Sub
-Private Sub txtAccount_GotFocus()
-    TextSelected
-End Sub
-Private Sub txtPhone_GotFocus()
-    TextSelected
-End Sub
-Private Sub txtAddress_GotFocus()
-    TextSelected
-End Sub
-Private Sub txtWebSite_GotFocus()
-    TextSelected
 End Sub

@@ -2,7 +2,7 @@ VERSION 5.00
 Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
-Begin VB.Form frmVideoResearch1 
+Begin VB.Form frmTVEpisodes 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "TV Episodes"
    ClientHeight    =   3168
@@ -16,11 +16,35 @@ Begin VB.Form frmVideoResearch1
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
+   Begin VB.CheckBox chkTaped 
+      Caption         =   "Taped"
+      Height          =   192
+      Left            =   4980
+      TabIndex        =   8
+      Top             =   1680
+      Width           =   1212
+   End
+   Begin VB.CheckBox chkStoreBought 
+      Caption         =   "Store Bought"
+      Height          =   192
+      Left            =   3480
+      TabIndex        =   7
+      Top             =   1680
+      Width           =   1212
+   End
+   Begin VB.TextBox txtNumber 
+      Height          =   288
+      Left            =   6000
+      TabIndex        =   2
+      Text            =   "Number"
+      Top             =   660
+      Width           =   1392
+   End
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   17
+      TabIndex        =   19
       Top             =   2916
       Width           =   7524
       _ExtentX        =   13272
@@ -49,18 +73,10 @@ Begin VB.Form frmVideoResearch1
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:45 PM"
+            TextSave        =   "11:34 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
-   End
-   Begin VB.TextBox txtSort 
-      Height          =   288
-      Left            =   1530
-      TabIndex        =   4
-      Text            =   "Sort"
-      Top             =   1260
-      Width           =   5892
    End
    Begin VB.CommandButton cmdCancel 
       Cancel          =   -1  'True
@@ -68,7 +84,7 @@ Begin VB.Form frmVideoResearch1
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6486
-      TabIndex        =   7
+      TabIndex        =   10
       Top             =   2520
       Width           =   972
    End
@@ -77,11 +93,11 @@ Begin VB.Form frmVideoResearch1
       Default         =   -1  'True
       Height          =   372
       Left            =   5466
-      TabIndex        =   6
+      TabIndex        =   9
       Top             =   2520
       Width           =   972
    End
-   Begin MSAdodcLib.Adodc adodcHobby 
+   Begin MSAdodcLib.Adodc adodcMain 
       Height          =   312
       Left            =   276
       Top             =   2040
@@ -129,10 +145,10 @@ Begin VB.Form frmVideoResearch1
    End
    Begin VB.TextBox txtInventoried 
       Height          =   288
-      Left            =   1536
-      TabIndex        =   5
+      Left            =   1530
+      TabIndex        =   6
       Text            =   "Inventoried"
-      Top             =   1560
+      Top             =   1620
       Width           =   1812
    End
    Begin MSDataListLib.DataCombo dbcDistributor 
@@ -159,9 +175,9 @@ Begin VB.Form frmVideoResearch1
          SubFormatType   =   2
       EndProperty
       Height          =   288
-      Left            =   5934
-      TabIndex        =   2
-      Top             =   660
+      Left            =   5580
+      TabIndex        =   5
+      Top             =   1320
       Width           =   972
    End
    Begin VB.TextBox txtTitle 
@@ -169,14 +185,14 @@ Begin VB.Form frmVideoResearch1
       Left            =   1530
       TabIndex        =   0
       Text            =   "Title"
-      Top             =   372
-      Width           =   5892
+      Top             =   312
+      Width           =   5868
    End
    Begin MSDataListLib.DataCombo dbcSubject 
       Height          =   288
       Left            =   1530
-      TabIndex        =   1
-      Top             =   660
+      TabIndex        =   4
+      Top             =   1320
       Width           =   3252
       _ExtentX        =   5736
       _ExtentY        =   508
@@ -288,11 +304,23 @@ Begin VB.Form frmVideoResearch1
          EndProperty
       EndProperty
    End
+   Begin MSDataListLib.DataCombo dbcSeries 
+      Height          =   288
+      Left            =   1530
+      TabIndex        =   1
+      Top             =   660
+      Width           =   3672
+      _ExtentX        =   6477
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   "Series"
+   End
    Begin MSComctlLib.Toolbar tbAction 
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   16
+      TabIndex        =   21
       Top             =   0
       Width           =   7524
       _ExtentX        =   13272
@@ -360,22 +388,31 @@ Begin VB.Form frmVideoResearch1
       EndProperty
       BorderStyle     =   1
    End
-   Begin VB.Label lblSort 
+   Begin VB.Label lblNumber 
       AutoSize        =   -1  'True
-      Caption         =   "Sort:"
+      Caption         =   "Number:"
       Height          =   192
-      Left            =   984
-      TabIndex        =   15
-      Top             =   1308
-      Width           =   324
+      Left            =   5340
+      TabIndex        =   20
+      Top             =   708
+      Width           =   612
+   End
+   Begin VB.Label lblSeries 
+      AutoSize        =   -1  'True
+      Caption         =   "Series:"
+      Height          =   192
+      Left            =   924
+      TabIndex        =   18
+      Top             =   708
+      Width           =   504
    End
    Begin VB.Label lblSubject 
       AutoSize        =   -1  'True
       Caption         =   "Subject:"
       Height          =   192
-      Left            =   846
-      TabIndex        =   14
-      Top             =   720
+      Left            =   852
+      TabIndex        =   17
+      Top             =   1380
       Width           =   576
    End
    Begin VB.Label lblIDlabel 
@@ -383,8 +420,8 @@ Begin VB.Form frmVideoResearch1
       Caption         =   "ID:"
       Height          =   192
       Left            =   6816
-      TabIndex        =   13
-      Top             =   1620
+      TabIndex        =   16
+      Top             =   1680
       Width           =   192
    End
    Begin VB.Label lblDateInventoried 
@@ -392,8 +429,8 @@ Begin VB.Form frmVideoResearch1
       Caption         =   "Date Inventoried:"
       Height          =   192
       Left            =   216
-      TabIndex        =   12
-      Top             =   1608
+      TabIndex        =   15
+      Top             =   1668
       Width           =   1212
    End
    Begin VB.Label lblCost 
@@ -409,18 +446,18 @@ Begin VB.Form frmVideoResearch1
          SubFormatType   =   0
       EndProperty
       Height          =   192
-      Left            =   5400
-      TabIndex        =   11
-      Top             =   720
+      Left            =   5040
+      TabIndex        =   14
+      Top             =   1380
       Width           =   360
    End
    Begin VB.Label lblTitle 
       AutoSize        =   -1  'True
       Caption         =   "Title:"
       Height          =   192
-      Left            =   1074
-      TabIndex        =   10
-      Top             =   420
+      Left            =   1080
+      TabIndex        =   13
+      Top             =   360
       Width           =   348
    End
    Begin VB.Label lblDistributor 
@@ -428,7 +465,7 @@ Begin VB.Form frmVideoResearch1
       Caption         =   "Distributor:"
       Height          =   192
       Left            =   666
-      TabIndex        =   9
+      TabIndex        =   12
       Top             =   1020
       Width           =   756
    End
@@ -437,8 +474,8 @@ Begin VB.Form frmVideoResearch1
       Caption         =   "lblID"
       Height          =   192
       Left            =   7104
-      TabIndex        =   8
-      Top             =   1620
+      TabIndex        =   11
+      Top             =   1680
       Width           =   324
    End
    Begin VB.Menu mnuAction 
@@ -472,7 +509,7 @@ Begin VB.Form frmVideoResearch1
       End
    End
 End
-Attribute VB_Name = "frmVideoResearch1"
+Attribute VB_Name = "frmTVEpisodes"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
@@ -481,6 +518,7 @@ Option Explicit
 Dim adoConn As ADODB.Connection
 Dim WithEvents rsMain As ADODB.Recordset
 Attribute rsMain.VB_VarHelpID = -1
+Dim rsSeries As New ADODB.Recordset
 Dim rsDistributors As New ADODB.Recordset
 Dim rsSubjects As New ADODB.Recordset
 Dim strDefaultSort As String
@@ -498,7 +536,7 @@ Private Sub cmdCancel_Click()
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            adodcHobby.Enabled = True
+            adodcMain.Enabled = True
     End Select
 End Sub
 Private Sub cmdOK_Click()
@@ -509,6 +547,7 @@ Private Sub cmdOK_Click()
             Unload Me
         Case modeAdd, modeModify
             'Why we need to do this is buggy...
+            rsMain("Series") = dbcSeries.BoundText
             rsMain("Distributor") = dbcDistributor.BoundText
             rsMain("Subject") = dbcSubject.BoundText
             rsMain.UpdateBatch
@@ -516,8 +555,9 @@ Private Sub cmdOK_Click()
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            adodcHobby.Enabled = True
+            adodcMain.Enabled = True
             
+            rsSeries.Requery
             rsDistributors.Requery
             rsSubjects.Requery
     End Select
@@ -533,6 +573,17 @@ Private Sub dbcDistributor_Validate(Cancel As Boolean)
     End If
     If rsDistributors.Bookmark <> dbcDistributor.SelectedItem Then rsDistributors.Bookmark = dbcDistributor.SelectedItem
 End Sub
+Private Sub dbcSeries_GotFocus()
+    TextSelected
+End Sub
+Private Sub dbcSeries_Validate(Cancel As Boolean)
+    If dbcSeries.Text = "" Then
+        MsgBox "Series must be specified!", vbExclamation, Me.Caption
+        dbcSeries.SetFocus
+        Cancel = True
+    End If
+    If rsSeries.Bookmark <> dbcSeries.SelectedItem Then rsSeries.Bookmark = dbcSeries.SelectedItem
+End Sub
 Private Sub dbcSubject_GotFocus()
     TextSelected
 End Sub
@@ -547,7 +598,7 @@ End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
     Set rsMain = New ADODB.Recordset
-    Set DBinfo = frmMain.DBcollection("Hobby")
+    Set DBinfo = frmMain.DBcollection("VideoTapes")
     With DBinfo
         adoConn.Provider = .Provider
         adoConn.CommandTimeout = 60
@@ -555,22 +606,28 @@ Private Sub Form_Load()
         adoConn.Open .PathName, .UserName, .Password
     End With
     rsMain.CursorLocation = adUseClient
-    rsMain.Open "select * from [Video Research] order by Sort", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsMain.Open "select * from [Episodes] order by Series, Number", adoConn, adOpenKeyset, adLockBatchOptimistic
     
     rsDistributors.CursorLocation = adUseClient
-    rsDistributors.Open "select distinct Distributor from [Video Research] order by Distributor", adoConn, adOpenStatic, adLockReadOnly
+    rsDistributors.Open "select distinct Distributor from [Episodes] order by Distributor", adoConn, adOpenStatic, adLockReadOnly
+    
+    rsSeries.CursorLocation = adUseClient
+    rsSeries.Open "select distinct Series from [Episodes] order by Series", adoConn, adOpenStatic, adLockReadOnly
     
     rsSubjects.CursorLocation = adUseClient
-    rsSubjects.Open "select distinct Subject from [Video Research] order by Subject", adoConn, adOpenStatic, adLockReadOnly
+    rsSubjects.Open "select distinct Subject from [Episodes] order by Subject", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcHobby.Recordset = rsMain
+    Set adodcMain.Recordset = rsMain
     frmMain.BindField lblID, "ID", rsMain
+    frmMain.BindField dbcSeries, "Series", rsMain, rsSeries, "Series", "Series"
     frmMain.BindField dbcDistributor, "Distributor", rsMain, rsDistributors, "Distributor", "Distributor"
     frmMain.BindField txtTitle, "Title", rsMain
     frmMain.BindField txtCost, "Cost", rsMain
     frmMain.BindField dbcSubject, "Subject", rsMain, rsSubjects, "Subject", "Subject"
-    frmMain.BindField txtSort, "Sort", rsMain
+    frmMain.BindField txtNumber, "Number", rsMain
     frmMain.BindField txtInventoried, "DateInventoried", rsMain
+    frmMain.BindField chkStoreBought, "StoreBought", rsMain
+    frmMain.BindField chkTaped, "Taped", rsMain
 
     frmMain.ProtectFields Me
     mode = modeDisplay
@@ -588,6 +645,8 @@ Private Sub Form_Unload(Cancel As Integer)
     End If
     If (rsMain.State And adStateOpen) = adStateOpen Then rsMain.Close
     Set rsMain = Nothing
+    rsSeries.Close
+    Set rsSeries = Nothing
     rsDistributors.Close
     Set rsDistributors = Nothing
     rsSubjects.Close
@@ -604,10 +663,6 @@ Private Sub Form_Unload(Cancel As Integer)
 End Sub
 Private Sub mnuActionList_Click()
     Dim frm As Form
-    Dim CurrencyFormat As New StdDataFormat
-    Dim Col As Column
-    
-    CurrencyFormat.Format = "Currency"
     
     Load frmList
     frmList.Caption = Me.Caption & " List"
@@ -622,11 +677,6 @@ Private Sub mnuActionList_Click()
     frmList.Height = frm.Height
     
     Set frmList.rsList = rsMain
-    Set frmList.dgdList.DataSource = frmList.rsList
-    Set frmList.dgdList.Columns("Cost").DataFormat = CurrencyFormat
-    For Each Col In frmList.dgdList.Columns
-        Col.Alignment = dbgGeneral
-    Next Col
     
     adoConn.BeginTrans
     fTransaction = True
@@ -641,9 +691,9 @@ Private Sub mnuActionRefresh_Click()
     Dim SaveBookmark As String
     
     On Error Resume Next
-    SaveBookmark = rsMain("Sort")
+    SaveBookmark = rsMain("ID")
     rsMain.Requery
-    rsMain.Find "Sort='" & SQLQuote(SaveBookmark) & "'"
+    rsMain.Find "ID='" & SQLQuote(SaveBookmark) & "'"
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form
@@ -669,13 +719,12 @@ End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
-    adodcHobby.Enabled = False
+    adodcMain.Enabled = False
     rsMain.AddNew
     adoConn.BeginTrans
     fTransaction = True
     
     txtInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
-    strDefaultSort = ""
     txtTitle.SetFocus
 End Sub
 Private Sub mnuActionDelete_Click()
@@ -690,7 +739,7 @@ End Sub
 Private Sub mnuActionModify_Click()
     mode = modeModify
     frmMain.OpenFields Me
-    adodcHobby.Enabled = False
+    adodcMain.Enabled = False
     adoConn.BeginTrans
     fTransaction = True
     
@@ -698,7 +747,7 @@ Private Sub mnuActionModify_Click()
 End Sub
 Private Sub mnuActionReport_Click()
     Dim frm As Form
-    Dim Report As New scrVideoResearchReport
+    Dim Report As Object    'New scrTVEpisodesReport
     Dim vRS As ADODB.Recordset
     
     MakeVirtualRecordset adoConn, rsMain, vRS
@@ -738,7 +787,11 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     ElseIf rsMain.BOF Then
         Caption = "BOF"
     Else
-        Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("Sort")
+        If Trim(rsMain("Number")) <> vbNullString Then
+            Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("Series") & " Episode #" & rsMain("Number")
+        Else
+            Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("Series") & " Episode """ & rsMain("Title") & """"
+        End If
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
@@ -748,7 +801,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
         sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
     End If
     
-    adodcHobby.Caption = Caption
+    adodcMain.Caption = Caption
     Exit Sub
 
 ErrorHandler:
@@ -792,14 +845,6 @@ End Sub
 Private Sub txtCost_Validate(Cancel As Boolean)
     ValidateCurrency txtCost.Text, Cancel
 End Sub
-Private Sub txtSort_GotFocus()
+Private Sub txtNumber_GotFocus()
     TextSelected
-    If txtSort.Text = "" Then txtSort.Text = dbcSubject.Text & ": " & txtTitle.Text
-End Sub
-Private Sub txtSort_Validate(Cancel As Boolean)
-    If txtSort.Text = "" Then
-        MsgBox "Sort should be specified!", vbExclamation, Me.Caption
-        txtSort.SetFocus
-        'Cancel = True
-    End If
 End Sub

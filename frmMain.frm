@@ -152,8 +152,11 @@ Begin VB.Form frmMain
          Begin VB.Menu mnuDataBaseVideoLibraryMovies 
             Caption         =   "&Movies"
          End
-         Begin VB.Menu mnuDataBaseVideoLibraryEpisodes 
-            Caption         =   "&Episodes"
+         Begin VB.Menu mnuDataBaseVideoLibrarySpecials 
+            Caption         =   "&Specials"
+         End
+         Begin VB.Menu mnuDataBaseVideoLibraryTVEpisodes 
+            Caption         =   "&TV Episodes"
          End
       End
       Begin VB.Menu mnuDataBaseKFC 
@@ -382,8 +385,8 @@ End Sub
 Private Sub mnuDataBaseSoftware_Click()
     frmSoftware.Show vbModal
 End Sub
-Private Sub mnuDataBaseVideoTapes_Click()
-    'frmVideoTapes.Show vbModal
+Private Sub mnuDataBaseVideoLibraryTVEpisodes_Click()
+    frmTVEpisodes.Show vbModal
 End Sub
 Private Sub mnuFileBackground_Click()
     Dim CurrentPath As String

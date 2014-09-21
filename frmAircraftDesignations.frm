@@ -49,7 +49,7 @@ Begin VB.Form frmAircraftDesignations
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:17 PM"
+            TextSave        =   "11:37 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -616,10 +616,6 @@ Private Sub Form_Unload(Cancel As Integer)
 End Sub
 Private Sub mnuActionList_Click()
     Dim frm As Form
-    Dim CurrencyFormat As New StdDataFormat
-    Dim Col As Column
-    
-    CurrencyFormat.Format = "Currency"
     
     Load frmList
     frmList.Caption = Me.Caption & " List"
@@ -634,11 +630,6 @@ Private Sub mnuActionList_Click()
     frmList.Height = frm.Height
     
     Set frmList.rsList = rsMain
-    Set frmList.dgdList.DataSource = frmList.rsList
-    'Set frmList.dgdList.Columns("Price").DataFormat = CurrencyFormat
-    For Each Col In frmList.dgdList.Columns
-        Col.Alignment = dbgGeneral
-    Next Col
     
     adoConn.BeginTrans
     fTransaction = True

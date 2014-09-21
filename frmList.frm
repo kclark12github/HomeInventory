@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:48 PM"
+            TextSave        =   "11:32 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -235,8 +235,30 @@ Private Sub dgdList_RowResize(Cancel As Integer)
 End Sub
 Private Sub Form_Activate()
     Dim i As Integer
+    Dim BooleanFormat As New StdDataFormat
+    Dim CurrencyFormat As New StdDataFormat
+    Dim Col As Column
+    Dim fld As ADODB.Field
+    
+    BooleanFormat.Format = "Yes/No"
+    CurrencyFormat.Format = "Currency"
     
     ReDim SortDESC(0 To dgdList.Columns.Count - 1)
+    
+    Set dgdList.DataSource = frmList.rsList
+    For Each fld In rsList.Fields
+        Set Col = dgdList.Columns(fld.Name)
+        Select Case fld.Type
+            Case adCurrency
+                Set Col.DataFormat = CurrencyFormat
+                Col.Alignment = dbgRight
+            Case adBoolean
+                Set Col.DataFormat = BooleanFormat
+                Col.Alignment = dbgCenter
+            Case Else
+                Col.Alignment = dbgGeneral
+        End Select
+    Next
     
     'Get the column settings for the display...
     For i = 0 To dgdList.Columns.Count - 1
