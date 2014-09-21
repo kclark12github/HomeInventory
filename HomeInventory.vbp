@@ -113,6 +113,7 @@ Form=frmMain.frm
 Form=frmStarWarsCollectables.frm
 Form=frmKits.frm
 Form=frmTYCollectables.frm
+Module=libISBN; libISBN.bas
 IconForm="frmMain"
 Startup="frmMain"
 HelpFile=""
