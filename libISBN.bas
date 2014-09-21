@@ -4,54 +4,72 @@ Attribute VB_Name = "libISBN"
 
 'http://www.isbn.spk-berlin.de/
 'An ISBN always consists of ten digits preceded by the letters ISBN.
-'Note: In countries where the Latin alphabet is not used, an abbreviation in the characters of the local script may be used in addition to the Latin letters ISBN.
+'Note: In countries where the Latin alphabet is not used, an abbreviation in the
+'characters of the local script may be used in addition to the Latin letters ISBN.
 '
-'The ten-digit number is divided into four parts of variable length, which must be separated clearly by hyphens or spaces5:
+'The ten-digit number is divided into four parts of variable length, which must be
+'separated clearly by hyphens or spaces(5):
 '
 'ISBN 0 571 08989 5
 '
 'or
 '
-'isbn 90 - 70002 - 4 - 3
+'isbn 90-70002-4-3
 '
 'Note: Experience suggests that hyphens are preferable to spaces.
 '
-'The number of digits in the first three parts of the ISBN (group identifier, publisher identifier, title identifier) varies. The number of digits in the group number and in the publisher identifier is determined by the quantity of titles planned to be produced by the publisher or publisher group. Publishers or publisher groups with large title outputs are represented by fewer digits.
+'The number of digits in the first three parts of the ISBN (group identifier,
+'publisher identifier, title identifier) varies. The number of digits in the group
+'number and in the publisher identifier is determined by the quantity of titles
+'planned to be produced by the publisher or publisher group. Publishers or publisher
+'groups with large title outputs are represented by fewer digits.
 '
 '4.1. Group identifier
-'The first part of the ISBN identifies a country, area or language area participating in the ISBN system. Some members form language areas (e.g. group number 3 = German language group) or regional units (e.g. South Pacific = group number 982). A group identifier may consist of up to 5 digits.
+'The first part of the ISBN identifies a country, area or language area participating
+'in the ISBN system. Some members form language areas (e.g. group number 3 = German
+'language group) or regional units (e.g. South Pacific = group number 982). A group
+'identifier may consist of up to 5 digits.
 '
 'Example: ISBN 90- ...
 '
 'All group identifiers are allocated by the International ISBN Agency in Berlin.
 '
 '4.2. Publisher identifier
-'The second part of the ISBN identifies a particular publisher within a group. The publisher identifier usually indicates the exact identification of the publishing house and its address. If publishers exhaust their initial contingent of title numbers, they may be allocated an additional publisher identifier. The publisher identifier may comprise up to seven digits.
+'The second part of the ISBN identifies a particular publisher within a group. The
+'publisher identifier usually indicates the exact identification of the publishing
+'house and its address. If publishers exhaust their initial contingent of title
+'numbers, they may be allocated an additional publisher identifier. The publisher
+'identifier may comprise up to seven digits.
 '
-'Publisher identifiers are assigned by the ISBN group agency responsible for the management of the ISBN system within the country, area or language area where the publisher is officially based.
+'Publisher identifiers are assigned by the ISBN group agency responsible for the
+'management of the ISBN system within the country, area or language area where the
+'publisher is officially based.
 '
 'Example: ISBN 90-70002- ...
 '
 '4.3. Title identifier
-'The third part of the ISBN identifies a specific edition of a publication of a specific publisher. A title identifier may consist of up to six digits. As an ISBN must always have ten digits, blank digits are represented by leading zeros.
+'The third part of the ISBN identifies a specific edition of a publication of a
+'specific publisher. A title identifier may consist of up to six digits. As an ISBN
+'must always have ten digits, blank digits are represented by leading zeros.
 '
 'Example: ISBN 90-70002-04- ...
 '
 '4.4. Check digit
-'The check digit is the last digit of an ISBN. It is calculated on a modulus 11 with weights 10-2, using X in lieu of 10 where ten would occur as a check digit.
+'The check digit is the last digit of an ISBN. It is calculated on a modulus 11 with
+'weights 10-2, using X in lieu of 10 where ten would occur as a check digit.
 '
-'This means that each of the first nine digits of the ISBN – excluding the check digit itself – is multiplied by a number ranging from 10 to 2 and that the resulting sum of the products, plus the check digit, must be divisible by 11 without a remainder.
+'This means that each of the first nine digits of the ISBN – excluding the check
+'digit itself – is multiplied by a number ranging from 10 to 2 and that the resulting
+'sum of the products, plus the check digit, must be divisible by 11 without a remainder.
 '
 'For example   ISBN 0-8436-1072-7:
-'
-'
 '
 '  Group
 'Identifier Publisher
 'Identifier Title
 'Identifier Check
 'digit
-'ISBN  0 8 4 3 6   1 0 7 2 7
+'ISBN    0 8 4 3 6   1 0 7 2 7
 'Weight 10 9 8 7 6   5 4 3 2
 '
 '--------------------------------------------------------------------------------
@@ -62,41 +80,57 @@ Attribute VB_Name = "libISBN"
 '
 'As 198 can be divided by 11 without remainder 0-8436-1072-7 is a valid ISBN.
 '7 is the valid check digit.
-'4.5. Distribution of ranges
-'The number of digits in each of the identifying parts 1, 2 and 3 is variable, although the total sum of digits contained in these parts is always 9. These nine digits, together with the check digit, make up the ten-digit ISBN.
 '
-'The number of digits in the group identifier will vary according to the output of books in a group. Thus, groups with an expected large output, will receive numbers of one or two digits and publishers with an expected large output will get numbers of two or three digits.
+'4.5. Distribution of ranges
+'The number of digits in each of the identifying parts 1, 2 and 3 is variable,
+'although the total sum of digits contained in these parts is always 9. These
+'nine digits, together with the check digit, make up the ten-digit ISBN.
+'
+'The number of digits in the group identifier will vary according to the output of
+'books in a group. Thus, groups with an expected large output, will receive numbers
+'of one or two digits and publishers with an expected large output will get numbers
+'of two or three digits.
 '
 'For ease of reading, the four parts of the ISBN are divided by spaces or hyphens.
 '
-'The generation of hyphens at output by programming helps reduce work at input. It reduces the number of characters, eliminates manual checking of hyphenation, and insures accuracy of format in all ISBN listings and publications.
+'The generation of hyphens at output by programming helps reduce work at input. It
+'reduces the number of characters, eliminates manual checking of hyphenation, and
+'insures accuracy of format in all ISBN listings and publications.
 '
-'The position of the hyphens is determined by the publisher identifier ranges established by each group agency in accordance with the book industry needs. The knowledge of the prefix ranges for each country or group of countries is necessary to develop the hyphenation output program.
+'The position of the hyphens is determined by the publisher identifier ranges
+'established by each group agency in accordance with the book industry needs. The
+'knowledge of the prefix ranges for each country or group of countries is necessary
+'to develop the hyphenation output program.
 '
-'For example, the publisher identifier ranges of group number 0 in the English language group (Australia, English speaking Canada, Ireland, New Zealand, Puerto Rico, South Africa, Swaziland, United Kingdom, United States, and Zimbabwe) are as follows:
+'For example, the publisher identifier ranges of group number 0 in the English
+'language group (Australia, English speaking Canada, Ireland, New Zealand, Puerto Rico,
+'South Africa, Swaziland, United Kingdom, United States, and Zimbabwe) are as follows:
 '
-'00 - 19
-'200 - 699
-'7000 - 8499
-' 85000 - 89999
-'900000 - 949999
+'     00 - 19
+'    200 - 699
+'   7000 - 8499
+'  85000 - 89999
+' 900000 - 949999
 '9500000 - 9999999
 '
-'The following table is an example of the range distribution of publisher identifiers. Assuming a group identifier of one digit only, the publisher identifier ranges might be as shown in the left-hand column and the title identifiers as shown in the right-hand column.
+'The following table is an example of the range distribution of publisher identifiers.
+'Assuming a group identifier of one digit only, the publisher identifier ranges might
+'be as shown in the left-hand column and the title identifiers as shown in the
+'right-hand column.
 '
-  'Publisher Identifier
+'Publisher Identifier
 '
-' Numbers available per publisher for
+'Numbers available per publisher for
 'Title identification
 '
 '
 '--------------------------------------------------------------------------------
 '
-  '00 - 19
-'200 - 699
-'7000 - 8499
-'85000 - 89999
-'900000 - 949999
+'     00 - 19
+'    200 - 699
+'   7000 - 8499
+'  85000 - 89999
+' 900000 - 949999
 '9500000 - 9999999
 '
 '
@@ -115,11 +149,11 @@ Attribute VB_Name = "libISBN"
 '
 '--------------------------------------------------------------------------------
 '
-  '00 - 19
-'200 - 699
-'7000 - 8499
-'85000 - 89999
-'900000 - 949999
+'     00 - 19
+'    200 - 699
+'   7000 - 8499
+'  85000 - 89999
+' 900000 - 949999
 '9500000 - 9999999  00 - 19
 '20 - 69
 '70 - 84
@@ -137,7 +171,7 @@ Attribute VB_Name = "libISBN"
 '
 '--------------------------------------------------------------------------------
 '
-'5 For purposes of data processing the 10-digit string is used without hyphens or spaces. Interpretation and human legible display is effectuated by means of the tables of group numbers and publisher identifier ranges.
+'(5) For purposes of data processing the 10-digit string is used without hyphens or spaces. Interpretation and human legible display is effectuated by means of the tables of group numbers and publisher identifier ranges.
 '
 '
 'Group Identifier:        Country or Area:
@@ -318,10 +352,10 @@ Dim TypeName(0 To 3) As String
 Dim mPubPref(0 To 9) As Integer
 Dim chstr(0 To 299) As String
 Private Sub Init()
-    TypeLen(0) = 9
-    TypeLen(1) = 7
-    TypeLen(2) = 9
-    TypeLen(3) = 12
+    TypeLen(0) = 10
+    TypeLen(1) = 8
+    TypeLen(2) = 10
+    TypeLen(3) = 13
     
     TypeName(0) = "ISBN"
     TypeName(1) = "ISSN"
@@ -457,87 +491,98 @@ End Sub
 Public Function checkISBN(strISBN As String) As String
     Dim ISBN As String
     Dim iType As Integer
-    Dim ckDig As String
+    Dim CheckDigit As String
     Dim cd As String
     Dim Message As String
     Dim EAN As String
     
+    Call Init
     ISBN = getISBN(strISBN)
     iType = GetType(ISBN)
     If Valid(ISBN, iType) Then
-        ckDig = GetCkDig(ISBN)
+        CheckDigit = GetCheckDigit(ISBN)
         Message = "This is an " & TypeName(iType) & ".  The check digit is "
-        If Len(ISBN) > TypeLen(iType) Then
-            cd = ckDig
-            If Mid(ISBN, TypeLen(iType) + 1, 1) <> cd Then
-                Message = Message & "incorrect: it should be " & ckDig & "."
+        If Len(ISBN) = TypeLen(iType) Then
+            cd = CheckDigit
+            If Mid(ISBN, TypeLen(iType), 1) <> cd Then
+                Message = Message & "incorrect: it should be " & CheckDigit & "."
+                Call MsgBox("Incorrect check digit: " & Mid(ISBN, TypeLen(iType), 1) & " entered, but should be " & cd & ".", vbExclamation, "checkISBN")
             Else
                 Message = Message & "correct."
             End If
         Else
-            Message = Message & ckDig & "."
+            Message = Message & CheckDigit & "."
         End If
         Message = Message & vbCrLf
         Message = Message & "The full " & TypeName(iType) & " is " & FullNum(ISBN) & "." & vbCrLf
-        If iType = isEAN And Mid(ISBN, 1, 3) = "978" Then Message = Message & "It is for a book with ISBN " & FullNum(Mid(ISBN, 4, 12)) & "."
+        If iType = isEAN And Mid(ISBN, 1, 3) = "978" Then Message = Message & "It is for a book with ISBN " & FullNum(Mid(ISBN, 4, 13)) & "."
         If iType = isEAN And Mid(ISBN, 1, 3) = "977" Then Message = Message & "It is for a serial publication with ISSN " & FullNum(Mid(ISBN, 4, 10)) & "."
-        If iType = isEAN And Mid(ISBN, 1, 4) = "9790" Then Message = Message & "It is for a piece of music with ISMN " & FullNum("M" & Mid(ISBN, 5, 12)) & "."
+        If iType = isEAN And Mid(ISBN, 1, 4) = "9790" Then Message = Message & "It is for a piece of music with ISMN " & FullNum("M" & Mid(ISBN, 5, 13)) & "."
+        checkISBN = FullNum(ISBN)
     Else
         If Len(ISBN) > 13 And Mid(ISBN, 1, 3) = "977" And Valid(Mid(ISBN, 1, 13), isEAN) Then
             EAN = Mid(ISBN, 1, 13)
             If EAN = FullNum(EAN) Then
                 Message = EAN & " is an EAN. The check digit is correct." & vbCrLf
                 Message = Message & "It is for a serial publication with ISSN " & FullNum(Mid(ISBN, 4, 10)) & ", issue number " & Mid(ISBN, 14, Len(ISBN)) & "."
+                checkISBN = FullNum(Mid(ISBN, 4, 10))
             Else
                 Message = "You have typed in too much, too little, or letters instead of numbers."
+                Call MsgBox(Message, vbExclamation, "checkISBN")
+                checkISBN = strISBN
             End If
         Else
             Message = "You have typed in too much, too little, or letters instead of numbers."
+            Call MsgBox(Message, vbExclamation, "checkISBN")
+            checkISBN = strISBN
         End If
     End If
-    checkISBN = Message
+    'checkISBN = Message
 End Function
 Private Function GetType(sNum As String) As Integer
-    Dim x As Integer
+    Dim X As Integer
     Dim l As Integer
     Dim c As String
     
-    x = 0               'invalid default
+    X = 0               'invalid default
     l = Len(sNum)
     c = Left(sNum, 1)
     
-    If l = 9 Or l = 10 Then x = isISBN
-    If l = 7 Or l = 8 Then x = isISSN
-    If x = 0 And c = "M" Then x = isISMN
-    If l = 12 Or l = 13 Then x = isEAN
-    GetType = x
+    If l = 9 Or l = 10 Then X = isISBN
+    If l = 7 Or l = 8 Then X = isISSN
+    If X = 0 And c = "M" Then X = isISMN
+    If l = 12 Or l = 13 Then X = isEAN
+    GetType = X
 End Function
-Private Function GetCkDig(sNum As String) As String
+Private Function GetCheckDigit(sNum As String) As String
     Dim t As Integer
-    Dim x As Integer
-    Dim ckSum As Integer
-    Dim ckDig As String
+    Dim X As Integer
+    Dim CheckSum As Integer
+    Dim CheckDigit As String
     
     t = GetType(sNum)
     If t < isISMN Then
-        For x = 0 To TypeLen(t)
-            ckSum = ckSum + (1 + TypeLen(t) - x) * Mid(sNum, x + 1, 1)
-        Next x
-        ckDig = CStr((1100 - ckSum) Mod 11)
-        If ckDig = 10 Then ckDig = "X"
+        'ISBN    0  8  7  7  7   9  5  0  5  3
+        'Weight 10  9  8  7  6   5  4  3  2
+        '        0+72+56+49+42+ 45+20+ 0+10+3
+        For X = 1 To TypeLen(t) - 1
+            CheckSum = CheckSum + (TypeLen(t) - X + 1) * Mid(sNum, X, 1)
+        Next X
+        CheckDigit = CStr((1100 - CheckSum) Mod 11)
+        If CheckDigit = 10 Then CheckDigit = "X"
     Else
-        If t = isISMN Then ckSum = 9
-        For x = 3 - t To TypeLen(t)
-            ckSum = ckSum + (3 - 2 * ((x + t) Mod 2)) * Mid(sNum, x + 1, 1)
-        Next x
-        ckDig = (1000 - ckSum) Mod 10
+        If t = isISMN Then CheckSum = 9
+        For X = 3 - t To TypeLen(t)
+            CheckSum = CheckSum + (3 - 2 * ((X + t) Mod 2)) * Mid(sNum, X + 1, 1)
+        Next X
+        CheckDigit = (1000 - CheckSum) Mod 10
     End If
-    GetCkDig = ckDig
+    GetCheckDigit = CheckDigit
 End Function
 Public Function FullNum(sNum As String) As String
     Dim strNum As String
     
-    strNum = Mid(sNum, 1, TypeLen(GetType(sNum)) + 1 + GetCkDig(sNum))
+    strNum = Mid(sNum, 1, TypeLen(GetType(sNum)) - 1) & GetCheckDigit(sNum)
     FullNum = Hyphenate(strNum)
 End Function
 Private Function Hyphenate(str As String) As String
@@ -555,7 +600,8 @@ Private Function Hyphenate(str As String) As String
                 p = chstr(shp(pref))
                 mppl = 8 - Len(pref)
                 i = Len(p) / 2
-                While Mid(p, i * 2 - 2 + 1, i * 2) > Mid(str, Len(pref) + 1, Len(pref) + 2)
+                
+                While Substring(p, (i * 2) - 1, i * 2) > Substring(str, Len(pref) + 1, Len(pref) + 3)
                     i = i - 1
                 Wend
                 If i = mppl + 1 And i = Len(p) / 2 Then i = mppl - 1                                                    'if it's only one over, it'll be one less
@@ -563,58 +609,66 @@ Private Function Hyphenate(str As String) As String
                 If i > mppl And (pref = "84" Or pref = "962" Or pref = "978" Or pref = "9986") Then i = 2 * mppl - i    'They get smaller in Hong Kong & Lithuania & Nigeria & Spain
                 If Mid(str, 1, 6) = "967999" Or Mid(str, 1, 7) = "9976999" Then i = i + 1                               'Malaysia & Tanzania have a three-digit break
                 breaker = i + Len(pref)
-                ourstr = pref & "-" & Mid(str, Len(pref) + 1, breaker) & "-" & Mid(str, breaker + 1, 9) & "-" & Mid(str, 9 + 1, 1)
+                ourstr = pref & "-" & Substring(str, Len(pref) + 1, breaker) & "-" & Substring(str, breaker + 1, 9) & "-" & Mid(str, 10, 1)
             Else
-                ourstr = Mid(str, 1, 9) & "-" & Mid(str, 9 + 1, 1)
+                ourstr = Substring(str, 1, 9) & "-" & Substring(str, 10, 1)
             End If
         Case isISSN
             ourstr = Mid(str, 1, 4) & "-" & Mid(str, 5, 8)
         Case isISMN
-            breaker = 1 & mPubPref(Mid(str, 1, 1))
-            ourstr = "M-" & Mid(str, 1, breaker) & "-" & Mid(str, breaker + 1, 9) & "-" & Mid(str, 9 + 1, 1)
+            breaker = 1 + mPubPref(Mid(str, 1, 1))
+            ourstr = "M-" & Mid(str, 1, breaker) & "-" & Mid(str, breaker + 1, 9) & "-" & Mid(str, 10, 1)
         Case isEAN
             ourstr = str
     End Select
     Hyphenate = ourstr
 End Function
+Private Function Substring(ByVal str As String, ByVal StartPos As Long, ByVal EndPos As Long) As String
+    Substring = Mid(str, StartPos, EndPos - StartPos + 1)
+End Function
 Private Function Prefix(str As String) As Long
-    Dim x As Long
-    x = 10
-    If Mid(str, 1, 1) < "8" Then x = Mid(str, 1, 1)
-    If Mid(str, 1, 2) > "79" And Mid(str, 1, 2) < "94" Then x = Mid(str, 1, 2)
-    If Mid(str, 1, 2) > "94" And Mid(str, 1, 2) < "99" Then x = Mid(str, 1, 3)
-    If Mid(str, 1, 3) > "989" And Mid(str, 1, 3) < "999" Then x = Mid(str, 1, 4)
-    If Mid(str, 1, 3) = "999" Then x = Mid(str, 1, 5)
-    Prefix = x
+    Dim X As Long
+    X = 10
+    If Mid(str, 1, 1) < "8" Then X = Mid(str, 1, 1)
+    If Mid(str, 1, 2) > "79" And Mid(str, 1, 2) < "94" Then X = Mid(str, 1, 2)
+    If Mid(str, 1, 2) > "94" And Mid(str, 1, 2) < "99" Then X = Mid(str, 1, 3)
+    If Mid(str, 1, 3) > "989" And Mid(str, 1, 3) < "999" Then X = Mid(str, 1, 4)
+    If Mid(str, 1, 3) = "999" Then X = Mid(str, 1, 5)
+    Prefix = X
 End Function
 Private Function shp(pref As String) As Long
-    Dim x As Long
-    If pref < 8 Then x = pref
-    If pref > 7 And pref < 99 Then x = pref - 70        '80-93 -> 10-22
-    If pref > 100 And pref < 999 Then x = pref - 900    '950-989 -> 50-89
-    If pref > 1000 And pref < 9999 Then x = pref - 9800 '9900-9989 -> 100-189
-    If pref > 10000 Then x = pref - 99700               '99900-99999 -> 200-299
-    shp = x
+    Dim X As Long
+    If pref < 8 Then X = pref
+    If pref > 7 And pref < 99 Then X = pref - 70        '80-93 -> 10-22
+    If pref > 100 And pref < 999 Then X = pref - 900    '950-989 -> 50-89
+    If pref > 1000 And pref < 9999 Then X = pref - 9800 '9900-9989 -> 100-189
+    If pref > 10000 Then X = pref - 99700               '99900-99999 -> 200-299
+    shp = X
 End Function
 Private Function Valid(sNum As String, iType As Integer) As Boolean
     Dim v As Boolean
-    Dim x As Integer
+    Dim X As Integer
     Dim c As String
     
     v = (iType <= isEAN)
-    For x = 1 To TypeLen(iType)
-        c = Mid(sNum, CLng(x) + 1, 1)
-        If (x > 1 Or c <> "M" Or iType <> 2) And (c < "0" Or c > "9") Then v = False
-    Next x
+    For X = 1 To TypeLen(iType)
+        c = UCase(Mid(sNum, CLng(X), 1))
+        If (X > 1 Or c <> "M" Or iType <> 2) And (c < "0" Or c > "9") Then
+            If X = TypeLen(iType) And c = "X" Then
+            Else
+                v = False
+            End If
+        End If
+    Next X
     Valid = v
 End Function
 Private Function getISBN(istring As String) As String
     Dim i As String
     Dim j As String
-    Dim x As Integer
+    Dim X As Integer
     
-    For x = 1 To Len(istring)
-        j = Mid(istring, CLng(x) + 1, 1)
+    For X = 1 To Len(istring)
+        j = Mid(istring, CLng(X), 1)
         If j >= "0" And j <= "9" Then
             i = i & j
         ElseIf UCase(j) = "X" Then
@@ -622,7 +676,7 @@ Private Function getISBN(istring As String) As String
         ElseIf UCase(j) = "M" Then
             i = i & "M"
         End If
-        Next x
+        Next X
     getISBN = i
 End Function
 Public Function FormatISBN(sISBN As String) As String

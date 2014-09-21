@@ -63,16 +63,16 @@ Begin VB.Form frmBooks
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   7964
+            Object.Width           =   8070
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1376
+            Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:10 AM"
+            TextSave        =   "1:02 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -810,7 +810,8 @@ Private Sub txtISBN_Validate(Cancel As Boolean)
     If txtISBN.Text = vbNullString And chkCataloged.Value = vbChecked Then
         MsgBox "ISBN must be specified!", vbExclamation, Me.Caption
     Else
-        txtISBN.Text = FormatISBN(txtISBN.Text)
+        'txtISBN.Text = FormatISBN(txtISBN.Text)
+        txtISBN.Text = checkISBN(txtISBN.Text)
     End If
 End Sub
 Private Sub txtMisc_GotFocus()
