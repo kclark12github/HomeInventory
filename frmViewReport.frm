@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{C4847593-972C-11D0-9567-00A0C9273C2A}#2.2#0"; "CRVIEWER.DLL"
+Object = "{C4847593-972C-11D0-9567-00A0C9273C2A}#8.0#0"; "CRVIEWER.DLL"
 Begin VB.Form frmViewReport 
    Caption         =   "View Report"
    ClientHeight    =   2556
@@ -38,6 +38,7 @@ Begin VB.Form frmViewReport
       EnablePopupMenu =   -1  'True
       EnableExportButton=   -1  'True
       EnableSearchExpertButton=   0   'False
+      EnableHelpButton=   0   'False
    End
 End
 Attribute VB_Name = "frmViewReport"
@@ -46,14 +47,34 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-'Public rdcReport As CRAXDRT.Report
+Public scrApplication As CRAXDRT.Application
+Public WithEvents Report As CRAXDRT.Report
+Public ReportPath As String
+Public vRS As ADODB.Recordset
 Private fActivated As Boolean
 Private Sub DisplayViewer()
+    On Error GoTo ErrorHandler
     Screen.MousePointer = vbHourglass
-    'scrViewer.ReportSource = rdcReport
-    'frmMain.rdcReport.ReadRecords
+    
+    Call Trace(trcBody, "Set Report = scrApplication.OpenReport(""" & ReportPath & """, crOpenReportByTempCopy)")
+    Set Report = scrApplication.OpenReport(ReportPath, crOpenReportByTempCopy)
+    Call Trace(trcBody, "Report.Database.SetDataSource vRS, 3, 1")
+    Report.Database.SetDataSource vRS, 3, 1
+    Call Trace(trcBody, "Report.ReadRecords")
+    Report.ReadRecords
+    
+    scrViewer.ReportSource = Report
     scrViewer.ViewReport
+    
+ExitSub:
     Screen.MousePointer = vbDefault
+    Exit Sub
+    
+ErrorHandler:
+    MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
+    Unload Me
+    GoTo ExitSub
+    Resume Next
 End Sub
 Private Sub Form_Activate()
     If Not fActivated Then
@@ -64,6 +85,7 @@ End Sub
 Private Sub Form_Load()
     fActivated = False
     Me.Icon = Forms(Forms.Count - 2).Icon
+    Set scrApplication = New CRAXDRT.Application
 End Sub
 Private Sub Form_Paint()
     If Not fActivated Then
@@ -76,4 +98,18 @@ Private Sub Form_Resize()
     scrViewer.Left = 0
     scrViewer.Height = ScaleHeight
     scrViewer.Width = ScaleWidth
+End Sub
+Private Sub Form_Unload(Cancel As Integer)
+    Set vRS = Nothing
+    Set Report = Nothing
+    Set scrApplication = Nothing
+End Sub
+Private Sub Report_NoData(pCancel As Boolean)
+    Call MsgBox("No Data", vbExclamation, Me.Caption)
+    Unload Me
+End Sub
+Private Sub scrViewer_OnReportSourceError(ByVal errorMsg As String, ByVal errorCode As Long, UseDefault As Boolean)
+    Debug.Print "scrViewer_OnReportSourceError(""" & errorMsg & """, " & errorCode & ", " & UseDefault & ")"
+    Call MsgBox(errorMsg & " (Error " & errorCode & ")", vbExclamation, Me.Caption)
+    Unload Me
 End Sub

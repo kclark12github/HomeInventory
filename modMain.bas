@@ -439,18 +439,21 @@ Public Sub RefreshCommand(RS As ADODB.Recordset, Optional Key As Variant)
     Call Trace(trcExit, "RefreshCommand")
 End Sub
 Public Sub ReportCommand(frm As Form, RS As ADODB.Recordset, ByVal ReportPath As String)
-    Dim scrApplication As New CRAXDRT.Application
-    Dim Report As New CRAXDRT.Report
     Dim vRS As ADODB.Recordset
-'    Dim scrApplication As New CRPEAuto.Application
-'    Dim Report As New CRPEAuto.Report
     
     Call Trace(trcEnter, "ReportCommand(""" & frm.Name & """, RS, """ & ReportPath & """)")
     On Error GoTo ErrorHandler
+    If Dir(ReportPath, vbNormal) = vbNullString Then
+        Call MsgBox(ReportPath & " not found.", vbExclamation, App.FileDescription)
+        GoTo ExitSub
+    End If
+    
     MakeVirtualRecordset adoConn, RS, vRS
     
     Load frmViewReport
     frmViewReport.Caption = frm.Caption & " Report"
+    frmViewReport.ReportPath = ReportPath
+    Set frmViewReport.vRS = vRS
     If frmMain.Width > frm.Width And frmMain.Height > frm.Height Then
         frmViewReport.Top = frmMain.Top
         frmViewReport.Left = frmMain.Left
@@ -463,25 +466,9 @@ Public Sub ReportCommand(frm As Form, RS As ADODB.Recordset, ByVal ReportPath As
         frmViewReport.Height = frm.Height
     End If
     frmViewReport.WindowState = vbMaximized
-    
-    If Dir(ReportPath, vbNormal) = vbNullString Then
-        Call MsgBox(ReportPath & " not found.", vbExclamation, App.FileDescription)
-        GoTo ExitSub
-    End If
-    
-    Call Trace(trcBody, "Set Report = scrApplication.OpenReport(""" & ReportPath & """, crOpenReportByTempCopy)")
-    Set Report = scrApplication.OpenReport(ReportPath, crOpenReportByTempCopy)
-    Call Trace(trcBody, "Report.Database.SetDataSource vRS, 3, 1")
-    Report.Database.SetDataSource vRS, 3, 1
-    Call Trace(trcBody, "Report.ReadRecords")
-    Report.ReadRecords
-    
-    frmViewReport.scrViewer.ReportSource = Report
     frmViewReport.Show vbModal
     
 ExitSub:
-    Set scrApplication = Nothing
-    Set Report = Nothing
     vRS.Close
     Set vRS = Nothing
     Call Trace(trcExit, "ReportCommand")
