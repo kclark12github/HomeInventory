@@ -37,7 +37,7 @@ Begin VB.Form frmMain
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:02 AM"
+            TextSave        =   "12:36 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -161,6 +161,9 @@ Begin VB.Form frmMain
          Begin VB.Menu mnuDataBaseHobbyBlueAngelsHistory 
             Caption         =   "&Blue Angels History"
          End
+      End
+      Begin VB.Menu mnuDataBaseImages 
+         Caption         =   "&Images"
       End
       Begin VB.Menu mnuDataBaseMusic 
          Caption         =   "&Music"
@@ -498,6 +501,12 @@ Private Sub mnuDataBaseHobbyVideoResearch_Click()
     Load frmVideoResearch
     Me.MousePointer = vbDefault
     frmVideoResearch.Show vbModal
+End Sub
+Private Sub mnuDataBaseImages_Click()
+    Me.MousePointer = vbHourglass
+    Load frmImages
+    Me.MousePointer = vbDefault
+    frmImages.Show vbModal
 End Sub
 Private Sub mnuDataBaseKFC_Click()
     frmWebLinks.Show vbModeless
