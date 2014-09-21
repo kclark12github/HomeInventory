@@ -1,4 +1,6 @@
 VERSION 5.00
+Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
+Object = "{38911DA0-E448-11D0-84A3-00DD01104159}#1.1#0"; "COMCT332.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Begin VB.Form frmSQL 
    Caption         =   "SQL"
@@ -10,12 +12,71 @@ Begin VB.Form frmSQL
    ScaleHeight     =   5256
    ScaleWidth      =   7596
    StartUpPosition =   1  'CenterOwner
+   Begin ComCtl3.CoolBar cbToolBar 
+      Height          =   648
+      Left            =   0
+      TabIndex        =   5
+      Top             =   0
+      Width           =   7572
+      _ExtentX        =   13356
+      _ExtentY        =   1143
+      FixedOrder      =   -1  'True
+      _CBWidth        =   7572
+      _CBHeight       =   648
+      _Version        =   "6.0.8169"
+      Caption1        =   "Database:"
+      Child1          =   "txtDatabase"
+      MinHeight1      =   288
+      Width1          =   1752
+      Key1            =   "DB"
+      NewRow1         =   0   'False
+      Caption2        =   "Tables:"
+      Child2          =   "dbcTables"
+      MinHeight2      =   288
+      Width2          =   2952
+      Key2            =   "Tables"
+      NewRow2         =   -1  'True
+      Caption3        =   "Fields:"
+      Child3          =   "cboFields"
+      MinHeight3      =   288
+      Width3          =   1872
+      Key3            =   "Fields"
+      NewRow3         =   0   'False
+      Begin VB.TextBox txtDatabase 
+         Height          =   288
+         Left            =   876
+         Locked          =   -1  'True
+         TabIndex        =   8
+         Top             =   24
+         Width           =   6624
+      End
+      Begin VB.ComboBox cboFields 
+         Height          =   288
+         Left            =   3636
+         Sorted          =   -1  'True
+         Style           =   2  'Dropdown List
+         TabIndex        =   7
+         Top             =   336
+         Width           =   3864
+      End
+      Begin MSDataListLib.DataCombo dbcTables 
+         Height          =   288
+         Left            =   732
+         TabIndex        =   6
+         Top             =   336
+         Width           =   2196
+         _ExtentX        =   3874
+         _ExtentY        =   508
+         _Version        =   393216
+         Text            =   ""
+      End
+   End
    Begin VB.Frame frameResults 
       Caption         =   "Results"
       Height          =   1092
       Left            =   120
       TabIndex        =   2
-      Top             =   1380
+      Top             =   2160
       Width           =   3492
       Begin VB.TextBox txtResults 
          BeginProperty Font 
@@ -40,9 +101,9 @@ Begin VB.Form frmSQL
    Begin VB.Frame frameSQL 
       Caption         =   "SQL Statement"
       Height          =   1092
-      Left            =   60
+      Left            =   1140
       TabIndex        =   0
-      Top             =   60
+      Top             =   720
       Width           =   3492
       Begin VB.TextBox txtSQL 
          Height          =   852
@@ -69,7 +130,7 @@ Begin VB.Form frmSQL
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            Key             =   "DB"
+            Key             =   "Status"
          EndProperty
          BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
@@ -82,7 +143,7 @@ Begin VB.Form frmSQL
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:31 AM"
+            TextSave        =   "8:08 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -102,6 +163,8 @@ Dim InitialWidth As Double
 Dim InitialHeight As Double
 Dim RecordsAffected As Long
 Public cnSQL As ADODB.Connection
+Dim rsTables As New ADODB.Recordset
+Dim rsFields As New ADODB.Recordset
 Private Sub ExecuteSQL()
     Dim adoRS As ADODB.Recordset
     Dim adoError As ADODB.Error
@@ -337,7 +400,44 @@ ErrorHandler:
     If fActiveTrans Then cnSQL.RollbackTrans
     Exit Sub
 End Sub
+Private Sub cbToolBar_HeightChanged(ByVal NewHeight As Single)
+    Form_Resize
+End Sub
+Private Sub dbcTables_Click(Area As Integer)
+    Dim SQLsource As String
+    Dim fld As ADODB.Field
+    
+    If dbcTables.BoundText = vbNullString Then Exit Sub
+    
+    CloseRecordset rsFields, False
+    SQLsource = "SELECT * " & "FROM [" & dbcTables.BoundText & "]"
+    rsFields.MaxRecords = 1
+    rsFields.Open SQLsource, cnSQL, adOpenKeyset, adLockReadOnly
+    cboFields.Clear
+    For Each fld In rsFields.Fields
+        cboFields.AddItem fld.Name
+    Next fld
+    cboFields.ListIndex = 0
+End Sub
 Private Sub Form_Activate()
+    Dim SQLsource As String
+    
+    sbStatus.Panels("Status").Text = "SQL"
+    
+    CloseRecordset rsTables, False
+    SQLsource = _
+        "SELECT UserTables.Name " & _
+        "FROM   MSysObjects AS SysTables, MSysObjects AS UserTables " & _
+        "WHERE  UserTables.ParentId=SysTables.Id AND " & _
+        "       UserTables.Type=1 AND " & _
+        "       UserTables.Flags=0 AND " & _
+        "       SysTables.Name='Tables' " & _
+        "ORDER BY UserTables.Name;"
+    rsTables.Open SQLsource, cnSQL, adOpenKeyset, adLockReadOnly
+    dbcTables.ListField = "Name"
+    Set dbcTables.RowSource = rsTables
+    dbcTables_Click dbcAreaButton
+    
     BufferLimit = 50 * KB
     InitialWidth = Me.Width
     InitialHeight = Me.Height
@@ -354,16 +454,19 @@ Private Sub Form_Resize()
         Me.Move Me.Left, Me.Top, InitialWidth, InitialHeight
         Exit Sub
     End If
+    cbToolBar.Move 0, 0, Me.ScaleWidth, cbToolBar.Height
     'cmdExecute.Move Me.ScaleWidth - cmdExecute.Width - MarginTwips, MarginTwips
     'cmdClose.Move Me.ScaleWidth - cmdClose.Width - MarginTwips, cmdExecute.Top + cmdExecute.Height + MarginTwips
     'frameSQL.Move MarginTwips, MarginTwips, NewFrameWidth, Me.ScaleHeight / 3
-    frameSQL.Move MarginTwips, MarginTwips, NewFrameWidth, Me.ScaleHeight / 3
+    frameSQL.Move MarginTwips, MarginTwips + cbToolBar.Height, NewFrameWidth, Me.ScaleHeight / 3
     txtSQL.Move MarginTwips, 3 * MarginTwips, frameSQL.Width - (2 * MarginTwips), frameSQL.Height - (4 * MarginTwips)
     'frameResults.Move MarginTwips, frameSQL.Top + frameSQL.Height + MarginTwips, NewFrameWidth, Me.ScaleHeight - frameSQL.Height - (3 * MarginTwips) - sbStatus.Height
-    frameResults.Move MarginTwips, frameSQL.Top + frameSQL.Height + MarginTwips, NewFrameWidth, Me.ScaleHeight - frameSQL.Height - (3 * MarginTwips) - sbStatus.Height
+    frameResults.Move MarginTwips, frameSQL.Top + frameSQL.Height + MarginTwips, NewFrameWidth, Me.ScaleHeight - frameSQL.Height - (3 * MarginTwips) - sbStatus.Height - cbToolBar.Height
     txtResults.Move MarginTwips, 3 * MarginTwips, frameResults.Width - (2 * MarginTwips), frameResults.Height - (4 * MarginTwips)
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
+    CloseRecordset rsTables, True
+    CloseRecordset rsFields, True
     Set cnSQL = Nothing
 End Sub
 Private Sub txtSQL_GotFocus()

@@ -49,7 +49,7 @@ Begin VB.Form frmFinishingProducts
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "4:27 PM"
+            TextSave        =   "8:12 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -802,7 +802,8 @@ End Sub
 Private Sub mnuActionSQL_Click()
     Load frmSQL
     Set frmSQL.cnSQL = adoConn
-    frmSQL.sbStatus.Panels("DB").Text = "Hobby.mdb - [Paints & Brushes]"
+    frmSQL.txtDatabase.Text = DBinfo.PathName
+    frmSQL.dbcTables.BoundText = "Paints & Brushes"
     frmSQL.Show vbModal
 End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)

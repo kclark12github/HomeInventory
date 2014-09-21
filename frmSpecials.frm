@@ -57,7 +57,7 @@ Begin VB.Form frmSpecials
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "4:34 PM"
+            TextSave        =   "8:13 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -760,7 +760,8 @@ End Sub
 Private Sub mnuActionSQL_Click()
     Load frmSQL
     Set frmSQL.cnSQL = adoConn
-    frmSQL.sbStatus.Panels("DB").Text = "VideoTapes.mdb - [Specials]"
+    frmSQL.txtDatabase.Text = DBinfo.PathName
+    frmSQL.dbcTables.BoundText = "Specials"
     frmSQL.Show vbModal
 End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)

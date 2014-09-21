@@ -49,7 +49,7 @@ Begin VB.Form frmMusic
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "4:12 PM"
+            TextSave        =   "8:12 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -863,7 +863,8 @@ End Sub
 Private Sub mnuActionSQL_Click()
     Load frmSQL
     Set frmSQL.cnSQL = adoConn
-    frmSQL.sbStatus.Panels("DB").Text = "Music.mdb - [Music]"
+    frmSQL.txtDatabase.Text = DBinfo.PathName
+    frmSQL.dbcTables.BoundText = "Music"
     frmSQL.Show vbModal
 End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
