@@ -69,14 +69,21 @@ Begin VB.Form frmMain
       End
       Begin VB.Menu mnuDataBaseHobby 
          Caption         =   "&Hobby"
+         Begin VB.Menu mnuDataBaseHobbyKits 
+            Caption         =   "Model &Kits"
+         End
          Begin VB.Menu mnuDataBaseHobbyAircraftDesignations 
             Caption         =   "Aircraft Designations"
          End
          Begin VB.Menu mnuDataBaseHobbyAircraftModels 
             Caption         =   "&Aircraft Models"
+            Enabled         =   0   'False
+            Visible         =   0   'False
          End
          Begin VB.Menu mnuDataBaseHobbyArmorCarModels 
             Caption         =   "Armor && &Car Models"
+            Enabled         =   0   'False
+            Visible         =   0   'False
          End
          Begin VB.Menu mnuDataBaseHobbyBlueAngelsHistory 
             Caption         =   "&Blue Angels History"
@@ -92,6 +99,8 @@ Begin VB.Form frmMain
          End
          Begin VB.Menu mnuDataBaseHobbyNavalModels 
             Caption         =   "&Naval Models"
+            Enabled         =   0   'False
+            Visible         =   0   'False
          End
          Begin VB.Menu mnuDataBaseHobbyPaintsBrushes 
             Caption         =   "&Paints && Brushes"
@@ -101,6 +110,8 @@ Begin VB.Form frmMain
          End
          Begin VB.Menu mnuDataBaseHobbySciFiSpaceModels 
             Caption         =   "&SciFi && Space Models"
+            Enabled         =   0   'False
+            Visible         =   0   'False
          End
          Begin VB.Menu mnuDataBaseHobbyTools 
             Caption         =   "&Tools"
@@ -336,6 +347,9 @@ Private Sub mnuDataBaseHobbyDecals_Click()
 End Sub
 Private Sub mnuDataBaseHobbyDetailSets_Click()
     frmDetailSets.Show vbModal
+End Sub
+Private Sub mnuDataBaseHobbyKits_Click()
+    frmKits.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyNavalModels_Click()
     frmNavalModels.Show vbModal
