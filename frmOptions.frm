@@ -99,14 +99,9 @@ Option Explicit
 Dim strFileDSN As String
 Dim strImagePath As String
 Private Sub cmdBrowseDSN_Click()
-    Dim RootKey As Long
-    Dim KeyPath As String
-    
-    RootKey = HKEY_CURRENT_USER
-    KeyPath = "SOFTWARE\ODBC\ODBC.INI"
     With dlgOptions
         .DialogTitle = "Select Database"
-        .InitDir = VbRegQueryValue(RootKey, KeyPath & "\ODBC File DSN", "DefaultDSNDir")
+        .InitDir = gstrODBCFileDSNDir
         .FileName = strFileDSN
         .Filter = "File DSNs (*.dsn)|*.dsn|All Files (*.*)|*.*"
         .FilterIndex = 1
