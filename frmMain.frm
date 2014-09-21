@@ -37,7 +37,7 @@ Begin VB.Form frmMain
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "8:19 PM"
+            TextSave        =   "10:49 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -72,7 +72,7 @@ Begin VB.Form frmMain
       AutoSize        =   -1  'True
       Height          =   8364
       Left            =   60
-      Picture         =   "frmMain.frx":030A
+      Picture         =   "frmMain.frx":2CFA
       ScaleHeight     =   8316
       ScaleWidth      =   10800
       TabIndex        =   0

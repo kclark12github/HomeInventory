@@ -2,18 +2,18 @@ VERSION 5.00
 Begin VB.Form frmAbout 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "About MyApp"
-   ClientHeight    =   3564
+   ClientHeight    =   3696
    ClientLeft      =   2340
    ClientTop       =   1932
-   ClientWidth     =   5736
+   ClientWidth     =   5652
    ClipControls    =   0   'False
    Icon            =   "frmAbout.frx":0000
    LinkTopic       =   "Form2"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   2453.724
+   ScaleHeight     =   2544.603
    ScaleMode       =   0  'User
-   ScaleWidth      =   5380.766
+   ScaleWidth      =   5301.968
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin VB.PictureBox picIcon 
@@ -21,7 +21,7 @@ Begin VB.Form frmAbout
       ClipControls    =   0   'False
       Height          =   432
       Left            =   240
-      Picture         =   "frmAbout.frx":030A
+      Picture         =   "frmAbout.frx":2CFA
       ScaleHeight     =   263.118
       ScaleMode       =   0  'User
       ScaleWidth      =   263.118
@@ -47,58 +47,92 @@ Begin VB.Form frmAbout
       Top             =   3075
       Width           =   1245
    End
-   Begin VB.Line Line1 
-      BorderColor     =   &H00808080&
-      BorderStyle     =   6  'Inside Solid
-      Index           =   1
-      X1              =   84.426
-      X2              =   5309.473
-      Y1              =   1687.452
-      Y2              =   1687.452
-   End
    Begin VB.Label lblDescription 
+      Alignment       =   2  'Center
+      BackStyle       =   0  'Transparent
       Caption         =   "App Description"
-      ForeColor       =   &H00000000&
-      Height          =   1170
-      Left            =   1050
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   7.8
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00C0C0C0&
+      Height          =   456
+      Left            =   1056
       TabIndex        =   3
-      Top             =   1125
-      Width           =   3885
+      Top             =   2040
+      Width           =   3888
    End
    Begin VB.Label lblTitle 
+      Alignment       =   2  'Center
+      BackStyle       =   0  'Transparent
       Caption         =   "Application Title"
-      ForeColor       =   &H00000000&
-      Height          =   480
-      Left            =   1050
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   13.8
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   420
+      Left            =   1056
       TabIndex        =   5
       Top             =   240
-      Width           =   3885
-   End
-   Begin VB.Line Line1 
-      BorderColor     =   &H00FFFFFF&
-      BorderWidth     =   2
-      Index           =   0
-      X1              =   98.497
-      X2              =   5309.473
-      Y1              =   1697.779
-      Y2              =   1697.779
+      Width           =   3888
    End
    Begin VB.Label lblVersion 
+      Alignment       =   2  'Center
+      BackStyle       =   0  'Transparent
       Caption         =   "Version"
-      Height          =   225
-      Left            =   1050
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   7.8
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FFFFFF&
+      Height          =   228
+      Left            =   1080
       TabIndex        =   6
-      Top             =   780
-      Width           =   3885
+      Top             =   720
+      Width           =   3888
    End
    Begin VB.Label lblDisclaimer 
-      Caption         =   $"frmAbout.frx":0614
+      Alignment       =   2  'Center
+      BackStyle       =   0  'Transparent
+      Caption         =   $"frmAbout.frx":59F4
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   7.8
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
       ForeColor       =   &H00000000&
       Height          =   825
       Left            =   255
       TabIndex        =   4
       Top             =   2625
       Width           =   3870
+   End
+   Begin VB.Image Image1 
+      Height          =   4116
+      Left            =   0
+      Picture         =   "frmAbout.frx":5A97
+      Top             =   0
+      Width           =   5844
    End
 End
 Attribute VB_Name = "frmAbout"
@@ -134,12 +168,9 @@ Const gREGVALSYSINFO = "PATH"
 Private Declare Function RegOpenKeyEx Lib "advapi32" Alias "RegOpenKeyExA" (ByVal hKey As Long, ByVal lpSubKey As String, ByVal ulOptions As Long, ByVal samDesired As Long, ByRef phkResult As Long) As Long
 Private Declare Function RegQueryValueEx Lib "advapi32" Alias "RegQueryValueExA" (ByVal hKey As Long, ByVal lpValueName As String, ByVal lpReserved As Long, ByRef lpType As Long, ByVal lpData As String, ByRef lpcbData As Long) As Long
 Private Declare Function RegCloseKey Lib "advapi32" (ByVal hKey As Long) As Long
-
-
 Private Sub cmdSysInfo_Click()
   Call StartSysInfo
 End Sub
-
 Private Sub cmdOK_Click()
   Unload Me
 End Sub
