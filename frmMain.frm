@@ -4,31 +4,55 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Ken's Stuff..."
-   ClientHeight    =   4200
+   ClientHeight    =   4236
    ClientLeft      =   36
    ClientTop       =   492
-   ClientWidth     =   5868
+   ClientWidth     =   5916
    Icon            =   "frmMain.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   4200
-   ScaleWidth      =   5868
+   ScaleHeight     =   4236
+   ScaleWidth      =   5916
    StartUpPosition =   1  'CenterOwner
+   Begin VB.PictureBox picWindow 
+      Height          =   3792
+      Left            =   0
+      ScaleHeight     =   3744
+      ScaleWidth      =   5664
+      TabIndex        =   3
+      Top             =   0
+      Width           =   5712
+      Begin VB.PictureBox picImage 
+         Appearance      =   0  'Flat
+         AutoRedraw      =   -1  'True
+         AutoSize        =   -1  'True
+         BackColor       =   &H80000005&
+         ForeColor       =   &H80000008&
+         Height          =   8340
+         Left            =   0
+         Picture         =   "frmMain.frx":2CFA
+         ScaleHeight     =   8316
+         ScaleWidth      =   10800
+         TabIndex        =   4
+         Top             =   0
+         Width           =   10824
+      End
+   End
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   3
-      Top             =   3948
-      Width           =   5868
-      _ExtentX        =   10351
+      TabIndex        =   2
+      Top             =   3984
+      Width           =   5916
+      _ExtentX        =   10435
       _ExtentY        =   445
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
          NumPanels       =   2
          BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   9017
+            Object.Width           =   9102
             Key             =   "DatabasePath"
          EndProperty
          BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
@@ -37,7 +61,7 @@ Begin VB.Form frmMain
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:40 AM"
+            TextSave        =   "2:30 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -45,18 +69,18 @@ Begin VB.Form frmMain
    Begin VB.HScrollBar scrollH 
       Height          =   192
       LargeChange     =   1000
-      Left            =   60
+      Left            =   0
       SmallChange     =   100
-      TabIndex        =   2
+      TabIndex        =   1
       Top             =   3780
-      Width           =   5652
+      Width           =   5712
    End
    Begin VB.VScrollBar scrollV 
       Height          =   3792
       LargeChange     =   1000
       Left            =   5700
       SmallChange     =   100
-      TabIndex        =   1
+      TabIndex        =   0
       Top             =   0
       Width           =   192
    End
@@ -66,36 +90,6 @@ Begin VB.Form frmMain
       _ExtentX        =   677
       _ExtentY        =   677
       _Version        =   393216
-   End
-   Begin VB.PictureBox picBackground 
-      AutoRedraw      =   -1  'True
-      AutoSize        =   -1  'True
-      Height          =   8364
-      Left            =   60
-      Picture         =   "frmMain.frx":2CFA
-      ScaleHeight     =   8316
-      ScaleWidth      =   10800
-      TabIndex        =   0
-      Top             =   180
-      Width           =   10848
-   End
-   Begin VB.Label lblCorner 
-      Caption         =   "     "
-      Height          =   432
-      Left            =   3000
-      TabIndex        =   4
-      Top             =   0
-      Width           =   732
-   End
-   Begin VB.Shape shpCorner 
-      BackColor       =   &H8000000F&
-      BackStyle       =   1  'Opaque
-      FillColor       =   &H8000000F&
-      FillStyle       =   0  'Solid
-      Height          =   372
-      Left            =   2400
-      Top             =   60
-      Width           =   432
    End
    Begin VB.Menu mnuFile 
       Caption         =   "&File"
@@ -233,22 +227,22 @@ Private Sub LoadBackground()
     borderWidth = Me.Width - Me.ScaleWidth
     borderHeight = Me.Height - Me.ScaleHeight
     
-    picBackground.Picture = LoadPicture(gstrImagePath)
+    picImage.Picture = LoadPicture(gstrImagePath)
     If Err.Number <> 0 Then
         MsgBox Err.Description & " (" & Err.Number & "). Using default image...", vbExclamation, Me.Caption
         gstrImagePath = gstrDefaultImagePath & "\" & gstrDefaultImage
-        picBackground.Picture = LoadPicture(gstrImagePath)
+        picImage.Picture = LoadPicture(gstrImagePath)
         If Err.Number <> 0 Then
             MsgBox Err.Description & " (" & Err.Number & "). Bagging this image crap... We didn't need no stinking images anyway...", vbExclamation, Me.Caption
             Exit Sub
         End If
         SaveSetting App.FileDescription, "Environment", "ImagePath", gstrImagePath
     End If
-    picBackground.Move 0, 0
+    picImage.Move 0, 0
     
     'Everything is governed by the size of the picture...
-    iWidth = picBackground.Width + borderWidth
-    iHeight = borderHeight + picBackground.Height
+    iWidth = picImage.Width + borderWidth
+    iHeight = borderHeight + picImage.Height
     
     scrollH.Visible = False
     If iWidth < iMinWidth Then
@@ -259,16 +253,24 @@ Private Sub LoadBackground()
         scrollH.Value = 0
     End If
     
-    scrollV.Visible = False
+    ScrollV.Visible = False
     If iHeight < iMinHeight Then
         iHeight = iMinHeight
     ElseIf iHeight > Screen.Height Then
         iHeight = Screen.Height
-        scrollV.Visible = True
-        scrollV.Value = 0
+        ScrollV.Visible = True
+        ScrollV.Value = 0
     End If
     Me.Width = iWidth
     Me.Height = iHeight
+    
+    iWidth = iWidth - borderWidth
+    If ScrollV.Visible Then iWidth = ScrollV.Left
+    iHeight = iHeight - borderHeight
+    If scrollH.Visible Then iHeight = scrollH.Top
+    picWindow.Move 0, 0, iWidth, iHeight
+    
+    'Center form...
     Me.Move (Screen.Width - Me.Width) / 2, (Screen.Height - Me.Height) / 2
 End Sub
 Private Sub Form_Activate()
@@ -300,41 +302,27 @@ Private Sub Form_Load()
     DBcollection.Clear
 End Sub
 Private Sub Form_Resize()
-    shpCorner.Visible = False
-    lblCorner.Visible = False
     If Me.WindowState <> vbMinimized Then
         If scrollH.Visible Then
             scrollH.Top = Me.ScaleHeight - scrollH.Height - sbStatus.Height
             scrollH.Left = 0
             scrollH.Width = Me.ScaleWidth
-            If scrollV.Visible Then scrollH.Width = scrollH.Width - scrollV.Width
-            scrollH.Max = picBackground.Width - Me.ScaleWidth
-            scrollH.SmallChange = picBackground.Width / 1000
-            scrollH.LargeChange = picBackground.Width / 50
+            If ScrollV.Visible Then scrollH.Width = scrollH.Width - ScrollV.Width
+            scrollH.Max = picImage.Width - Me.ScaleWidth
+            scrollH.SmallChange = picImage.Width / 100
+            scrollH.LargeChange = picImage.Width / 20
+            picWindow.Height = scrollH.Top
         End If
         
-        If scrollV.Visible Then
-            scrollV.Top = 0
-            scrollV.Left = Me.ScaleWidth - scrollV.Width
-            scrollV.Height = Me.ScaleHeight - sbStatus.Height
-            If scrollH.Visible Then scrollV.Height = scrollV.Height - scrollH.Height
-            scrollV.Max = picBackground.Height - Me.ScaleHeight
-            scrollV.SmallChange = picBackground.Height / 1000
-            scrollV.LargeChange = picBackground.Height / 50
-        End If
-    
-        'I never did get this to work the way I want it...
-        'I can't seem to get the bottom-right corner of picBackground
-        'overlayed with either a label, or shape, and I'm not sure why...
-        'The math looks right, doesn't it...?!?
-        If scrollH.Visible And scrollV.Visible Then
-            shpCorner.Visible = True
-            shpCorner.ZOrder 0
-            shpCorner.Move scrollH.Left + scrollH.Width, scrollV.Top + scrollV.Height, scrollV.Width, scrollH.Height
-        
-            lblCorner.Visible = True
-            lblCorner.ZOrder 0
-            lblCorner.Move scrollH.Left + scrollH.Width, scrollV.Top + scrollV.Height, scrollV.Width, scrollH.Height
+        If ScrollV.Visible Then
+            ScrollV.Top = 0
+            ScrollV.Left = Me.ScaleWidth - ScrollV.Width
+            ScrollV.Height = Me.ScaleHeight - sbStatus.Height
+            If scrollH.Visible Then ScrollV.Height = ScrollV.Height - scrollH.Height
+            ScrollV.Max = picImage.Height - Me.ScaleHeight
+            ScrollV.SmallChange = picImage.Height / 100
+            ScrollV.LargeChange = picImage.Height / 20
+            picWindow.Width = ScrollV.Left
         End If
     End If
 End Sub
@@ -481,12 +469,12 @@ End Sub
 Private Sub mnuHelpAbout_Click()
     frmAbout.Show vbModal
 End Sub
-Private Sub picBackground_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub picImage_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     If Button = vbKeyRButton Then PopupMenu mnuFile
 End Sub
 Private Sub scrollH_Change()
-    picBackground.Left = -scrollH.Value
+    picImage.Left = -scrollH.Value
 End Sub
 Private Sub scrollV_Change()
-    picBackground.Top = -scrollV.Value
+    picImage.Top = -ScrollV.Value
 End Sub

@@ -59,6 +59,7 @@ Begin VB.Form frmImages
             _ExtentX        =   13145
             _ExtentY        =   2773
             _Version        =   393217
+            Enabled         =   -1  'True
             TextRTF         =   $"frmImages.frx":0000
          End
       End
@@ -320,7 +321,6 @@ Begin VB.Form frmImages
             Appearance      =   0  'Flat
             AutoRedraw      =   -1  'True
             AutoSize        =   -1  'True
-            BackColor       =   &H80000006&
             DataField       =   "Image"
             DataSource      =   "dtaData"
             ForeColor       =   &H80000008&
@@ -400,7 +400,7 @@ Begin VB.Form frmImages
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:13 PM"
+            TextSave        =   "2:22 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
