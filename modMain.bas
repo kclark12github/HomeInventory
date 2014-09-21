@@ -305,6 +305,31 @@ Public Sub ReportCommand(frm As Form, RS As ADODB.Recordset, ByVal ReportPath As
     vRS.Close
     Set vRS = Nothing
 End Sub
+Public Sub SearchCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String)
+    Dim FieldList As String
+    Dim TableList As String
+    Dim WhereClause As String
+    Dim OrderByClause As String
+    Dim SQLstatement As String
+    
+    Load frmSearch
+    frmSearch.Caption = frm.Caption & " Search"
+    If frmMain.Width > frm.Width And frmMain.Height > frm.Height Then
+        frmSearch.Top = frmMain.Top
+        frmSearch.Left = frmMain.Left
+        frmSearch.Width = frmMain.Width
+        frmSearch.Height = frmMain.Height
+    Else
+        frmSearch.Top = frm.Top
+        frmSearch.Left = frm.Left
+        frmSearch.Width = frm.Width
+        frmSearch.Height = frm.Height
+    End If
+    
+    Set frmSearch.RS = RS
+    frmSearch.Show vbModal
+    'RefreshCommand RS, Key
+End Sub
 Public Sub SQLCommand(ByVal TableName As String)
     Load frmSQL
     Set frmSQL.cnSQL = adoConn

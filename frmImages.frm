@@ -27,14 +27,14 @@ Begin VB.Form frmImages
       Height          =   2712
       Index           =   2
       Left            =   180
-      TabIndex        =   22
+      TabIndex        =   21
       Top             =   660
       Width           =   7692
       Begin VB.CommandButton cmdLoad 
          Caption         =   "&Load Image"
          Height          =   252
          Left            =   4800
-         TabIndex        =   25
+         TabIndex        =   24
          Top             =   2400
          Width           =   1392
       End
@@ -42,7 +42,7 @@ Begin VB.Form frmImages
          Caption         =   "&View Full Picture"
          Height          =   252
          Left            =   6240
-         TabIndex        =   24
+         TabIndex        =   23
          Top             =   2400
          Width           =   1392
       End
@@ -53,7 +53,7 @@ Begin VB.Form frmImages
          Left            =   60
          ScaleHeight     =   2184
          ScaleWidth      =   7524
-         TabIndex        =   23
+         TabIndex        =   22
          Top             =   180
          Width           =   7572
       End
@@ -74,7 +74,6 @@ Begin VB.Form frmImages
          _ExtentX        =   13356
          _ExtentY        =   4360
          _Version        =   393217
-         Enabled         =   -1  'True
          TextRTF         =   $"frmImages.frx":0000
       End
    End
@@ -110,7 +109,7 @@ Begin VB.Form frmImages
          DataSource      =   "dtaData"
          Height          =   252
          Left            =   300
-         TabIndex        =   19
+         TabIndex        =   18
          Top             =   960
          Width           =   5172
       End
@@ -118,13 +117,13 @@ Begin VB.Form frmImages
          Caption         =   "Related Information"
          Height          =   1332
          Left            =   1068
-         TabIndex        =   14
+         TabIndex        =   13
          Top             =   1320
          Width           =   5952
          Begin MSDataListLib.DataCombo dbcTable 
             Height          =   288
             Left            =   960
-            TabIndex        =   16
+            TabIndex        =   15
             Top             =   240
             Width           =   4272
             _ExtentX        =   7535
@@ -136,7 +135,7 @@ Begin VB.Form frmImages
          Begin MSDataListLib.DataCombo dbcRecord 
             Height          =   288
             Left            =   948
-            TabIndex        =   18
+            TabIndex        =   17
             Top             =   600
             Width           =   4272
             _ExtentX        =   7535
@@ -148,7 +147,7 @@ Begin VB.Form frmImages
          Begin MSDataListLib.DataCombo dbcThumbnail 
             Height          =   288
             Left            =   1476
-            TabIndex        =   21
+            TabIndex        =   20
             Top             =   960
             Width           =   4272
             _ExtentX        =   7535
@@ -163,7 +162,7 @@ Begin VB.Form frmImages
             Caption         =   "Thumbnail Image:"
             Height          =   192
             Left            =   72
-            TabIndex        =   20
+            TabIndex        =   19
             Top             =   1008
             Width           =   1284
          End
@@ -173,7 +172,7 @@ Begin VB.Form frmImages
             Caption         =   "Record:"
             Height          =   192
             Left            =   252
-            TabIndex        =   17
+            TabIndex        =   16
             Top             =   648
             Width           =   576
          End
@@ -183,7 +182,7 @@ Begin VB.Form frmImages
             Caption         =   "Table:"
             Height          =   192
             Left            =   372
-            TabIndex        =   15
+            TabIndex        =   14
             Top             =   288
             Width           =   468
          End
@@ -192,7 +191,7 @@ Begin VB.Form frmImages
          DataSource      =   "dtaData"
          Height          =   288
          Left            =   720
-         TabIndex        =   12
+         TabIndex        =   11
          Text            =   "URL"
          Top             =   600
          Width           =   6552
@@ -206,13 +205,88 @@ Begin VB.Form frmImages
          Top             =   240
          Width           =   6552
       End
+      Begin MSComctlLib.Toolbar tbAction 
+         Height          =   288
+         Left            =   0
+         TabIndex        =   25
+         Top             =   0
+         Width           =   7524
+         _ExtentX        =   13272
+         _ExtentY        =   508
+         ButtonWidth     =   487
+         ButtonHeight    =   466
+         Appearance      =   1
+         Style           =   1
+         _Version        =   393216
+         BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
+            NumButtons      =   13
+            BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+               Key             =   "Report"
+               Object.ToolTipText     =   "Report"
+               ImageKey        =   "Report"
+            EndProperty
+            BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+               Key             =   "SQL"
+               Object.ToolTipText     =   "SQL Window"
+               ImageKey        =   "SQL"
+            EndProperty
+            BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+               Style           =   3
+            EndProperty
+            BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+               Key             =   "New"
+               Object.ToolTipText     =   "New record"
+               ImageKey        =   "NewRecord"
+            EndProperty
+            BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+               Key             =   "Modify"
+               Object.ToolTipText     =   "Modify record"
+               ImageKey        =   "Modify"
+            EndProperty
+            BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+               Key             =   "Delete"
+               Object.ToolTipText     =   "Delete record"
+               ImageKey        =   "Delete"
+            EndProperty
+            BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+               Style           =   3
+            EndProperty
+            BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+               Key             =   "Refresh"
+               Object.ToolTipText     =   "Refresh data"
+               ImageKey        =   "Refresh"
+            EndProperty
+            BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+               Style           =   3
+            EndProperty
+            BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+               Key             =   "Filter"
+               Object.ToolTipText     =   "Filter"
+               ImageKey        =   "Filter"
+            EndProperty
+            BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+               Key             =   "Search"
+               Object.ToolTipText     =   "Search"
+               ImageKey        =   "Search"
+            EndProperty
+            BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+               Style           =   3
+            EndProperty
+            BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+               Key             =   "List"
+               Object.ToolTipText     =   "List all records"
+               ImageKey        =   "List"
+            EndProperty
+         EndProperty
+         BorderStyle     =   1
+      End
       Begin VB.Label lblURL 
          Alignment       =   1  'Right Justify
          AutoSize        =   -1  'True
          Caption         =   "URL:"
          Height          =   192
          Left            =   300
-         TabIndex        =   13
+         TabIndex        =   12
          Top             =   648
          Width           =   360
       End
@@ -222,7 +296,7 @@ Begin VB.Form frmImages
          Caption         =   "Name:"
          Height          =   192
          Left            =   180
-         TabIndex        =   11
+         TabIndex        =   10
          Top             =   288
          Width           =   480
       End
@@ -260,7 +334,7 @@ Begin VB.Form frmImages
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:16 PM"
+            TextSave        =   "4:56 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -311,201 +385,10 @@ Begin VB.Form frmImages
       EndProperty
       _Version        =   393216
    End
-   Begin MSComctlLib.ImageList imlSmall 
-      Left            =   1500
-      Top             =   3780
-      _ExtentX        =   804
-      _ExtentY        =   804
-      BackColor       =   -2147483643
-      ImageWidth      =   16
-      ImageHeight     =   16
-      MaskColor       =   12632256
-      _Version        =   393216
-      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   13
-         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":00DC
-            Key             =   "Find"
-         EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":03F8
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":0720
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":0A48
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":31FC
-            Key             =   "Delete"
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":3650
-            Key             =   "List"
-         EndProperty
-         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":411C
-            Key             =   "Report"
-         EndProperty
-         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":4570
-            Key             =   "Modify"
-         EndProperty
-         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":503C
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":5364
-            Key             =   "Sort"
-         EndProperty
-         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":57B8
-            Key             =   "Filter"
-         EndProperty
-         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":5C0C
-            Key             =   "SQL"
-         EndProperty
-         BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":6060
-            Key             =   ""
-         EndProperty
-      EndProperty
-   End
-   Begin MSComctlLib.ImageList imlLarge 
-      Left            =   1080
-      Top             =   3780
-      _ExtentX        =   804
-      _ExtentY        =   804
-      BackColor       =   -2147483643
-      ImageWidth      =   32
-      ImageHeight     =   32
-      MaskColor       =   12632256
-      _Version        =   393216
-      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   8
-         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":64B4
-            Key             =   "Report"
-         EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":6908
-            Key             =   "Modify"
-         EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":73D4
-            Key             =   "Find"
-         EndProperty
-         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":76F0
-            Key             =   "List"
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":81BC
-            Key             =   "Delete"
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":8610
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":ADC4
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":B218
-            Key             =   ""
-         EndProperty
-      EndProperty
-   End
-   Begin MSComctlLib.Toolbar tbAction 
-      Align           =   1  'Align Top
-      Height          =   288
-      Left            =   0
-      TabIndex        =   7
-      Top             =   0
-      Width           =   8088
-      _ExtentX        =   14266
-      _ExtentY        =   508
-      ButtonWidth     =   487
-      ButtonHeight    =   466
-      Appearance      =   1
-      Style           =   1
-      ImageList       =   "imlSmall"
-      _Version        =   393216
-      BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   11
-         BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "List"
-            Object.ToolTipText     =   "List all records"
-            ImageIndex      =   3
-         EndProperty
-         BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Refresh"
-            Object.ToolTipText     =   "Refresh data"
-            ImageIndex      =   9
-         EndProperty
-         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Filter"
-            Object.ToolTipText     =   "Filter"
-            ImageIndex      =   11
-         EndProperty
-         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
-         EndProperty
-         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "New"
-            Object.ToolTipText     =   "New record"
-            ImageIndex      =   4
-         EndProperty
-         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Modify"
-            Object.ToolTipText     =   "Modify record"
-            ImageIndex      =   8
-         EndProperty
-         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Delete"
-            Object.ToolTipText     =   "Delete record"
-            ImageIndex      =   5
-         EndProperty
-         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   4
-         EndProperty
-         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Report"
-            Object.ToolTipText     =   "Report"
-            ImageIndex      =   7
-            BeginProperty ButtonMenus {66833FEC-8583-11D1-B16A-00C0F0283628} 
-               NumButtonMenus  =   2
-               BeginProperty ButtonMenu1 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "Test"
-                  Text            =   "Test"
-               EndProperty
-               BeginProperty ButtonMenu2 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "Test2"
-                  Text            =   "Test2"
-               EndProperty
-            EndProperty
-         EndProperty
-         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
-         EndProperty
-         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "SQL"
-            ImageIndex      =   13
-         EndProperty
-      EndProperty
-      BorderStyle     =   1
-   End
    Begin MSComctlLib.TabStrip tsImages 
       Height          =   3072
       Left            =   120
-      TabIndex        =   8
+      TabIndex        =   7
       Top             =   360
       Width           =   7812
       _ExtentX        =   13780
@@ -536,12 +419,86 @@ Begin VB.Form frmImages
          EndProperty
       EndProperty
    End
+   Begin MSComctlLib.ImageList imlSmall 
+      Left            =   480
+      Top             =   2760
+      _ExtentX        =   804
+      _ExtentY        =   804
+      BackColor       =   -2147483643
+      ImageWidth      =   16
+      ImageHeight     =   16
+      MaskColor       =   12632256
+      _Version        =   393216
+      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+         NumListImages   =   15
+         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmImages.frx":00DC
+            Key             =   "Find"
+         EndProperty
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmImages.frx":03F8
+            Key             =   "Warning"
+         EndProperty
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmImages.frx":0720
+            Key             =   "List"
+         EndProperty
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmImages.frx":0A48
+            Key             =   "xNew"
+         EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmImages.frx":31FC
+            Key             =   "Stop"
+         EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmImages.frx":3650
+            Key             =   "Report"
+         EndProperty
+         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmImages.frx":3AA4
+            Key             =   "Modify"
+         EndProperty
+         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmImages.frx":4570
+            Key             =   "Refresh"
+         EndProperty
+         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmImages.frx":4898
+            Key             =   "Sort"
+         EndProperty
+         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmImages.frx":4CEC
+            Key             =   "SQL"
+         EndProperty
+         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmImages.frx":5140
+            Key             =   "Search"
+         EndProperty
+         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmImages.frx":5594
+            Key             =   "Filter"
+         EndProperty
+         BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmImages.frx":59EC
+            Key             =   "Blank"
+         EndProperty
+         BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmImages.frx":5E44
+            Key             =   "NewRecord"
+         EndProperty
+         BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmImages.frx":6C58
+            Key             =   "Delete"
+         EndProperty
+      EndProperty
+   End
    Begin VB.Label lblIDlabel 
       AutoSize        =   -1  'True
       Caption         =   "ID:"
       Height          =   192
       Left            =   120
-      TabIndex        =   10
+      TabIndex        =   9
       Top             =   4020
       Width           =   192
    End
@@ -551,44 +508,41 @@ Begin VB.Form frmImages
       DataSource      =   "dtaData"
       Height          =   192
       Left            =   408
-      TabIndex        =   9
+      TabIndex        =   8
       Top             =   4020
       Width           =   324
    End
-   Begin VB.Menu mnuAction 
-      Caption         =   "&Action"
-      Begin VB.Menu mnuActionList 
-         Caption         =   "&List"
+   Begin VB.Menu mnuRecords 
+      Caption         =   "&Records"
+      Begin VB.Menu mnuRecordsNew 
+         Caption         =   "&New"
       End
-      Begin VB.Menu mnuActionRefresh 
-         Caption         =   "&Refresh"
+      Begin VB.Menu mnuRecordsModify 
+         Caption         =   "&Modify"
       End
-      Begin VB.Menu mnuActionFilter 
-         Caption         =   "&Fiter"
+      Begin VB.Menu mnuRecordsDelete 
+         Caption         =   "&Delete"
       End
       Begin VB.Menu mnuActionSep1 
          Caption         =   "-"
       End
-      Begin VB.Menu mnuActionNew 
-         Caption         =   "&New"
-      End
-      Begin VB.Menu mnuActionModify 
-         Caption         =   "&Modify"
-      End
-      Begin VB.Menu mnuActionDelete 
-         Caption         =   "&Delete"
+      Begin VB.Menu mnuRecordsRefresh 
+         Caption         =   "&Refresh"
       End
       Begin VB.Menu mnuActionSep2 
          Caption         =   "-"
       End
-      Begin VB.Menu mnuActionReport 
-         Caption         =   "&Report"
+      Begin VB.Menu mnuRecordsFilter 
+         Caption         =   "&Filter"
       End
-      Begin VB.Menu mnuActionSep3 
+      Begin VB.Menu mnuRecordsSearch 
+         Caption         =   "&Search"
+      End
+      Begin VB.Menu mnuRecordsSep3 
          Caption         =   "-"
       End
-      Begin VB.Menu mnuActionSQL 
-         Caption         =   "&SQL"
+      Begin VB.Menu mnuRecordsList 
+         Caption         =   "&List"
       End
    End
 End
@@ -639,32 +593,34 @@ End Sub
 Private Sub Form_Unload(Cancel As Integer)
     Cancel = CloseConnection(Me)
 End Sub
-Private Sub mnuActionFilter_Click()
+Private Sub mnuRecordsFilter_Click()
     FilterCommand Me, rsMain, SQLkey
 End Sub
-Private Sub mnuActionDelete_Click()
+Private Sub mnuRecordsDelete_Click()
     DeleteCommand Me, rsMain
 End Sub
-Private Sub mnuActionList_Click()
+Private Sub mnuRecordsList_Click()
     ListCommand Me, rsMain
 End Sub
-Private Sub mnuActionModify_Click()
+Private Sub mnuRecordsModify_Click()
     ModifyCommand Me
     
     Set tsImages.SelectedItem = tsImages.Tabs(1)
+    txtName.SetFocus
 End Sub
-Private Sub mnuActionNew_Click()
+Private Sub mnuRecordsNew_Click()
     NewCommand Me, rsMain
     
     Set tsImages.SelectedItem = tsImages.Tabs(1)
+    txtName.SetFocus
 End Sub
-Private Sub mnuActionRefresh_Click()
+Private Sub mnuRecordsRefresh_Click()
     RefreshCommand rsMain, SQLkey
 End Sub
-Private Sub mnuActionReport_Click()
+Private Sub mnuFileReport_Click()
     ReportCommand Me, rsMain, App.Path & "\Reports\Images.rpt"
 End Sub
-Private Sub mnuActionSQL_Click()
+Private Sub mnuFileSQL_Click()
     SQLCommand "Images"
 End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
@@ -688,21 +644,21 @@ End Sub
 Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
         Case "List"
-            mnuActionList_Click
+            mnuRecordsList_Click
         Case "Refresh"
-            mnuActionRefresh_Click
+            mnuRecordsRefresh_Click
         Case "Filter"
-            mnuActionFilter_Click
+            mnuRecordsFilter_Click
         Case "New"
-            mnuActionNew_Click
+            mnuRecordsNew_Click
         Case "Modify"
-            mnuActionModify_Click
+            mnuRecordsModify_Click
         Case "Delete"
-            mnuActionDelete_Click
+            mnuRecordsDelete_Click
         Case "Report"
-            mnuActionReport_Click
+            mnuFileReport_Click
         Case "SQL"
-            mnuActionSQL_Click
+            mnuFileSQL_Click
     End Select
 End Sub
 '=================================================================================

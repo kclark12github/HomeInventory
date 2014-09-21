@@ -7,7 +7,7 @@ Begin VB.Form frmMusic
    Caption         =   "Music Inventory"
    ClientHeight    =   3516
    ClientLeft      =   36
-   ClientTop       =   264
+   ClientTop       =   492
    ClientWidth     =   7524
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
@@ -49,7 +49,7 @@ Begin VB.Form frmMusic
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "3:15 PM"
+            TextSave        =   "4:58 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -239,104 +239,66 @@ Begin VB.Form frmMusic
       MaskColor       =   12632256
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   13
+         NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmMusic.frx":0000
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmMusic.frx":031C
-            Key             =   ""
+            Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmMusic.frx":0644
-            Key             =   ""
+            Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmMusic.frx":096C
-            Key             =   ""
+            Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmMusic.frx":3120
-            Key             =   "Delete"
+            Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmMusic.frx":3574
-            Key             =   "List"
+            Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMusic.frx":4040
-            Key             =   "Report"
+            Picture         =   "frmMusic.frx":39C8
+            Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmMusic.frx":4494
-            Key             =   "Modify"
+            Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMusic.frx":4F60
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMusic.frx":5288
+            Picture         =   "frmMusic.frx":47BC
             Key             =   "Sort"
          EndProperty
-         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMusic.frx":56DC
-            Key             =   "Filter"
-         EndProperty
-         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMusic.frx":5B30
+         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":4C10
             Key             =   "SQL"
          EndProperty
+         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":5064
+            Key             =   "Search"
+         EndProperty
+         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":54B8
+            Key             =   "Filter"
+         EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMusic.frx":5F84
-            Key             =   ""
+            Picture         =   "frmMusic.frx":5910
+            Key             =   "Blank"
          EndProperty
-      EndProperty
-   End
-   Begin MSComctlLib.ImageList imlLarge 
-      Left            =   60
-      Top             =   2760
-      _ExtentX        =   804
-      _ExtentY        =   804
-      BackColor       =   -2147483643
-      ImageWidth      =   32
-      ImageHeight     =   32
-      MaskColor       =   12632256
-      _Version        =   393216
-      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   8
-         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMusic.frx":63D8
-            Key             =   "Report"
+         BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":5D68
+            Key             =   "NewRecord"
          EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMusic.frx":682C
-            Key             =   "Modify"
-         EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMusic.frx":72F8
-            Key             =   "Find"
-         EndProperty
-         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMusic.frx":7614
-            Key             =   "List"
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMusic.frx":80E0
+         BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmMusic.frx":6B7C
             Key             =   "Delete"
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMusic.frx":8534
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMusic.frx":ACE8
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMusic.frx":B13C
-            Key             =   ""
          EndProperty
       EndProperty
    End
@@ -356,65 +318,63 @@ Begin VB.Form frmMusic
       ImageList       =   "imlSmall"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   11
+         NumButtons      =   13
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "List"
-            Object.ToolTipText     =   "List all records"
-            ImageIndex      =   3
-         EndProperty
-         BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Refresh"
-            Object.ToolTipText     =   "Refresh data"
-            ImageIndex      =   9
-         EndProperty
-         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Filter"
-            Object.ToolTipText     =   "Filter"
-            ImageIndex      =   11
-         EndProperty
-         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
-         EndProperty
-         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "New"
-            Object.ToolTipText     =   "New record"
-            ImageIndex      =   4
-         EndProperty
-         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Modify"
-            Object.ToolTipText     =   "Modify record"
-            ImageIndex      =   8
-         EndProperty
-         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Delete"
-            Object.ToolTipText     =   "Delete record"
-            ImageIndex      =   5
-         EndProperty
-         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   4
-         EndProperty
-         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Key             =   "Report"
             Object.ToolTipText     =   "Report"
-            ImageIndex      =   7
-            BeginProperty ButtonMenus {66833FEC-8583-11D1-B16A-00C0F0283628} 
-               NumButtonMenus  =   2
-               BeginProperty ButtonMenu1 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "Test"
-                  Text            =   "Test"
-               EndProperty
-               BeginProperty ButtonMenu2 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "Test2"
-                  Text            =   "Test2"
-               EndProperty
-            EndProperty
+            ImageKey        =   "Report"
          EndProperty
-         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "SQL"
+            Object.ToolTipText     =   "SQL Window"
+            ImageKey        =   "SQL"
+         EndProperty
+         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Style           =   3
          EndProperty
+         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "New"
+            Object.ToolTipText     =   "New record"
+            ImageKey        =   "NewRecord"
+         EndProperty
+         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Modify"
+            Object.ToolTipText     =   "Modify record"
+            ImageKey        =   "Modify"
+         EndProperty
+         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Delete"
+            Object.ToolTipText     =   "Delete record"
+            ImageKey        =   "Delete"
+         EndProperty
+         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Refresh"
+            Object.ToolTipText     =   "Refresh data"
+            ImageKey        =   "Refresh"
+         EndProperty
+         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Filter"
+            Object.ToolTipText     =   "Filter"
+            ImageKey        =   "Filter"
+         EndProperty
          BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "SQL"
-            ImageIndex      =   13
+            Key             =   "Search"
+            Object.ToolTipText     =   "Search"
+            ImageKey        =   "Search"
+         EndProperty
+         BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "List"
+            Object.ToolTipText     =   "List all records"
+            ImageKey        =   "List"
          EndProperty
       EndProperty
       BorderStyle     =   1
@@ -509,41 +469,37 @@ Begin VB.Form frmMusic
       Top             =   1980
       Width           =   324
    End
-   Begin VB.Menu mnuAction 
-      Caption         =   "&Action"
-      Visible         =   0   'False
-      Begin VB.Menu mnuActionList 
-         Caption         =   "&List"
+   Begin VB.Menu mnuRecords 
+      Caption         =   "&Records"
+      Begin VB.Menu mnuRecordsNew 
+         Caption         =   "&New"
       End
-      Begin VB.Menu mnuActionRefresh 
-         Caption         =   "&Refresh"
+      Begin VB.Menu mnuRecordsModify 
+         Caption         =   "&Modify"
       End
-      Begin VB.Menu mnuActionFilter 
-         Caption         =   "&Filter"
+      Begin VB.Menu mnuRecordsDelete 
+         Caption         =   "&Delete"
       End
       Begin VB.Menu mnuActionSep1 
          Caption         =   "-"
       End
-      Begin VB.Menu mnuActionNew 
-         Caption         =   "&New"
-      End
-      Begin VB.Menu mnuActionModify 
-         Caption         =   "&Modify"
-      End
-      Begin VB.Menu mnuActionDelete 
-         Caption         =   "&Delete"
+      Begin VB.Menu mnuRecordsRefresh 
+         Caption         =   "&Refresh"
       End
       Begin VB.Menu mnuActionSep2 
          Caption         =   "-"
       End
-      Begin VB.Menu mnuActionReport 
-         Caption         =   "&Report"
+      Begin VB.Menu mnuRecordsFilter 
+         Caption         =   "&Filter"
       End
-      Begin VB.Menu mnuActionSep3 
+      Begin VB.Menu mnuRecordsSearch 
+         Caption         =   "&Search"
+      End
+      Begin VB.Menu mnuRecordsSep3 
          Caption         =   "-"
       End
-      Begin VB.Menu mnuActionSQL 
-         Caption         =   "&SQL"
+      Begin VB.Menu mnuRecordsList 
+         Caption         =   "&List"
       End
    End
 End
@@ -605,21 +561,21 @@ End Sub
 Private Sub Form_Unload(Cancel As Integer)
     Cancel = CloseConnection(Me)
 End Sub
-Private Sub mnuActionFilter_Click()
+Private Sub mnuRecordsFilter_Click()
     FilterCommand Me, rsMain, SQLkey
 End Sub
-Private Sub mnuActionDelete_Click()
+Private Sub mnuRecordsDelete_Click()
     DeleteCommand Me, rsMain
 End Sub
-Private Sub mnuActionList_Click()
+Private Sub mnuRecordsList_Click()
     ListCommand Me, rsMain
 End Sub
-Private Sub mnuActionModify_Click()
+Private Sub mnuRecordsModify_Click()
     ModifyCommand Me
     
     dbcArtist.SetFocus
 End Sub
-Private Sub mnuActionNew_Click()
+Private Sub mnuRecordsNew_Click()
     NewCommand Me, rsMain
     
     txtInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
@@ -630,13 +586,13 @@ Private Sub mnuActionNew_Click()
     strDefaultAlphaSort = vbNullString
     dbcArtist.SetFocus
 End Sub
-Private Sub mnuActionRefresh_Click()
+Private Sub mnuRecordsRefresh_Click()
     RefreshCommand rsMain, SQLkey
 End Sub
-Private Sub mnuActionReport_Click()
+Private Sub mnuFileReport_Click()
     ReportCommand Me, rsMain, App.Path & "\Reports\Music.rpt"
 End Sub
-Private Sub mnuActionSQL_Click()
+Private Sub mnuFileSQL_Click()
     SQLCommand "Music"
 End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
@@ -648,21 +604,21 @@ End Sub
 Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
         Case "List"
-            mnuActionList_Click
+            mnuRecordsList_Click
         Case "Refresh"
-            mnuActionRefresh_Click
+            mnuRecordsRefresh_Click
         Case "Filter"
-            mnuActionFilter_Click
+            mnuRecordsFilter_Click
         Case "New"
-            mnuActionNew_Click
+            mnuRecordsNew_Click
         Case "Modify"
-            mnuActionModify_Click
+            mnuRecordsModify_Click
         Case "Delete"
-            mnuActionDelete_Click
+            mnuRecordsDelete_Click
         Case "Report"
-            mnuActionReport_Click
+            mnuFileReport_Click
         Case "SQL"
-            mnuActionSQL_Click
+            mnuFileSQL_Click
     End Select
 End Sub
 '=================================================================================

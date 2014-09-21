@@ -572,7 +572,7 @@ Begin VB.Form frmUSNClasses
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:20 PM"
+            TextSave        =   "5:14 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -624,8 +624,8 @@ Begin VB.Form frmUSNClasses
       _Version        =   393216
    End
    Begin MSComctlLib.ImageList imlSmall 
-      Left            =   3312
-      Top             =   4380
+      Left            =   480
+      Top             =   2760
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -634,104 +634,66 @@ Begin VB.Form frmUSNClasses
       MaskColor       =   12632256
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   13
+         NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmUSNClasses.frx":0DCA
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmUSNClasses.frx":10E6
-            Key             =   ""
+            Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmUSNClasses.frx":140E
-            Key             =   ""
+            Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmUSNClasses.frx":1736
-            Key             =   ""
+            Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmUSNClasses.frx":3EEA
-            Key             =   "Delete"
+            Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmUSNClasses.frx":433E
-            Key             =   "List"
+            Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":4E0A
-            Key             =   "Report"
+            Picture         =   "frmUSNClasses.frx":4792
+            Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmUSNClasses.frx":525E
-            Key             =   "Modify"
+            Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":5D2A
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":6052
+            Picture         =   "frmUSNClasses.frx":5586
             Key             =   "Sort"
          EndProperty
-         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":64A6
-            Key             =   "Filter"
-         EndProperty
-         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":68FA
+         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNClasses.frx":59DA
             Key             =   "SQL"
          EndProperty
+         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNClasses.frx":5E2E
+            Key             =   "Search"
+         EndProperty
+         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNClasses.frx":6282
+            Key             =   "Filter"
+         EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":6D4E
-            Key             =   ""
+            Picture         =   "frmUSNClasses.frx":66DA
+            Key             =   "Blank"
          EndProperty
-      EndProperty
-   End
-   Begin MSComctlLib.ImageList imlLarge 
-      Left            =   2892
-      Top             =   4380
-      _ExtentX        =   804
-      _ExtentY        =   804
-      BackColor       =   -2147483643
-      ImageWidth      =   32
-      ImageHeight     =   32
-      MaskColor       =   12632256
-      _Version        =   393216
-      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   8
-         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":71A2
-            Key             =   "Report"
+         BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNClasses.frx":6B32
+            Key             =   "NewRecord"
          EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":75F6
-            Key             =   "Modify"
-         EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":80C2
-            Key             =   "Find"
-         EndProperty
-         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":83DE
-            Key             =   "List"
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":8EAA
+         BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNClasses.frx":7946
             Key             =   "Delete"
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":92FE
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":BAB2
-            Key             =   ""
-         EndProperty
-         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":BF06
-            Key             =   ""
          EndProperty
       EndProperty
    End
@@ -739,7 +701,7 @@ Begin VB.Form frmUSNClasses
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   48
+      TabIndex        =   51
       Top             =   0
       Width           =   7788
       _ExtentX        =   13737
@@ -751,65 +713,63 @@ Begin VB.Form frmUSNClasses
       ImageList       =   "imlSmall"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   11
+         NumButtons      =   13
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "List"
-            Object.ToolTipText     =   "List all records"
-            ImageIndex      =   3
-         EndProperty
-         BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Refresh"
-            Object.ToolTipText     =   "Refresh data"
-            ImageIndex      =   9
-         EndProperty
-         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Filter"
-            Object.ToolTipText     =   "Filter"
-            ImageIndex      =   11
-         EndProperty
-         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
-         EndProperty
-         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "New"
-            Object.ToolTipText     =   "New record"
-            ImageIndex      =   4
-         EndProperty
-         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Modify"
-            Object.ToolTipText     =   "Modify record"
-            ImageIndex      =   8
-         EndProperty
-         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "Delete"
-            Object.ToolTipText     =   "Delete record"
-            ImageIndex      =   5
-         EndProperty
-         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   4
-         EndProperty
-         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Key             =   "Report"
             Object.ToolTipText     =   "Report"
-            ImageIndex      =   7
-            BeginProperty ButtonMenus {66833FEC-8583-11D1-B16A-00C0F0283628} 
-               NumButtonMenus  =   2
-               BeginProperty ButtonMenu1 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "Test"
-                  Text            =   "Test"
-               EndProperty
-               BeginProperty ButtonMenu2 {66833FEE-8583-11D1-B16A-00C0F0283628} 
-                  Key             =   "Test2"
-                  Text            =   "Test2"
-               EndProperty
-            EndProperty
+            ImageKey        =   "Report"
          EndProperty
-         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+         BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "SQL"
+            Object.ToolTipText     =   "SQL Window"
+            ImageKey        =   "SQL"
+         EndProperty
+         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Style           =   3
          EndProperty
+         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "New"
+            Object.ToolTipText     =   "New record"
+            ImageKey        =   "NewRecord"
+         EndProperty
+         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Modify"
+            Object.ToolTipText     =   "Modify record"
+            ImageKey        =   "Modify"
+         EndProperty
+         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Delete"
+            Object.ToolTipText     =   "Delete record"
+            ImageKey        =   "Delete"
+         EndProperty
+         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Refresh"
+            Object.ToolTipText     =   "Refresh data"
+            ImageKey        =   "Refresh"
+         EndProperty
+         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Filter"
+            Object.ToolTipText     =   "Filter"
+            ImageKey        =   "Filter"
+         EndProperty
          BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Key             =   "SQL"
-            ImageIndex      =   13
+            Key             =   "Search"
+            Object.ToolTipText     =   "Search"
+            ImageKey        =   "Search"
+         EndProperty
+         BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "List"
+            Object.ToolTipText     =   "List all records"
+            ImageKey        =   "List"
          EndProperty
       EndProperty
       BorderStyle     =   1
@@ -819,7 +779,7 @@ Begin VB.Form frmUSNClasses
       Caption         =   "ID:"
       Height          =   192
       Left            =   96
-      TabIndex        =   51
+      TabIndex        =   50
       Top             =   4596
       Width           =   192
    End
@@ -828,7 +788,7 @@ Begin VB.Form frmUSNClasses
       Caption         =   "lblID"
       Height          =   192
       Left            =   360
-      TabIndex        =   50
+      TabIndex        =   49
       Top             =   4596
       Width           =   324
    End
@@ -837,45 +797,42 @@ Begin VB.Form frmUSNClasses
       Caption         =   "A"
       Height          =   192
       Left            =   0
-      TabIndex        =   49
+      TabIndex        =   48
       Top             =   0
       Visible         =   0   'False
       Width           =   108
    End
-   Begin VB.Menu mnuAction 
-      Caption         =   "&Action"
-      Begin VB.Menu mnuActionList 
-         Caption         =   "&List"
+   Begin VB.Menu mnuRecords 
+      Caption         =   "&Records"
+      Begin VB.Menu mnuRecordsNew 
+         Caption         =   "&New"
       End
-      Begin VB.Menu mnuActionRefresh 
-         Caption         =   "&Refresh"
+      Begin VB.Menu mnuRecordsModify 
+         Caption         =   "&Modify"
       End
-      Begin VB.Menu mnuActionFilter 
-         Caption         =   "&Filter"
+      Begin VB.Menu mnuRecordsDelete 
+         Caption         =   "&Delete"
       End
       Begin VB.Menu mnuActionSep1 
          Caption         =   "-"
       End
-      Begin VB.Menu mnuActionNew 
-         Caption         =   "&New"
-      End
-      Begin VB.Menu mnuActionModify 
-         Caption         =   "&Modify"
-      End
-      Begin VB.Menu mnuActionDelete 
-         Caption         =   "&Delete"
+      Begin VB.Menu mnuRecordsRefresh 
+         Caption         =   "&Refresh"
       End
       Begin VB.Menu mnuActionSep2 
          Caption         =   "-"
       End
-      Begin VB.Menu mnuActionReport 
-         Caption         =   "&Report"
+      Begin VB.Menu mnuRecordsFilter 
+         Caption         =   "&Filter"
       End
-      Begin VB.Menu mnuActionSep3 
+      Begin VB.Menu mnuRecordsSearch 
+         Caption         =   "&Search"
+      End
+      Begin VB.Menu mnuRecordsSep3 
          Caption         =   "-"
       End
-      Begin VB.Menu mnuActionSQL 
-         Caption         =   "&SQL"
+      Begin VB.Menu mnuRecordsList 
+         Caption         =   "&List"
       End
    End
 End
@@ -923,33 +880,35 @@ End Sub
 Private Sub Form_Unload(Cancel As Integer)
     Cancel = CloseConnection(Me)
 End Sub
-Private Sub mnuActionFilter_Click()
+Private Sub mnuRecordsFilter_Click()
     FilterCommand Me, rsMain, SQLkey
 End Sub
-Private Sub mnuActionDelete_Click()
+Private Sub mnuRecordsDelete_Click()
     DeleteCommand Me, rsMain
 End Sub
-Private Sub mnuActionList_Click()
+Private Sub mnuRecordsList_Click()
     ListCommand Me, rsMain
 End Sub
-Private Sub mnuActionModify_Click()
+Private Sub mnuRecordsModify_Click()
     ModifyCommand Me
     
     Set tsClasses.SelectedItem = tsClasses.Tabs(1)
+    txtName.SetFocus
 End Sub
-Private Sub mnuActionNew_Click()
+Private Sub mnuRecordsNew_Click()
     NewCommand Me, rsMain
     
     txtYear.Text = Format(Now(), "0000")
     Set tsClasses.SelectedItem = tsClasses.Tabs(1)
+    txtName.SetFocus
 End Sub
-Private Sub mnuActionRefresh_Click()
+Private Sub mnuRecordsRefresh_Click()
     RefreshCommand rsMain, SQLkey
 End Sub
-Private Sub mnuActionReport_Click()
+Private Sub mnuFileReport_Click()
     ReportCommand Me, rsMain, App.Path & "\Reports\USN Ship Classes.rpt"
 End Sub
-Private Sub mnuActionSQL_Click()
+Private Sub mnuFileSQL_Click()
     SQLCommand "Class"
 End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
@@ -965,21 +924,21 @@ End Sub
 Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
         Case "List"
-            mnuActionList_Click
+            mnuRecordsList_Click
         Case "Refresh"
-            mnuActionRefresh_Click
+            mnuRecordsRefresh_Click
         Case "Filter"
-            mnuActionFilter_Click
+            mnuRecordsFilter_Click
         Case "New"
-            mnuActionNew_Click
+            mnuRecordsNew_Click
         Case "Modify"
-            mnuActionModify_Click
+            mnuRecordsModify_Click
         Case "Delete"
-            mnuActionDelete_Click
+            mnuRecordsDelete_Click
         Case "Report"
-            mnuActionReport_Click
+            mnuFileReport_Click
         Case "SQL"
-            mnuActionSQL_Click
+            mnuFileSQL_Click
     End Select
 End Sub
 Private Sub tsClasses_Click()
