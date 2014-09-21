@@ -63,16 +63,16 @@ Begin VB.Form frmBooks
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   7964
+            Object.Width           =   8070
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1376
+            Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:38 PM"
+            TextSave        =   "2:23 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -633,8 +633,8 @@ End Sub
 Private Sub mnuRecordsNew_Click()
     NewCommand Me, rsMain
     
-    txtInventoried.Text = Format(Now(), fmtDate)
     chkCataloged.Value = vbChecked
+'    txtInventoried.Text = Format(Now(), fmtDate)
     strDefaultAlphaSort = vbNullString
     txtTitle.SetFocus
 End Sub
@@ -723,6 +723,8 @@ Private Function DefaultAlphaSort() As String
     Dim iSemiColon As Integer
     Dim iSeparator As Integer
     Dim iWith As Integer
+    Dim CountryCode As Long
+    Dim PublisherCode As Long
     
     'Start with the Author's last name...
     LastName = dbcAuthor.Text
@@ -767,7 +769,69 @@ Private Function DefaultAlphaSort() As String
         Title = Mid(Title, 5) & ", " & Mid(Title, 1, 3)
     End If
     
-    DefaultAlphaSort = UCase(LastName & ": " & Title)
+    'Check ISBN to detect publishers of special series that
+    'we'd rather sort by series name than author(s)...
+    If Trim(txtISBN.Text) <> vbNullString Then
+        CountryCode = ParseStr(txtISBN.Text, 1, "-")        'If we begin to get dups on PublisherCode, we'll have to start using the CountryCode, but not until then...
+        PublisherCode = ParseStr(txtISBN.Text, 2, "-")      'PublisherCode
+        Select Case PublisherCode
+            Case 880588, 874023, 86184, 874023      'CountryCode: 1
+                DefaultAlphaSort = "AIRTIME: " & UCase(Title)
+            Case 361                                'CountryCode: 962
+                DefaultAlphaSort = "CONCORD: <SeriesName> #nnnn; " & UCase(Title)
+            Case 7603, 87398, 85045                 'CountryCode: 0
+                DefaultAlphaSort = "MOTORBOOKS: " & UCase(LastName) & ": " & UCase(Title)
+            Case 914845                             'CountryCode: 0
+                DefaultAlphaSort = "MSPRESS: " & UCase(LastName) & ": " & UCase(Title)
+            Case 57231, 55615                       'CountryCode: 1
+                DefaultAlphaSort = "MSPRESS: " & UCase(LastName) & ": " & UCase(Title)
+            Case 896522                             'CountryCode: 1
+                DefaultAlphaSort = "NASA MISSION REPORTS: " & UCase(Title)
+            Case 87938, 89141, 85045                'CountryCode: 0
+                DefaultAlphaSort = "OSPREY: " & UCase(Title)
+            Case 85532, 84176                       'CountryCode: 1
+                DefaultAlphaSort = "OSPREY: <SeriesName> #nn; " & UCase(Title)
+            Case 672                                'CountryCode: 0
+                DefaultAlphaSort = "SAMS: " & UCase(Title)
+            Case 944055                             'CountryCode: 0
+                DefaultAlphaSort = "SCALE MODELING: FLOATING DRYDOCK: " & UCase(Title)
+            Case 89024                              'CountryCode: 0
+                DefaultAlphaSort = "SCALE MODELING: KALMBACH: " & UCase(Title)
+            Case 7643, 88740                        'CountryCode: 0
+                DefaultAlphaSort = "SCHIFFER MILITARY HISTORY: " & UCase(Title)
+            Case 8094, 670, 939526                  'CountryCode: 0
+                DefaultAlphaSort = "TIMELIFE: <SeriesName>: BOOK ##; " & UCase(Title)
+            Case 85488                              'CountryCode: 1
+                DefaultAlphaSort = "TRISERVICE: " & UCase(Title)
+            Case 935696, 88038                      'CountryCode: 0
+                DefaultAlphaSort = "TSR: #### " & UCase(Title)
+            Case 89747                              'CountryCode: 0
+                DefaultAlphaSort = "SQUADRON/SIGNAL: <SeriesName> NO. ##; " & UCase(Title)
+            Case 930607                             'CountryCode: 1
+                DefaultAlphaSort = "VERLINDEN: <SeriesName> NO. ##; " & UCase(Title)
+            Case 70932                              'CountryCode: 90
+                DefaultAlphaSort = "VERLINDEN: <SeriesName> NO. ##; " & UCase(Title)
+            Case 9654829, 9710687                   'CountryCode: 0
+                DefaultAlphaSort = "WARSHIP PICTORIAL SERIES #nn; " & UCase(Title)
+            Case 933126, 929521                     'CountryCode: 0
+                DefaultAlphaSort = "WARSHIP SERIES #n; <ShipDesignation>; U.S.S. <ShipName>"
+            Case 929521                             'CountryCode: 0
+                DefaultAlphaSort = "WARSHIP'S DATA #n; <ShipDesignation>; U.S.S. <ShipName>"
+            Case 57510                              'CountryCode: 1
+                DefaultAlphaSort = "WARSHIP'S DATA #n; <ShipDesignation>; U.S.S. <ShipName>"
+            Case Else
+                Select Case dbcSubject.Text
+                    Case "Science Fiction; Star Trek"
+                        DefaultAlphaSort = UCase("STAR TREK: " & LastName & ": " & Title)
+                    Case "Science Fiction; Star Wars"
+                        DefaultAlphaSort = UCase("STAR WARS: " & LastName & ": " & Title)
+                    Case Else
+                        DefaultAlphaSort = UCase(LastName & ": " & Title)
+                End Select
+        End Select
+    Else
+        DefaultAlphaSort = UCase(LastName & ": " & Title)
+    End If
 End Function
 Private Sub txtAlphaSort_GotFocus()
     TextSelected
@@ -782,7 +846,12 @@ Private Sub txtAlphaSort_Validate(Cancel As Boolean)
         'MsgBox "AlphaSort must be specified!", vbExclamation, Me.Caption
         'txtAlphaSort.SetFocus
         'Cancel = True
+    Else
+        If ParseStr(txtAlphaSort.Text, 1, ":") <> ParseStr(DefaultAlphaSort, 1, ":") Then
+            Call MsgBox("AlphaSort doesn't match the configured value for this title/author/ISBN... Expected """ & ParseStr(DefaultAlphaSort, 1, ":") & ": ...""", vbInformation)
+        End If
     End If
+    txtAlphaSort.Text = UCase(txtAlphaSort.Text)
 End Sub
 Private Sub txtInventoried_GotFocus()
     TextSelected
