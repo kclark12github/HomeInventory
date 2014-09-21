@@ -210,7 +210,7 @@ Begin VB.Form frmSQL
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:49 PM"
+            TextSave        =   "12:35 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -282,15 +282,9 @@ Private Sub ExecuteSQL()
     Dim ErrorCount As Long
     Dim strOutput As String
     Dim eMessage As String
-    Dim BooleanFormat As New StdDataFormat
-    Dim CurrencyFormat As New StdDataFormat
-    Dim DateFormat As New StdDataFormat
     Dim col As Column
     
     On Error GoTo ErrorHandler
-    BooleanFormat.Format = "Yes/No"
-    CurrencyFormat.Format = "Currency"
-    DateFormat.Format = fmtDate
     
     Set dgdList.DataSource = Nothing
     txtResults.Text = vbNullString
@@ -317,13 +311,13 @@ Private Sub ExecuteSQL()
                 Set col = dgdList.Columns(fld.Name)
                 Select Case fld.Type
                     Case adCurrency
-                        Set col.DataFormat = CurrencyFormat
+                        col.NumberFormat = "Currency"
                         col.Alignment = dbgRight
                     Case adBoolean
-                        Set col.DataFormat = BooleanFormat
+                        col.NumberFormat = "Yes/No"
                         col.Alignment = dbgCenter
                     Case adDate, adDBDate
-                        Set col.DataFormat = DateFormat
+                        col.NumberFormat = fmtDate
                         col.Alignment = dbgCenter
                     Case Else
                         col.Alignment = dbgGeneral
@@ -406,7 +400,6 @@ ErrorHandler:
     Exit Sub
 End Sub
 Private Sub ResizeColumn(col As Column)
-    Dim ColumnFormat As New StdDataFormat
     Dim DataWidth As Long
     Dim rsTemp As ADODB.Recordset
     Dim WidestData As Long
@@ -416,14 +409,13 @@ Private Sub ResizeColumn(col As Column)
     dgdList.ClearSelCols
     lblA.Caption = col.Caption
     WidestData = lblA.Width
-    Set ColumnFormat = col.DataFormat
     If Not rsList.BOF And Not rsList.EOF Then
         Set rsTemp = rsList.Clone(adLockReadOnly)
         rsTemp.MoveFirst
         While Not rsTemp.EOF
             If Not IsNull(rsTemp(col.Caption).Value) Then
-                If Not ColumnFormat Is Nothing Then
-                    lblA.Caption = Format(rsTemp(col.Caption).Value, col.DataFormat.Format)
+                If col.NumberFormat <> vbNullString Then
+                    lblA.Caption = Format(rsTemp(col.Caption).Value, col.NumberFormat)
                 Else
                     lblA.Caption = CStr(rsTemp(col.Caption).Value)
                 End If
@@ -434,7 +426,6 @@ Private Sub ResizeColumn(col As Column)
         Wend
         CloseRecordset rsTemp, True
     End If
-    Set ColumnFormat = Nothing
     col.Width = WidestData + (4 * ResizeWindow)
     If col.Width > dgdList.Width Then col.Width = col.Width - ResizeWindow
     GoTo ExitSub

@@ -62,9 +62,10 @@ Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Re
             Set ctl.DataSource = DataSource
             If DataSource(DataField).Type = adDate Then
                 If ctl.DataFormat.Format = vbNullString Then
-                    Set DateTimeFormat = New StdDataFormat
-                    DateTimeFormat.Format = fmtDate
-                    Set ctl.DataFormat = DateTimeFormat
+                    ctl.DataFormat.Format = fmtDate
+'                    Set DateTimeFormat = New StdDataFormat
+'                    DateTimeFormat.Format = fmtDate
+'                    Set ctl.DataFormat = DateTimeFormat
                 End If
             End If
         Case "DataCombo"
@@ -89,22 +90,6 @@ Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Re
     End Select
     Call Trace(trcExit, "BindField")
 End Sub
-'Public Sub BindFieldDAO(ctl As Control, DataField As String, DataSource As DAO.Recordset, Optional RowSource As DAO.Recordset, Optional BoundColumn As String, Optional ListField As String)
-'    Dim DateTimeFormat As StdDataFormat
-'    Select Case TypeName(ctl)
-'        Case "CheckBox", "Label", "PictureBox", "RichTextBox", "TextBox"
-'            Set ctl.DataSource = Nothing
-'            ctl.DataField = DataField
-'            'Set ctl.DataSource = DataSource
-'            If DataSource(DataField).Type = adDate Then
-'                If ctl.DataFormat.Format = vbNullString Then
-'                    Set DateTimeFormat = New StdDataFormat
-'                    DateTimeFormat.Format = fmtDate
-'                    Set ctl.DataFormat = DateTimeFormat
-'                End If
-'            End If
-'    End Select
-'End Sub
 Public Sub CancelCommand(frm As Form, RS As ADODB.Recordset)
     Call Trace(trcEnter, "CancelCommand(""" & frm.Name & """, RS)")
     Select Case mode

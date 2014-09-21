@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:59 PM"
+            TextSave        =   "12:32 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -311,6 +311,7 @@ Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
 '    Set RS = rsTemp
 '    Set rsTemp = Nothing
     Set dgdList.DataSource = RS
+    ResetColumns
 End Sub
 Private Sub dgdList_KeyUp(KeyCode As Integer, Shift As Integer)
     Dim col As Column
@@ -426,16 +427,9 @@ Private Sub dgdList_RowResize(Cancel As Integer)
 End Sub
 Private Sub Form_Activate()
     Dim i As Integer
-    Dim BooleanFormat As New StdDataFormat
-    Dim CurrencyFormat As New StdDataFormat
-    Dim DateFormat As New StdDataFormat
     Dim col As Column
     Dim fld As ADODB.Field
     Dim ResizeWindow As Single
-    
-    BooleanFormat.Format = "Yes/No"
-    CurrencyFormat.Format = "Currency"
-    DateFormat.Format = fmtDate
     
     If vrsList Is Nothing Then
         Set RS = frmList.rsList
@@ -448,28 +442,7 @@ Private Sub Form_Activate()
     dgdList.AllowUpdate = fAllowEditMode
     dgdList.AllowAddNew = fAllowEditMode
     ReDim SortDESC(0 To dgdList.Columns.Count - 1)
-    
-    For Each fld In RS.Fields
-        Set col = dgdList.Columns(fld.Name)
-        col.Visible = True
-        col.Locked = True
-        Select Case fld.Type
-            Case adCurrency
-                Set col.DataFormat = CurrencyFormat
-                col.Alignment = dbgRight
-            Case adBoolean
-                Set col.DataFormat = BooleanFormat
-                col.Alignment = dbgCenter
-            Case adDate, adDBDate
-                Set col.DataFormat = DateFormat
-                col.Alignment = dbgCenter
-            Case adBinary, adLongVarBinary, adLongVarChar
-                col.Visible = False
-            Case Else
-                col.Alignment = dbgGeneral
-        End Select
-        If fld.Name = "Junk" Then col.Visible = False
-    Next
+    ResetColumns
     
     'Get the column settings for the display...
     For i = 0 To dgdList.Columns.Count - 1
@@ -606,8 +579,36 @@ End Sub
 Private Sub mnuListNew_Click()
     MsgBox "Sorry, New is not implemented yet...", vbExclamation, Me.Caption
 End Sub
+Private Sub ResetColumns()
+    Dim col As Column
+    Dim fld As ADODB.Field
+    
+    For Each fld In RS.Fields
+        Set col = dgdList.Columns(fld.Name)
+        col.Visible = True
+        col.Locked = True
+        Select Case fld.Type
+            Case adCurrency
+                col.NumberFormat = "Currency"
+                col.Alignment = dbgRight
+            Case adBoolean
+                col.NumberFormat = "Yes/No"
+                col.Alignment = dbgCenter
+            Case adDate, adDBDate
+                col.NumberFormat = fmtDate
+                col.Alignment = dbgCenter
+            Case adBinary, adLongVarBinary, adLongVarChar
+                col.Visible = False
+            Case Else
+                col.Alignment = dbgGeneral
+        End Select
+        If fld.Name = "Junk" Then col.Visible = False
+    Next
+    Set fld = Nothing
+    Set col = Nothing
+End Sub
 Private Sub ResizeColumn(col As Column)
-    Dim ColumnFormat As New StdDataFormat
+    Dim ColumnFormat As String
     Dim DataWidth As Long
     Dim ResizeWindow As Single
     Dim rsTemp As ADODB.Recordset
@@ -618,14 +619,14 @@ Private Sub ResizeColumn(col As Column)
     ResizeWindow = 36
     lblA.Caption = col.Caption
     WidestData = lblA.Width
-    Set ColumnFormat = col.DataFormat
+    ColumnFormat = col.NumberFormat
     If Not RS.BOF And Not RS.EOF Then
         Set rsTemp = RS.Clone(adLockReadOnly)
         rsTemp.MoveFirst
         While Not rsTemp.EOF
             If Not IsNull(rsTemp(col.Caption).Value) Then
-                If Not ColumnFormat Is Nothing Then
-                    lblA.Caption = Format(rsTemp(col.Caption).Value, col.DataFormat.Format)
+                If ColumnFormat <> vbNullString Then
+                    lblA.Caption = Format(rsTemp(col.Caption).Value, col.NumberFormat)
                 Else
                     lblA.Caption = CStr(rsTemp(col.Caption).Value)
                 End If
@@ -636,7 +637,6 @@ Private Sub ResizeColumn(col As Column)
         Wend
         CloseRecordset rsTemp, True
     End If
-    Set ColumnFormat = Nothing
     col.Width = WidestData + (4 * ResizeWindow)
     If col.Width > dgdList.Width Then col.Width = col.Width - ResizeWindow
     

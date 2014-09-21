@@ -282,7 +282,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmUSNShips.frx":0682
       End
@@ -295,7 +294,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0757
       End
@@ -308,7 +306,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0826
       End
@@ -321,7 +318,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":08F3
       End
@@ -334,7 +330,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":09C1
       End
@@ -347,7 +342,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0A94
       End
@@ -360,7 +354,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0B64
       End
@@ -533,6 +526,7 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   12933
          _ExtentY        =   5101
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmUSNShips.frx":0C34
       End
    End
@@ -552,6 +546,7 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   12933
          _ExtentY        =   5101
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmUSNShips.frx":0D0C
       End
    End
@@ -571,7 +566,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmUSNShips.frx":0DDF
       End
@@ -584,7 +578,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0EB0
       End
@@ -597,7 +590,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0F81
       End
@@ -610,7 +602,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":104E
       End
@@ -623,7 +614,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":1122
       End
@@ -636,7 +626,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":11F1
       End
@@ -649,7 +638,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":12C0
       End
@@ -662,7 +650,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   9864
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":1395
       End
@@ -842,7 +829,7 @@ Begin VB.Form frmUSNShips
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:38 PM"
+            TextSave        =   "12:35 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -1394,7 +1381,6 @@ End Sub
 Private Sub dgdImages_DblClick()
     Dim col As Column
     Dim ColRight As Single
-    Dim ColumnFormat As New StdDataFormat
     Dim DataWidth As Long
     Dim iCol As Integer
     Dim ResizeWindow As Single
@@ -1412,14 +1398,13 @@ Private Sub dgdImages_DblClick()
                 dgdImages.ClearSelCols
                 lblA.Caption = col.Caption
                 WidestData = lblA.Width
-                Set ColumnFormat = col.DataFormat
                 If Not rsImages.BOF And Not rsImages.EOF Then
                     Set rsTemp = rsImages.Clone(adLockReadOnly)
                     rsTemp.MoveFirst
                     While Not rsTemp.EOF
                         If Not IsNull(rsTemp(col.Caption).Value) Then
-                            If Not ColumnFormat Is Nothing Then
-                                lblA.Caption = Format(rsTemp(col.Caption).Value, col.DataFormat.Format)
+                            If col.NumberFormat <> vbNullString Then
+                                lblA.Caption = Format(rsTemp(col.Caption).Value, col.NumberFormat)
                             Else
                                 lblA.Caption = CStr(rsTemp(col.Caption).Value)
                             End If
@@ -1430,7 +1415,6 @@ Private Sub dgdImages_DblClick()
                     Wend
                     CloseRecordset rsTemp, True
                 End If
-                Set ColumnFormat = Nothing
                 col.Width = WidestData + (4 * ResizeWindow)
                 If col.Width > dgdImages.Width Then col.Width = col.Width - ResizeWindow
                 GoTo ExitSub
