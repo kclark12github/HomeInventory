@@ -3,6 +3,7 @@ Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
+Object = "{C2000000-FFFF-1100-8100-000000000001}#8.0#0"; "PVCURR.OCX"
 Begin VB.Form frmKits 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Model Kits"
@@ -22,13 +23,34 @@ Begin VB.Form frmKits
       Height          =   3675
       Index           =   0
       Left            =   180
-      TabIndex        =   19
+      TabIndex        =   18
       Top             =   660
       Width           =   7692
+      Begin PVCurrencyLib.PVCurrency pvcPrice 
+         Bindings        =   "frmKits.frx":0442
+         Height          =   285
+         Left            =   3240
+         TabIndex        =   36
+         Top             =   900
+         Width           =   975
+         _Version        =   524288
+         _ExtentX        =   1720
+         _ExtentY        =   503
+         _StockProps     =   253
+         Text            =   "$0.00"
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         Appearance      =   1
+         Alignment       =   2
+         EditMode        =   0
+         EditModeChange  =   0   'False
+         Value           =   0
+         ChangeColor     =   -1  'True
+      End
       Begin VB.TextBox txtDateVerified 
          Height          =   300
          Left            =   1530
-         TabIndex        =   15
+         TabIndex        =   14
          Text            =   "Date Verified"
          Top             =   3060
          Width           =   3135
@@ -49,27 +71,10 @@ Begin VB.Form frmKits
          Top             =   180
          Width           =   2172
       End
-      Begin VB.TextBox txtPrice 
-         Alignment       =   1  'Right Justify
-         BeginProperty DataFormat 
-            Type            =   1
-            Format          =   """$""#,##0.00"
-            HaveTrueFalseNull=   0
-            FirstDayOfWeek  =   0
-            FirstWeekOfYear =   0
-            LCID            =   1033
-            SubFormatType   =   2
-         EndProperty
-         Height          =   300
-         Left            =   3120
-         TabIndex        =   6
-         Top             =   907
-         Width           =   1332
-      End
       Begin VB.TextBox txtDateInventoried 
          Height          =   300
          Left            =   1524
-         TabIndex        =   14
+         TabIndex        =   13
          Text            =   "Date Inventoried"
          Top             =   2700
          Width           =   3135
@@ -77,7 +82,7 @@ Begin VB.Form frmKits
       Begin VB.TextBox txtReference 
          Height          =   300
          Left            =   5880
-         TabIndex        =   10
+         TabIndex        =   9
          Text            =   "Reference"
          Top             =   1627
          Width           =   1452
@@ -86,14 +91,14 @@ Begin VB.Form frmKits
          Caption         =   "Out of Production"
          Height          =   192
          Left            =   4620
-         TabIndex        =   7
+         TabIndex        =   6
          Top             =   961
          Width           =   1932
       End
       Begin MSDataListLib.DataCombo dbcManufacturer 
          Height          =   315
          Left            =   1524
-         TabIndex        =   8
+         TabIndex        =   7
          Top             =   1260
          Width           =   5895
          _ExtentX        =   10398
@@ -105,7 +110,7 @@ Begin VB.Form frmKits
       Begin MSDataListLib.DataCombo dbcCatalog 
          Height          =   315
          Left            =   1524
-         TabIndex        =   9
+         TabIndex        =   8
          Top             =   1620
          Width           =   3255
          _ExtentX        =   5741
@@ -117,7 +122,7 @@ Begin VB.Form frmKits
       Begin MSDataListLib.DataCombo dbcNation 
          Height          =   315
          Left            =   1524
-         TabIndex        =   11
+         TabIndex        =   10
          Top             =   1980
          Width           =   3255
          _ExtentX        =   5741
@@ -153,7 +158,7 @@ Begin VB.Form frmKits
       Begin MSDataListLib.DataCombo dbcCondition 
          Height          =   315
          Left            =   1524
-         TabIndex        =   12
+         TabIndex        =   11
          Top             =   2340
          Width           =   1695
          _ExtentX        =   2990
@@ -165,7 +170,7 @@ Begin VB.Form frmKits
       Begin MSDataListLib.DataCombo dbcLocation 
          Height          =   315
          Left            =   4095
-         TabIndex        =   13
+         TabIndex        =   12
          Top             =   2340
          Width           =   3255
          _ExtentX        =   5741
@@ -179,7 +184,7 @@ Begin VB.Form frmKits
          Caption         =   "Manufacturer:"
          Height          =   195
          Left            =   456
-         TabIndex        =   32
+         TabIndex        =   31
          Top             =   1320
          Width           =   960
       End
@@ -188,7 +193,7 @@ Begin VB.Form frmKits
          Caption         =   "Name:"
          Height          =   195
          Left            =   936
-         TabIndex        =   31
+         TabIndex        =   30
          Top             =   593
          Width           =   480
       End
@@ -197,7 +202,7 @@ Begin VB.Form frmKits
          Caption         =   "Designation:"
          Height          =   192
          Left            =   516
-         TabIndex        =   30
+         TabIndex        =   29
          Top             =   234
          Width           =   900
       End
@@ -215,7 +220,7 @@ Begin VB.Form frmKits
          EndProperty
          Height          =   195
          Left            =   2745
-         TabIndex        =   29
+         TabIndex        =   28
          Top             =   960
          Width           =   405
       End
@@ -224,7 +229,7 @@ Begin VB.Form frmKits
          Caption         =   "Nation:"
          Height          =   195
          Left            =   906
-         TabIndex        =   28
+         TabIndex        =   27
          Top             =   2040
          Width           =   510
       End
@@ -233,7 +238,7 @@ Begin VB.Form frmKits
          Caption         =   "Date Inventoried:"
          Height          =   195
          Left            =   201
-         TabIndex        =   27
+         TabIndex        =   26
          Top             =   2753
          Width           =   1215
       End
@@ -242,7 +247,7 @@ Begin VB.Form frmKits
          Caption         =   "Scale:"
          Height          =   195
          Left            =   966
-         TabIndex        =   26
+         TabIndex        =   25
          Top             =   960
          Width           =   450
       End
@@ -251,7 +256,7 @@ Begin VB.Form frmKits
          Caption         =   "Reference:"
          Height          =   195
          Left            =   4980
-         TabIndex        =   25
+         TabIndex        =   24
          Top             =   1680
          Width           =   795
       End
@@ -260,7 +265,7 @@ Begin VB.Form frmKits
          Caption         =   "Catalog:"
          Height          =   195
          Left            =   816
-         TabIndex        =   24
+         TabIndex        =   23
          Top             =   1680
          Width           =   600
       End
@@ -269,7 +274,7 @@ Begin VB.Form frmKits
          Caption         =   "Type:"
          Height          =   192
          Left            =   3900
-         TabIndex        =   23
+         TabIndex        =   22
          Top             =   241
          Width           =   420
       End
@@ -278,7 +283,7 @@ Begin VB.Form frmKits
          Caption         =   "Date Verified:"
          Height          =   195
          Left            =   420
-         TabIndex        =   22
+         TabIndex        =   21
          Top             =   3120
          Width           =   975
       End
@@ -288,7 +293,7 @@ Begin VB.Form frmKits
          Caption         =   "Location:"
          Height          =   195
          Left            =   3360
-         TabIndex        =   21
+         TabIndex        =   20
          Top             =   2400
          Width           =   645
       End
@@ -298,7 +303,7 @@ Begin VB.Form frmKits
          Caption         =   "Condition:"
          Height          =   195
          Left            =   711
-         TabIndex        =   20
+         TabIndex        =   19
          Top             =   2400
          Width           =   705
       End
@@ -307,7 +312,7 @@ Begin VB.Form frmKits
       Height          =   3675
       Index           =   1
       Left            =   180
-      TabIndex        =   35
+      TabIndex        =   34
       Top             =   660
       Width           =   7692
       Begin RichTextLib.RichTextBox rtxtNotes 
@@ -319,15 +324,14 @@ Begin VB.Form frmKits
          _ExtentX        =   13361
          _ExtentY        =   6059
          _Version        =   393217
-         Enabled         =   -1  'True
-         TextRTF         =   $"frmKits.frx":0442
+         TextRTF         =   $"frmKits.frx":044D
       End
    End
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
       Height          =   255
       Left            =   0
-      TabIndex        =   18
+      TabIndex        =   17
       Top             =   5370
       Width           =   8100
       _ExtentX        =   14288
@@ -356,7 +360,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "3:21 PM"
+            TextSave        =   "6:51 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -367,7 +371,7 @@ Begin VB.Form frmKits
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6984
-      TabIndex        =   17
+      TabIndex        =   16
       Top             =   4920
       Width           =   972
    End
@@ -376,7 +380,7 @@ Begin VB.Form frmKits
       Default         =   -1  'True
       Height          =   372
       Left            =   5964
-      TabIndex        =   16
+      TabIndex        =   15
       Top             =   4920
       Width           =   972
    End
@@ -456,7 +460,7 @@ Begin VB.Form frmKits
       Align           =   1  'Align Top
       Height          =   360
       Left            =   0
-      TabIndex        =   36
+      TabIndex        =   35
       Top             =   0
       Width           =   8100
       _ExtentX        =   14288
@@ -542,63 +546,63 @@ Begin VB.Form frmKits
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":050B
+            Picture         =   "frmKits.frx":0516
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":0827
+            Picture         =   "frmKits.frx":0832
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":0B4F
+            Picture         =   "frmKits.frx":0B5A
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":0E77
+            Picture         =   "frmKits.frx":0E82
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":362B
+            Picture         =   "frmKits.frx":3636
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":3A7F
+            Picture         =   "frmKits.frx":3A8A
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":3ED3
+            Picture         =   "frmKits.frx":3EDE
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":499F
+            Picture         =   "frmKits.frx":49AA
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":4CC7
+            Picture         =   "frmKits.frx":4CD2
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":511B
+            Picture         =   "frmKits.frx":5126
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":556F
+            Picture         =   "frmKits.frx":557A
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":59C3
+            Picture         =   "frmKits.frx":59CE
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":5E1B
+            Picture         =   "frmKits.frx":5E26
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":5F77
+            Picture         =   "frmKits.frx":5F82
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":60D3
+            Picture         =   "frmKits.frx":60DE
             Key             =   "NewRecord"
          EndProperty
       EndProperty
@@ -608,7 +612,7 @@ Begin VB.Form frmKits
       Caption         =   "lblID"
       Height          =   195
       Left            =   429
-      TabIndex        =   34
+      TabIndex        =   33
       Top             =   5040
       Width           =   330
    End
@@ -617,7 +621,7 @@ Begin VB.Form frmKits
       Caption         =   "ID:"
       Height          =   195
       Left            =   144
-      TabIndex        =   33
+      TabIndex        =   32
       Top             =   5040
       Width           =   195
    End
@@ -743,7 +747,7 @@ Private Sub Form_Load()
     BindField dbcManufacturer, "Manufacturer", rsMain, "Manufacturer", rsManufacturers, "Manufacturer", "Manufacturer"
     BindField txtDesignation, "Designation", rsMain, "Designation"
     BindField txtName, "Name", rsMain, "Name"
-    BindField txtPrice, "Price", rsMain, "Price"
+    BindField pvcPrice, "Price", rsMain, "Price"
     BindField dbcScale, "Scale", rsMain, "Scale", rsScales, "Scale", "Scale"
     BindField dbcType, "Type", rsMain, "Type", rsTypes, "Type", "Type"
     BindField txtReference, "Reference", rsMain, "Reference"
