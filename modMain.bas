@@ -409,10 +409,14 @@ Public Sub RefreshCommand(RS As ADODB.Recordset, Optional Key As Variant)
     
     Call Trace(trcEnter, "RefreshCommand(RS, """ & Key & """)")
     On Error Resume Next
-    If IsMissing(Key) Then
+    If IsMissing(Key) Or IsNull(RS(Key)) Then
         SaveBookmark = RS(0)
     Else
         SaveBookmark = RS(Key)
+        If Err.Number <> 0 Then
+            Err.Clear
+            SaveBookmark = RS(0)
+        End If
     End If
     RS.Requery
     If IsMissing(Key) Then
@@ -439,6 +443,7 @@ Public Sub ReportCommand(frm As Form, RS As ADODB.Recordset, ByVal ReportPath As
 '    Dim Report As New CRPEAuto.Report
     
     Call Trace(trcEnter, "ReportCommand(""" & frm.Name & """, RS, """ & ReportPath & """)")
+    On Error GoTo ErrorHandler
     MakeVirtualRecordset adoConn, RS, vRS
     
     Load frmViewReport
@@ -466,11 +471,17 @@ Public Sub ReportCommand(frm As Form, RS As ADODB.Recordset, ByVal ReportPath As
     frmViewReport.scrViewer.ReportSource = Report
     frmViewReport.Show vbModal
     
+ExitSub:
     Set scrApplication = Nothing
     Set Report = Nothing
     vRS.Close
     Set vRS = Nothing
     Call Trace(trcExit, "ReportCommand")
+    Exit Sub
+    
+ErrorHandler:
+    MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, frm.Caption
+    Resume Next
 End Sub
 Public Sub SearchCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String)
     Dim FieldList As String

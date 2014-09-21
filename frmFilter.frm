@@ -1107,49 +1107,52 @@ Private Sub Form_Activate()
                 If i > 31 Then
                     MsgBox "Warning: Only the first 32 fields can be used to filter your data.", vbInformation
                     Exit For
-                End If
-                
-                For Each ctl In frm.Controls
-                    If TypeName(ctl) = "DataCombo" Then
-                        If ctl.BoundColumn = RS.Fields(i).Name Then
-                            fUseDataCombo = True
-                            Set dbcFields(i).DataSource = Nothing
-                            dbcFields(i).DataField = ctl.DataField
-                            Set dbcFields(i).DataSource = ctl.DataSource
-                            Set dbcFields(i).RowSource = Nothing
-                            dbcFields(i).BoundColumn = ctl.BoundColumn
-                            dbcFields(i).ListField = ctl.ListField
-                            Set dbcFields(i).RowSource = ctl.RowSource
-                            
-                            dbcFields(i).BoundText = vbNullString
-                            dbcFields(i).Text = vbNullString
-                            Exit For
-                        End If
-                    End If
-                Next ctl
-                
-                If fUseDataCombo Then
-                    Set ctl = dbcFields(i)
+                'ElseIf Len(RS.Fields(i).Name) > 2 And Right(RS.Fields(i).Name, 2) = "ID" Then
                 Else
-                    Set ctl = txtFields(i)
+                    For Each ctl In frm.Controls
+                        If TypeName(ctl) = "DataCombo" Then
+                            'If ctl.BoundColumn = RS.Fields(i).Name Then
+                            If ctl.DataField = RS.Fields(i).Name Then
+                                fUseDataCombo = True
+                                'Debug.Print vbTab & "BoundColumn: " & ctl.BoundColumn & "; ListField: " & ctl.ListField & "; DataField: " & ctl.DataField
+                                Set dbcFields(i).DataSource = Nothing
+                                dbcFields(i).DataField = ctl.DataField
+                                Set dbcFields(i).DataSource = ctl.DataSource
+                                Set dbcFields(i).RowSource = Nothing
+                                dbcFields(i).BoundColumn = ctl.BoundColumn
+                                dbcFields(i).ListField = ctl.ListField
+                                Set dbcFields(i).RowSource = ctl.RowSource
+                                
+                                dbcFields(i).BoundText = vbNullString
+                                dbcFields(i).Text = vbNullString
+                                Exit For
+                            End If
+                        End If
+                    Next ctl
+                    
+                    If fUseDataCombo Then
+                        Set ctl = dbcFields(i)
+                    Else
+                        Set ctl = txtFields(i)
+                    End If
+                    ctl.Visible = True
+                    ctl.Enabled = True
+                    ctl.Top = iTop
+                    
+                    lblFields(i).Alignment = lblFields(0).Alignment 'Right
+                    lblFields(i).Visible = True
+                    lblFields(i).Caption = RS.Fields(i).Name & ":"
+                    lblFields(i).Top = ctl.Top + (ctl.Height / 2) - (lblFields(i).Height / 2)
+                    lblFields(i).Left = iLeft
+                    
+                    ctl.Left = lblFields(i).Left + lblFields(i).Width + hSpace
+                    ctl.Width = Me.ScaleWidth - lblFields(i).Left - lblFields(i).Width - hSpace - hSpace - cmdApply.Width - hSpace
+                    ctl.TabIndex = i
+                    
+                    iTop = iTop + ctl.Height + vSpace
+                    iField = i
+                    Set ctl = Nothing
                 End If
-                ctl.Visible = True
-                ctl.Enabled = True
-                ctl.Top = iTop
-                
-                lblFields(i).Alignment = lblFields(0).Alignment 'Right
-                lblFields(i).Visible = True
-                lblFields(i).Caption = RS.Fields(i).Name & ":"
-                lblFields(i).Top = ctl.Top + (ctl.Height / 2) - (lblFields(i).Height / 2)
-                lblFields(i).Left = iLeft
-                
-                ctl.Left = lblFields(i).Left + lblFields(i).Width + hSpace
-                ctl.Width = Me.ScaleWidth - lblFields(i).Left - lblFields(i).Width - hSpace - hSpace - cmdApply.Width - hSpace
-                ctl.TabIndex = i
-                
-                iTop = iTop + ctl.Height + vSpace
-                iField = i
-                Set ctl = Nothing
         End Select
     Next i
     

@@ -802,11 +802,9 @@ Private Function FormatField(fld As ADODB.Field, fDelimitted As Boolean) As Stri
             Case adLongVarBinary
                 strVal = fld.Value
             Case adLongVarChar
-                If fDelimitted Then
-                    strVal = """" & fld.Value & """"
-                Else
-                    strVal = fld.Value
-                End If
+                strVal = fld.Value
+                If Len(fld.Value) > 132 Then strVal = Left(strVal, 132)
+                If fDelimitted Then strVal = """" & strVal & """"
             Case adLongVarWChar
                 If fDelimitted Then
                     strVal = """" & fld.Value & """"

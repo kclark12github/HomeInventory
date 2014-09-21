@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:32 AM"
+            TextSave        =   "2:06 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -186,6 +186,7 @@ Public rsList As ADODB.Recordset
 Private RS As ADODB.Recordset
 Private rsTemp As ADODB.Recordset
 Public HiddenFields As String
+Private ColLinkMap() As Boolean 'Used to denote fields based on linkage variables...
 Private Key As String
 Private MouseY As Single
 Private MouseX As Single
@@ -193,46 +194,45 @@ Private SortDESC() As Boolean
 Private fAllowEditMode As Boolean
 Private fEditMode As Boolean
 Private EditRow As Long
-Private fDebug As Boolean
 Private Sub dgdList_AfterColEdit(ByVal ColIndex As Integer)
-    If fDebug Then sbStatus.Panels("Message").Text = "AfterColEdit"
+    Call Trace(trcBody, "dgdList_AfterColEdit(" & ColIndex & ")")
 End Sub
 Private Sub dgdList_AfterColUpdate(ByVal ColIndex As Integer)
-    If fDebug Then sbStatus.Panels("Message").Text = "AfterColUpdate"
+    Call Trace(trcBody, "dgdList_AfterColUpdate(" & ColIndex & ")")
 End Sub
 Private Sub dgdList_AfterDelete()
-    If fDebug Then sbStatus.Panels("Message").Text = "AfterDelete"
+    Call Trace(trcBody, "dgdList_AfterDelete")
 End Sub
 Private Sub dgdList_AfterInsert()
-    If fDebug Then sbStatus.Panels("Message").Text = "AfterInsert"
+    Call Trace(trcBody, "dgdList_AfterInsert")
 End Sub
 Private Sub dgdList_AfterUpdate()
-    If fDebug Then sbStatus.Panels("Message").Text = "AfterUpdate"
+    Call Trace(trcBody, "dgdList_AfterUpdate")
 End Sub
 Private Sub dgdList_BeforeColEdit(ByVal ColIndex As Integer, ByVal KeyAscii As Integer, Cancel As Integer)
-    If fDebug Then sbStatus.Panels("Message").Text = "BeforeColEdit"
+    Call Trace(trcBody, "dgdList_BeforeColEdit(" & ColIndex & ", " & KeyAscii & ", Cancel)")
 End Sub
 Private Sub dgdList_BeforeColUpdate(ByVal ColIndex As Integer, OldValue As Variant, Cancel As Integer)
-    If fDebug Then sbStatus.Panels("Message").Text = "BeforeColUpdate"
+    Call Trace(trcBody, "dgdList_BeforeColUpdate(" & ColIndex & ", """ & OldValue & """, Cancel)")
     If Not fEditMode Then Cancel = 1
 End Sub
 Private Sub dgdList_BeforeDelete(Cancel As Integer)
-    If fDebug Then sbStatus.Panels("Message").Text = "BeforeDelete"
+    Call Trace(trcBody, "dgdList_BeforeDelete(Cancel)")
 End Sub
 Private Sub dgdList_BeforeInsert(Cancel As Integer)
-    If fDebug Then sbStatus.Panels("Message").Text = "BeforeInsert"
+    Call Trace(trcBody, "dgdList_BeforeInsert(Cancel)")
 End Sub
 Private Sub dgdList_BeforeUpdate(Cancel As Integer)
-    If fDebug Then sbStatus.Panels("Message").Text = "BeforeUpdate"
+    Call Trace(trcBody, "dgdList_BeforeUpdate(Cancel)")
     If Not fEditMode Then Cancel = 1
 End Sub
 Private Sub dgdList_Click()
     UpdatePosition
 End Sub
 Private Sub dgdList_ColEdit(ByVal ColIndex As Integer)
+    Call Trace(trcBody, "dgdList_ColEdit(" & ColIndex & ")")
     fEditMode = True
     sbStatus.Panels("Status").Text = "Edit Mode"
-    If fDebug Then sbStatus.Panels("Message").Text = "ColEdit"
 End Sub
 Private Sub dgdList_DblClick()
     Dim col As Column
@@ -261,10 +261,16 @@ End Sub
 Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
     Dim ColName As String
     Dim fld As ADODB.Field
+    Dim col As Column
+    Dim iCol As Integer
+    Dim ResizeWindow As Single
     
     ColName = dgdList.Columns(ColIndex).Caption
     If RS.BOF And RS.EOF Then Exit Sub
-    Set dgdList.DataSource = Nothing
+    'kfc - 05/27/00; This seems to be working now without reassignment of the DataSource (and the
+    '                residual code required to re-establish the look of the original data)...
+    '                Could be changing the JET driver back to 3.51 or reinstalling MDAC...(???)
+    'Set dgdList.DataSource = Nothing
     RS.Sort = vbNullString
     If SortDESC(ColIndex) Then
         ColName = ColName & " DESC"
@@ -274,44 +280,58 @@ Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
     SortDESC(ColIndex) = Not SortDESC(ColIndex)
     RS.Sort = ColName
     
-'    'Working around bug Q230167...
-'    If Not rsTemp Is Nothing Then
-'        CloseRecordset rsTemp, False
-'    Else
-'        Set rsTemp = New ADODB.Recordset
-'    End If
+''    'Working around bug Q230167...
+''    If Not rsTemp Is Nothing Then
+''        CloseRecordset rsTemp, False
+''    Else
+''        Set rsTemp = New ADODB.Recordset
+''    End If
+''
+''    For Each fld In RS.Fields
+''        rsTemp.Fields.Append fld.Name, fld.Type, fld.DefinedSize, fld.Attributes
+''    Next fld
+''    'Add the hidden field (assuming the value does not matter - usually used for Grids)...
+''    'If Not IsMissing(HiddenFieldName) Then rsTemp.Fields.Append HiddenFieldName, adVarChar, 1
+''    rsTemp.CursorType = adOpenStatic    'Updatable snapshot
+''    rsTemp.LockType = adLockOptimistic  'Allow updates
+''    rsTemp.Open
+''
+''    'Copy the data from the real recordset to the virtual one...
+''    If Not (RS.BOF And RS.EOF) Then
+''        RS.MoveFirst
+''        While Not RS.EOF
+''            'Populate the grid with the recordset data...
+''            rsTemp.AddNew
+''            For Each fld In RS.Fields
+''                rsTemp(fld.Name).Value = RS(fld.Name).Value
+''            Next fld
+''            rsTemp.Update
+''            RS.MoveNext
+''        Wend
+''        rsTemp.MoveFirst
+''    End If
+''    RS.Close
+''    Set RS = Nothing
+''
+''    rsTemp.Sort = ColName
+''    Set RS = rsTemp
+''    Set rsTemp = Nothing
+
+'kfc - 05/27/00; This seems to be working now without reassignment of the DataSource (and the
+'                residual code required to re-establish the look of the original data)...
+'                Could be changing the JET driver back to 3.51 or reinstalling MDAC...(???)
+'    Set dgdList.DataSource = RS
+'    ResetColumns
 '
-'    For Each fld In RS.Fields
-'        rsTemp.Fields.Append fld.Name, fld.Type, fld.DefinedSize, fld.Attributes
-'    Next fld
-'    'Add the hidden field (assuming the value does not matter - usually used for Grids)...
-'    'If Not IsMissing(HiddenFieldName) Then rsTemp.Fields.Append HiddenFieldName, adVarChar, 1
-'    rsTemp.CursorType = adOpenStatic    'Updatable snapshot
-'    rsTemp.LockType = adLockOptimistic  'Allow updates
-'    rsTemp.Open
-'
-'    'Copy the data from the real recordset to the virtual one...
-'    If Not (RS.BOF And RS.EOF) Then
-'        RS.MoveFirst
-'        While Not RS.EOF
-'            'Populate the grid with the recordset data...
-'            rsTemp.AddNew
-'            For Each fld In RS.Fields
-'                rsTemp(fld.Name).Value = RS(fld.Name).Value
-'            Next fld
-'            rsTemp.Update
-'            RS.MoveNext
-'        Wend
-'        rsTemp.MoveFirst
-'    End If
-'    RS.Close
-'    Set RS = Nothing
-'
-'    rsTemp.Sort = ColName
-'    Set RS = rsTemp
-'    Set rsTemp = Nothing
-    Set dgdList.DataSource = RS
-    ResetColumns
+'    'Resize Columns based on content...
+'    ResizeWindow = 36
+'    For iCol = dgdList.LeftCol To dgdList.Columns.Count - 1
+'        Set col = dgdList.Columns(iCol)
+'        If col.Visible And col.Width > 0 Then
+'            dgdList.ClearSelCols
+'            Call ResizeColumn(col)
+'        End If
+'    Next iCol
 End Sub
 Private Sub dgdList_KeyUp(KeyCode As Integer, Shift As Integer)
     Dim col As Column
@@ -322,7 +342,7 @@ Private Sub dgdList_KeyUp(KeyCode As Integer, Shift As Integer)
         
     Select Case KeyCode
         Case vbKeyTab
-            If fDebug Then Debug.Print "Row: " & dgdList.BookMark & "; Column: " & dgdList.Columns(dgdList.col).Caption & "(" & dgdList.col & ")"
+            Call Trace(trcBody, "dgdList_KeyUp(" & KeyCode & ", " & Shift & ") - Row: " & dgdList.BookMark & "; Column: " & dgdList.Columns(dgdList.col).Caption & "(" & dgdList.col & ")")
         Case vbKeyEscape
             If RS.EditMode = adEditInProgress Then RS.Update
             fEditMode = False
@@ -423,7 +443,7 @@ Private Sub dgdList_RowColChange(LastRow As Variant, ByVal LastCol As Integer)
     UpdatePosition
 End Sub
 Private Sub dgdList_RowResize(Cancel As Integer)
-    If fDebug Then sbStatus.Panels("Message").Text = "RowHeight: " & dgdList.RowHeight
+    Call Trace(trcBody, "dgdList_RowResize(Cancel) - RowHeight: " & dgdList.RowHeight)
 End Sub
 Private Sub Form_Activate()
     Dim i As Integer
@@ -442,6 +462,7 @@ Private Sub Form_Activate()
     dgdList.AllowUpdate = fAllowEditMode
     dgdList.AllowAddNew = fAllowEditMode
     ReDim SortDESC(0 To dgdList.Columns.Count - 1)
+    ReDim ColLinkMap(0 To dgdList.Columns.Count - 1)
     ResetColumns
     
     'Get the column settings for the display...
@@ -472,8 +493,6 @@ Private Sub Form_Activate()
     dgdList_Click
 End Sub
 Private Sub Form_Load()
-    'fDebug = True
-    
     Me.Icon = Forms(Forms.Count - 2).Icon
     dgdList.Top = 0
     dgdList.Left = 0
@@ -581,12 +600,16 @@ Private Sub mnuListNew_Click()
 End Sub
 Private Sub ResetColumns()
     Dim col As Column
+    Dim ctl As Control
     Dim fld As ADODB.Field
+    Dim frm As Form
     
+    Set frm = Forms(Forms.Count - 2)
     For Each fld In RS.Fields
         Set col = dgdList.Columns(fld.Name)
         col.Visible = True
         col.Locked = True
+        ColLinkMap(col.ColIndex) = False
         Select Case fld.Type
             Case adCurrency
                 col.NumberFormat = "Currency"
@@ -603,9 +626,26 @@ Private Sub ResetColumns()
                 col.Alignment = dbgGeneral
         End Select
         If fld.Name = "Junk" Then col.Visible = False
-    Next
+        
+        'How can we tell if this is an integer linkage field pointing to a record in
+        'another table...? I can rely on naming conventions for now, but I'm not happy
+        'with this...
+        If Len(col.Caption) > 2 And Right(col.Caption, 2) = "ID" Then
+            ColLinkMap(col.ColIndex) = True
+            col.Visible = False
+        End If
+    
+'        For Each ctl In frm.Controls
+'            If TypeName(ctl) = "DataCombo" Then
+'
+'            End If
+'        Next ctl
+    Next fld
+    
     Set fld = Nothing
     Set col = Nothing
+    Set ctl = Nothing
+    Set frm = Nothing
 End Sub
 Private Sub ResizeColumn(col As Column)
     Dim ColumnFormat As String
@@ -643,7 +683,7 @@ Private Sub ResizeColumn(col As Column)
 ExitSub:
     Me.MousePointer = vbDefault
 End Sub
-Private Sub sbStatus_PanelClick(ByVal Panel As MSComctlLib.Panel)
+Private Sub sbStatus_PanelClick(ByVal Panel As MSComCtlLib.Panel)
     Dim frm As Form
     
     Select Case UCase(Panel.Key)
