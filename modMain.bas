@@ -1,7 +1,7 @@
 Attribute VB_Name = "modMain"
 Option Explicit
-'Global Const gstrProvider As String = "Microsoft.Jet.OLEDB.4.0"
-Global Const gstrProvider As String = "Microsoft.Jet.OLEDB.3.51"
+Global Const gstrProvider As String = "Microsoft.Jet.OLEDB.4.0"
+'Global Const gstrProvider As String = "Microsoft.Jet.OLEDB.3.51"
 Global Const gstrConnectionString As String = "DBQ=F:\Program Files\Home Inventory\Database\Ken's Stuff.mdb;DefaultDir=F:\Program Files\Home Inventory\Database;Driver={Microsoft Access Driver (*.mdb)};DriverId=281;FIL=MS Access;FILEDSN=C:\Program Files\Common Files\ODBC\Data Sources\Ken's Stuff.dsn;MaxBufferSize=2048;MaxScanRows=8;PageTimeout=5;SafeTransactions=0;Threads=3;UID=admin;UserCommitSync=Yes;"
 'Global Const gstrConnectionString As String = "DBQ=F:\Program Files\Home Inventory\Database\Ken's Stuff.mdb;"
 Global Const gstrRunTimeUserName As String = "admin"
