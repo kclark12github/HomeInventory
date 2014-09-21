@@ -1,16 +1,16 @@
 VERSION 5.00
 Begin VB.Form frmSplash 
    BorderStyle     =   3  'Fixed Dialog
-   ClientHeight    =   1872
-   ClientLeft      =   48
-   ClientTop       =   48
-   ClientWidth     =   4848
+   ClientHeight    =   1875
+   ClientLeft      =   45
+   ClientTop       =   45
+   ClientWidth     =   4845
    ControlBox      =   0   'False
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   1872
-   ScaleWidth      =   4848
+   ScaleHeight     =   1875
+   ScaleWidth      =   4845
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin VB.Frame fraSplash 
@@ -46,7 +46,7 @@ Begin VB.Form frmSplash
          Caption         =   "Loading..."
          BeginProperty Font 
             Name            =   "Verdana"
-            Size            =   14.4
+            Size            =   14.25
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -63,21 +63,20 @@ Begin VB.Form frmSplash
    Begin VB.PictureBox Picture1 
       AutoSize        =   -1  'True
       CausesValidation=   0   'False
-      Height          =   2928
+      Height          =   4305
       Left            =   420
-      Picture         =   "frmActivitySplash.frx":0000
-      ScaleHeight     =   2880
-      ScaleWidth      =   3840
+      ScaleHeight     =   4245
+      ScaleWidth      =   5850
       TabIndex        =   1
       Top             =   1380
       Visible         =   0   'False
-      Width           =   3888
+      Width           =   5910
       Begin VB.Label lblPicSplash 
          BackStyle       =   0  'Transparent
          Caption         =   "Loading..."
          BeginProperty Font 
             Name            =   "Verdana"
-            Size            =   14.4
+            Size            =   14.25
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -113,7 +112,7 @@ Begin VB.Form frmSplash
       End
    End
 End
-Attribute VB_Name = "frmActivitySplash"
+Attribute VB_Name = "frmSplash"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
@@ -163,5 +162,5 @@ Private Sub Form_Load()
     MousePointer = vbHourglass
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
-    frmMain.timMain.Enabled = False
+'    frmMain.timMain.Enabled = False
 End Sub

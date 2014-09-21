@@ -1193,8 +1193,15 @@ Private Function ParseFilter(strFilter As String) As String
     For i = 1 To TokenCount(strFilter, " and ")
         Token = ParseStr(strFilter, i, " and ", """")
         'Debug.Print "Token #" & i & ": """ & Token & """"
-        
-        FieldName = Trim(Mid(Token, 1, InStr(Token, " ") - 1))
+        If ParseStr(Token, 1, " ") <> Token Then
+            FieldName = Trim(ParseStr(Token, 1, " "))
+        ElseIf ParseStr(Token, 1, "=") <> Token Then
+            FieldName = Trim(ParseStr(Token, 1, "="))
+        ElseIf ParseStr(Token, 1, ">") <> Token Then
+            FieldName = Trim(ParseStr(Token, 1, ">"))
+        ElseIf ParseStr(Token, 1, "<") <> Token Then
+            FieldName = Trim(ParseStr(Token, 1, "<"))
+        End If
         
         For j = 0 To RS.Fields.Count - 1
             If UCase(RS.Fields(j).Name) = UCase(FieldName) Then

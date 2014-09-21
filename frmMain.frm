@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Ken's Stuff..."
@@ -60,7 +60,7 @@ Begin VB.Form frmMain
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:17 AM"
+            TextSave        =   "4:49 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -89,6 +89,10 @@ Begin VB.Form frmMain
       _ExtentX        =   688
       _ExtentY        =   688
       _Version        =   393216
+   End
+   Begin VB.Timer timMain 
+      Left            =   2340
+      Top             =   1860
    End
    Begin VB.Menu mnuFile 
       Caption         =   "&File"
@@ -213,22 +217,39 @@ Public saveLeft As Single
 Public saveCaption As String
 Public saveIcon As Variant
 Private fActivated As Boolean
-Private Sub DoMenu(frm As Form, Optional Modal = vbModal)
+Private fSplash As Boolean
+Private Sub DoMenu(frm As Form, Caption, Optional Modal = vbModal)
     Me.MousePointer = vbHourglass
     saveTop = Me.Top
     saveLeft = Me.Left
     saveCaption = Me.Caption
     Set saveIcon = Me.Icon
+'    frmMain.Hide
+    
+    fSplash = True
+    Load frmSplash
+    frmSplash.lblActivity.Caption = Caption
+    frmSplash.Show vbModeless, frmMain
+    DoEvents
+    
+    'Effectively hide frmMain, but keep it's TaskBar icon intact...
     Me.Top = -Me.Height
     Me.Left = -Me.Width
+    DoEvents
     'Me.ShowInTaskbar = False
     
+    'Load the target form...
     Load frm
     'Me.ShowInTaskbar = True
     Me.Caption = saveCaption & " - " & frm.Caption
     Set Me.Icon = frm.Icon
     Me.MousePointer = vbDefault
+    frmSplash.Hide
+    DoEvents
+    fSplash = False
+'    frm.ShowInTaskbar = True
     frm.Show Modal
+'    frmMain.Show vbModal
 End Sub
 Private Sub ShowMain()
     If Me.Top < 0 Or Me.Top > Screen.Height Then Me.Top = saveTop Else saveTop = Me.Top
@@ -279,19 +300,19 @@ Private Sub LoadBackground()
         scrollH.Value = 0
     End If
     
-    scrollV.Visible = False
+    ScrollV.Visible = False
     If iHeight < iMinHeight Then
         iHeight = iMinHeight
     ElseIf iHeight > Screen.Height Then
         iHeight = Screen.Height
-        scrollV.Visible = True
-        scrollV.Value = 0
+        ScrollV.Visible = True
+        ScrollV.Value = 0
     End If
     Me.Width = iWidth
     Me.Height = iHeight
     
     iWidth = iWidth - borderWidth
-    If scrollV.Visible Then iWidth = scrollV.Left
+    If ScrollV.Visible Then iWidth = ScrollV.Left
     iHeight = iHeight - borderHeight
     If scrollH.Visible Then iHeight = scrollH.Top
     picWindow.Move 0, 0, iWidth, iHeight
@@ -300,7 +321,7 @@ Private Sub LoadBackground()
     Me.Move (Screen.Width - Me.Width) / 2, (Screen.Height - Me.Height) / 2
 End Sub
 Private Sub Form_Activate()
-    ShowMain
+    If Not fSplash Then ShowMain
     If fActivated Then Exit Sub
     fActivated = True
     
@@ -366,22 +387,22 @@ Private Sub Form_Resize()
             scrollH.Top = Me.ScaleHeight - scrollH.Height - sbStatus.Height
             scrollH.Left = 0
             scrollH.Width = Me.ScaleWidth
-            If scrollV.Visible Then scrollH.Width = scrollH.Width - scrollV.Width
+            If ScrollV.Visible Then scrollH.Width = scrollH.Width - ScrollV.Width
             scrollH.Max = picImage.Width - Me.ScaleWidth
             scrollH.SmallChange = picImage.Width / 100
             scrollH.LargeChange = picImage.Width / 20
             picWindow.Height = scrollH.Top
         End If
         
-        If scrollV.Visible Then
-            scrollV.Top = 0
-            scrollV.Left = Me.ScaleWidth - scrollV.Width
-            scrollV.Height = Me.ScaleHeight - sbStatus.Height
-            If scrollH.Visible Then scrollV.Height = scrollV.Height - scrollH.Height
-            scrollV.Max = picImage.Height - Me.ScaleHeight
-            scrollV.SmallChange = picImage.Height / 100
-            scrollV.LargeChange = picImage.Height / 20
-            picWindow.Width = scrollV.Left
+        If ScrollV.Visible Then
+            ScrollV.Top = 0
+            ScrollV.Left = Me.ScaleWidth - ScrollV.Width
+            ScrollV.Height = Me.ScaleHeight - sbStatus.Height
+            If scrollH.Visible Then ScrollV.Height = ScrollV.Height - scrollH.Height
+            ScrollV.Max = picImage.Height - Me.ScaleHeight
+            ScrollV.SmallChange = picImage.Height / 100
+            ScrollV.LargeChange = picImage.Height / 20
+            picWindow.Width = ScrollV.Left
         End If
     End If
 End Sub
@@ -397,70 +418,70 @@ Private Sub Form_Unload(Cancel As Integer)
     Call SaveSetting(App.FileDescription, "Environment", "Width", Me.Width)
 End Sub
 Private Sub mnuDataBaseBooks_Click()
-    Call DoMenu(frmBooks)
+    Call DoMenu(frmBooks, "Books")
 End Sub
 Private Sub mnuDataBaseHobbyAircraftDesignations_Click()
-    Call DoMenu(frmAircraftDesignations)
+    Call DoMenu(frmAircraftDesignations, "Hobby \ Aircraft Designations")
 End Sub
 Private Sub mnuDataBaseHobbyBlueAngelsHistory_Click()
-    Call DoMenu(frmBlueAngelsHistory)
+    Call DoMenu(frmBlueAngelsHistory, "Hobby \ Blue Angels History")
 End Sub
 Private Sub mnuDataBaseHobbyCompanies_Click()
-    Call DoMenu(frmCompanies)
+    Call DoMenu(frmCompanies, "Hobby \ Companies")
 End Sub
 Private Sub mnuDataBaseHobbyDecals_Click()
-    Call DoMenu(frmDecals)
+    Call DoMenu(frmDecals, "Hobby \ Decals")
 End Sub
 Private Sub mnuDataBaseHobbyDetailSets_Click()
-    Call DoMenu(frmDetailSets)
+    Call DoMenu(frmDetailSets, "Bobby \ Detail Sets")
 End Sub
 Private Sub mnuDataBaseHobbyKits_Click()
-    Call DoMenu(frmKits)
+    Call DoMenu(frmKits, "Hobby \ Kits")
 End Sub
 Private Sub mnuDataBaseHobbyFinishingProducts_Click()
-    Call DoMenu(frmFinishingProducts)
+    Call DoMenu(frmFinishingProducts, "Hobby \ Finishing Products")
 End Sub
 Private Sub mnuDataBaseHobbyRockets_Click()
-    Call DoMenu(frmRockets)
+    Call DoMenu(frmRockets, "Hobby \ Rockets")
 End Sub
 Private Sub mnuDataBaseHobbyTools_Click()
-    Call DoMenu(frmTools)
+    Call DoMenu(frmTools, "Hobby \ Tools")
 End Sub
 Private Sub mnuDataBaseHobbyTrains_Click()
-    Call DoMenu(frmTrains)
+    Call DoMenu(frmTrains, "Hobby \ Trains")
 End Sub
 Private Sub mnuDataBaseHobbyVideoResearch_Click()
-    Call DoMenu(frmVideoResearch)
+    Call DoMenu(frmVideoResearch, "Hobby \ Video Research")
 End Sub
 Private Sub mnuDataBaseImages_Click()
-    Call DoMenu(frmImages)
+    Call DoMenu(frmImages, "Images")
 End Sub
 Private Sub mnuDataBaseKFC_Click()
-    Call DoMenu(frmWebLinks) ', vbModeless)
+    Call DoMenu(frmWebLinks, "KFC") ', vbModeless)
 End Sub
 Private Sub mnuDataBaseMusic_Click()
-    Call DoMenu(frmMusic)
+    Call DoMenu(frmMusic, "Music")
 End Sub
 Private Sub mnuDataBaseSoftware_Click()
-    Call DoMenu(frmSoftware)
+    Call DoMenu(frmSoftware, "Software")
 End Sub
 Private Sub mnuDataBaseUSNavyShipsClasses_Click()
-    Call DoMenu(frmUSNClasses)
+    Call DoMenu(frmUSNClasses, "US Navy Ships \ Classes")
 End Sub
 Private Sub mnuDataBaseUSNavyShipsClassifications_Click()
-    Call DoMenu(frmUSNClassifications)
+    Call DoMenu(frmUSNClassifications, "US Navy Ships \ Classifications")
 End Sub
 Private Sub mnuDataBaseUSNavyShipsShips_Click()
-    Call DoMenu(frmUSNShips)
+    Call DoMenu(frmUSNShips, "US Navy Ships \ Ships")
 End Sub
 Private Sub mnuDataBaseVideoLibraryMovies_Click()
-    Call DoMenu(frmMovies)
+    Call DoMenu(frmMovies, "Video Library \ Movies")
 End Sub
 Private Sub mnuDataBaseVideoLibrarySpecials_Click()
-    Call DoMenu(frmSpecials)
+    Call DoMenu(frmSpecials, "Video Library \ Specials")
 End Sub
 Private Sub mnuDataBaseVideoLibraryTVEpisodes_Click()
-    Call DoMenu(frmTVEpisodes)
+    Call DoMenu(frmTVEpisodes, "Video Library \ TV Episodes")
 End Sub
 Private Sub mnuFileOptions_Click()
 '    Me.MousePointer = vbHourglass
@@ -483,5 +504,5 @@ Private Sub scrollH_Change()
     picImage.Left = -scrollH.Value
 End Sub
 Private Sub scrollV_Change()
-    picImage.Top = -scrollV.Value
+    picImage.Top = -ScrollV.Value
 End Sub

@@ -1,16 +1,30 @@
 VERSION 5.00
 Object = "{CDE57A40-8B86-11D0-B3C6-00A0C90AEA82}#1.0#0"; "MSDATGRD.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{B513F5C0-5FB8-11D3-BC8C-00104B9E0792}#1.0#0"; "SSULTRAGRID.OCX"
 Begin VB.Form frmList 
    Caption         =   "List"
-   ClientHeight    =   2556
-   ClientLeft      =   48
-   ClientTop       =   276
-   ClientWidth     =   6312
+   ClientHeight    =   2565
+   ClientLeft      =   45
+   ClientTop       =   270
+   ClientWidth     =   6315
    LinkTopic       =   "Form1"
-   ScaleHeight     =   2556
-   ScaleWidth      =   6312
+   ScaleHeight     =   2565
+   ScaleWidth      =   6315
    StartUpPosition =   1  'CenterOwner
+   Begin UltraGrid.SSUltraGrid udgdList 
+      Height          =   795
+      Left            =   720
+      TabIndex        =   3
+      Top             =   300
+      Visible         =   0   'False
+      Width           =   1515
+      _ExtentX        =   2672
+      _ExtentY        =   1402
+      _Version        =   65536
+      GridFlags       =   1028
+      UpdateMode      =   2
+   End
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
       Height          =   312
@@ -18,8 +32,8 @@ Begin VB.Form frmList
       TabIndex        =   1
       Top             =   2244
       Width           =   6312
-      _ExtentX        =   11134
-      _ExtentY        =   550
+      _ExtentX        =   11139
+      _ExtentY        =   529
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
          NumPanels       =   7
@@ -27,7 +41,7 @@ Begin VB.Form frmList
             Alignment       =   1
             AutoSize        =   2
             Bevel           =   0
-            Object.Width           =   804
+            Object.Width           =   794
             MinWidth        =   804
             Picture         =   "frmList.frx":0000
             Key             =   "Top"
@@ -36,7 +50,7 @@ Begin VB.Form frmList
             Alignment       =   1
             AutoSize        =   2
             Bevel           =   0
-            Object.Width           =   804
+            Object.Width           =   794
             MinWidth        =   804
             Picture         =   "frmList.frx":045C
             Key             =   "Bottom"
@@ -45,7 +59,7 @@ Begin VB.Form frmList
             Alignment       =   1
             AutoSize        =   2
             Bevel           =   0
-            Object.Width           =   804
+            Object.Width           =   794
             MinWidth        =   804
             Picture         =   "frmList.frx":08B8
             Key             =   "Filter"
@@ -62,7 +76,7 @@ Begin VB.Form frmList
          EndProperty
          BeginProperty Panel6 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   3027
+            Object.Width           =   3016
             Key             =   "Message"
          EndProperty
          BeginProperty Panel7 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
@@ -71,7 +85,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:23 AM"
+            TextSave        =   "6:35 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -82,8 +96,8 @@ Begin VB.Form frmList
       TabIndex        =   0
       Top             =   600
       Width           =   1212
-      _ExtentX        =   2138
-      _ExtentY        =   1080
+      _ExtentX        =   2143
+      _ExtentY        =   1085
       _Version        =   393216
       AllowUpdate     =   0   'False
       HeadLines       =   1
@@ -92,7 +106,7 @@ Begin VB.Form frmList
       WrapCellPointer =   -1  'True
       BeginProperty HeadFont {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
-         Size            =   7.8
+         Size            =   8.25
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -101,7 +115,7 @@ Begin VB.Form frmList
       EndProperty
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
-         Size            =   7.8
+         Size            =   8.25
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -462,8 +476,12 @@ Private Sub Form_Activate()
     Set dgdList.DataSource = RS
     dgdList.AllowUpdate = fAllowEditMode
     dgdList.AllowAddNew = fAllowEditMode
-    ReDim SortDESC(0 To dgdList.Columns.Count - 1)
-    ReDim ColLinkMap(0 To dgdList.Columns.Count - 1)
+    
+'    Set udgdList.DataSource = RS
+'    udgdList.UpdateMode = ssUpdateOnUpdate
+    
+    ReDim SortDESC(0 To RS.Fields.Count - 1)
+    ReDim ColLinkMap(0 To RS.Fields.Count - 1)
     ResetColumns
     
     'Get the column settings for the display...
