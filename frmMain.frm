@@ -51,16 +51,16 @@ Begin VB.Form frmMain
          NumPanels       =   2
          BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   9102
+            Object.Width           =   8996
             Key             =   "DatabasePath"
          EndProperty
          BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1270
+            Object.Width           =   1376
             MinWidth        =   1270
-            TextSave        =   "7:33 PM"
+            TextSave        =   "10:51 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -223,6 +223,15 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'frmMain - frmMain.frm
+'   Main Form...
+'   Copyright © 1999-2002, Ken Clark
+'*********************************************************************************************************************************
+'
+'   Modification History:
+'   Date:       Description:
+'   08/20/02    Started History;
+'=================================================================================================================================
 Option Explicit
 Public saveTop As Single
 Public saveLeft As Single
@@ -252,6 +261,7 @@ Private Sub DoMenu(frm As Form, Caption, Optional Modal = vbModal)
     
     'Load the target form...
     Load frm
+    ''''''frm.FileDSN = gstrFileDSN
     'Me.ShowInTaskbar = True
     Me.Caption = saveCaption & " - " & frm.Caption
     Set Me.Icon = frm.Icon
@@ -288,14 +298,15 @@ Private Sub LoadBackground()
     
     picImage.Picture = LoadPicture(gstrImagePath)
     If Err.Number <> 0 Then
-        MsgBox Err.Description & " (" & Err.Number & "). Using default image...", vbExclamation, Me.Caption
+        Call MsgBox(Err.Description & " (" & Err.Number & "). Using default image...", vbExclamation, Me.Caption)
         gstrImagePath = gstrDefaultImagePath & "\" & gstrDefaultImage
         picImage.Picture = LoadPicture(gstrImagePath)
         If Err.Number <> 0 Then
-            MsgBox Err.Description & " (" & Err.Number & "). Bagging this image crap... We didn't need no stinking images anyway...", vbExclamation, Me.Caption
+            Call MsgBox(Err.Description & " (" & Err.Number & "). Bagging this image crap... We didn't need no stinking images anyway...", vbExclamation, Me.Caption)
             Exit Sub
         End If
-        SaveSetting App.FileDescription, "Environment", "ImagePath", gstrImagePath
+        'SaveSetting App.FileDescription, "Environment", "ImagePath", gstrImagePath
+        Call SaveRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "ImagePath", gstrImagePath)
     End If
     picImage.Move 0, 0
     
@@ -338,7 +349,7 @@ Private Sub Form_Activate()
     fActivated = True
     
     Me.MousePointer = vbHourglass
-    gstrFileDSN = GetSetting(App.FileDescription, "Environment", "FileDSN", "")
+    gstrFileDSN = GetRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "FileDSN", vbNullString)
     If gstrFileDSN = vbNullString Then
         mnuFileOptions_Click
     End If
@@ -362,17 +373,17 @@ Private Sub Form_Load()
     MinWidth = iMinWidth
     MinHeight = iMinHeight
     
-    gstrODBCFileDSNDir = VbRegQueryValue(HKEY_LOCAL_MACHINE, "SOFTWARE\ODBC\ODBC.INI\ODBC File DSN", "DefaultDSNDir")
+    gstrODBCFileDSNDir = GetRegistrySetting(HKEY_LOCAL_MACHINE, "SOFTWARE\ODBC\ODBC.INI\ODBC File DSN", "DefaultDSNDir", vbNullString)
     gstrDefaultImagePath = App.Path & "\Images"
-    gstrImagePath = GetSetting(App.FileDescription, "Environment", "ImagePath", gstrDefaultImagePath & "\" & gstrDefaultImage)
+    gstrImagePath = GetRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "ImagePath", gstrDefaultImagePath & "\" & gstrDefaultImage)
     LoadBackground
-    gfUseFilterMethod = GetSetting(App.FileDescription, "Environment", "UseFilterMethod", False)
+    gfUseFilterMethod = GetRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "UseFilterMethod", False)
     
-    If GetSetting(App.FileDescription, "Environment", "DimensionsSaved", False) Then
-        rTop = GetSetting(App.FileDescription, "Environment", "Top")
-        rLeft = GetSetting(App.FileDescription, "Environment", "Left")
-        rHeight = GetSetting(App.FileDescription, "Environment", "Height")
-        rWidth = GetSetting(App.FileDescription, "Environment", "Width")
+    If GetRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "DimensionsSaved", False) Then
+        rTop = GetRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "Top", Me.Top)
+        rLeft = GetRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "Left", Me.Left)
+        rHeight = GetRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "Height", Me.Height)
+        rWidth = GetRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "Width", Me.Width)
     End If
     If rTop > 0 And rTop <= Screen.Height Then Me.Top = rTop
     If rLeft > 0 And rLeft <= Screen.Height Then Me.Left = rLeft
@@ -381,8 +392,8 @@ Private Sub Form_Load()
     saveCaption = Me.Caption
     Set saveIcon = Me.Icon
     
-    gfTraceMode = GetSetting(App.FileDescription, "Environment", "TraceMode", False)
-    gstrTraceFile = GetSetting(App.FileDescription, "Environment", "TraceFile", ParsePath(App.Path, DrvDir) & "Trace.log")
+    gfTraceMode = GetRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "TraceMode", False)
+    gstrTraceFile = GetRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "TraceFile", ParsePath(App.Path, DrvDir) & "Trace.log")
     If gfTraceMode Then
         Call Trace(trcBody, String(132, "="))
         Call Trace(trcBody, App.FileDescription & " Start - " & gstrTraceFile)
@@ -423,11 +434,11 @@ Private Sub Form_Unload(Cancel As Integer)
     Call Trace(trcBody, App.FileDescription & " Exit.")
     Call Trace(trcBody, String(132, "="))
     Call ShowMain
-    Call SaveSetting(App.FileDescription, "Environment", "DimensionsSaved", True)
-    Call SaveSetting(App.FileDescription, "Environment", "Top", Me.Top)
-    Call SaveSetting(App.FileDescription, "Environment", "Left", Me.Left)
-    Call SaveSetting(App.FileDescription, "Environment", "Height", Me.Height)
-    Call SaveSetting(App.FileDescription, "Environment", "Width", Me.Width)
+    Call SaveRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "DimensionsSaved", True)
+    Call SaveRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "Top", Me.Top)
+    Call SaveRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "Left", Me.Left)
+    Call SaveRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "Height", Me.Height)
+    Call SaveRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "Width", Me.Width)
 End Sub
 Private Sub mnuDataBaseBooks_Click()
     Call DoMenu(frmBooks, "Books")

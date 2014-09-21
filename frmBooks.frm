@@ -63,16 +63,16 @@ Begin VB.Form frmBooks
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8070
+            Object.Width           =   7964
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1270
+            Object.Width           =   1376
             MinWidth        =   1270
-            TextSave        =   "9:01 PM"
+            TextSave        =   "10:51 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -522,16 +522,27 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'frmBooks - frmBooks.frm
+'   Book Inventory Form...
+'   Copyright © 1999-2002, Ken Clark
+'*********************************************************************************************************************************
+'
+'   Modification History:
+'   Date:       Description:
+'   08/20/02    Started History;
+'=================================================================================================================================
 Option Explicit
-Dim WithEvents rsMain As ADODB.Recordset
-Attribute rsMain.VB_VarHelpID = -1
+Public FileDSN As String
+
+Dim WithEvents vrsMain As ADODB.Recordset
+Attribute vrsMain.VB_VarHelpID = -1
 Dim WithEvents CurrencyFormat As StdDataFormat
 Attribute CurrencyFormat.VB_VarHelpID = -1
-Dim rsAuthors As New ADODB.Recordset
-Dim rsSubjects As New ADODB.Recordset
+Dim vrsAuthors As New ADODB.Recordset
+Dim vrsSubjects As New ADODB.Recordset
 Dim strDefaultAlphaSort As String
 Private Sub cmdCancel_Click()
-    CancelCommand Me, rsMain
+    CancelCommand Me, vrsMain
 End Sub
 Private Sub cmdOK_Click()
     Dim fCancel As Boolean
@@ -548,64 +559,80 @@ Private Sub cmdOK_Click()
             End If
     End Select
     
-    OKCommand Me, rsMain
+    OKCommand Me, vrsMain
 
 ExitSub:
     Exit Sub
 End Sub
 Private Sub Form_Activate()
+    Dim Caption As String
+    
     Me.Top = frmMain.saveTop + ((frmMain.Height - Me.Height) / 2)
     Me.Left = frmMain.saveLeft + ((frmMain.Width - Me.Width) / 2)
+    If Not vrsMain.BOF And Not vrsMain.EOF Then Caption = "Reference #" & vrsMain.BookMark & ": " & vrsMain(SQLkey)
+    UpdatePosition Me, Caption, vrsMain
 End Sub
 Private Sub Form_Load()
-    EstablishConnection adoConn
+    'EstablishConnection adoConn
+    Call ConnectByFileDSN(gstrFileDSN, vbNullString, vbNullString)
     
-    Set rsMain = New ADODB.Recordset
-    rsMain.CursorLocation = adUseClient
-    SQLmain = "select * from [Books] order by AlphaSort"
+    Set vrsMain = New ADODB.Recordset
+'    vrsMain.CursorLocation = adUseClient
+    SQLmain = "Select * From [Books] Order By AlphaSort"
     SQLfilter = vbNullString
     SQLkey = "AlphaSort"
-    rsMain.Open SQLmain, adoConn, adOpenKeyset, adLockBatchOptimistic
-    DBcollection.Add "rsMain", rsMain
+    'rsMain.Open SQLmain, adoConn, adOpenKeyset, adLockBatchOptimistic
+    Call MakeVirtualRecordset(SQLmain, vrsMain)
+    DBcollection.Add "vrsMain", vrsMain
     
-    rsAuthors.CursorLocation = adUseClient
-    rsAuthors.Open "select distinct Author from [Books] order by Author", adoConn, adOpenStatic, adLockReadOnly
-    DBcollection.Add "rsAuthors", rsAuthors
+'    rsAuthors.CursorLocation = adUseClient
+'    rsAuthors.Open "Select Distinct Author From [Books] Order By Author", adoConn, adOpenStatic, adLockReadOnly
+    Call MakeVirtualRecordset("Select Distinct Author From [Books] Order By Author", vrsAuthors)
+    DBcollection.Add "vrsAuthors", vrsAuthors
     
-    rsSubjects.CursorLocation = adUseClient
-    rsSubjects.Open "select distinct Subject from [Books] order by Subject", adoConn, adOpenStatic, adLockReadOnly
-    DBcollection.Add "rsSubjects", rsSubjects
+'    rsSubjects.CursorLocation = adUseClient
+'    rsSubjects.Open "Select Distinct Subject From [Books] Order By Subject", adoConn, adOpenStatic, adLockReadOnly
+    Call MakeVirtualRecordset("Select Distinct Subject From [Books] Order By Subject", vrsSubjects)
+    DBcollection.Add "vrsSubjects", vrsSubjects
     
-    Set adodcMain.Recordset = rsMain
-    BindField lblID, "ID", rsMain, "ID"
-    BindField dbcAuthor, "Author", rsMain, "Author", rsAuthors, "Author", "Author"
-    BindField txtTitle, "Title", rsMain, "Title"
-    BindField txtISBN, "ISBN", rsMain, "ISBN"
-    BindField pvcPrice, "Price", rsMain, "Price"
-    BindField txtAlphaSort, "AlphaSort", rsMain, "AlphaSort"
-    BindField dbcSubject, "Subject", rsMain, "Subject", rsSubjects, "Subject", "Subject"
-    BindField txtMisc, "Misc", rsMain, "Misc"
-    BindField chkCataloged, "Cataloged", rsMain, "Cataloged"
-    BindField txtInventoried, "Inventoried", rsMain, "Inventoried"
+    Set adodcMain.Recordset = vrsMain
+    BindField lblID, "ID", vrsMain, "ID"
+    BindField dbcAuthor, "Author", vrsMain, "Author", vrsAuthors, "Author", "Author"
+    BindField txtTitle, "Title", vrsMain, "Title"
+    BindField txtISBN, "ISBN", vrsMain, "ISBN"
+    BindField pvcPrice, "Price", vrsMain, "Price"
+    BindField txtAlphaSort, "AlphaSort", vrsMain, "AlphaSort"
+    BindField dbcSubject, "Subject", vrsMain, "Subject", vrsSubjects, "Subject", "Subject"
+    BindField txtMisc, "Misc", vrsMain, "Misc"
+    BindField chkCataloged, "Cataloged", vrsMain, "Cataloged"
+    BindField txtInventoried, "Inventoried", vrsMain, "Inventoried"
 
     ProtectFields Me
     mode = modeDisplay
     fTransaction = False
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
+    Dim iMap As FieldMap
+    Dim i As Integer
+    
+    For i = 1 To FieldMaps.Count
+        Set iMap = FieldMaps(1)
+        FieldMaps.Remove 1
+        Set iMap = Nothing
+    Next
     Cancel = CloseConnection(Me)
 End Sub
 Private Sub mnuRecordsCopy_Click()
-    CopyCommand Me, rsMain, SQLkey
+    CopyCommand Me, vrsMain, SQLkey
 End Sub
 Private Sub mnuRecordsFilter_Click()
-    FilterCommand Me, rsMain, SQLkey
+    FilterCommand Me, vrsMain, SQLkey
 End Sub
 Private Sub mnuRecordsDelete_Click()
-    DeleteCommand Me, rsMain
+    DeleteCommand Me, vrsMain
 End Sub
 Private Sub mnuRecordsList_Click()
-    ListCommand Me, rsMain
+    ListCommand Me, vrsMain
 End Sub
 Private Sub mnuRecordsModify_Click()
     ModifyCommand Me
@@ -613,7 +640,7 @@ Private Sub mnuRecordsModify_Click()
     txtTitle.SetFocus
 End Sub
 Private Sub mnuRecordsNew_Click()
-    NewCommand Me, rsMain
+    NewCommand Me, vrsMain
     
     chkCataloged.Value = vbChecked
 '    txtInventoried.Text = Format(Now(), fmtDate)
@@ -621,16 +648,16 @@ Private Sub mnuRecordsNew_Click()
     txtTitle.SetFocus
 End Sub
 Private Sub mnuRecordsRefresh_Click()
-    RefreshCommand rsMain, "ID"
+    RefreshCommand vrsMain, "ID"
 End Sub
 Private Sub mnuRecordsSearch_Click()
-    SearchCommand Me, rsMain, SQLkey
+    SearchCommand Me, vrsMain, SQLkey
 End Sub
 Private Sub mnuFileExit_Click()
     Unload Me
 End Sub
 Private Sub mnuFileReport_Click()
-    ReportCommand Me, rsMain, App.Path & "\Reports\Books.rpt"
+    ReportCommand Me, vrsMain, App.Path & "\Reports\Books.rpt"
 End Sub
 Private Sub mnuFileSQL_Click()
     SQLCommand "Books"
@@ -641,7 +668,7 @@ End Sub
 Private Sub pvcPrice_GotFocusEvent()
     TextSelected
 End Sub
-Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+Private Sub vrsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     
     If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset(SQLkey)
@@ -680,7 +707,7 @@ Private Sub dbcAuthor_Validate(Cancel As Boolean)
         dbcAuthor.SetFocus
         Cancel = True
     End If
-    If dbcValidate(rsMain("Author"), dbcAuthor) = 0 Then Cancel = True
+    If dbcValidate(vrsMain("Author"), dbcAuthor) = 0 Then Cancel = True
     If rsAuthors.BookMark <> dbcAuthor.SelectedItem Then rsAuthors.BookMark = dbcAuthor.SelectedItem
 End Sub
 Private Sub dbcSubject_GotFocus()
@@ -693,7 +720,7 @@ Private Sub dbcSubject_Validate(Cancel As Boolean)
     '    dbcSubject.SetFocus
     '    Cancel = True
     'End If
-    If dbcValidate(rsMain("Subject"), dbcSubject) = 0 Then Cancel = True
+    If dbcValidate(vrsMain("Subject"), dbcSubject) = 0 Then Cancel = True
     If rsSubjects.BookMark <> dbcSubject.SelectedItem Then rsSubjects.BookMark = dbcSubject.SelectedItem
 End Sub
 Private Function DefaultAlphaSort() As String
@@ -840,7 +867,7 @@ Private Sub txtInventoried_GotFocus()
 End Sub
 Private Sub txtInventoried_Validate(Cancel As Boolean)
     On Error Resume Next
-    txtInventoried.Text = Format(txtInventoried.Text, "mm/dd/yyyy hh:mm AMPM")
+    txtInventoried.Text = Format(txtInventoried.Text, fmtDate)
     If txtInventoried.Text = vbNullString Then
         If chkCataloged.Value = vbChecked Then txtInventoried.Text = Format(Now(), fmtDate) Else Exit Sub
     End If
@@ -859,7 +886,7 @@ End Sub
 Private Sub txtISBN_Validate(Cancel As Boolean)
     If Not txtISBN.Enabled Then Exit Sub
     If txtISBN.Text = vbNullString And chkCataloged.Value = vbChecked Then
-        MsgBox "ISBN must be specified!", vbExclamation, Me.Caption
+        MsgBox "ISBN should be specified!", vbInformation, Me.Caption
     Else
         'txtISBN.Text = FormatISBN(txtISBN.Text)
         Select Case Left(txtISBN.Text, 1)

@@ -1,4 +1,13 @@
 Attribute VB_Name = "modMain"
+'modMain - modMain.bas
+'   Main Application Module...
+'   Copyright © 1999-2002, Ken Clark
+'*********************************************************************************************************************************
+'
+'   Modification History:
+'   Date:       Description:
+'   08/20/02    Started History;
+'=================================================================================================================================
 Option Explicit
 'Global Const fmtDate As String = "dd-MMM-yyyy hh:nn AMPM"
 'Global Const gstrProvider As String = "Microsoft.Jet.OLEDB.4.0"
@@ -38,6 +47,7 @@ End Enum
 
 Public adoConn As ADODB.Connection
 Public DBcollection As New DataBaseCollection
+Public FieldMaps As New Collection
 Public frmReport As Form
 Public fTransaction As Boolean
 Public gfUseFilterMethod As Boolean
@@ -80,22 +90,53 @@ ExitSub:
 End Function
 Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Recordset, Caption As String, Optional RowSource As ADODB.Recordset, Optional BoundColumn As String, Optional ListField As String)
     Dim DateTimeFormat As StdDataFormat
-    
+    Dim MapItem As New FieldMap
+
     Call Trace(trcEnter, "BindField(""" & ctl.Name & """, """ & DataField & """, DataSource, RowSource, """ & BoundColumn & """, """ & ListField & """)")
+    
+    Set MapItem.ScreenControl = ctl
+    'Set MapItem.LabelControl = lctl
+    MapItem.DataField = DataField
+    MapItem.DataType = DataSource(DataField).Type
+    MapItem.Format = vbNullString
+    MapItem.Caption = Caption
+    
+    FieldMaps.Add MapItem, ctl.Name
+    
+'    Select Case TypeName(ctl)
+'        Case "CheckBox", "Label", "PictureBox", "RichTextBox", "TextBox"
+'            ctl.Tag = Caption
+'            Set ctl.DataSource = Nothing
+'            ctl.DataField = DataField
+'            Set ctl.DataSource = DataSource
+'            Select Case DataSource(DataField).Type
+'                Case adDate, adDBTimeStamp
+'                    If ctl.DataFormat.Format = vbNullString Then
+'                        ctl.DataFormat.Format = fmtDate
+'                       'Set DateTimeFormat = New StdDataFormat
+'                       'DateTimeFormat.Format = fmtDate
+'                       'Set ctl.DataFormat = DateTimeFormat
+'                    End If
+'                Case Else
+'            End Select
+'        Case "DataCombo"
+'            ctl.Tag = Caption
+'            Set ctl.DataSource = Nothing
+'            ctl.DataField = DataField
+'            Set ctl.DataSource = DataSource
+'            Set ctl.RowSource = Nothing
+'            ctl.BoundColumn = BoundColumn
+'            ctl.ListField = ListField
+'            Set ctl.RowSource = RowSource
+'        Case "PVCurrency"
+'            ctl.Tag = Caption
+'            Set ctl.DataSource = Nothing
+'            ctl.DataField = DataField
+'            ctl.VariantData = DataField
+'            Set ctl.DataSource = DataSource
+'    End Select
+
     Select Case TypeName(ctl)
-        Case "CheckBox", "Label", "PictureBox", "RichTextBox", "TextBox"
-            ctl.Tag = Caption
-            Set ctl.DataSource = Nothing
-            ctl.DataField = DataField
-            Set ctl.DataSource = DataSource
-            If DataSource(DataField).Type = adDate Then
-                If ctl.DataFormat.Format = vbNullString Then
-                    ctl.DataFormat.Format = fmtDate
-'                    Set DateTimeFormat = New StdDataFormat
-'                    DateTimeFormat.Format = fmtDate
-'                    Set ctl.DataFormat = DateTimeFormat
-                End If
-            End If
         Case "DataCombo"
             ctl.Tag = Caption
             Set ctl.DataSource = Nothing
@@ -105,15 +146,6 @@ Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Re
             ctl.BoundColumn = BoundColumn
             ctl.ListField = ListField
             Set ctl.RowSource = RowSource
-        Case "PVCurrency"
-            ctl.Tag = Caption
-            Set ctl.DataSource = Nothing
-            ctl.DataField = DataField
-            ctl.VariantData = DataField
-            Set ctl.DataSource = DataSource
-    End Select
-
-    Select Case TypeName(ctl)
         Case "TextBox"
             Select Case DataSource(DataField).Type
                 Case adDate, adDBDate, adDBTime, adDBTimeStamp
@@ -121,7 +153,6 @@ Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Re
                 Case Else
                     ctl.MaxLength = DataSource(DataField).DefinedSize
             End Select
-        Case "DataCombo"
     End Select
     Call Trace(trcExit, "BindField")
 End Sub
@@ -277,7 +308,6 @@ Public Sub dbcKeyPress(fld As ADODB.Field, ctl As DataCombo, KeyAscii As Integer
     End If
     Call Trace(trcExit, "dbcKeyPress")
 End Sub
-
 Public Function dbcValidate(fld As ADODB.Field, ctl As DataCombo) As Integer
     Dim adoRS As ADODB.Recordset
     Dim pDataSource As ADODB.Recordset
@@ -478,8 +508,8 @@ Public Sub ListCommand(frm As Form, RS As ADODB.Recordset, Optional AllowUpdate 
         'frmList.dgdList.BackColor = vbWindowBackground
         frmList.ssugList.Override.AllowUpdate = ssAllowUpdateYes
     Else
-        If Not MakeVirtualRecordset(adoConn, RS, vRS) Then
-            MsgBox "MakeVirtualRecordset failed.", vbExclamation, frm.Caption
+        If Not MakeVirtualRecordsetFromRS(adoConn, RS, vRS) Then
+            MsgBox "MakeVirtualRecordsetFromRS failed.", vbExclamation, frm.Caption
             Exit Sub
         End If
         Set frmList.vrsList = vRS
@@ -537,57 +567,189 @@ Public Sub NewCommand(frm As Form, RS As ADODB.Recordset)
     Call Trace(trcExit, "NewCommand")
 End Sub
 Public Sub OKCommand(frm As Form, RS As ADODB.Recordset)
-    Dim ctl As Control
+'    Dim ctl As Control
+'    Dim iLoop As Integer
+    Dim SQLSource As String
+    Dim strValues As String
+    Dim RecordsAffected As Long
+    Dim fUpdate As Boolean
+    Dim iMapItem As FieldMap
     
     Call Trace(trcEnter, "OKCommand(""" & frm.Name & """, RS)")
     Select Case mode
         Case modeDisplay
             Unload frm
-        Case modeAdd, modeModify
-            'Why we need to do this is buggy...
-            'rsMain("Manufacturer") = dbcManufacturer.BoundText
-            'rsMain("Catalog") = dbcCatalog.BoundText
+            GoTo ExitSub
+        Case modeAdd
+            SQLSource = ParseStr(RS.Source, 2, "[")
+            SQLSource = ParseStr(SQLSource, 1, "]")
+            SQLSource = "Insert Into [" & SQLSource & "] ("
             
-            'There seems to be a binding problem with CheckBox controls... so double check the
-            'control value against that of the bound field to be sure they're in sync...
-            For Each ctl In frm.Controls
-                If TypeName(ctl) = "CheckBox" Then
-                    If Not ctl.DataSource Is Nothing And (ctl = vbChecked) <> RS.Fields(ctl.DataField) Then
-                       RS.Fields(ctl.DataField) = (ctl = vbChecked)
-                    End If
-                ElseIf TypeName(ctl) = "TextBox" Then
-                    If Not ctl.DataSource Is Nothing Then
-                        If ctl.Text = vbNullString And Not IsNull(RS.Fields(ctl.DataField)) Then
-                            If RS.Fields(ctl.DataField).Type = adDBTimeStamp Then RS.Fields(ctl.DataField) = Null
+            fUpdate = False
+            For Each iMapItem In FieldMaps
+                If Trim(iMapItem.OriginalValue) <> Trim(iMapItem.ScreenControl) Then
+                    fUpdate = True
+                    On Error Resume Next
+                        If Trim(iMapItem.ScreenControl) = vbNullString Then
+                            SQLSource = SQLSource & " [" & iMapItem.DataField & "],"
+                            strValues = strValues & " NULL,"
+                        ElseIf TypeName(iMapItem.ScreenControl) = "CheckBox" Then
+                            SQLSource = SQLSource & " [" & iMapItem.DataField & "],"
+                            strValues = strValues & " " & (iMapItem.ScreenControl = vbChecked) & ","
+                        Else
+                            Debug.Print adoDataType(iMapItem.DataType)
+                            Select Case iMapItem.DataType
+                                Case adInteger, adBoolean, adCurrency
+                                    SQLSource = SQLSource & " [" & iMapItem.DataField & "],"
+                                    strValues = strValues & " " & iMapItem.ScreenControl & ","
+                                Case adDBTimeStamp
+                                    SQLSource = SQLSource & " [" & iMapItem.DataField & "],"
+                                    strValues = strValues & " #" & iMapItem.ScreenControl & "#,"
+                                Case Else
+                                    SQLSource = SQLSource & " [" & iMapItem.DataField & "]='" & SQLQuote(iMapItem.ScreenControl) & "',"
+                                    SQLSource = SQLSource & " [" & iMapItem.DataField & "],"
+                                    strValues = strValues & " '" & SQLQuote(iMapItem.ScreenControl) & "',"
+                            End Select
                         End If
                     End If
+                    On Error GoTo 0
                 End If
-            Next ctl
+            Next iMapItem
+'            For iLoop = 0 To frm.Controls.Count - 1
+'                Set ctl = frm.Controls(iLoop)
+'                If HandleThisDataType(TypeName(ctl), ctl.Name, frm.Name) Then
+'                    On Error Resume Next
+'                    If Not ctl.DataSource Is Nothing And ctl.DataField <> vbNullString Then
+'                        fUpdate = True
+'                        If ctl = vbNullString Then
+'                            SQLsource = SQLsource & " [" & ctl.DataField & "],"
+'                            strValues = strValues & " NULL,"
+'                        ElseIf TypeName(ctl) = "CheckBox" Then
+'                            SQLsource = SQLsource & " [" & ctl.DataField & "],"
+'                            strValues = strValues & " " & (ctl = vbChecked) & ","
+'                        Else
+'                            Debug.Print adoDataType(RS.Fields(ctl.DataField).Type)
+'                            Select Case RS.Fields(ctl.DataField).Type
+'                                Case adInteger, adBoolean, adCurrency
+'                                    SQLsource = SQLsource & " [" & ctl.DataField & "],"
+'                                    strValues = strValues & " " & ctl & ","
+'                                Case adDBTimeStamp
+'                                    SQLsource = SQLsource & " [" & ctl.DataField & "],"
+'                                    strValues = strValues & " #" & ctl & "#,"
+'                                Case Else
+'                                    SQLsource = SQLsource & " [" & ctl.DataField & "],"
+'                                    strValues = strValues & " '" & SQLQuote(ctl) & "',"
+'                            End Select
+'                        End If
+'                    End If
+'                    On Error GoTo 0
+'                End If
+'            Next iLoop
+            SQLSource = Mid(SQLSource, 1, Len(SQLSource) - 1) & ") Values (" & Mid(strValues, 1, Len(strValues) - 1) & ")"
+        Case modeModify
+            SQLSource = ParseStr(RS.Source, 2, "[")
+            SQLSource = ParseStr(SQLSource, 1, "]")
+            SQLSource = "Update [" & SQLSource & "] Set"
             
-            'Ignore errors because more than likely they're caused by exceeding
-            'a field length. This is handled for TextBoxes, but cannot be easily
-            'done for DataCombo controls (no .MaxLength property)...
-            On Error Resume Next
-            If RS.LockType = adLockBatchOptimistic Then
-                Call Trace(trcBody, "RS.UpdateBatch")
-                RS.UpdateBatch
-            Else
-                Call Trace(trcBody, "RS.Update")
-                RS.Update
-            End If
+            fUpdate = False
+            For Each iMapItem In FieldMaps
+                If Trim(iMapItem.OriginalValue) <> Trim(iMapItem.ScreenControl) Then
+                    fUpdate = True
+                    On Error Resume Next
+                        If Trim(iMapItem.ScreenControl) = vbNullString Then
+                            SQLSource = SQLSource & " [" & iMapItem.DataField & "]=NULL,"
+                        ElseIf TypeName(iMapItem.ScreenControl) = "CheckBox" Then
+                            SQLSource = SQLSource & " [" & iMapItem.DataField & "]=" & (iMapItem.ScreenControl = vbChecked) & ","
+                        Else
+                            Debug.Print adoDataType(iMapItem.DataType)
+                            Select Case iMapItem.DataType
+                                Case adInteger, adBoolean, adCurrency
+                                    SQLSource = SQLSource & " [" & iMapItem.DataField & "]=" & iMapItem.ScreenControl & ","
+                                Case adDBTimeStamp
+                                    SQLSource = SQLSource & " [" & iMapItem.DataField & "]=#" & iMapItem.ScreenControl & "#,"
+                                Case Else
+                                    SQLSource = SQLSource & " [" & iMapItem.DataField & "]='" & SQLQuote(iMapItem.ScreenControl) & "',"
+                            End Select
+                        End If
+                    End If
+                    On Error GoTo 0
+                End If
+            Next iMapItem
+            
+'            For iLoop = 0 To frm.Controls.Count - 1
+'                Set ctl = frm.Controls(iLoop)
+'                If HandleThisDataType(TypeName(ctl), ctl.Name, frm.Name) Then
+'                    If Trim(origValues(iLoop)) <> Trim(ctl) Then
+'                        fUpdate = True
+'                        On Error Resume Next
+'                        If Not ctl.DataSource Is Nothing And ctl.DataField <> vbNullString Then
+'                            If ctl = vbNullString Then
+'                                SQLsource = SQLsource & " [" & ctl.DataField & "]=NULL,"
+'                            ElseIf TypeName(ctl) = "CheckBox" Then
+'                                SQLsource = SQLsource & " [" & ctl.DataField & "]=" & (ctl = vbChecked) & ","
+'                            Else
+'                                Debug.Print adoDataType(RS.Fields(ctl.DataField).Type)
+'                                Select Case RS.Fields(ctl.DataField).Type
+'                                    Case adInteger, adBoolean, adCurrency
+'                                        SQLsource = SQLsource & " [" & ctl.DataField & "]=" & ctl & ","
+'                                    Case adDBTimeStamp
+'                                        SQLsource = SQLsource & " [" & ctl.DataField & "]=#" & SQLQuote(ctl) & "#,"
+'                                    Case Else
+'                                        SQLsource = SQLsource & " [" & ctl.DataField & "]='" & SQLQuote(ctl) & "',"
+'                                End Select
+'                            End If
+'                        End If
+'                        On Error GoTo 0
+'                    End If
+'                End If
+'            Next iLoop
+            SQLSource = Mid(SQLSource, 1, Len(SQLSource) - 1) & " Where [ID]=" & RS.Fields("ID").Value
+    End Select
+
+'            'Ignore errors because more than likely they're caused by exceeding
+'            'a field length. This is handled for TextBoxes, but cannot be easily
+'            'done for DataCombo controls (no .MaxLength property)...
+'            On Error Resume Next
+'            If RS.LockType = adLockBatchOptimistic Then
+'                Call Trace(trcBody, "RS.UpdateBatch")
+'                RS.UpdateBatch
+'            Else
+'                Call Trace(trcBody, "RS.Update")
+'                RS.Update
+'            End If
+    If fUpdate Then
+        adoConn.Execute SQLSource, RecordsAffected
+        If RecordsAffected = 1 Then
             Call Trace(trcBody, "adoConn.CommitTrans")
             adoConn.CommitTrans
-            fTransaction = False
-            ProtectFields frm
-            mode = modeDisplay
-            frm.adodcMain.Enabled = True
-            
-            RefreshCommand RS, SQLkey
-            
-            frm.mnuFile.Enabled = True
-            frm.mnuRecords.Enabled = True
-            frm.tbMain.Enabled = True
-    End Select
+        Else
+            Call Trace(trcBody, "adoConn.RollbackTrans")
+            adoConn.RollbackTrans
+            MsgBox "Expected only one record to be updated, but " & RecordsAffected & " records were affected. Transaction aborted...", vbExclamation, "OKCommand"
+        End If
+    Else
+        Call Trace(trcBody, "adoConn.RollbackTrans")
+        adoConn.RollbackTrans
+    End If
+    
+    fTransaction = False
+    ProtectFields frm
+    mode = modeDisplay
+    frm.adodcMain.Enabled = True
+    
+'            RefreshCommand RS, SQLkey
+    RefreshCommand RS, "ID" 'Assuming all tables have an ID key field...
+    
+    On Error Resume Next
+    If Not fUpdate Then frm.sbStatus.Panels("Status").Text = "No changes posted."
+    On Error GoTo 0
+    
+    frm.mnuFile.Enabled = True
+    frm.mnuRecords.Enabled = True
+    frm.tbMain.Enabled = True
+    
+ExitSub:
+    Set iMapItem = Nothing
     Call Trace(trcExit, "OKCommand")
 End Sub
 Public Sub OpenFields(pForm As Form)
@@ -671,7 +833,7 @@ Public Sub ReportCommand(frm As Form, RS As ADODB.Recordset, ByVal ReportPath As
         GoTo ExitSub
     End If
     
-    MakeVirtualRecordset adoConn, RS, vRS
+    MakeVirtualRecordsetFromRS adoConn, RS, vRS
     
     Load frmViewReport
     frmViewReport.Caption = frm.Caption & " Report"
@@ -703,35 +865,60 @@ ErrorHandler:
     Resume Next
 End Sub
 Public Sub RestoreOriginalValues(frm As Form)
-    Dim iLoop As Integer
-    Dim fld As Object
+'    Dim iLoop As Integer
+'    Dim fld As Object
+    Dim iMapItem As FieldMap
     
     Call Trace(trcEnter, frm.Name & ".RestoreOriginalValues()")
-    With frm
-        For iLoop = 0 To .Controls.Count - 1
-            Set fld = .Controls(iLoop)
-            If HandleThisDataType(TypeName(fld), fld.Name, frm.Name) Then fld = origValues(iLoop)
-        Next iLoop
-    End With
+'    With frm
+'        For iLoop = 0 To .Controls.Count - 1
+'            Set fld = .Controls(iLoop)
+'            If HandleThisDataType(TypeName(fld), fld.Name, frm.Name) Then fld = origValues(iLoop)
+'        Next iLoop
+'    End With
+    For Each iMapItem In FieldMaps
+        If iMapItem.Format <> vbNullString Then
+            iMapItem.ScreenControl = Format(iMapItem.OriginalValue, iMapItem.Format)
+        Else
+            iMapItem.ScreenControl = iMapItem.OriginalValue
+        End If
+    Next iMapItem
 
 ExitSub:
+    Set iMapItem = Nothing
     Call Trace(trcExit, frm.Name & ".RestoreOriginalValues()")
     Exit Sub
 End Sub
 Public Sub SaveOriginalValues(frm As Form)
-    Dim iLoop As Integer
-    Dim fld As Object
+'    Dim iLoop As Integer
+'    Dim fld As Object
+    Dim iMapItem As FieldMap
     
     Call Trace(trcEnter, frm.Name & ".SaveOriginalValues()")
-    With frm
-        ReDim origValues(0 To .Controls.Count - 1) As Variant
-        For iLoop = 0 To .Controls.Count - 1
-            Set fld = .Controls(iLoop)
-            If HandleThisDataType(TypeName(fld), fld.Name, frm.Name) Then origValues(iLoop) = fld
-        Next iLoop
-    End With
+'    With frm
+'        ReDim origValues(0 To .Controls.Count - 1) As Variant
+'        For iLoop = 0 To .Controls.Count - 1
+'            Set fld = .Controls(iLoop)
+'            If HandleThisDataType(TypeName(fld), fld.Name, frm.Name) Then
+'                On Error Resume Next
+'                If fld.DataFormat.Format <> vbNullString Then
+'                    origValues(iLoop) = Format(fld, fld.DataFormat.Format)
+'                Else
+'                    origValues(iLoop) = fld
+'                End If
+'            End If
+'        Next iLoop
+'    End With
+    For Each iMapItem In FieldMaps
+        If iMapItem.Format <> vbNullString Then
+            iMapItem.OriginalValue = Format(iMapItem.ScreenControl, iMapItem.Format)
+        Else
+            iMapItem.OriginalValue = iMapItem.ScreenControl
+        End If
+    Next iMapItem
 
 ExitSub:
+    Set iMapItem = Nothing
     Call Trace(trcExit, frm.Name & ".SaveOriginalValues()")
     Exit Sub
 End Sub
@@ -790,6 +977,7 @@ Public Sub SQLCommand(ByVal TableName As String)
 End Sub
 Public Sub UpdatePosition(frm As Form, ByVal Caption As String, RS As ADODB.Recordset)
     Dim i As Integer
+    Dim iMapItem As FieldMap
     
     Call Trace(trcEnter, "UpdatePosition(""" & frm.Name & """, """ & Caption & """, RS)")
     On Error GoTo ErrorHandler
@@ -800,6 +988,22 @@ Public Sub UpdatePosition(frm As Form, ByVal Caption As String, RS As ADODB.Reco
     ElseIf RS.BOF Then
         Caption = "BOF"
     Else
+        For Each iMapItem In FieldMaps
+            If iMapItem.Format <> vbNullString Then
+                iMapItem.ScreenControl = Format(RS(iMapItem.DataField), iMapItem.Format)
+            Else
+                If iMapItem.DataType = adBoolean And TypeName(iMapItem.ScreenControl) = "CheckBox" Then
+                    If Not IsNull(RS(iMapItem.DataField)) Then
+                        If RS(iMapItem.DataField) Then iMapItem.ScreenControl = vbChecked Else iMapItem.ScreenControl = vbUnchecked
+                    Else
+                        iMapItem.ScreenControl = vbUnchecked
+                    End If
+                Else
+                    If Not IsNull(RS(iMapItem.DataField)) Then iMapItem.ScreenControl = RS(iMapItem.DataField) Else iMapItem.ScreenControl = vbNullString
+                End If
+            End If
+        Next iMapItem
+    
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
         If SQLfilter <> vbNullString Then
@@ -808,7 +1012,11 @@ Public Sub UpdatePosition(frm As Form, ByVal Caption As String, RS As ADODB.Reco
         frm.sbStatus.Panels("Position").Text = "Record " & RS.BookMark & " of " & RS.RecordCount
     End If
     
+ExitSub:
     frm.adodcMain.Caption = Caption
+    frm.sbStatus.Panels("Status").Text = vbNullString
+    frm.sbStatus.Panels("Message").Text = vbNullString
+    Set iMapItem = Nothing
     Call Trace(trcExit, "UpdatePosition")
     Exit Sub
 

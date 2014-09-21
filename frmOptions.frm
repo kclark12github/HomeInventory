@@ -132,6 +132,15 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'frmOptions - frmOptions.frm
+'   Options/Properties Form...
+'   Copyright © 1999-2002, Ken Clark
+'*********************************************************************************************************************************
+'
+'   Modification History:
+'   Date:       Description:
+'   08/20/02    Started History;
+'=================================================================================================================================
 Option Explicit
 Dim strFileDSN As String
 Dim strImagePath As String
@@ -196,24 +205,24 @@ Private Sub cmdCancel_Click()
 End Sub
 Private Sub cmdOK_Click()
     gstrFileDSN = strFileDSN
-    SaveSetting App.FileDescription, "Environment", "FileDSN", strFileDSN
+    Call SaveRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "FileDSN", strFileDSN)
     gstrImagePath = strImagePath
-    SaveSetting App.FileDescription, "Environment", "ImagePath", strImagePath
+    Call SaveRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "ImagePath", strImagePath)
     gfUseFilterMethod = (chkUseFilterMethod.Value = vbChecked)
-    SaveSetting App.FileDescription, "Environment", "UseFilterMethod", gfUseFilterMethod
+    Call SaveRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "UseFilterMethod", gfUseFilterMethod)
     
     Call UpdateTraceFile
-    SaveSetting App.FileDescription, "Environment", "TraceMode", gfTraceMode
-    SaveSetting App.FileDescription, "Environment", "TraceFile", gstrTraceFile
+    Call SaveRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "TraceMode", gfTraceMode)
+    Call SaveRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "TraceFile", gstrTraceFile)
     Unload Me
 End Sub
 Private Sub Form_Activate()
     If strFileDSN = vbNullString Then cmdBrowseDSN_Click
 End Sub
 Private Sub Form_Load()
-    strFileDSN = GetSetting(App.FileDescription, "Environment", "FileDSN", gstrFileDSN)
+    strFileDSN = GetRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "FileDSN", gstrFileDSN)
     txtDSN.Text = ParsePath(strFileDSN, FileNameBaseExt)
-    strImagePath = GetSetting(App.FileDescription, "Environment", "ImagePath", gstrImagePath)
+    strImagePath = GetRegistrySetting(HKEY_CURRENT_USER, "Software\KClark\" & App.FileDescription & "\Environment", "ImagePath", gstrImagePath)
     txtBackground.Text = ParsePath(strImagePath, FileNameBaseExt)
     If gfUseFilterMethod Then
         chkUseFilterMethod.Value = vbChecked
