@@ -2,13 +2,13 @@ VERSION 5.00
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.Form frmOptions 
    Caption         =   "Options"
-   ClientHeight    =   3348
-   ClientLeft      =   48
-   ClientTop       =   276
+   ClientHeight    =   3360
+   ClientLeft      =   45
+   ClientTop       =   270
    ClientWidth     =   5820
    Icon            =   "frmOptions.frx":0000
    LinkTopic       =   "Form1"
-   ScaleHeight     =   3348
+   ScaleHeight     =   3360
    ScaleWidth      =   5820
    StartUpPosition =   1  'CenterOwner
    Begin VB.Frame fraTrace 
@@ -122,8 +122,8 @@ Begin VB.Form frmOptions
    Begin MSComDlg.CommonDialog dlgOptions 
       Left            =   5400
       Top             =   2880
-      _ExtentX        =   677
-      _ExtentY        =   677
+      _ExtentX        =   688
+      _ExtentY        =   688
       _Version        =   393216
    End
 End
@@ -155,11 +155,12 @@ Private Sub cmdBrowseImages_Click()
     Dim CurrentDrive As String
     Dim CurrentImage As String
     
+    On Error Resume Next
     CurrentPath = ParsePath(strImagePath, DrvDirNoSlash)
     CurrentDrive = ParsePath(strImagePath, DrvOnly)
     CurrentImage = ParsePath(strImagePath, FileNameBaseExt)
     ChDrive CurrentDrive
-    ChDir CurrentPath
+    If Dir(CurrentPath, vbDirectory) <> vbNullString Then ChDir CurrentPath
     With dlgOptions
         .DialogTitle = "Select New Background Image"
         .FileName = CurrentImage
@@ -175,11 +176,12 @@ Private Sub cmdBrowseTraceFile_Click()
     Dim CurrentDrive As String
     Dim CurrentImage As String
     
+    On Error Resume Next
     CurrentPath = ParsePath(txtTraceFile.Text, DrvDirNoSlash)
     CurrentDrive = ParsePath(txtTraceFile.Text, DrvOnly)
     CurrentImage = ParsePath(txtTraceFile.Text, FileNameBaseExt)
     ChDrive CurrentDrive
-    ChDir CurrentPath
+    If Dir(CurrentPath, vbDirectory) <> vbNullString Then ChDir CurrentPath
     With dlgOptions
         .DialogTitle = "Select New Trace File"
         .FileName = ParsePath(txtTraceFile.Text, FileNameBaseExt)

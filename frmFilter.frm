@@ -3,15 +3,15 @@ Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Begin VB.Form frmFilter 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Filter"
-   ClientHeight    =   3876
-   ClientLeft      =   36
-   ClientTop       =   264
-   ClientWidth     =   6876
+   ClientHeight    =   3870
+   ClientLeft      =   30
+   ClientTop       =   270
+   ClientWidth     =   6885
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3876
-   ScaleWidth      =   6876
+   ScaleHeight     =   3870
+   ScaleWidth      =   6885
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin MSDataListLib.DataCombo dbcFields 
@@ -21,8 +21,8 @@ Begin VB.Form frmFilter
       TabIndex        =   66
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -34,8 +34,8 @@ Begin VB.Form frmFilter
       TabIndex        =   67
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -47,8 +47,8 @@ Begin VB.Form frmFilter
       TabIndex        =   68
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -60,8 +60,8 @@ Begin VB.Form frmFilter
       TabIndex        =   69
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -73,8 +73,8 @@ Begin VB.Form frmFilter
       TabIndex        =   70
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -86,8 +86,8 @@ Begin VB.Form frmFilter
       TabIndex        =   71
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -99,8 +99,8 @@ Begin VB.Form frmFilter
       TabIndex        =   72
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -112,8 +112,8 @@ Begin VB.Form frmFilter
       TabIndex        =   73
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -125,8 +125,8 @@ Begin VB.Form frmFilter
       TabIndex        =   74
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -138,8 +138,8 @@ Begin VB.Form frmFilter
       TabIndex        =   75
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -151,8 +151,8 @@ Begin VB.Form frmFilter
       TabIndex        =   76
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -164,8 +164,8 @@ Begin VB.Form frmFilter
       TabIndex        =   77
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -177,8 +177,8 @@ Begin VB.Form frmFilter
       TabIndex        =   78
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -190,8 +190,8 @@ Begin VB.Form frmFilter
       TabIndex        =   79
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -203,8 +203,8 @@ Begin VB.Form frmFilter
       TabIndex        =   80
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -216,8 +216,8 @@ Begin VB.Form frmFilter
       TabIndex        =   81
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -229,8 +229,8 @@ Begin VB.Form frmFilter
       TabIndex        =   82
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -242,8 +242,8 @@ Begin VB.Form frmFilter
       TabIndex        =   83
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -255,8 +255,8 @@ Begin VB.Form frmFilter
       TabIndex        =   84
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -268,8 +268,8 @@ Begin VB.Form frmFilter
       TabIndex        =   85
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -281,8 +281,8 @@ Begin VB.Form frmFilter
       TabIndex        =   86
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -294,8 +294,8 @@ Begin VB.Form frmFilter
       TabIndex        =   87
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -307,8 +307,8 @@ Begin VB.Form frmFilter
       TabIndex        =   88
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -320,8 +320,8 @@ Begin VB.Form frmFilter
       TabIndex        =   89
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -333,8 +333,8 @@ Begin VB.Form frmFilter
       TabIndex        =   90
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -346,8 +346,8 @@ Begin VB.Form frmFilter
       TabIndex        =   91
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -359,8 +359,8 @@ Begin VB.Form frmFilter
       TabIndex        =   92
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -372,8 +372,8 @@ Begin VB.Form frmFilter
       TabIndex        =   93
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -385,8 +385,8 @@ Begin VB.Form frmFilter
       TabIndex        =   94
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -398,8 +398,8 @@ Begin VB.Form frmFilter
       TabIndex        =   95
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -411,8 +411,8 @@ Begin VB.Form frmFilter
       TabIndex        =   96
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -424,8 +424,8 @@ Begin VB.Form frmFilter
       TabIndex        =   97
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -1058,6 +1058,9 @@ Private Sub cmdApply_Click()
 End Sub
 Private Sub cmdCancel_Click()
     Unload Me
+End Sub
+Private Sub dbcFields_Click(Index As Integer, Area As Integer)
+    Call Trace(trcBody, Me.Name & ".dbcFields_Click(" & Index & ", " & Area & ")")
 End Sub
 Private Sub dbcFields_GotFocus(Index As Integer)
     TextSelected
