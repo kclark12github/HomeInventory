@@ -484,6 +484,7 @@ ExitSub:
     
 ErrorHandler:
     MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, frm.Caption
+    GoTo ExitSub
     Resume Next
 End Sub
 Public Sub SearchCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String)
