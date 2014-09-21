@@ -3,22 +3,33 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Home Inventory"
-   ClientHeight    =   1920
+   ClientHeight    =   3960
    ClientLeft      =   36
    ClientTop       =   492
-   ClientWidth     =   3612
+   ClientWidth     =   5868
    Icon            =   "frmMain.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   1920
-   ScaleWidth      =   3612
+   ScaleHeight     =   3960
+   ScaleWidth      =   5868
    StartUpPosition =   1  'CenterOwner
-   Begin MSComDlg.CommonDialog dlgMain 
-      Left            =   120
-      Top             =   60
-      _ExtentX        =   677
-      _ExtentY        =   677
-      _Version        =   393216
+   Begin VB.HScrollBar scrollH 
+      Height          =   192
+      LargeChange     =   1000
+      Left            =   60
+      SmallChange     =   100
+      TabIndex        =   2
+      Top             =   3780
+      Width           =   5652
+   End
+   Begin VB.VScrollBar scrollV 
+      Height          =   3792
+      LargeChange     =   1000
+      Left            =   5700
+      SmallChange     =   100
+      TabIndex        =   1
+      Top             =   0
+      Width           =   192
    End
    Begin VB.PictureBox picBackground 
       AutoRedraw      =   -1  'True
@@ -31,6 +42,13 @@ Begin VB.Form frmMain
       TabIndex        =   0
       Top             =   300
       Width           =   10848
+   End
+   Begin MSComDlg.CommonDialog dlgMain 
+      Left            =   120
+      Top             =   60
+      _ExtentX        =   677
+      _ExtentY        =   677
+      _Version        =   393216
    End
    Begin VB.Menu mnuFile 
       Caption         =   "&File"
@@ -215,6 +233,8 @@ Private Sub LoadBackground()
     Dim scHeight As Integer
     Dim borderWidth As Integer
     Dim borderHeight As Integer
+    Dim NeedHBar As Boolean
+    Dim NeedVBar As Boolean
     
     scWidth = Screen.Width / Screen.TwipsPerPixelX
     scHeight = Screen.Height / Screen.TwipsPerPixelY
@@ -223,17 +243,38 @@ Private Sub LoadBackground()
     borderHeight = Me.Height - Me.ScaleHeight
     
     picBackground.Picture = LoadPicture(gstrImagePath)
-    picBackground.Move Me.ScaleLeft, Me.ScaleTop
-    iWidth = picBackground.Width + (2 * picBackground.Left) + borderWidth
-    iHeight = picBackground.Height + (2 * picBackground.Top) + borderHeight
-    If iWidth < iMinWidth Then iWidth = iMinWidth
-    If iHeight < iMinHeight Then iHeight = iMinHeight
+    picBackground.Move 0, 0
+    
+    'Everything is governed by the size of the picture...
+    iWidth = picBackground.Width + borderWidth
+    iHeight = borderHeight + picBackground.Height
+    
+    scrollH.Visible = False
+    If iWidth < iMinWidth Then
+        iWidth = iMinWidth
+    ElseIf iWidth >= Screen.Width Then
+        iWidth = Screen.Width
+        scrollH.Visible = True
+        scrollH.Value = 0
+    End If
+    
+    scrollV.Visible = False
+    If iHeight < iMinHeight Then
+        iHeight = iMinHeight
+    ElseIf iHeight > Screen.Height Then
+        iHeight = Screen.Height
+        scrollV.Visible = True
+        scrollV.Value = 0
+    End If
     Me.Width = iWidth
     Me.Height = iHeight
     Me.Move (Screen.Width - Me.Width) / 2, (Screen.Height - Me.Height) / 2
 End Sub
 Private Sub LoadDBcoll(DBname As String)
     DBcollection.Add DBname, DBname, gstrDBlocation & DBname & ".mdb", gstrProvider, gstrRunTimeUserName, gstrRunTimePassword, DBname
+End Sub
+Private Sub Form_Activate()
+    'LoadBackground
 End Sub
 Private Sub Form_Load()
     MinWidth = iMinWidth
@@ -250,6 +291,21 @@ Private Sub Form_Load()
     
     gstrImagePath = GetSetting(App.FileDescription, "Environment", "ImagePath", gstrDefaultImagePath)
     LoadBackground
+End Sub
+Private Sub Form_Resize()
+    scrollH.Top = Me.ScaleHeight - scrollH.Height
+    scrollH.Left = 0
+    scrollH.Width = Me.ScaleWidth - scrollV.Width
+    scrollH.Max = picBackground.Width - Me.ScaleWidth
+    scrollH.SmallChange = picBackground.Width / 1000
+    scrollH.LargeChange = picBackground.Width / 50
+    
+    scrollV.Top = 0
+    scrollV.Left = Me.ScaleWidth - scrollV.Width
+    scrollV.Height = Me.ScaleHeight - scrollH.Height
+    scrollV.Max = picBackground.Height - Me.ScaleHeight
+    scrollV.SmallChange = picBackground.Height / 1000
+    scrollV.LargeChange = picBackground.Height / 50
 End Sub
 Private Sub mnuDataBaseBooks_Click()
     frmBooks.Show vbModal
@@ -337,4 +393,10 @@ Private Sub mnuHelpAbout_Click()
 End Sub
 Private Sub picBackground_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     If Button = vbKeyRButton Then PopupMenu mnuFile
+End Sub
+Private Sub scrollH_Change()
+    picBackground.Left = -scrollH.Value
+End Sub
+Private Sub scrollV_Change()
+    picBackground.Top = -scrollV.Value
 End Sub
