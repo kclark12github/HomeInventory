@@ -12,7 +12,7 @@ Global Const gstrDefaultImage As String = "F14_102.jpg"
 Global Const iMinWidth As Single = 2184
 Global Const iMinHeight As Single = 1440
 Global Const ResizeWindow As Single = 36
-Global Const gfUseFilterMethod As Boolean = False
+Global Const gfUseFilterMethod As Boolean = True
 
 Private Const LOCALE_SSHORTDATE = &H1F
 Private Const WM_SETTINGCHANGE = &H1A
@@ -506,7 +506,7 @@ Public Function dbcValidate(fld As ADODB.Field, ctl As DataCombo) As Integer
     If IsNull(ctl.SelectedItem) Then
         Call ParseSQLSelect(pDataSource.Source, FieldList, TableList, WhereClause, OrderByClause)
         If WhereClause <> vbNullString Then WhereClause = WhereClause & " And "
-        WhereClause = WhereClause & " " & fld.Name & " like '" & ctl.Text & "%'"
+        WhereClause = WhereClause & " " & fld.Name & " like '" & SQLQuote(ctl.Text) & "%'"
         SQLstring = "select " & FieldList & " from " & TableList & " where " & WhereClause
         If OrderByClause <> vbNullString Then SQLstring = SQLstring & " order by " & OrderByClause
         
