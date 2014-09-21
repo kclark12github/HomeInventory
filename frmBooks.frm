@@ -271,8 +271,8 @@ Begin VB.Form frmBooks
    End
    Begin VB.Menu mnuAction 
       Caption         =   "&Action"
-      Begin VB.Menu mnuActionAdd 
-         Caption         =   "&Add"
+      Begin VB.Menu mnuActionNew 
+         Caption         =   "&New"
       End
       Begin VB.Menu mnuActionModify 
          Caption         =   "&Modify"
@@ -290,6 +290,7 @@ Attribute VB_Exposed = False
 Option Explicit
 Dim adoConn As ADODB.Connection
 Dim WithEvents rsBooks As ADODB.Recordset
+Attribute rsBooks.VB_VarHelpID = -1
 Dim rsAuthors As New ADODB.Recordset
 Dim rsSubjects As New ADODB.Recordset
 Dim strDefaultAlphaSort As String
@@ -460,7 +461,7 @@ Private Sub Form_Unload(Cancel As Integer)
     End If
     Set adoConn = Nothing
 End Sub
-Private Sub mnuActionAdd_Click()
+Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
     adodcBooks.Enabled = False
