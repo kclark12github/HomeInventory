@@ -2,32 +2,48 @@ VERSION 5.00
 Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
-Begin VB.Form frmAircraftModels1 
+Begin VB.Form frmKits 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Aircraft Models"
-   ClientHeight    =   3588
+   Caption         =   "Model Kits"
+   ClientHeight    =   4980
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3588
+   ScaleHeight     =   4980
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
-   Begin VB.TextBox txtCount 
+   Begin VB.CheckBox chkOutOfProduction 
+      Caption         =   "Out of Production"
+      Height          =   192
+      Left            =   4680
+      TabIndex        =   5
+      Top             =   1020
+      Width           =   1932
+   End
+   Begin VB.TextBox txtDateVerified 
       Height          =   288
-      Left            =   5928
-      TabIndex        =   8
-      Text            =   "Count"
-      Top             =   1860
-      Width           =   972
+      Left            =   4824
+      TabIndex        =   14
+      Text            =   "DateVerified"
+      Top             =   3660
+      Width           =   1812
+   End
+   Begin VB.TextBox txtNotes 
+      Height          =   1152
+      Left            =   1536
+      MultiLine       =   -1  'True
+      TabIndex        =   12
+      Top             =   2460
+      Width           =   5892
    End
    Begin VB.TextBox txtReference 
       Height          =   288
-      Left            =   5928
-      TabIndex        =   6
+      Left            =   5940
+      TabIndex        =   8
       Text            =   "Reference"
       Top             =   1560
       Width           =   1452
@@ -38,8 +54,8 @@ Begin VB.Form frmAircraftModels1
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6480
-      TabIndex        =   11
-      Top             =   3120
+      TabIndex        =   16
+      Top             =   4500
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
@@ -47,14 +63,14 @@ Begin VB.Form frmAircraftModels1
       Default         =   -1  'True
       Height          =   372
       Left            =   5460
-      TabIndex        =   10
-      Top             =   3120
+      TabIndex        =   15
+      Top             =   4500
       Width           =   972
    End
    Begin MSAdodcLib.Adodc adodcHobby 
       Height          =   312
       Left            =   264
-      Top             =   2640
+      Top             =   4020
       Width           =   7152
       _ExtentX        =   12615
       _ExtentY        =   550
@@ -97,18 +113,18 @@ Begin VB.Form frmAircraftModels1
       EndProperty
       _Version        =   393216
    End
-   Begin VB.TextBox txtInventoried 
+   Begin VB.TextBox txtDateInventoried 
       Height          =   288
       Left            =   1524
-      TabIndex        =   9
+      TabIndex        =   13
       Text            =   "Inventoried"
-      Top             =   2172
+      Top             =   3672
       Width           =   1812
    End
    Begin MSDataListLib.DataCombo dbcManufacturer 
       Height          =   288
       Left            =   1524
-      TabIndex        =   4
+      TabIndex        =   6
       Top             =   1272
       Width           =   5892
       _ExtentX        =   10393
@@ -129,8 +145,8 @@ Begin VB.Form frmAircraftModels1
          SubFormatType   =   2
       EndProperty
       Height          =   288
-      Left            =   4944
-      TabIndex        =   3
+      Left            =   3264
+      TabIndex        =   4
       Top             =   960
       Width           =   972
    End
@@ -145,14 +161,14 @@ Begin VB.Form frmAircraftModels1
    Begin VB.TextBox txtName 
       Height          =   288
       Left            =   1524
-      TabIndex        =   1
+      TabIndex        =   2
       Text            =   "Name"
       Top             =   672
       Width           =   5892
    End
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   480
-      Top             =   3120
+      Top             =   4500
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -206,7 +222,7 @@ Begin VB.Form frmAircraftModels1
    End
    Begin MSComctlLib.ImageList imlLarge 
       Left            =   60
-      Top             =   3120
+      Top             =   4500
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -261,7 +277,7 @@ Begin VB.Form frmAircraftModels1
    Begin MSDataListLib.DataCombo dbcCatalog 
       Height          =   288
       Left            =   1524
-      TabIndex        =   5
+      TabIndex        =   7
       Top             =   1560
       Width           =   3252
       _ExtentX        =   5736
@@ -273,7 +289,7 @@ Begin VB.Form frmAircraftModels1
    Begin MSDataListLib.DataCombo dbcNation 
       Height          =   288
       Left            =   1524
-      TabIndex        =   7
+      TabIndex        =   9
       Top             =   1860
       Width           =   3252
       _ExtentX        =   5736
@@ -285,7 +301,7 @@ Begin VB.Form frmAircraftModels1
    Begin MSDataListLib.DataCombo dbcScale 
       Height          =   288
       Left            =   1524
-      TabIndex        =   2
+      TabIndex        =   3
       Top             =   972
       Width           =   1092
       _ExtentX        =   1926
@@ -294,11 +310,47 @@ Begin VB.Form frmAircraftModels1
       MatchEntry      =   -1  'True
       Text            =   "Scale"
    End
+   Begin MSDataListLib.DataCombo dbcType 
+      Height          =   288
+      Left            =   4404
+      TabIndex        =   1
+      Top             =   360
+      Width           =   3012
+      _ExtentX        =   5313
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   "Type"
+   End
+   Begin MSDataListLib.DataCombo dbcLocations 
+      Height          =   288
+      Left            =   4152
+      TabIndex        =   11
+      Top             =   2160
+      Width           =   3252
+      _ExtentX        =   5736
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   "Location"
+   End
+   Begin MSDataListLib.DataCombo dbcConditions 
+      Height          =   288
+      Left            =   1524
+      TabIndex        =   10
+      Top             =   2160
+      Width           =   1692
+      _ExtentX        =   2985
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   "Condition"
+   End
    Begin MSComctlLib.Toolbar tbHobby 
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   24
+      TabIndex        =   33
       Top             =   0
       Width           =   7524
       _ExtentX        =   13272
@@ -350,21 +402,59 @@ Begin VB.Form frmAircraftModels1
          EndProperty
       EndProperty
    End
-   Begin VB.Label lblCount 
+   Begin VB.Label lblCondition 
+      Alignment       =   1  'Right Justify
       AutoSize        =   -1  'True
-      Caption         =   "Count:"
+      Caption         =   "Condition:"
       Height          =   192
-      Left            =   5340
-      TabIndex        =   23
-      Top             =   1908
-      Width           =   444
+      Left            =   708
+      TabIndex        =   32
+      Top             =   2220
+      Width           =   708
+   End
+   Begin VB.Label lblLocation 
+      Alignment       =   1  'Right Justify
+      AutoSize        =   -1  'True
+      Caption         =   "Location:"
+      Height          =   192
+      Left            =   3396
+      TabIndex        =   31
+      Top             =   2208
+      Width           =   648
+   End
+   Begin VB.Label lblDateVerified 
+      AutoSize        =   -1  'True
+      Caption         =   "Date Inventoried:"
+      Height          =   192
+      Left            =   3540
+      TabIndex        =   30
+      Top             =   3708
+      Width           =   1212
+   End
+   Begin VB.Label lblNotes 
+      AutoSize        =   -1  'True
+      Caption         =   "Notes:"
+      Height          =   192
+      Left            =   960
+      TabIndex        =   29
+      Top             =   2520
+      Width           =   468
+   End
+   Begin VB.Label lblType 
+      AutoSize        =   -1  'True
+      Caption         =   "Type:"
+      Height          =   192
+      Left            =   3900
+      TabIndex        =   28
+      Top             =   420
+      Width           =   420
    End
    Begin VB.Label lblCatalog 
       AutoSize        =   -1  'True
       Caption         =   "Catalog:"
       Height          =   192
       Left            =   816
-      TabIndex        =   22
+      TabIndex        =   27
       Top             =   1608
       Width           =   600
    End
@@ -373,7 +463,7 @@ Begin VB.Form frmAircraftModels1
       Caption         =   "Reference:"
       Height          =   192
       Left            =   5040
-      TabIndex        =   21
+      TabIndex        =   26
       Top             =   1608
       Width           =   792
    End
@@ -382,7 +472,7 @@ Begin VB.Form frmAircraftModels1
       Caption         =   "Scale:"
       Height          =   192
       Left            =   960
-      TabIndex        =   20
+      TabIndex        =   25
       Top             =   1020
       Width           =   456
    End
@@ -391,17 +481,17 @@ Begin VB.Form frmAircraftModels1
       Caption         =   "ID:"
       Height          =   192
       Left            =   6804
-      TabIndex        =   19
-      Top             =   2220
+      TabIndex        =   24
+      Top             =   3720
       Width           =   192
    End
    Begin VB.Label lblDateInventoried 
       AutoSize        =   -1  'True
       Caption         =   "Date Inventoried:"
       Height          =   192
-      Left            =   204
-      TabIndex        =   18
-      Top             =   2220
+      Left            =   240
+      TabIndex        =   23
+      Top             =   3720
       Width           =   1212
    End
    Begin VB.Label lblNation 
@@ -409,7 +499,7 @@ Begin VB.Form frmAircraftModels1
       Caption         =   "Nation:"
       Height          =   192
       Left            =   912
-      TabIndex        =   17
+      TabIndex        =   22
       Top             =   1908
       Width           =   504
    End
@@ -426,8 +516,8 @@ Begin VB.Form frmAircraftModels1
          SubFormatType   =   0
       EndProperty
       Height          =   192
-      Left            =   4428
-      TabIndex        =   16
+      Left            =   2748
+      TabIndex        =   21
       Top             =   1020
       Width           =   408
    End
@@ -436,7 +526,7 @@ Begin VB.Form frmAircraftModels1
       Caption         =   "Designation:"
       Height          =   192
       Left            =   516
-      TabIndex        =   15
+      TabIndex        =   20
       Top             =   420
       Width           =   900
    End
@@ -445,7 +535,7 @@ Begin VB.Form frmAircraftModels1
       Caption         =   "Name:"
       Height          =   192
       Left            =   936
-      TabIndex        =   14
+      TabIndex        =   19
       Top             =   720
       Width           =   480
    End
@@ -454,7 +544,7 @@ Begin VB.Form frmAircraftModels1
       Caption         =   "Manufacturer:"
       Height          =   192
       Left            =   456
-      TabIndex        =   13
+      TabIndex        =   18
       Top             =   1320
       Width           =   960
    End
@@ -463,8 +553,8 @@ Begin VB.Form frmAircraftModels1
       Caption         =   "lblID"
       Height          =   192
       Left            =   7092
-      TabIndex        =   12
-      Top             =   2220
+      TabIndex        =   17
+      Top             =   3720
       Width           =   324
    End
    Begin VB.Menu mnuAction 
@@ -492,19 +582,22 @@ Begin VB.Form frmAircraftModels1
       End
    End
 End
-Attribute VB_Name = "frmAircraftModels1"
+Attribute VB_Name = "frmKits"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 Dim adoConn As ADODB.Connection
-Dim WithEvents rsAircraftModels As ADODB.Recordset
-Attribute rsAircraftModels.VB_VarHelpID = -1
+Dim WithEvents rsKits As ADODB.Recordset
+Attribute rsKits.VB_VarHelpID = -1
 Dim rsManufacturers As New ADODB.Recordset
 Dim rsCatalogs As New ADODB.Recordset
 Dim rsScales As New ADODB.Recordset
 Dim rsNations As New ADODB.Recordset
+Dim rsConditions As New ADODB.Recordset
+Dim rsLocations As New ADODB.Recordset
+Dim rsTypes As New ADODB.Recordset
 Dim mode As ActionMode
 Dim fTransaction As Boolean
 Dim DBinfo As DataBaseInfo
@@ -513,7 +606,7 @@ Private Sub cmdCancel_Click()
         Case modeDisplay
             Unload Me
         Case modeAdd, modeModify
-            rsAircraftModels.CancelUpdate
+            rsKits.CancelUpdate
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -529,22 +622,25 @@ Private Sub cmdOK_Click()
             Unload Me
         Case modeAdd, modeModify
             'Why we need to do this is buggy...
-            rsAircraftModels("Manufacturer") = dbcManufacturer.BoundText
-            rsAircraftModels("Catalog") = dbcCatalog.BoundText
-            rsAircraftModels.UpdateBatch
+            rsKits("Manufacturer") = dbcManufacturer.BoundText
+            rsKits("Catalog") = dbcCatalog.BoundText
+            rsKits.UpdateBatch
             adoConn.CommitTrans
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
             adodcHobby.Enabled = True
             
-            SaveBookmark = rsAircraftModels("Reference")
-            rsAircraftModels.Requery
-            rsAircraftModels.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
+            SaveBookmark = rsKits("Reference")
+            rsKits.Requery
+            rsKits.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
             rsManufacturers.Requery
             rsCatalogs.Requery
             rsScales.Requery
+            rsTypes.Requery
             rsNations.Requery
+            rsConditions.Requery
+            rsLocations.Requery
     End Select
 End Sub
 Private Sub dbcCatalog_GotFocus()
@@ -553,6 +649,20 @@ End Sub
 Private Sub dbcCatalog_Validate(Cancel As Boolean)
     If Trim(dbcCatalog.Text) = vbNullString Then dbcCatalog.Text = "Unknown"
     If rsCatalogs.Bookmark <> dbcCatalog.SelectedItem Then rsCatalogs.Bookmark = dbcCatalog.SelectedItem
+End Sub
+Private Sub dbcConditions_GotFocus()
+    TextSelected
+End Sub
+Private Sub dbcConditions_Validate(Cancel As Boolean)
+    If Trim(dbcConditions.Text) = vbNullString Then dbcConditions.Text = "Unknown"
+    If rsConditions.Bookmark <> dbcConditions.SelectedItem Then rsConditions.Bookmark = dbcConditions.SelectedItem
+End Sub
+Private Sub dbcLocations_GotFocus()
+    TextSelected
+End Sub
+Private Sub dbcLocations_Validate(Cancel As Boolean)
+    If Trim(dbcLocations.Text) = vbNullString Then dbcLocations.Text = "Unknown"
+    If rsLocations.Bookmark <> dbcLocations.SelectedItem Then rsLocations.Bookmark = dbcLocations.SelectedItem
 End Sub
 Private Sub dbcManufacturer_GotFocus()
     TextSelected
@@ -583,9 +693,20 @@ Private Sub dbcScale_Validate(Cancel As Boolean)
     If dbcScale.Text = vbNullString Then dbcScale.Text = "Unknown"
     If rsScales.Bookmark <> dbcScale.SelectedItem Then rsScales.Bookmark = dbcScale.SelectedItem
 End Sub
+Private Sub dbcType_GotFocus()
+    TextSelected
+End Sub
+Private Sub dbcType_Validate(Cancel As Boolean)
+    If dbcType.Text = vbNullString Then
+        MsgBox "Type must be specified!", vbExclamation, Me.Caption
+        dbcType.SetFocus
+        Cancel = True
+    End If
+    If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
+End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
-    Set rsAircraftModels = New ADODB.Recordset
+    Set rsKits = New ADODB.Recordset
     Set DBinfo = frmMain.DBcollection("Hobby")
     With DBinfo
         adoConn.Provider = .Provider
@@ -593,33 +714,54 @@ Private Sub Form_Load()
         adoConn.ConnectionTimeout = 60
         adoConn.Open .PathName, .UserName, .Password
     End With
-    rsAircraftModels.CursorLocation = adUseClient
-    rsAircraftModels.Open "select * from [Aircraft Models] order by Scale,Designation,Name", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsKits.CursorLocation = adUseClient
+    rsKits.Open "select * from [Kits] order by Manufacturer,Type,Reference,Scale", adoConn, adOpenKeyset, adLockBatchOptimistic
+    
+    rsKits.MoveFirst
+    While Not rsKits.EOF
+        Debug.Print "rsKits.DateInventoried: " & rsKits("DateInventoried") & "; rsKits.DateVerified: " & rsKits("DateVerified")
+        rsKits.MoveNext
+    Wend
+    rsKits.MoveFirst
     
     rsManufacturers.CursorLocation = adUseClient
-    rsManufacturers.Open "select distinct Manufacturer from [Aircraft Models] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
+    rsManufacturers.Open "select distinct Manufacturer from [Kits] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
     
     rsCatalogs.CursorLocation = adUseClient
-    rsCatalogs.Open "select distinct Catalog from [Aircraft Models] order by Catalog", adoConn, adOpenStatic, adLockReadOnly
+    rsCatalogs.Open "select distinct Catalog from [Kits] order by Catalog", adoConn, adOpenStatic, adLockReadOnly
     
     rsScales.CursorLocation = adUseClient
-    rsScales.Open "select distinct Scale from [Aircraft Models] order by Scale", adoConn, adOpenStatic, adLockReadOnly
+    rsScales.Open "select distinct Scale from [Kits] order by Scale", adoConn, adOpenStatic, adLockReadOnly
+    
+    rsTypes.CursorLocation = adUseClient
+    rsTypes.Open "select distinct Type from [Kits] order by Type", adoConn, adOpenStatic, adLockReadOnly
     
     rsNations.CursorLocation = adUseClient
-    rsNations.Open "select distinct Nation from [Aircraft Models] order by Nation", adoConn, adOpenStatic, adLockReadOnly
+    rsNations.Open "select distinct Nation from [Kits] order by Nation", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcHobby.Recordset = rsAircraftModels
-    frmMain.BindField lblID, "ID", rsAircraftModels
-    frmMain.BindField dbcManufacturer, "Manufacturer", rsAircraftModels, rsManufacturers, "Manufacturer", "Manufacturer"
-    frmMain.BindField txtDesignation, "Designation", rsAircraftModels
-    frmMain.BindField txtName, "Name", rsAircraftModels
-    frmMain.BindField txtPrice, "Price", rsAircraftModels
-    frmMain.BindField dbcScale, "Scale", rsAircraftModels, rsScales, "Scale", "Scale"
-    frmMain.BindField txtReference, "Reference", rsAircraftModels
-    frmMain.BindField dbcCatalog, "Catalog", rsAircraftModels, rsCatalogs, "Catalog", "Catalog"
-    frmMain.BindField dbcNation, "Nation", rsAircraftModels, rsNations, "Nation", "Nation"
-    frmMain.BindField txtCount, "Count", rsAircraftModels
-    frmMain.BindField txtInventoried, "DateInventoried", rsAircraftModels
+    rsConditions.CursorLocation = adUseClient
+    rsConditions.Open "select distinct Condition from [Kits] order by Condition", adoConn, adOpenStatic, adLockReadOnly
+    
+    rsLocations.CursorLocation = adUseClient
+    rsLocations.Open "select distinct Location from [Kits] order by Location", adoConn, adOpenStatic, adLockReadOnly
+    
+    Set adodcHobby.Recordset = rsKits
+    frmMain.BindField lblID, "ID", rsKits
+    frmMain.BindField dbcManufacturer, "Manufacturer", rsKits, rsManufacturers, "Manufacturer", "Manufacturer"
+    frmMain.BindField txtDesignation, "Designation", rsKits
+    frmMain.BindField txtName, "Name", rsKits
+    frmMain.BindField txtPrice, "Price", rsKits
+    frmMain.BindField dbcScale, "Scale", rsKits, rsScales, "Scale", "Scale"
+    frmMain.BindField dbcType, "Type", rsKits, rsTypes, "Type", "Type"
+    frmMain.BindField txtReference, "Reference", rsKits
+    frmMain.BindField dbcCatalog, "Catalog", rsKits, rsCatalogs, "Catalog", "Catalog"
+    frmMain.BindField dbcNation, "Nation", rsKits, rsNations, "Nation", "Nation"
+    frmMain.BindField dbcConditions, "Condition", rsKits, rsConditions, "Condition", "Condition"
+    frmMain.BindField dbcLocations, "Location", rsKits, rsLocations, "Location", "Location"
+    frmMain.BindField chkOutOfProduction, "OutOfProduction", rsKits
+    'frmMain.BindField txtCount, "Count", rsKits
+    frmMain.BindField txtDateInventoried, "DateInventoried", rsKits
+    frmMain.BindField txtDateVerified, "DateVerified", rsKits
 
     frmMain.ProtectFields Me
     mode = modeDisplay
@@ -632,11 +774,11 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If Not rsAircraftModels.EOF Then
-        If rsAircraftModels.EditMode <> adEditNone Then rsAircraftModels.CancelUpdate
+    If Not rsKits.EOF Then
+        If rsKits.EditMode <> adEditNone Then rsKits.CancelUpdate
     End If
-    If (rsAircraftModels.State And adStateOpen) = adStateOpen Then rsAircraftModels.Close
-    Set rsAircraftModels = Nothing
+    If (rsKits.State And adStateOpen) = adStateOpen Then rsKits.Close
+    Set rsKits = Nothing
     rsManufacturers.Close
     Set rsManufacturers = Nothing
     rsCatalogs.Close
@@ -674,7 +816,7 @@ Private Sub mnuActionList_Click()
     frmList.Width = frm.Width
     frmList.Height = frm.Height
     
-    Set frmList.rsList = rsAircraftModels
+    Set frmList.rsList = rsKits
     Set frmList.mnuList = mnuAction
     Set frmList.dgdList.DataSource = frmList.rsList
     Set frmList.dgdList.Columns("Price").DataFormat = CurrencyFormat
@@ -692,19 +834,19 @@ Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
     adodcHobby.Enabled = False
-    rsAircraftModels.AddNew
+    rsKits.AddNew
     adoConn.BeginTrans
     fTransaction = True
     
-    txtInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
+    txtDateInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
     txtDesignation.SetFocus
 End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete
     If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsAircraftModels.Delete
-        rsAircraftModels.MoveNext
-        If rsAircraftModels.EOF Then rsAircraftModels.MoveLast
+        rsKits.Delete
+        rsKits.MoveNext
+        If rsKits.EOF Then rsKits.MoveLast
     End If
     mode = modeDisplay
 End Sub
@@ -720,7 +862,7 @@ End Sub
 Private Sub mnuActionReport_Click()
     'Dim Report As New scrHobbyReport
     
-    'Report.Database.SetDataSource rsAircraftModels, 3, 1
+    'Report.Database.SetDataSource rsKits, 3, 1
     'Set frmMain.rdcReport = Report
     'Set frmMain.frmReport = Me
     
@@ -728,22 +870,22 @@ Private Sub mnuActionReport_Click()
     
     'Set Report = Nothing
 End Sub
-Private Sub rsAircraftModels_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+Private Sub rsKits_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsAircraftModels.BOF And rsAircraftModels.EOF Then
+    If rsKits.BOF And rsKits.EOF Then
         Caption = "No Records"
-    ElseIf rsAircraftModels.EOF Then
+    ElseIf rsKits.EOF Then
         Caption = "EOF"
-    ElseIf rsAircraftModels.BOF Then
+    ElseIf rsKits.BOF Then
         Caption = "BOF"
     Else
-        If IsNumeric(rsAircraftModels("Scale")) Then
-            Caption = "Reference #" & rsAircraftModels.Bookmark & ": 1/" & rsAircraftModels("Scale") & " Scale; " & rsAircraftModels("Designation") & " " & rsAircraftModels("Name")
+        If IsNumeric(rsKits("Scale")) Then
+            Caption = "Reference #" & rsKits.Bookmark & ": 1/" & rsKits("Scale") & " Scale; " & rsKits("Designation") & " " & rsKits("Name")
         Else
-            Caption = "Reference #" & rsAircraftModels.Bookmark & ": " & rsAircraftModels("Scale") & " Scale; " & rsAircraftModels("Designation") & " " & rsAircraftModels("Name")
+            Caption = "Reference #" & rsKits.Bookmark & ": " & rsKits("Scale") & " Scale; " & rsKits("Designation") & " " & rsKits("Name")
         End If
         
         i = InStr(Caption, "&")
@@ -771,11 +913,17 @@ Private Sub tbHobby_ButtonClick(ByVal Button As MSComctlLib.Button)
             mnuActionReport_Click
     End Select
 End Sub
-Private Sub txtCount_GotFocus()
+Private Sub txtDateVerified_GotFocus()
     TextSelected
 End Sub
-Private Sub txtCount_Validate(Cancel As Boolean)
-    If txtCount.Text = vbNullString Then txtCount.Text = 1
+Private Sub txtDateVerified_Validate(Cancel As Boolean)
+    On Error Resume Next
+    txtDateVerified.Text = Format(txtDateVerified.Text, "mm/dd/yyyy hh:mm AMPM")
+    If Not IsDate(txtDateVerified.Text) Then
+        MsgBox "Invalid date format", vbExclamation
+        Cancel = True
+        Exit Sub
+    End If
 End Sub
 Private Sub txtDesignation_GotFocus()
     TextSelected
@@ -785,8 +933,17 @@ Private Sub txtDesignation_KeyPress(KeyAscii As Integer)
     Char = Chr(KeyAscii)
     KeyAscii = Asc(UCase(Char))
 End Sub
-Private Sub txtInventoried_GotFocus()
+Private Sub txtDateInventoried_GotFocus()
     TextSelected
+End Sub
+Private Sub txtDateInventoried_Validate(Cancel As Boolean)
+    On Error Resume Next
+    txtDateInventoried.Text = Format(txtDateInventoried.Text, "mm/dd/yyyy hh:mm AMPM")
+    If Not IsDate(txtDateInventoried.Text) Then
+        MsgBox "Invalid date format", vbExclamation
+        Cancel = True
+        Exit Sub
+    End If
 End Sub
 Private Sub txtName_GotFocus()
     TextSelected

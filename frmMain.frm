@@ -336,12 +336,6 @@ End Sub
 Private Sub mnuDataBaseHobbyAircraftDesignations_Click()
     frmAircraftDesignations.Show vbModal
 End Sub
-Private Sub mnuDataBaseHobbyAircraftModels_Click()
-    frmAircraftModels.Show vbModal
-End Sub
-Private Sub mnuDataBaseHobbyArmorCarModels_Click()
-    frmArmorCarModels.Show vbModal
-End Sub
 Private Sub mnuDataBaseHobbyBlueAngelsHistory_Click()
     frmBlueAngelsHistory.Show vbModal
 End Sub
@@ -357,17 +351,11 @@ End Sub
 Private Sub mnuDataBaseHobbyKits_Click()
     frmKits.Show vbModal
 End Sub
-Private Sub mnuDataBaseHobbyNavalModels_Click()
-    frmNavalModels.Show vbModal
-End Sub
 Private Sub mnuDataBaseHobbyPaintsBrushes_Click()
     frmPaintsBrushes.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyRockets_Click()
     frmRockets.Show vbModal
-End Sub
-Private Sub mnuDataBaseHobbySciFiSpaceModels_Click()
-    frmSciFiNASAModels.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyTools_Click()
     frmTools.Show vbModal
