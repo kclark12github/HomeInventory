@@ -70,26 +70,7 @@ Begin VB.Form frmMain
       Begin VB.Menu mnuDataBaseHobby 
          Caption         =   "&Hobby"
          Begin VB.Menu mnuDataBaseHobbyKits 
-            Caption         =   "Model &Kits"
-         End
-         Begin VB.Menu mnuDataBaseHobbyAircraftDesignations 
-            Caption         =   "Aircraft Designations"
-         End
-         Begin VB.Menu mnuDataBaseHobbyAircraftModels 
-            Caption         =   "&Aircraft Models"
-            Enabled         =   0   'False
-            Visible         =   0   'False
-         End
-         Begin VB.Menu mnuDataBaseHobbyArmorCarModels 
-            Caption         =   "Armor && &Car Models"
-            Enabled         =   0   'False
-            Visible         =   0   'False
-         End
-         Begin VB.Menu mnuDataBaseHobbyBlueAngelsHistory 
-            Caption         =   "&Blue Angels History"
-         End
-         Begin VB.Menu mnuDataBaseHobbyCompanies 
-            Caption         =   "&Companies"
+            Caption         =   "&Kits"
          End
          Begin VB.Menu mnuDataBaseHobbyDecals 
             Caption         =   "&Decals"
@@ -100,27 +81,38 @@ Begin VB.Form frmMain
          Begin VB.Menu mnuDataBaseHobbyFinishingProducts 
             Caption         =   "&Finishing Products"
          End
-         Begin VB.Menu mnuDataBaseHobbyNavalModels 
-            Caption         =   "&Naval Models"
-            Enabled         =   0   'False
-            Visible         =   0   'False
-         End
-         Begin VB.Menu mnuDataBaseHobbyRockets 
-            Caption         =   "&Rockets"
-         End
-         Begin VB.Menu mnuDataBaseHobbySciFiSpaceModels 
-            Caption         =   "&SciFi && Space Models"
-            Enabled         =   0   'False
-            Visible         =   0   'False
+         Begin VB.Menu mnuDataBaseHobbySep1 
+            Caption         =   "-"
          End
          Begin VB.Menu mnuDataBaseHobbyTools 
             Caption         =   "&Tools"
          End
+         Begin VB.Menu mnuDataBaseHobbyVideoResearch 
+            Caption         =   "&Video Research"
+         End
+         Begin VB.Menu mnuDataBaseHobbySep2 
+            Caption         =   "-"
+         End
+         Begin VB.Menu mnuDataBaseHobbyRockets 
+            Caption         =   "&Rockets"
+         End
          Begin VB.Menu mnuDataBaseHobbyTrains 
             Caption         =   "T&rains"
          End
-         Begin VB.Menu mnuDataBaseHobbyVideoResearch 
-            Caption         =   "&Video Research"
+         Begin VB.Menu mnuDataBaseHobbySep3 
+            Caption         =   "-"
+         End
+         Begin VB.Menu mnuDataBaseHobbyCompanies 
+            Caption         =   "&Companies"
+         End
+         Begin VB.Menu mnuDataBaseHobbySep4 
+            Caption         =   "-"
+         End
+         Begin VB.Menu mnuDataBaseHobbyAircraftDesignations 
+            Caption         =   "Aircraft Designations"
+         End
+         Begin VB.Menu mnuDataBaseHobbyBlueAngelsHistory 
+            Caption         =   "&Blue Angels History"
          End
       End
       Begin VB.Menu mnuDataBaseMusic 
@@ -131,20 +123,17 @@ Begin VB.Form frmMain
       End
       Begin VB.Menu mnuDataBaseUSNavyShips 
          Caption         =   "&US Navy Ships"
-         Begin VB.Menu mnuUSNavyShipsClasses 
+         Begin VB.Menu mnuDataBaseUSNavyShipsShips 
+            Caption         =   "&Ships"
+         End
+         Begin VB.Menu mnuDataBaseUSNavyShipsSep 
+            Caption         =   "-"
+         End
+         Begin VB.Menu mnuDataBaseUSNavyShipsClasses 
             Caption         =   "&Classes"
          End
-         Begin VB.Menu mnuUSNavyShipsClassifications 
+         Begin VB.Menu mnuDataBaseUSNavyShipsClassifications 
             Caption         =   "Classificatio&ns"
-         End
-         Begin VB.Menu mnuUSNavyShipsCommands 
-            Caption         =   "C&ommands"
-         End
-         Begin VB.Menu mnuUSNavyShipsHomePorts 
-            Caption         =   "&Home Ports"
-         End
-         Begin VB.Menu mnuUSNavyShipsShips 
-            Caption         =   "&Ships"
          End
       End
       Begin VB.Menu mnuDataBaseVideoLibrary 
@@ -207,13 +196,15 @@ End Enum
 Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Recordset, Optional RowSource As ADODB.Recordset, Optional BoundColumn As String, Optional ListField As String)
     Dim DateTimeFormat As StdDataFormat
     Select Case TypeName(ctl)
-        Case "CheckBox", "Label", "TextBox"
+        Case "CheckBox", "Label", "RichTextBox", "TextBox"
             Set ctl.DataSource = DataSource
             ctl.DataField = DataField
             If DataSource(DataField).Type = adDate Then
-                Set DateTimeFormat = New StdDataFormat
-                DateTimeFormat.Format = "dd-MMM-yyyy hh:mm AMPM"
-                Set ctl.DataFormat = DateTimeFormat
+                If ctl.DataFormat.Format = vbNullString Then
+                    Set DateTimeFormat = New StdDataFormat
+                    DateTimeFormat.Format = "dd-MMM-yyyy hh:mm AMPM"
+                    Set ctl.DataFormat = DateTimeFormat
+                End If
             End If
         Case "DataCombo"
             Set ctl.DataSource = DataSource
@@ -227,7 +218,7 @@ Public Sub OpenFields(pForm As Form)
     Dim ctl As Control
     For Each ctl In pForm.Controls
         Select Case TypeName(ctl)
-            Case "TextBox", "DataCombo", "ComboBox"
+            Case "TextBox", "DataCombo", "ComboBox", "RichTextBox"
                 'ctl.Locked = False
                 ctl.Enabled = True
                 ctl.BackColor = vbWindowBackground
@@ -243,7 +234,7 @@ Public Sub ProtectFields(pForm As Form)
     Dim ctl As Control
     For Each ctl In pForm.Controls
         Select Case TypeName(ctl)
-            Case "TextBox", "DataCombo", "ComboBox"
+            Case "TextBox", "DataCombo", "ComboBox", "RichTextBox"
                 'ctl.Locked = True
                 ctl.Enabled = False
                 ctl.BackColor = vbButtonFace
@@ -403,6 +394,15 @@ Private Sub mnuDataBaseMusic_Click()
 End Sub
 Private Sub mnuDataBaseSoftware_Click()
     frmSoftware.Show vbModal
+End Sub
+Private Sub mnuDataBaseUSNavyShipsClasses_Click()
+    frmUSNClasses.Show vbModal
+End Sub
+Private Sub mnuDataBaseUSNavyShipsClassifications_Click()
+    frmUSNClassifications.Show vbModal
+End Sub
+Private Sub mnuDataBaseUSNavyShipsShips_Click()
+    frmUSNShips.Show vbModal
 End Sub
 Private Sub mnuDataBaseVideoLibraryMovies_Click()
     frmMovies.Show vbModal
