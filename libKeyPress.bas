@@ -14,7 +14,7 @@ Public Sub KeyPressReal(KeyAscii As Integer)
         KeyAscii = 7
     End If
 End Sub
-Public Sub ValidateCurrency(strField As String, Cancel As Integer)
+Public Sub ValidateCurrency(strField As String, Cancel As Boolean)
     If strField = vbNullString Then strField = Format(0, "Currency")
     If Not IsNumeric(strField) Then
         MsgBox "Invalid currency value entered.", vbExclamation, Screen.ActiveForm.Caption
