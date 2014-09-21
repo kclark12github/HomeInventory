@@ -119,8 +119,14 @@ Begin VB.Form frmMain
             Caption         =   "&Ships"
          End
       End
-      Begin VB.Menu mnuDataBaseVideoTapes 
-         Caption         =   "&Video Tapes"
+      Begin VB.Menu mnuDataBaseVideoLibrary 
+         Caption         =   "&Video Library"
+         Begin VB.Menu mnuDataBaseVideoLibraryMovies 
+            Caption         =   "&Movies"
+         End
+         Begin VB.Menu mnuDataBaseVideoLibraryEpisodes 
+            Caption         =   "&Episodes"
+         End
       End
       Begin VB.Menu mnuDataBaseKFC 
          Caption         =   "&WebLinks (KFC)"
