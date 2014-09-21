@@ -349,8 +349,7 @@ Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
-Private cnKFC As New ADODB.Connection
-Private cmdKFC As New ADODB.Command
+Private adoConn As ADODB.Connection
 Private RootIndex As Integer
 Private gfDragMode As Boolean
 Private DragNode As ComctlLib.Node
@@ -359,11 +358,7 @@ Private fAdding As Boolean
 Private LocalSite As String
 Private WithEvents IE As SHDocVw.InternetExplorer
 Attribute IE.VB_VarHelpID = -1
-'Const gstrConnectionString = "DRIVER={Microsoft Access Driver (*.mdb)};DBQ=KFC.mdb;DefaultDir=E:\WebShare\wwwroot\Access;"
-Const gstrProvider = "Microsoft.Jet.OLEDB.3.51"
-Const gstrConnectionString = "E:\WebShare\wwwroot\Access\KFC.mdb"
-Const gstrRunTimeUserName = "admin"
-Const gstrRunTimePassword = ""
+Private DBinfo As DataBaseInfo
 Event BeginEditMode()
 Event EndEditMode()
 Private Sub AddEntry(ByRef strID As String, strLabel As String, strParentID As String, strTargetFrame As String, strButton As String, strURL As String, fHasMembers As Boolean)
@@ -372,8 +367,8 @@ Private Sub AddEntry(ByRef strID As String, strLabel As String, strParentID As S
     
     Trace trcEnter, "AddEntry()"
     rsEntry.MaxRecords = 1
-    Trace trcBody, "rsEntry.Open ""SELECT * from MenuEntries"", cnKFC, adOpenKeyset, adLockReadOnly"
-    rsEntry.Open "SELECT * from MenuEntries", cnKFC, adOpenForwardOnly, adLockOptimistic
+    Trace trcBody, "rsEntry.Open ""SELECT * from MenuEntries"", adoconn, adOpenKeyset, adLockReadOnly"
+    rsEntry.Open "SELECT * from MenuEntries", adoConn, adOpenForwardOnly, adLockOptimistic
     Trace trcBody, "rsEntry.AddNew"
     rsEntry.AddNew
     strID = rsEntry("ID")
@@ -382,7 +377,11 @@ Private Sub AddEntry(ByRef strID As String, strLabel As String, strParentID As S
     Else
         rsEntry("Label") = VBencode(strLabel)
     End If
-    rsEntry("ParentID") = VBencode(strParentID)
+    If Trim(strParentID) = vbNullString Then
+        rsEntry("ParentID") = 0
+    Else
+        rsEntry("ParentID") = VBencode(strParentID)
+    End If
     rsEntry("TargetFrame") = VBencode(strTargetFrame)
     rsEntry("ButtonLabel") = VBencode(strButton)
     rsEntry("URL") = URLencode(strURL)
@@ -518,7 +517,7 @@ Private Sub cmdOK_Click()
     Else
         Set mNode = tvwDB.SelectedItem
         intID = Mid(lblID.Caption, 5)
-        rsEntry.Open "SELECT * from MenuEntries where ID=" & intID, cnKFC, adOpenForwardOnly, adLockOptimistic
+        rsEntry.Open "SELECT * from MenuEntries where ID=" & intID, adoConn, adOpenForwardOnly, adLockOptimistic
         rsEntry("Label") = VBencode(txtLabel.Text)
         rsEntry("ParentID") = VBencode(txtParentID.Text)      'Set behind the scenes...
         rsEntry("TargetFrame") = VBencode(txtTargetFrame.Text)
@@ -570,14 +569,14 @@ Private Sub CopyNode(TargetNode As ComctlLib.Node, SourceID As String)
     
     If TargetID <> "" Then
         'First get the particulars of the new target Node...
-        rsTargetEntry.Open "SELECT * from MenuEntries where ID=" & TargetID, cnKFC, adOpenForwardOnly, adLockReadOnly
+        rsTargetEntry.Open "SELECT * from MenuEntries where ID=" & TargetID, adoConn, adOpenForwardOnly, adLockReadOnly
         strButton = VBdecode(rsTargetEntry("ButtonLabel"))
         rsTargetEntry.Close
         Set rsTargetEntry = Nothing
     End If
     
     'Copy this guy to the new tree...
-    rsSourceEntry.Open "SELECT * from MenuEntries where ID=" & SourceID, cnKFC, adOpenForwardOnly, adLockReadOnly
+    rsSourceEntry.Open "SELECT * from MenuEntries where ID=" & SourceID, adoConn, adOpenForwardOnly, adLockReadOnly
     SourceLabel = rsSourceEntry("Label")
     SourceTargetFrame = VBdecode(rsSourceEntry("TargetFrame"))
     SourceURL = VBdecode(rsSourceEntry("URL"))
@@ -588,7 +587,7 @@ Private Sub CopyNode(TargetNode As ComctlLib.Node, SourceID As String)
     
     If SourceHasMembers Then
         'Now copy his children to the new tree...
-        rsSourceEntry.Open "SELECT * from MenuEntries where ParentID=" & SourceID, cnKFC, adOpenForwardOnly, adLockOptimistic
+        rsSourceEntry.Open "SELECT * from MenuEntries where ParentID=" & SourceID, adoConn, adOpenForwardOnly, adLockOptimistic
         While Not rsSourceEntry.EOF
             CopyNode mNode, rsSourceEntry("ID")
             rsSourceEntry.MoveNext
@@ -603,7 +602,7 @@ Private Sub DeleteByParent(ParentID As Long)
     'Note: Working off ParentCode (the way it's currently defined) is flawed...
     '      It should probably be changed to the ID field of the parent record
     '      to avoid ambiguity between different records with the same ParentCode...
-    rsEntry.Open "SELECT * from MenuEntries where ParentID=" & ParentID, cnKFC, adOpenForwardOnly, adLockOptimistic
+    rsEntry.Open "SELECT * from MenuEntries where ParentID=" & ParentID, adoConn, adOpenForwardOnly, adLockOptimistic
     While Not rsEntry.EOF
         DeleteByParent rsEntry("ID")
         rsEntry.Delete adAffectCurrent
@@ -725,7 +724,7 @@ Private Sub mnuContextDelete_Click()
         intID = Trim(Mid(mNode.Tag, 7))
     End If
     
-    rsEntry.Open "SELECT * from MenuEntries where ID=" & intID, cnKFC, adOpenForwardOnly, adLockOptimistic
+    rsEntry.Open "SELECT * from MenuEntries where ID=" & intID, adoConn, adOpenForwardOnly, adLockOptimistic
     DeleteByParent rsEntry("ID")
     rsEntry.Delete adAffectCurrent
     rsEntry.Close
@@ -755,7 +754,7 @@ Private Sub mnuContextNewGroup_Click()
         txtParentID.Text = 0
         txtButtonLabel.Text = Trim(Mid(mNode.Tag, 9))
     Else
-        rsEntry.Open "SELECT * from MenuEntries where ID=" & intID, cnKFC, adOpenForwardOnly, adLockReadOnly
+        rsEntry.Open "SELECT * from MenuEntries where ID=" & intID, adoConn, adOpenForwardOnly, adLockReadOnly
         txtParentID.Text = rsEntry("ID")
         txtButtonLabel.Text = VBdecode(rsEntry("ButtonLabel"))
         rsEntry.Close
@@ -785,7 +784,7 @@ Private Sub mnuContextNewLink_Click()
         txtParentID.Text = 0
         txtButtonLabel.Text = Trim(Mid(mNode.Tag, 9))
     Else
-        rsEntry.Open "SELECT * from MenuEntries where ID=" & intID, cnKFC, adOpenForwardOnly, adLockReadOnly
+        rsEntry.Open "SELECT * from MenuEntries where ID=" & intID, adoConn, adOpenForwardOnly, adLockReadOnly
         txtParentID.Text = rsEntry("ID")
         txtButtonLabel.Text = VBdecode(rsEntry("ButtonLabel"))
         rsEntry.Close
@@ -814,8 +813,8 @@ Private Sub PopulateButton(ButtonLabel As String, ParentID As String, intTreeVie
     Trace trcEnter, "PopulateButton()"
     
     SQLstatement = "SELECT * FROM MenuEntries where ButtonLabel='" & ButtonLabel & "' and ParentID=" & ParentID & " order by ButtonLabel,ParentID,Label"
-    Trace trcBody, "rsMenuEntries.Open """ & SQLstatement & """, cnKFC, adOpenKeyset, adLockReadOnly"
-    rsMenuEntries.Open SQLstatement, cnKFC, adOpenForwardOnly, adLockReadOnly
+    Trace trcBody, "rsMenuEntries.Open """ & SQLstatement & """, adoconn, adOpenKeyset, adLockReadOnly"
+    rsMenuEntries.Open SQLstatement, adoConn, adOpenForwardOnly, adLockReadOnly
     Do Until rsMenuEntries.EOF
         prgLoad.Value = prgLoad.Value + 1
         
@@ -855,8 +854,8 @@ Private Sub PopulateDetail(ByVal Node As ComctlLib.Node)
         cmdUpdate.Visible = True
     End If
     
-    Trace trcBody, "rsEntry.Open ""SELECT * from MenuEntries where ID=" & intID & """, cnKFC, adOpenForwardOnly, adLockReadOnly"
-    rsEntry.Open "SELECT * from MenuEntries where ID=" & intID, cnKFC, adOpenForwardOnly, adLockReadOnly
+    Trace trcBody, "rsEntry.Open ""SELECT * from MenuEntries where ID=" & intID & """, adoconn, adOpenForwardOnly, adLockReadOnly"
+    rsEntry.Open "SELECT * from MenuEntries where ID=" & intID, adoConn, adOpenForwardOnly, adLockReadOnly
     lblID.Caption = "ID: " & intID
     lblID.Visible = True
     txtLabel.Text = VBdecode(rsEntry("Label"))
@@ -886,14 +885,19 @@ Public Sub PopulateMenu()
     
     Trace trcBody, String(132, "=")
     Trace trcEnter, "PopulateMenu()"
-    cnKFC.ConnectionTimeout = 60
-    cnKFC.CommandTimeout = 60
-    cnKFC.Provider = "Microsoft.Jet.OLEDB.3.51"
-    cnKFC.Open gstrConnectionString, gstrRunTimeUserName, gstrRunTimePassword
+    
+    Set adoConn = New ADODB.Connection
+    Set DBinfo = frmMain.DBcollection("KFC")
+    With DBinfo
+        adoConn.Provider = .Provider
+        adoConn.CommandTimeout = 60
+        adoConn.ConnectionTimeout = 60
+        adoConn.Open .PathName, .UserName, .Password
+    End With
     
     SQLstatement = "SELECT * FROM MenuEntries"
     rsTable.CacheSize = 2000
-    rsTable.Open SQLstatement, cnKFC, adOpenKeyset, adLockReadOnly
+    rsTable.Open SQLstatement, adoConn, adOpenKeyset, adLockReadOnly
     prgLoad.Max = rsTable.RecordCount
     rsTable.Close
     Set rsTable = Nothing
@@ -905,8 +909,8 @@ Public Sub PopulateMenu()
     lblLoad.Caption = "Loading Links DataBase..."
     
     'SQLstatement = "SELECT Count(*) as Count FROM MenuEntries"
-    'Trace trcBody, "rsButtons.Open """ & SQLstatement & """, cnKFC, adOpenKeyset, adLockReadOnly"
-    'rsButtons.Open SQLstatement, cnKFC, adOpenKeyset, adLockReadOnly
+    'Trace trcBody, "rsButtons.Open """ & SQLstatement & """, adoconn, adOpenKeyset, adLockReadOnly"
+    'rsButtons.Open SQLstatement, adoconn, adOpenKeyset, adLockReadOnly
     'prgLoad.Max = rsButtons!Count
     'rsButtons.Close
     
@@ -918,8 +922,8 @@ Public Sub PopulateMenu()
     
     SQLstatement = "SELECT Distinct ButtonLabel FROM MenuEntries order by ButtonLabel"
 'SQLstatement = "SELECT Distinct ButtonLabel FROM MenuEntries where buttonlabel = 'Books' order by ButtonLabel"
-    Trace trcBody, "rsButtons.Open """ & SQLstatement & """, cnKFC, adOpenKeyset, adLockReadOnly"
-    rsButtons.Open SQLstatement, cnKFC, adOpenKeyset, adLockReadOnly
+    Trace trcBody, "rsButtons.Open """ & SQLstatement & """, adoconn, adOpenKeyset, adLockReadOnly"
+    rsButtons.Open SQLstatement, adoConn, adOpenKeyset, adLockReadOnly
     
     While Not rsButtons.EOF
         lblLoad.Caption = "Loading " & rsButtons!ButtonLabel & " Entries..."
@@ -1005,7 +1009,7 @@ Private Sub tvwDB_AfterLabelEdit(Cancel As Integer, NewString As String)
         Set mNode = tvwDB.SelectedItem
         intID = Mid(mNode.Tag, InStr(mNode.Tag, ": ") + 2)
         
-        rsEntry.Open "SELECT Label from MenuEntries where ID=" & intID, cnKFC, adOpenKeyset, adLockOptimistic
+        rsEntry.Open "SELECT Label from MenuEntries where ID=" & intID, adoConn, adOpenKeyset, adLockOptimistic
         rsEntry("Label") = VBencode(NewString)
         rsEntry.Update
         txtLabel.Text = NewString
@@ -1045,13 +1049,13 @@ Private Sub tvwDB_Expand(ByVal Node As ComctlLib.Node)
     End If
     Trace trcExit, "tvwDB_Expand()"
 End Sub
-Private Sub tvwDB_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub tvwDB_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Trace trcEnter, "tvwDB_MouseDown()"
     If fUpdateInProgress Then cmdCancel_Click
-    Set tvwDB.SelectedItem = tvwDB.HitTest(x, y)
+    Set tvwDB.SelectedItem = tvwDB.HitTest(X, Y)
     Trace trcExit, "tvwDB_MouseDown()"
 End Sub
-Private Sub tvwDB_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub tvwDB_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Trace trcEnter, "tvwDB_MouseMove()"
     If Button = vbLeftButton Then ' Signal a Drag operation.
         If IsGroup(tvwDB.SelectedItem) Or IsLink(tvwDB.SelectedItem) Then
@@ -1070,7 +1074,7 @@ Private Sub tvwDB_MouseMove(Button As Integer, Shift As Integer, x As Single, y 
     End If
     Trace trcExit, "tvwDB_MouseMove()"
 End Sub
-Private Sub tvwDB_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub tvwDB_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Dim mNode As ComctlLib.Node
     Dim ctl As Control
     
@@ -1134,7 +1138,7 @@ Private Sub tvwDB_OLECompleteDrag(Effect As Long)
             End If
     
             Set rsEntry = New ADODB.Recordset
-            rsEntry.Open "SELECT * from MenuEntries where ID=" & strID, cnKFC, adOpenForwardOnly, adLockOptimistic
+            rsEntry.Open "SELECT * from MenuEntries where ID=" & strID, adoConn, adOpenForwardOnly, adLockOptimistic
             DeleteByParent rsEntry("ID")
             rsEntry.Delete adAffectCurrent
             rsEntry.Close
@@ -1144,7 +1148,7 @@ Private Sub tvwDB_OLECompleteDrag(Effect As Long)
     Set DragNode = Nothing
     Screen.MousePointer = vbDefault
 End Sub
-Private Sub tvwDB_OLEDragDrop(Data As ComctlLib.DataObject, Effect As Long, Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub tvwDB_OLEDragDrop(Data As ComctlLib.DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, Y As Single)
     Dim i As Integer
     Dim rsEntry As ADODB.Recordset
     Dim mNode As ComctlLib.Node
@@ -1164,7 +1168,7 @@ Private Sub tvwDB_OLEDragDrop(Data As ComctlLib.DataObject, Effect As Long, Butt
     End If
     
     'Debug.Print "OLEDragDrop(Data, " & ", " & Effect & ", " & Button & ", " & Shift & ", " & x & ", " & y & ")"
-    Set tNode = tvwDB.HitTest(x, y)
+    Set tNode = tvwDB.HitTest(X, Y)
     If IsLink(tNode) Then
         If IsGroup(tvwDB.SelectedItem) Then
             MsgBox "Cannot drag folders on top of links." & vbCr & _
@@ -1185,7 +1189,7 @@ Private Sub tvwDB_OLEDragDrop(Data As ComctlLib.DataObject, Effect As Long, Butt
     End If
         
     If DragNode Is Nothing Then
-        Set tvwDB.DropHighlight = tvwDB.HitTest(x, y)
+        Set tvwDB.DropHighlight = tvwDB.HitTest(X, Y)
         If Data.GetFormat(vbCFFiles) Then
             For i = 1 To Data.Files.Count
                 vFN = Data.Files.Item(i)
@@ -1204,7 +1208,7 @@ Private Sub tvwDB_OLEDragDrop(Data As ComctlLib.DataObject, Effect As Long, Butt
                     strButton = Trim(Mid(mNode.Tag, 9))
                 Else
                     Set rsEntry = New ADODB.Recordset
-                    rsEntry.Open "SELECT * from MenuEntries where ID=" & strParentID, cnKFC, adOpenForwardOnly, adLockReadOnly
+                    rsEntry.Open "SELECT * from MenuEntries where ID=" & strParentID, adoConn, adOpenForwardOnly, adLockReadOnly
                     strParentID = rsEntry("ID")
                     strButton = VBdecode(rsEntry("ButtonLabel"))
                     rsEntry.Close
@@ -1245,7 +1249,7 @@ ExitSub:
         gfDragMode = False
     End If
 End Sub
-Private Sub tvwDB_OLEDragOver(Data As ComctlLib.DataObject, Effect As Long, Button As Integer, Shift As Integer, x As Single, y As Single, State As Integer)
+Private Sub tvwDB_OLEDragOver(Data As ComctlLib.DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, Y As Single, State As Integer)
     Dim tNode As ComctlLib.Node
     Dim i As Integer
     Dim vFN As String
@@ -1257,7 +1261,7 @@ Private Sub tvwDB_OLEDragOver(Data As ComctlLib.DataObject, Effect As Long, Butt
         Effect = Effect And vbDropEffectMove
     End If
     
-    Set tNode = tvwDB.HitTest(x, y)
+    Set tNode = tvwDB.HitTest(X, Y)
     If tNode Is Nothing Then
         Effect = Effect And vbDropEffectNone
     ElseIf IsLink(tNode) Then
@@ -1368,9 +1372,8 @@ Private Sub UserControl_Terminate()
     Trace trcEnter, "UserControl_Terminate()"
     ' Close everything...
     On Error Resume Next
-    Set cmdKFC = Nothing
-    cnKFC.Close
-    Set cnKFC = Nothing
+    adoConn.Close
+    Set adoConn = Nothing
     Trace trcExit, "UserControl_Terminate()"
 End Sub
 
