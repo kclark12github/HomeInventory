@@ -16,26 +16,20 @@ Attribute VB_Ext_KEY = "Collection" ,"DataBaseInfo"
 Attribute VB_Ext_KEY = "Member0" ,"DataBaseInfo"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Option Explicit
-
 'local variable to hold collection
 Private mCol As Collection
-
-Public Function Add(Key As String, DataBaseName As String, PathName As String, Provider As String, UserName As String, Password As String, Optional sKey As String) As DataBaseInfo
+Public Function Add(Key As String, Recordset As ADODB.Recordset) As DataBaseInfo
     'create a new object
     Dim objNewMember As DataBaseInfo
     Set objNewMember = New DataBaseInfo
 
     'set the properties passed into the method
     objNewMember.Key = Key
-    objNewMember.DataBaseName = DataBaseName
-    objNewMember.PathName = PathName
-    objNewMember.Provider = Provider
-    objNewMember.UserName = UserName
-    objNewMember.Password = Password
-    If Len(sKey) = 0 Then
+    Set objNewMember.Recordset = Recordset
+    If Len(Key) = 0 Then
         mCol.Add objNewMember
     Else
-        mCol.Add objNewMember, sKey
+        mCol.Add objNewMember, Key
     End If
 
     'return the object created
@@ -50,6 +44,12 @@ Attribute Item.VB_UserMemId = 0
     'Syntax: Set foo = x.Item(xyz) or Set foo = x.Item(5)
   Set Item = mCol(vntIndexKey)
 End Property
+Public Sub Clear()
+    Dim i As Integer
+    For i = 1 To mCol.Count
+        mCol.Remove 1
+    Next i
+End Sub
 Public Property Get Count() As Long
     'used when retrieving the number of elements in the
     'collection. Syntax: Debug.Print x.Count
@@ -76,6 +76,6 @@ Private Sub Class_Initialize()
 End Sub
 Private Sub Class_Terminate()
     'destroys collection when this class is terminated
+    Clear
     Set mCol = Nothing
 End Sub
-

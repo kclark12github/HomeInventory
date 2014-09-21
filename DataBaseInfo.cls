@@ -14,7 +14,6 @@ Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"No"
 Option Explicit
-
 'set this to 0 to disable debug code in this class
 #Const DebugMode = 0
 #If DebugMode Then
@@ -23,101 +22,24 @@ Option Explicit
 #End If
 Public Key As String
 'local variable(s) to hold property value(s)
-Private mvarDataBaseName As String 'local copy
-Private mvarPathName As String 'local copy
-Private mvarProvider As String 'local copy
-Private mvarUserName As String 'local copy
-Private mvarPassword As String 'local copy
-Public Property Let Password(ByVal vData As String)
-    On Error GoTo PasswordLetErr
+Private mvarRecordset As ADODB.Recordset
+Public Property Set Recordset(vData As ADODB.Recordset)
+    On Error GoTo SetErr
 
-    mvarPassword = vData
+    Set mvarRecordset = vData
     Exit Property
 
-PasswordLetErr:
-    Call RaiseError(MyUnhandledError, "DataBaseInfo:Password Property Let")
+SetErr:
+    Call RaiseError(MyUnhandledError, "DataBaseInfo:Recordset Property Set")
 End Property
-Public Property Get Password() As String
-    On Error GoTo PasswordGetErr
+Public Property Get Recordset() As ADODB.Recordset
+    On Error GoTo GetErr
 
-    Password = mvarPassword
+    Set Recordset = mvarRecordset
     Exit Property
 
-PasswordGetErr:
-    Call RaiseError(MyUnhandledError, "DataBaseInfo:Password Property Get")
-End Property
-Public Property Let UserName(ByVal vData As String)
-    On Error GoTo UserNameLetErr
-    
-    mvarUserName = vData
-    Exit Property
-
-UserNameLetErr:
-    Call RaiseError(MyUnhandledError, "DataBaseInfo:UserName Property Let")
-End Property
-Public Property Get UserName() As String
-    On Error GoTo UserNameGetErr
-    
-    UserName = mvarUserName
-    Exit Property
-
-UserNameGetErr:
-    Call RaiseError(MyUnhandledError, "DataBaseInfo:UserName Property Get")
-End Property
-Public Property Let Provider(ByVal vData As String)
-    On Error GoTo ProviderLetErr
-
-    mvarProvider = vData
-    Exit Property
-
-ProviderLetErr:
-    Call RaiseError(MyUnhandledError, "DataBaseInfo:Provider Property Let")
-End Property
-Public Property Get Provider() As String
-    On Error GoTo ProviderGetErr
-
-    Provider = mvarProvider
-    Exit Property
-
-ProviderGetErr:
-    Call RaiseError(MyUnhandledError, "DataBaseInfo:Provider Property Get")
-End Property
-Public Property Let PathName(ByVal vData As String)
-    On Error GoTo PathNameLetErr
-
-    mvarPathName = vData
-    Exit Property
-
-PathNameLetErr:
-    Call RaiseError(MyUnhandledError, "DataBaseInfo:PathName Property Let")
-End Property
-Public Property Get PathName() As String
-    On Error GoTo PathNameGetErr
-
-    PathName = mvarPathName
-    Exit Property
-
-PathNameGetErr:
-    Call RaiseError(MyUnhandledError, "DataBaseInfo:PathName Property Get")
-End Property
-Public Property Let DataBaseName(ByVal vData As String)
-    On Error GoTo DataBaseNameLetErr
-
-    mvarDataBaseName = vData
-    Exit Property
-
-DataBaseNameLetErr:
-    Call RaiseError(MyUnhandledError, "DataBaseInfo:DataBaseName Property Let")
-End Property
-Public Property Get DataBaseName() As String
-Attribute DataBaseName.VB_UserMemId = 0
-    On Error GoTo DataBaseNameGetErr
-    
-    DataBaseName = mvarDataBaseName
-    Exit Property
-
-DataBaseNameGetErr:
-    Call RaiseError(MyUnhandledError, "DataBaseInfo:DataBaseName Property Get")
+GetErr:
+    Call RaiseError(MyUnhandledError, "DataBaseInfo:Recordset Property Get")
 End Property
 Private Sub Class_Initialize()
     #If DebugMode Then
