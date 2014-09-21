@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:32 PM"
+            TextSave        =   "11:58 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -237,11 +237,13 @@ Private Sub Form_Activate()
     Dim i As Integer
     Dim BooleanFormat As New StdDataFormat
     Dim CurrencyFormat As New StdDataFormat
+    Dim DateFormat As New StdDataFormat
     Dim Col As Column
     Dim fld As ADODB.Field
     
     BooleanFormat.Format = "Yes/No"
     CurrencyFormat.Format = "Currency"
+    DateFormat.Format = "dd-MMM-yyyy hh:nn AMPM"
     
     ReDim SortDESC(0 To dgdList.Columns.Count - 1)
     
@@ -254,6 +256,9 @@ Private Sub Form_Activate()
                 Col.Alignment = dbgRight
             Case adBoolean
                 Set Col.DataFormat = BooleanFormat
+                Col.Alignment = dbgCenter
+            Case adDate, adDBDate
+                Set Col.DataFormat = DateFormat
                 Col.Alignment = dbgCenter
             Case Else
                 Col.Alignment = dbgGeneral

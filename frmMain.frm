@@ -385,6 +385,12 @@ End Sub
 Private Sub mnuDataBaseSoftware_Click()
     frmSoftware.Show vbModal
 End Sub
+Private Sub mnuDataBaseVideoLibraryMovies_Click()
+    frmMovies.Show vbModal
+End Sub
+Private Sub mnuDataBaseVideoLibrarySpecials_Click()
+    frmSpecials.Show vbModal
+End Sub
 Private Sub mnuDataBaseVideoLibraryTVEpisodes_Click()
     frmTVEpisodes.Show vbModal
 End Sub

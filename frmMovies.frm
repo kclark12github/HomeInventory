@@ -2,7 +2,7 @@ VERSION 5.00
 Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
-Begin VB.Form frmVideoResearch1 
+Begin VB.Form frmMovies 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Movies"
    ClientHeight    =   3168
@@ -16,6 +16,14 @@ Begin VB.Form frmVideoResearch1
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
+   Begin VB.CheckBox chkStoreBought 
+      Caption         =   "Store Bought"
+      Height          =   192
+      Left            =   3720
+      TabIndex        =   18
+      Top             =   1620
+      Width           =   1212
+   End
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
       Height          =   252
@@ -49,7 +57,7 @@ Begin VB.Form frmVideoResearch1
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:42 PM"
+            TextSave        =   "11:52 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -81,7 +89,7 @@ Begin VB.Form frmVideoResearch1
       Top             =   2520
       Width           =   972
    End
-   Begin MSAdodcLib.Adodc adodcHobby 
+   Begin MSAdodcLib.Adodc adodcMain 
       Height          =   312
       Left            =   276
       Top             =   2040
@@ -472,7 +480,7 @@ Begin VB.Form frmVideoResearch1
       End
    End
 End
-Attribute VB_Name = "frmVideoResearch1"
+Attribute VB_Name = "frmMovies"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
@@ -498,7 +506,7 @@ Private Sub cmdCancel_Click()
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            adodcHobby.Enabled = True
+            adodcMain.Enabled = True
     End Select
 End Sub
 Private Sub cmdOK_Click()
@@ -516,7 +524,7 @@ Private Sub cmdOK_Click()
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            adodcHobby.Enabled = True
+            adodcMain.Enabled = True
             
             rsDistributors.Requery
             rsSubjects.Requery
@@ -547,7 +555,7 @@ End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
     Set rsMain = New ADODB.Recordset
-    Set DBinfo = frmMain.DBcollection("Hobby")
+    Set DBinfo = frmMain.DBcollection("VideoTapes")
     With DBinfo
         adoConn.Provider = .Provider
         adoConn.CommandTimeout = 60
@@ -555,15 +563,15 @@ Private Sub Form_Load()
         adoConn.Open .PathName, .UserName, .Password
     End With
     rsMain.CursorLocation = adUseClient
-    rsMain.Open "select * from [Video Research] order by Sort", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsMain.Open "select * from [Movies] order by Sort", adoConn, adOpenKeyset, adLockBatchOptimistic
     
     rsDistributors.CursorLocation = adUseClient
-    rsDistributors.Open "select distinct Distributor from [Video Research] order by Distributor", adoConn, adOpenStatic, adLockReadOnly
+    rsDistributors.Open "select distinct Distributor from [Movies] order by Distributor", adoConn, adOpenStatic, adLockReadOnly
     
     rsSubjects.CursorLocation = adUseClient
-    rsSubjects.Open "select distinct Subject from [Video Research] order by Subject", adoConn, adOpenStatic, adLockReadOnly
+    rsSubjects.Open "select distinct Subject from [Movies] order by Subject", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcHobby.Recordset = rsMain
+    Set adodcMain.Recordset = rsMain
     frmMain.BindField lblID, "ID", rsMain
     frmMain.BindField dbcDistributor, "Distributor", rsMain, rsDistributors, "Distributor", "Distributor"
     frmMain.BindField txtTitle, "Title", rsMain
@@ -571,7 +579,8 @@ Private Sub Form_Load()
     frmMain.BindField dbcSubject, "Subject", rsMain, rsSubjects, "Subject", "Subject"
     frmMain.BindField txtSort, "Sort", rsMain
     frmMain.BindField txtInventoried, "DateInventoried", rsMain
-
+    frmMain.BindField chkStoreBought, "StoreBought", rsMain
+    
     frmMain.ProtectFields Me
     mode = modeDisplay
     fTransaction = False
@@ -660,7 +669,7 @@ End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
-    adodcHobby.Enabled = False
+    adodcMain.Enabled = False
     rsMain.AddNew
     adoConn.BeginTrans
     fTransaction = True
@@ -681,7 +690,7 @@ End Sub
 Private Sub mnuActionModify_Click()
     mode = modeModify
     frmMain.OpenFields Me
-    adodcHobby.Enabled = False
+    adodcMain.Enabled = False
     adoConn.BeginTrans
     fTransaction = True
     
@@ -689,7 +698,7 @@ Private Sub mnuActionModify_Click()
 End Sub
 Private Sub mnuActionReport_Click()
     Dim frm As Form
-    Dim Report As New scrVideoResearchReport
+    Dim Report As Object    'New scrVideoResearchReport
     Dim vRS As ADODB.Recordset
     
     MakeVirtualRecordset adoConn, rsMain, vRS
@@ -739,7 +748,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
         sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
     End If
     
-    adodcHobby.Caption = Caption
+    adodcMain.Caption = Caption
     Exit Sub
 
 ErrorHandler:
