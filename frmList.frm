@@ -79,9 +79,9 @@ Begin VB.Form frmList
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1270
+            Object.Width           =   1376
             MinWidth        =   1270
-            TextSave        =   "9:21 PM"
+            TextSave        =   "10:44 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -174,8 +174,8 @@ Begin VB.Form frmList
       AlphaBlendEnabled=   0   'False
       Enabled         =   0   'False
       Bands           =   "frmList.frx":0D10
-      Override        =   "frmList.frx":104C
-      Appearance      =   "frmList.frx":10A4
+      Override        =   "frmList.frx":1040
+      Appearance      =   "frmList.frx":1094
    End
    Begin VB.Label lblA 
       AutoSize        =   -1  'True
@@ -871,6 +871,7 @@ Private Sub UpdateMode(KeyCode As Integer, Shift As Integer)
     End Select
 End Sub
 Private Sub UpdatePosition()
+    If (RS.State And adStateOpen) <> adStateOpen Then Exit Sub
     sbStatus.Panels("Position").Text = "Record " & ssugList.ActiveRow.BookMark & " of " & RS.RecordCount
     If fEditMode Then
         If ssugList.ActiveCell Is Nothing Then ssugList.ActiveCell = ssugList.ActiveRow.Cells(0)
