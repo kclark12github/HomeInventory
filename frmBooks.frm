@@ -72,7 +72,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1376
             MinWidth        =   1270
-            TextSave        =   "12:28 AM"
+            TextSave        =   "12:01 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -807,8 +807,12 @@ Private Sub txtISBN_KeyPress(KeyAscii As Integer)
 End Sub
 Private Sub txtISBN_Validate(Cancel As Boolean)
     If Not txtISBN.Enabled Then Exit Sub
-    If txtISBN.Text = vbNullString And chkCataloged.Value = vbChecked Then
-        MsgBox "ISBN should be specified!", vbExclamation, Me.Caption
+    If chkCataloged.Value = vbChecked Then
+        If txtISBN.Text = vbNullString Then
+            MsgBox "ISBN should be specified!", vbExclamation, Me.Caption
+        Else
+            txtISBN.Text = FormatISBN(txtISBN.Text)
+        End If
     End If
 End Sub
 Private Sub txtMisc_GotFocus()

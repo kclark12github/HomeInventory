@@ -1,4 +1,6 @@
 Attribute VB_Name = "libISBN"
+'Algorithm taken from web site:
+'http://www.isbn.org/standards/home/isbn/international/hyphenation-instructions.asp
 Option Explicit
 Public Function FormatISBN(sISBN As String) As String
     Dim s As String
