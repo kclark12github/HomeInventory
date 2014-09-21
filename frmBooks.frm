@@ -72,7 +72,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "7:20 PM"
+            TextSave        =   "9:01 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -780,7 +780,7 @@ Private Function DefaultAlphaSort() As String
             Case 89024                              'CountryCode: 0
                 DefaultAlphaSort = "SCALE MODELING: KALMBACH: " & UCase(Title)
             Case 7643, 88740                        'CountryCode: 0
-                DefaultAlphaSort = "SCHIFFER MILITARY HISTORY: " & UCase(Title)
+                DefaultAlphaSort = "SCHIFFER MILITARY HISTORY: " & UCase(LastName & ": " & Title)
             Case 8094, 670, 939526                  'CountryCode: 0
                 DefaultAlphaSort = "TIMELIFE: <SeriesName>: BOOK ##; " & UCase(Title)
             Case 85488                              'CountryCode: 1
