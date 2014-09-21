@@ -297,6 +297,9 @@ End Sub
 Private Sub mnuDataBaseHobbyVideoResearch_Click()
     frmVideoResearch.Show vbModal
 End Sub
+Private Sub mnuDataBaseKFC_Click()
+    frmWebLinks.Show vbModal
+End Sub
 Private Sub mnuDataBaseMusic_Click()
     frmMusic.Show vbModal
 End Sub
