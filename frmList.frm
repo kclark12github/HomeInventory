@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:58 PM"
+            TextSave        =   "11:25 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -245,9 +245,9 @@ Private Sub Form_Activate()
     CurrencyFormat.Format = "Currency"
     DateFormat.Format = "dd-MMM-yyyy hh:nn AMPM"
     
+    Set dgdList.DataSource = frmList.rsList
     ReDim SortDESC(0 To dgdList.Columns.Count - 1)
     
-    Set dgdList.DataSource = frmList.rsList
     For Each fld In rsList.Fields
         Set Col = dgdList.Columns(fld.Name)
         Select Case fld.Type
