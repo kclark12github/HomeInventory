@@ -37,7 +37,7 @@ Begin VB.Form frmMain
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:36 AM"
+            TextSave        =   "2:23 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -243,6 +243,7 @@ Public Enum ActionMode
     modeModify = 2
     modeDelete = 3
 End Enum
+Private fActivated As Boolean
 Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Recordset, Optional RowSource As ADODB.Recordset, Optional BoundColumn As String, Optional ListField As String)
     Dim DateTimeFormat As StdDataFormat
     Select Case TypeName(ctl)
@@ -359,6 +360,9 @@ Private Sub LoadDBcoll(DBname As String)
     DBcollection.Add DBname, DBname, gstrDBPath, gstrProvider, gstrRunTimeUserName, gstrRunTimePassword, DBname
 End Sub
 Private Sub Form_Activate()
+    If fActivated Then Exit Sub
+    fActivated = True
+    
     Me.MousePointer = vbHourglass
     gstrDBPath = GetSetting(App.FileDescription, "Environment", "DatabasePath", "")
     If gstrDBPath = vbNullString Then
@@ -386,6 +390,7 @@ Private Sub Form_Activate()
     Me.MousePointer = vbDefault
 End Sub
 Private Sub Form_Load()
+    fActivated = False
     MinWidth = iMinWidth
     MinHeight = iMinHeight
     
