@@ -13,7 +13,6 @@ Begin VB.Form frmMain
    MaxButton       =   0   'False
    ScaleHeight     =   4230
    ScaleWidth      =   5925
-   StartUpPosition =   1  'CenterOwner
    Begin VB.PictureBox picWindow 
       Height          =   3792
       Left            =   0
@@ -52,16 +51,16 @@ Begin VB.Form frmMain
          NumPanels       =   2
          BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8996
+            Object.Width           =   9102
             Key             =   "DatabasePath"
          EndProperty
          BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1376
+            Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:22 PM"
+            TextSave        =   "1:17 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -232,8 +231,8 @@ Private Sub DoMenu(frm As Form, Optional Modal = vbModal)
     frm.Show Modal
 End Sub
 Private Sub ShowMain()
-    Me.Top = saveTop
-    Me.Left = saveLeft
+    If Me.Top < 0 Or Me.Top > Screen.Height Then Me.Top = saveTop Else saveTop = Me.Top
+    If Me.Left < 0 Or Me.Left > Screen.Width Then Me.Left = saveLeft Else saveLeft = Me.Left
     Me.Caption = saveCaption
     Set Me.Icon = saveIcon
 End Sub
@@ -321,6 +320,10 @@ Private Sub Form_Activate()
 End Sub
 Private Sub Form_Load()
     Dim iPos As Integer
+    Dim rTop As Single
+    Dim rLeft As Single
+    Dim rHeight As Single
+    Dim rWidth As Single
     
     fActivated = False
     MinWidth = iMinWidth
@@ -333,11 +336,13 @@ Private Sub Form_Load()
     gfUseFilterMethod = GetSetting(App.FileDescription, "Environment", "UseFilterMethod", False)
     
     If GetSetting(App.FileDescription, "Environment", "DimensionsSaved", False) Then
-        Me.Top = GetSetting(App.FileDescription, "Environment", "Top")
-        Me.Left = GetSetting(App.FileDescription, "Environment", "Left")
-        Me.Height = GetSetting(App.FileDescription, "Environment", "Height")
-        Me.Width = GetSetting(App.FileDescription, "Environment", "Width")
+        rTop = GetSetting(App.FileDescription, "Environment", "Top")
+        rLeft = GetSetting(App.FileDescription, "Environment", "Left")
+        rHeight = GetSetting(App.FileDescription, "Environment", "Height")
+        rWidth = GetSetting(App.FileDescription, "Environment", "Width")
     End If
+    If rTop > 0 And rTop <= Screen.Height Then Me.Top = rTop
+    If rLeft > 0 And rLeft <= Screen.Height Then Me.Left = rLeft
     saveTop = Me.Top
     saveLeft = Me.Left
     saveCaption = Me.Caption
