@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:25 PM"
+            TextSave        =   "3:58 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -276,6 +276,8 @@ Private Sub Form_Activate()
         
     If rsList.Filter <> vbNullString And rsList.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsList.Filter
+    Else
+        sbStatus.Panels("Message").Text = vbNullString
     End If
     dgdList_Click
 End Sub
@@ -335,6 +337,8 @@ Private Sub sbStatus_PanelClick(ByVal Panel As MSComctlLib.Panel)
             frmFilter.Show vbModal
             If rsList.Filter <> vbNullString And rsList.Filter <> 0 Then
                 sbStatus.Panels("Message").Text = "Filter: " & rsList.Filter
+            Else
+                sbStatus.Panels("Message").Text = vbNullString
             End If
         Case Else
     End Select
