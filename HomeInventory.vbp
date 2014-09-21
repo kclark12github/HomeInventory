@@ -60,6 +60,7 @@ Form=frmFilter.frm
 Designer=scrDesignationsReport.Dsr
 Designer=scrBlueAngelsReport.Dsr
 Form=frmBlueAngelsHistory.frm
+Designer=scrCompaniesReport.Dsr
 Startup="frmMain"
 HelpFile=""
 Title="HomeInventory"
