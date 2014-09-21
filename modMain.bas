@@ -11,6 +11,7 @@ Global Const gstrDefaultImage As String = "F14_102.jpg"
 Global Const iMinWidth As Single = 2184
 Global Const iMinHeight As Single = 1440
 Global Const ResizeWindow As Single = 36
+Global Const gfUseFilterMethod As Boolean = True
 Public Enum ActionMode
     modeDisplay = 0
     modeAdd = 1
@@ -179,14 +180,24 @@ Public Sub FilterCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String
         SQLstatement = SQLmain
         frm.sbStatus.Panels("Message").Text = vbNullString
     End If
-    CloseRecordset RS, False
-    RS.Open SQLstatement, adoConn, adOpenKeyset, adLockOptimistic
-    'I may need to change this later, but I didn't want to go through
-    'all the screens' List commands and add the argument to ListCommand()
-    '(i.e. frmList supports a Filter command, but hasn't been passed a Key)...
-    If Key <> vbNullString Then RefreshCommand RS, Key
+    
+    If gfUseFilterMethod Then
+        RS.Filter = 0
+        If SQLfilter <> vbNullString Then
+            RS.Filter = SQLfilter
+        Else
+            RefreshCommand RS
+        End If
+    Else
+        CloseRecordset RS, False
+        RS.Open SQLstatement, adoConn, adOpenKeyset, adLockOptimistic
+        'I may need to change this later, but I didn't want to go through
+        'all the screens' List commands and add the argument to ListCommand()
+        '(i.e. frmList supports a Filter command, but hasn't been passed a Key)...
+        RefreshCommand RS, Key
+    End If
 End Sub
-Public Sub ListCommand(frm As Form, RS As ADODB.Recordset)
+Public Sub ListCommand(frm As Form, RS As ADODB.Recordset, Optional AllowUpdate As Boolean = True)
     Dim vRS As ADODB.Recordset
     
     Load frmList
@@ -203,21 +214,30 @@ Public Sub ListCommand(frm As Form, RS As ADODB.Recordset)
         frmList.Height = frm.Height
     End If
     
-    If Not MakeVirtualRecordset(adoConn, RS, vRS, "Junk") Then
-        MsgBox "MakeVirtualRecordset failed.", vbExclamation, frm.Caption
-        Exit Sub
+    If AllowUpdate Then
+        Set frmList.rsList = RS
+        adoConn.BeginTrans
+        fTransaction = True
+    Else
+        If Not MakeVirtualRecordset(adoConn, RS, vRS, "Junk") Then
+            MsgBox "MakeVirtualRecordset failed.", vbExclamation, frm.Caption
+            Exit Sub
+        End If
+        Set frmList.vrsList = vRS
     End If
-    Set frmList.vrsList = vRS
     
-    adoConn.BeginTrans
-    fTransaction = True
     frmList.Show vbModal
+    frm.sbStatus.Panels("Message").Text = vbNullString
     If RS.Filter <> vbNullString And RS.Filter <> 0 Then
         frm.sbStatus.Panels("Message").Text = "Filter: " & RS.Filter
     End If
-    adoConn.CommitTrans
-    CloseRecordset vRS, True
-    fTransaction = False
+        
+    If AllowUpdate Then
+        adoConn.CommitTrans
+        fTransaction = False
+    Else
+        CloseRecordset vRS, True
+    End If
 End Sub
 Public Sub ModifyCommand(frm As Form)
     mode = modeModify
@@ -299,14 +319,22 @@ Public Sub ProtectFields(pForm As Form)
     pForm.cmdCancel.Caption = "&Exit"
     pForm.cmdOK.Visible = False
 End Sub
-Public Sub RefreshCommand(RS As ADODB.Recordset, ByVal Key As String)
+Public Sub RefreshCommand(RS As ADODB.Recordset, Optional Key As Variant)
     Dim SaveBookmark As String
     Dim DBinfo As DataBaseInfo
     
     On Error Resume Next
-    SaveBookmark = RS(Key)
+    If IsMissing(Key) Then
+        SaveBookmark = RS(0)
+    Else
+        SaveBookmark = RS(Key)
+    End If
     RS.Requery
-    RS.Find Key & "='" & SQLQuote(SaveBookmark) & "'"
+    If IsMissing(Key) Then
+        RS.Find RS(0).Name & "='" & SQLQuote(SaveBookmark) & "'"
+    Else
+        RS.Find Key & "='" & SQLQuote(SaveBookmark) & "'"
+    End If
     
     For Each DBinfo In DBcollection
         If Not (DBinfo.Recordset Is RS) Then DBinfo.Recordset.Requery

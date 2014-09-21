@@ -318,7 +318,6 @@ Begin VB.Form frmKits
          _ExtentX        =   13356
          _ExtentY        =   4360
          _Version        =   393217
-         Enabled         =   -1  'True
          TextRTF         =   $"frmKits.frx":0000
       End
    End
@@ -355,7 +354,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "4:45 PM"
+            TextSave        =   "10:52 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -694,7 +693,8 @@ Private Sub Form_Load()
     EstablishConnection adoConn
     
     Set rsMain = New ADODB.Recordset
-    rsMain.CursorLocation = adUseServer
+    'rsMain.CursorLocation = adUseServer
+    rsMain.CursorLocation = adUseClient
     SQLmain = "select * from [Kits] order by Manufacturer,Type,Reference,Scale"
     SQLfilter = vbNullString
     SQLkey = "Reference"
@@ -763,7 +763,7 @@ Private Sub mnuRecordsDelete_Click()
     DeleteCommand Me, rsMain
 End Sub
 Private Sub mnuRecordsList_Click()
-    ListCommand Me, rsMain, SQLkey
+    ListCommand Me, rsMain
 End Sub
 Private Sub mnuRecordsModify_Click()
     ModifyCommand Me
@@ -780,7 +780,7 @@ Private Sub mnuRecordsNew_Click()
     txtDesignation.SetFocus
 End Sub
 Private Sub mnuRecordsRefresh_Click()
-    RefreshCommand rsMain, SQLkey
+    RefreshCommand rsMain, "ID"
 End Sub
 Private Sub mnuRecordsSearch_Click()
     SearchCommand Me, rsMain, SQLkey

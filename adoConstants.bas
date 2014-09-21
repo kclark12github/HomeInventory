@@ -479,46 +479,32 @@ Public Function adoPropertyAttribute(Code As ADODB.PropertyAttributesEnum) As St
     End If
 End Function
 Public Function adoRecordStatus(Code As ADODB.RecordStatusEnum) As String
-    Select Case Code
-        Case adRecCanceled
-            adoRecordStatus = "adRecCanceled"
-        Case adRecCantRelease
-            adoRecordStatus = "adRecCantRelease"
-        Case adRecConcurrencyViolation
-            adoRecordStatus = "adRecConcurrencyViolation"
-        Case adRecDBDeleted
-            adoRecordStatus = "adRecDBDeleted"
-        Case adRecDeleted
-            adoRecordStatus = "adRecDeleted"
-        Case adRecIntegrityViolation
-            adoRecordStatus = "adRecIntegrityViolation"
-        Case adRecInvalid
-            adoRecordStatus = "adRecInvalid"
-        Case adRecMaxChangesExceeded
-            adoRecordStatus = "adRecMaxChangesExceeded"
-        Case adRecModified
-            adoRecordStatus = "adRecModified"
-        Case adRecMultipleChanges
-            adoRecordStatus = "adRecMultipleChanges"
-        Case adRecNew
-            adoRecordStatus = "adRecNew"
-        Case adRecObjectOpen
-            adoRecordStatus = "adRecObjectOpen"
-        Case adRecOK
-            adoRecordStatus = "adRecOK"
-        Case adRecOutOfMemory
-            adoRecordStatus = "adRecOutOfMemory"
-        Case adRecPendingChanges
-            adoRecordStatus = "adRecPendingChanges"
-        Case adRecPermissionDenied
-            adoRecordStatus = "adRecPermissionDenied"
-        Case adRecSchemaViolation
-            adoRecordStatus = "adRecSchemaViolation"
-        Case adRecUnmodified
-            adoRecordStatus = "adRecUnmodified"
-        Case Else
-            adoRecordStatus = "Unknown code specified: " & Code
-    End Select
+    adoRecordStatus = ""
+    If CBool(Code And adRecCanceled) Then adoRecordStatus = adoRecordStatus & " + adRecCanceled"
+    If CBool(Code And adRecCantRelease) Then adoRecordStatus = adoRecordStatus & " + adRecCantRelease"
+    If CBool(Code And adRecConcurrencyViolation) Then adoRecordStatus = adoRecordStatus & " + adRecConcurrencyViolation"
+    If CBool(Code And adRecDBDeleted) Then adoRecordStatus = adoRecordStatus & " + adRecDBDeleted"
+    If CBool(Code And adRecDeleted) Then adoRecordStatus = adoRecordStatus & " + adRecDeleted"
+    If CBool(Code And adRecIntegrityViolation) Then adoRecordStatus = adoRecordStatus & " + adRecIntegrityViolation"
+    If CBool(Code And adRecInvalid) Then adoRecordStatus = adoRecordStatus & " + adRecInvalid"
+    If CBool(Code And adRecMaxChangesExceeded) Then adoRecordStatus = adoRecordStatus & " + adRecMaxChangesExceeded"
+    If CBool(Code And adRecModified) Then adoRecordStatus = adoRecordStatus & " + adRecModified"
+    If CBool(Code And adRecMultipleChanges) Then adoRecordStatus = adoRecordStatus & " + adRecMultipleChanges"
+    If CBool(Code And adRecNew) Then adoRecordStatus = adoRecordStatus & " + adRecNew"
+    If CBool(Code And adRecObjectOpen) Then adoRecordStatus = adoRecordStatus & " + adRecObjectOpen"
+    If CBool(Code And adRecOK) Then adoRecordStatus = adoRecordStatus & " + adRecOK"
+    If CBool(Code And adRecOutOfMemory) Then adoRecordStatus = adoRecordStatus & " + adRecOutOfMemory"
+    If CBool(Code And adRecPendingChanges) Then adoRecordStatus = adoRecordStatus & " + adRecPendingChanges"
+    If CBool(Code And adRecPermissionDenied) Then adoRecordStatus = adoRecordStatus & " + adRecPermissionDenied"
+    If CBool(Code And adRecSchemaViolation) Then adoRecordStatus = adoRecordStatus & " + adRecSchemaViolation"
+    If CBool(Code And adRecUnmodified) Then adoRecordStatus = adoRecordStatus & " + adRecUnmodified"
+        
+    If Left(adoRecordStatus, 3) = " + " Then
+        adoRecordStatus = Mid(adoRecordStatus, 4)
+    Else
+        adoRecordStatus = "Unknown code specified: " & Code
+    End If
+    
 End Function
 Public Function adoResync(Code As ADODB.ResyncEnum) As String
     Select Case Code
@@ -722,7 +708,7 @@ Public Sub adoDumpConnection(ByVal pConnection As ADODB.Connection, Optional Fil
     PrintOut "Connection.Errors: "
     If InStr(UCase(Args), "NOERR") = 0 Then adoDumpErrors pConnection.Errors, 1
     PrintOut "Connection.IsolationLevel:    " & adoIsolationLevel(pConnection.IsolationLevel)
-    PrintOut "Connection.Mode:              " & adoConnectMode(pConnection.Mode)
+    PrintOut "Connection.Mode:              " & adoConnectMode(pConnection.mode)
     PrintOut "Connection.Properties: "
     If InStr(UCase(Args), "NOPROP") = 0 Then adoDumpProperties pConnection.Properties, 1
     PrintOut "Connection.Provider:          " & pConnection.Provider

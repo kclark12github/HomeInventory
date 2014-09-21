@@ -57,7 +57,7 @@ Begin VB.Form frmSpecials
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "4:45 PM"
+            TextSave        =   "10:46 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -548,7 +548,7 @@ Private Sub mnuRecordsNew_Click()
     txtTitle.SetFocus
 End Sub
 Private Sub mnuRecordsRefresh_Click()
-    RefreshCommand rsMain, SQLkey
+    RefreshCommand rsMain, "ID"
 End Sub
 Private Sub mnuRecordsSearch_Click()
     SearchCommand Me, rsMain, SQLkey

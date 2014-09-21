@@ -78,9 +78,9 @@ Begin VB.Form frmList
    End
    Begin MSDataGridLib.DataGrid dgdList 
       Height          =   612
-      Left            =   1260
+      Left            =   3420
       TabIndex        =   0
-      Top             =   960
+      Top             =   600
       Width           =   1212
       _ExtentX        =   2138
       _ExtentY        =   1080
@@ -156,20 +156,20 @@ Begin VB.Form frmList
    Begin VB.Menu mnuList 
       Caption         =   "&List"
       Visible         =   0   'False
-      Begin VB.Menu mnuListMoveFirst 
-         Caption         =   "Move &First"
+      Begin VB.Menu mnuListEdit 
+         Caption         =   "&Edit Record"
       End
-      Begin VB.Menu mnuListMoveLast 
-         Caption         =   "Move &Last"
-      End
-      Begin VB.Menu mnuListSep1 
+      Begin VB.Menu mnuListSep0 
          Caption         =   "-"
       End
-      Begin VB.Menu mnuListFilter 
-         Caption         =   "&Filter"
+      Begin VB.Menu mnuListNew 
+         Caption         =   "&New Record"
       End
-      Begin VB.Menu mnuListSort 
-         Caption         =   "&Sort"
+      Begin VB.Menu mnuListCopy 
+         Caption         =   "&Copy/Append Record"
+      End
+      Begin VB.Menu mnuListDelete 
+         Caption         =   "&Delete Record"
       End
    End
 End
@@ -182,11 +182,15 @@ Option Explicit
 Public WithEvents vrsList As ADODB.Recordset
 Attribute vrsList.VB_VarHelpID = -1
 Public rsList As ADODB.Recordset
+Private RS As ADODB.Recordset
 Public HiddenFields As String
 Private Key As String
 Private MouseY As Single
 Private MouseX As Single
 Private SortDESC() As Boolean
+Private fAllowEditMode As Boolean
+Private fEditMode As Boolean
+Private EditRow As Long
 Private fDebug As Boolean
 Private Sub dgdList_AfterColEdit(ByVal ColIndex As Integer)
     sbStatus.Panels("Status").Text = ""
@@ -208,6 +212,7 @@ Private Sub dgdList_BeforeColEdit(ByVal ColIndex As Integer, ByVal KeyAscii As I
 End Sub
 Private Sub dgdList_BeforeColUpdate(ByVal ColIndex As Integer, OldValue As Variant, Cancel As Integer)
     If fDebug Then sbStatus.Panels("Message").Text = "BeforeColUpdate"
+    If Not fEditMode Then Cancel = 1
 End Sub
 Private Sub dgdList_BeforeDelete(Cancel As Integer)
     If fDebug Then sbStatus.Panels("Message").Text = "BeforeDelete"
@@ -217,11 +222,13 @@ Private Sub dgdList_BeforeInsert(Cancel As Integer)
 End Sub
 Private Sub dgdList_BeforeUpdate(Cancel As Integer)
     If fDebug Then sbStatus.Panels("Message").Text = "BeforeUpdate"
+    If Not fEditMode Then Cancel = 1
 End Sub
 Private Sub dgdList_Click()
     UpdatePosition
 End Sub
 Private Sub dgdList_ColEdit(ByVal ColIndex As Integer)
+    fEditMode = True
     sbStatus.Panels("Status").Text = "Edit Mode"
     If fDebug Then sbStatus.Panels("Message").Text = "ColEdit"
 End Sub
@@ -247,8 +254,8 @@ Private Sub dgdList_DblClick()
                 lblA.Caption = col.Caption
                 WidestData = lblA.Width
                 Set ColumnFormat = col.DataFormat
-                If Not dgdList.DataSource.BOF And Not dgdList.DataSource.EOF Then
-                    Set rsTemp = dgdList.DataSource.Clone(adLockReadOnly)
+                If Not RS.BOF And Not RS.EOF Then
+                    Set rsTemp = RS.Clone(adLockReadOnly)
                     rsTemp.MoveFirst
                     While Not rsTemp.EOF
                         If Not IsNull(rsTemp(col.Caption).Value) Then
@@ -276,38 +283,81 @@ ExitSub:
     Me.MousePointer = vbDefault
 End Sub
 Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
-    If dgdList.DataSource.BOF And dgdList.DataSource.EOF Then Exit Sub
-    dgdList.DataSource.Sort = vbNullString
+    If RS.BOF And RS.EOF Then Exit Sub
+    RS.Sort = vbNullString
     If SortDESC(ColIndex) Then
-        dgdList.DataSource.Sort = dgdList.Columns(ColIndex).Caption & " DESC"
+        RS.Sort = dgdList.Columns(ColIndex).Caption & " DESC"
     Else
-        dgdList.DataSource.Sort = dgdList.Columns(ColIndex).Caption & " ASC"
+        RS.Sort = dgdList.Columns(ColIndex).Caption & " ASC"
     End If
     SortDESC(ColIndex) = Not SortDESC(ColIndex)
 End Sub
 Private Sub dgdList_KeyUp(KeyCode As Integer, Shift As Integer)
+    Dim col As Column
+    Dim i As Integer
+    
     Select Case KeyCode
         Case vbKeyEscape
+            If RS.EditMode = adEditInProgress Then RS.Update
+            fEditMode = False
+            EditRow = -1
+            
             If Not dgdList.EditActive Then dgdList.EditActive = False
+            dgdList.AllowUpdate = False
             sbStatus.Panels("Status").Text = ""
         Case vbKeyF2
+            fEditMode = True
+            EditRow = dgdList.Row
+            dgdList.AllowUpdate = True
+            
+            'Position to the first non-hidden column...
+            For Each col In dgdList.Columns
+                If col.Visible Then
+                    dgdList.col = col.ColIndex
+                    Exit For
+                End If
+            Next col
+    
             dgdList.EditActive = True
             sbStatus.Panels("Status").Text = "Edit Mode"
+            For i = 0 To dgdList.SelBookmarks.Count - 1
+                dgdList.SelBookmarks.Remove 0
+            Next i
+            dgdList.SelBookmarks.Add dgdList.Bookmark
     End Select
 End Sub
 Private Sub dgdList_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     MouseX = X
     MouseY = Y
 End Sub
+Private Sub dgdList_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    If Button = vbKeyRButton And Not dgdList.EditActive And sbStatus.Panels("Status").Text <> "Edit Mode" Then
+        PopupMenu mnuList
+    End If
+End Sub
 Private Sub dgdList_RowColChange(LastRow As Variant, ByVal LastCol As Integer)
+    Dim col As Column
     Dim i As Long
     
-    If Not dgdList.AllowUpdate Then
+    If Not IsEmpty(LastRow) And Not IsNull(LastRow) Then
+        dgdList_KeyUp vbKeyEscape, 0
+    End If
+    
+    If Not fEditMode Then
         For i = 0 To dgdList.SelBookmarks.Count - 1
             dgdList.SelBookmarks.Remove 0
         Next i
         dgdList.SelBookmarks.Add dgdList.Bookmark
-        dgdList.col = dgdList.Columns("Junk").ColIndex
+    
+        'Find a hidden column and use it to select the whole row...
+        For Each col In dgdList.Columns
+            If Not col.Visible Then
+                dgdList.col = col.ColIndex
+                Exit For
+            End If
+        Next col
+    
+        'dgdList.col = dgdList.Columns("Junk").ColIndex
     End If
     UpdatePosition
 End Sub
@@ -326,17 +376,19 @@ Private Sub Form_Activate()
     CurrencyFormat.Format = "Currency"
     DateFormat.Format = "dd-MMM-yyyy hh:nn AMPM"
     
-    dgdList.AllowUpdate = True
-    dgdList.AllowAddNew = True
-    
     If vrsList Is Nothing Then
-        Set dgdList.DataSource = frmList.rsList
+        Set RS = frmList.rsList
+        fAllowEditMode = True
     Else
-        Set dgdList.DataSource = frmList.vrsList
+        Set RS = frmList.vrsList
+        fAllowEditMode = False
     End If
+    dgdList.AllowUpdate = fAllowEditMode
+    dgdList.AllowAddNew = fAllowEditMode
+    Set dgdList.DataSource = RS
     ReDim SortDESC(0 To dgdList.Columns.Count - 1)
     
-    For Each fld In dgdList.DataSource.Fields
+    For Each fld In RS.Fields
         Set col = dgdList.Columns(fld.Name)
         col.Visible = True
         Select Case fld.Type
@@ -366,8 +418,8 @@ Private Sub Form_Activate()
     Me.Width = GetSetting(App.ProductName, Me.Caption & " Settings", "Form Width", Me.Width)
     Me.Height = GetSetting(App.ProductName, Me.Caption & " Settings", "Form Height", Me.Height)
         
-    If dgdList.DataSource.Filter <> vbNullString And dgdList.DataSource.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & dgdList.DataSource.Filter
+    If RS.Filter <> vbNullString And RS.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & RS.Filter
     Else
         sbStatus.Panels("Message").Text = vbNullString
     End If
@@ -391,7 +443,7 @@ End Sub
 Private Sub Form_Unload(Cancel As Integer)
     Dim i As Integer
     
-    If dgdList.AllowUpdate Then dgdList.DataSource.UpdateBatch
+    If (RS.Status And adRecPendingChanges) = adRecPendingChanges Then RS.UpdateBatch
     
     'Save the column settings for the next display...
     For i = 0 To dgdList.Columns.Count - 1
@@ -402,21 +454,24 @@ Private Sub Form_Unload(Cancel As Integer)
     SaveSetting App.ProductName, Me.Caption & " Settings", "Form Width", Me.Width
     SaveSetting App.ProductName, Me.Caption & " Settings", "Form Height", Me.Height
 End Sub
+Private Sub mnuListEdit_Click()
+    dgdList_KeyUp vbKeyF2, 0
+End Sub
 Private Sub sbStatus_PanelClick(ByVal Panel As MSComctlLib.Panel)
     Dim frm As Form
     
     Select Case UCase(Panel.Key)
         Case "TOP"
-            dgdList.DataSource.MoveFirst
+            RS.MoveFirst
             UpdatePosition
         Case "BOTTOM"
-            dgdList.DataSource.MoveLast
+            RS.MoveLast
             UpdatePosition
         Case "FILTER"
-            FilterCommand Me, dgdList.DataSource, ""
+            FilterCommand Me, RS, ""
         Case Else
     End Select
 End Sub
 Private Sub UpdatePosition()
-    sbStatus.Panels("Position").Text = "Record " & dgdList.Bookmark & " of " & dgdList.DataSource.RecordCount
+    sbStatus.Panels("Position").Text = "Record " & dgdList.Bookmark & " of " & RS.RecordCount
 End Sub

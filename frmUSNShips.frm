@@ -281,7 +281,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmUSNShips.frx":0000
       End
@@ -294,7 +293,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":00E1
       End
@@ -307,7 +305,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":01BC
       End
@@ -320,7 +317,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0295
       End
@@ -333,7 +329,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":036F
       End
@@ -346,7 +341,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":044E
       End
@@ -359,7 +353,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":052A
       End
@@ -532,6 +525,7 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   12933
          _ExtentY        =   5101
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmUSNShips.frx":0606
       End
    End
@@ -551,6 +545,7 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   12933
          _ExtentY        =   5101
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmUSNShips.frx":06EA
       End
    End
@@ -570,7 +565,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmUSNShips.frx":07C9
       End
@@ -583,7 +577,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":08A6
       End
@@ -596,7 +589,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0983
       End
@@ -609,7 +601,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0A5C
       End
@@ -622,7 +613,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0B3C
       End
@@ -635,7 +625,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0C17
       End
@@ -648,7 +637,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0CF2
       End
@@ -661,7 +649,6 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   9864
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0DD3
       End
@@ -841,7 +828,7 @@ Begin VB.Form frmUSNShips
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:34 AM"
+            TextSave        =   "10:46 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -1212,7 +1199,7 @@ Private Sub mnuRecordsNew_Click()
     txtDesignation.SetFocus
 End Sub
 Private Sub mnuRecordsRefresh_Click()
-    RefreshCommand rsMain, SQLkey
+    RefreshCommand rsMain, "ID"
 End Sub
 Private Sub mnuRecordsSearch_Click()
     SearchCommand Me, rsMain, SQLkey
