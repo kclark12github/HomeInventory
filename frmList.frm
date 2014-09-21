@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "4:00 PM"
+            TextSave        =   "5:37 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -234,33 +234,35 @@ Private Sub dgdList_DblClick()
     Me.MousePointer = vbHourglass
     
     ResizeWindow = 36
-    For iCol = dgdList.LeftCol To dgdList.LeftCol + dgdList.VisibleCols - 1
+    For iCol = dgdList.LeftCol To dgdList.Columns.Count - 1
         Set col = dgdList.Columns(iCol)
-        ColRight = col.Left + col.Width
-        If MouseY <= col.Top And MouseX >= (ColRight - ResizeWindow) And MouseX <= (ColRight + ResizeWindow) Then
-            dgdList.ClearSelCols
-            lblA.Caption = col.Caption
-            WidestData = lblA.Width
-            Set ColumnFormat = col.DataFormat
-            Set rsTemp = rsList.Clone(adLockReadOnly)
-            rsTemp.MoveFirst
-            While Not rsTemp.EOF
-                If Not IsNull(rsTemp(col.Caption).Value) Then
-                    If Not ColumnFormat Is Nothing Then
-                        lblA.Caption = Format(rsTemp(col.Caption).Value, col.DataFormat.Format)
-                    Else
-                        lblA.Caption = CStr(rsTemp(col.Caption).Value)
+        If col.Visible And col.Width > 0 Then
+            ColRight = col.Left + col.Width
+            If MouseY <= col.Top And MouseX >= (ColRight - ResizeWindow) And MouseX <= (ColRight + ResizeWindow) Then
+                dgdList.ClearSelCols
+                lblA.Caption = col.Caption
+                WidestData = lblA.Width
+                Set ColumnFormat = col.DataFormat
+                Set rsTemp = rsList.Clone(adLockReadOnly)
+                rsTemp.MoveFirst
+                While Not rsTemp.EOF
+                    If Not IsNull(rsTemp(col.Caption).Value) Then
+                        If Not ColumnFormat Is Nothing Then
+                            lblA.Caption = Format(rsTemp(col.Caption).Value, col.DataFormat.Format)
+                        Else
+                            lblA.Caption = CStr(rsTemp(col.Caption).Value)
+                        End If
+                        DataWidth = lblA.Width
+                        If DataWidth > WidestData Then WidestData = DataWidth
                     End If
-                    DataWidth = lblA.Width
-                    If DataWidth > WidestData Then WidestData = DataWidth
-                End If
-                rsTemp.MoveNext
-            Wend
-            CloseRecordset rsTemp, True
-            Set ColumnFormat = Nothing
-            col.Width = WidestData + (4 * ResizeWindow)
-            If col.Width > dgdList.Width Then col.Width = col.Width - ResizeWindow
-            GoTo ExitSub
+                    rsTemp.MoveNext
+                Wend
+                CloseRecordset rsTemp, True
+                Set ColumnFormat = Nothing
+                col.Width = WidestData + (4 * ResizeWindow)
+                If col.Width > dgdList.Width Then col.Width = col.Width - ResizeWindow
+                GoTo ExitSub
+            End If
         End If
     Next iCol
     
