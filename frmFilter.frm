@@ -594,7 +594,7 @@ Private Sub cmdApply_Click()
     Dim i As Integer
     'Parse fields on screen and build a filter for the recordset...
     
-    SQLsource = ""
+    SQLsource = vbNullString
     For i = 0 To RS.Fields.Count - 1
         If Len(txtFields(i).Text) > 0 Then
             If Mid(txtFields(i).Text, 1, 1) = "=" Or _
@@ -642,6 +642,7 @@ Private Sub cmdCancel_Click()
 End Sub
 Private Sub Form_Activate()
     Dim i As Integer
+    Dim iField As Integer
     Dim iTop As Integer
     Dim iLeft As Integer
     Dim NewHeight As Integer
@@ -662,28 +663,39 @@ Private Sub Form_Activate()
     cmdCancel.Top = cmdApply.Top + vSpace + cmdApply.Height
     cmdCancel.Left = cmdApply.Left
     
+    iField = 0
     For i = 0 To RS.Fields.Count - 1
-        If i > 31 Then
-            MsgBox "Warning: Only the first 32 fields can be used to filter your data.", vbInformation
-            Exit For
-        End If
-        txtFields(i).Visible = True
-        txtFields(i).Top = iTop
-        
-        lblFields(i).Alignment = lblFields(0).Alignment 'Right
-        lblFields(i).Visible = True
-        lblFields(i).Caption = RS.Fields(i).Name & ":"
-        lblFields(i).Top = txtFields(i).Top + (txtFields(i).Height / 2) - (lblFields(i).Height / 2)
-        lblFields(i).Left = iLeft
-        
-        txtFields(i).Left = lblFields(i).Left + lblFields(i).Width + hSpace
-        txtFields(i).Width = Me.ScaleWidth - lblFields(i).Left - lblFields(i).Width - hSpace - hSpace - cmdApply.Width - hSpace
-        txtFields(i).TabIndex = i
-        
-        iTop = iTop + txtFields(i).Height + vSpace
+        'Debug.Print "RS.Fields(i).Name", RS.Fields(i).Name
+        Select Case RS.Fields(i).Type
+            Case adBinary, adLongVarBinary, adLongVarChar
+                'Don't deal with filtering these fields (we could do
+                'Memo fields, but eliminating them reduces the size of
+                'the filter form for these activites, so let's not)...
+                'Debug.Print vbTab & "Skipping: RS.Fields(i).Name", RS.Fields(i).Name
+            Case Else
+                If i > 31 Then
+                    MsgBox "Warning: Only the first 32 fields can be used to filter your data.", vbInformation
+                    Exit For
+                End If
+                txtFields(i).Visible = True
+                txtFields(i).Top = iTop
+                
+                lblFields(i).Alignment = lblFields(0).Alignment 'Right
+                lblFields(i).Visible = True
+                lblFields(i).Caption = RS.Fields(i).Name & ":"
+                lblFields(i).Top = txtFields(i).Top + (txtFields(i).Height / 2) - (lblFields(i).Height / 2)
+                lblFields(i).Left = iLeft
+                
+                txtFields(i).Left = lblFields(i).Left + lblFields(i).Width + hSpace
+                txtFields(i).Width = Me.ScaleWidth - lblFields(i).Left - lblFields(i).Width - hSpace - hSpace - cmdApply.Width - hSpace
+                txtFields(i).TabIndex = i
+                
+                iTop = iTop + txtFields(i).Height + vSpace
+                iField = i
+        End Select
     Next i
     
-    NewHeight = (txtFields(i - 1).Top + txtFields(i - 1).Height + vSpace) + Me.Height - Me.ScaleHeight
+    NewHeight = (txtFields(iField).Top + txtFields(iField).Height + vSpace) + Me.Height - Me.ScaleHeight
     If NewHeight > Me.Height Then
         Me.Top = Me.Top + ((NewHeight - Me.Height) / 2)
     Else
@@ -698,6 +710,8 @@ Private Sub Form_Activate()
     ElseIf RS.Filter <> 0 And RS.Filter <> "" Then
         ParseFilter RS.Filter
     End If
+    'Now that we've populated the screen fields, start from scratch...
+    strFilter = vbNullString
 End Sub
 Private Sub Form_Load()
     Dim i As Integer

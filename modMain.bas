@@ -151,7 +151,8 @@ Public Sub FilterCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String
     SQLfilter = frmFilter.strFilter
     Unload frmFilter
     If SQLfilter <> vbNullString Then
-        ParseSQLSelect RS.Source, FieldList, TableList, WhereClause, OrderByClause
+        'ParseSQLSelect RS.Source, FieldList, TableList, WhereClause, OrderByClause
+        ParseSQLSelect SQLmain, FieldList, TableList, WhereClause, OrderByClause
         If WhereClause <> vbNullString Then
             WhereClause = WhereClause & " And " & SQLfilter
         Else
@@ -171,6 +172,8 @@ Public Sub FilterCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String
     RefreshCommand RS, Key
 End Sub
 Public Sub ListCommand(frm As Form, RS As ADODB.Recordset)
+    Dim vRS As ADODB.Recordset
+    
     Load frmList
     frmList.Caption = frm.Caption & " List"
     If frmMain.Width > frm.Width And frmMain.Height > frm.Height Then
@@ -185,7 +188,11 @@ Public Sub ListCommand(frm As Form, RS As ADODB.Recordset)
         frmList.Height = frm.Height
     End If
     
-    Set frmList.rsList = RS
+    If Not MakeVirtualRecordset(adoConn, RS, vRS) Then
+        MsgBox "MakeVirtualRecordset failed.", vbExclamation, frm.Caption
+        Exit Sub
+    End If
+    Set frmList.vrsList = vRS
     
     adoConn.BeginTrans
     fTransaction = True
@@ -194,6 +201,7 @@ Public Sub ListCommand(frm As Form, RS As ADODB.Recordset)
         frm.sbStatus.Panels("Message").Text = "Filter: " & RS.Filter
     End If
     adoConn.CommitTrans
+    CloseRecordset vRS, True
     fTransaction = False
 End Sub
 Public Sub ModifyCommand(frm As Form)
