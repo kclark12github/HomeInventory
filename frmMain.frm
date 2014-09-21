@@ -61,7 +61,7 @@ Begin VB.Form frmMain
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:49 AM"
+            TextSave        =   "10:33 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -288,6 +288,7 @@ Private Sub Form_Activate()
     Else
         sbStatus.Panels("DatabasePath").Text = ParsePath(gstrFileDSN, DrvDirFileNameBase)
     End If
+    Me.Caption = ParsePath(gstrFileDSN, FileNameBase) & "..."
     Me.MousePointer = vbDefault
 End Sub
 Private Sub Form_Load()
@@ -297,7 +298,7 @@ Private Sub Form_Load()
     MinWidth = iMinWidth
     MinHeight = iMinHeight
     
-    gstrODBCFileDSNDir = VbRegQueryValue(HKEY_CURRENT_USER, "SOFTWARE\ODBC\ODBC.INI\ODBC File DSN", "DefaultDSNDir")
+    gstrODBCFileDSNDir = VbRegQueryValue(HKEY_LOCAL_MACHINE, "SOFTWARE\ODBC\ODBC.INI\ODBC File DSN", "DefaultDSNDir")
     gstrDefaultImagePath = App.Path & "\Images"
     gstrImagePath = GetSetting(App.FileDescription, "Environment", "ImagePath", gstrDefaultImagePath & "\" & gstrDefaultImage)
     LoadBackground
