@@ -10,10 +10,9 @@ Begin VB.Form frmMain
    Icon            =   "frmMain.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   MinButton       =   0   'False
    ScaleHeight     =   1920
    ScaleWidth      =   3612
-   StartUpPosition =   2  'CenterScreen
+   StartUpPosition =   1  'CenterOwner
    Begin MSComDlg.CommonDialog dlgMain 
       Left            =   120
       Top             =   60
