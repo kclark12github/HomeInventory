@@ -10,8 +10,12 @@ Public Function MakeVirtualRecordset(ByRef ADOConnection As ADODB.Connection, RS
     Dim iPos As Integer
     Dim SQLsource As String
     
-    Call Trace(trcEnter, "MakeVirtualRecordset(ADOConnection, RS, vRS, """ & HiddenFieldName & """)")
     On Error GoTo ErrorHandler
+    If IsMissing(HiddenFieldName) Then
+        Call Trace(trcEnter, "MakeVirtualRecordset(ADOConnection, RS, vRS, , )")
+    Else
+        Call Trace(trcEnter, "MakeVirtualRecordset(ADOConnection, RS, vRS, """ & HiddenFieldName & """)")
+    End If
     MakeVirtualRecordset = True
     
     'If the recordset has a filter on it already, SCR won't respect it, so include
