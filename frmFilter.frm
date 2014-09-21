@@ -1115,7 +1115,7 @@ Private Sub Form_Activate()
                         If ctl.Tag = vbNullString Then GoTo SkipControl
                         Select Case TypeName(ctl)
                             Case "CheckBox", "DataCombo", "Label", "PictureBox", "RichTextBox", "TextBox"
-                                If ctl.DataField = RS.Fields(i).Name Then
+                                If UCase(ctl.DataField) = UCase(RS.Fields(i).Name) Then
                                     Caption = ctl.Tag
                                     Call Trace(trcBody, vbTab & "Caption: " & Caption)
                                     If TypeName(ctl) = "DataCombo" Then
