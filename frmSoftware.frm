@@ -804,6 +804,11 @@ End Sub
 Private Sub txtISBN_GotFocus()
     TextSelected
 End Sub
+Private Sub txtISBN_KeyPress(KeyAscii As Integer)
+    Dim Char As String
+    Char = Chr(KeyAscii)
+    KeyAscii = Asc(UCase(Char))
+End Sub
 Private Sub txtTitle_GotFocus()
     TextSelected
 End Sub

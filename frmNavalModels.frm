@@ -806,6 +806,11 @@ End Sub
 Private Sub txtReference_GotFocus()
     TextSelected
 End Sub
+Private Sub txtReference_KeyPress(KeyAscii As Integer)
+    Dim Char As String
+    Char = Chr(KeyAscii)
+    KeyAscii = Asc(UCase(Char))
+End Sub
 Private Sub txtReference_Validate(Cancel As Boolean)
     If txtReference.Text = "" Then
         MsgBox "Reference should be specified!", vbExclamation, Me.Caption
