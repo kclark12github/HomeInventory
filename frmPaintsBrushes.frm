@@ -4,7 +4,7 @@ Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmPaintsBrushes 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Paints & Brushes"
+   Caption         =   "Finishing Products"
    ClientHeight    =   3456
    ClientLeft      =   36
    ClientTop       =   492
@@ -49,7 +49,7 @@ Begin VB.Form frmPaintsBrushes
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:50 PM"
+            TextSave        =   "6:12 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
