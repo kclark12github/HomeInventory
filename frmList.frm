@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:31 PM"
+            TextSave        =   "5:41 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -236,12 +236,8 @@ End Sub
 Private Sub dgdList_DblClick()
     Dim col As Column
     Dim ColRight As Single
-    Dim ColumnFormat As New StdDataFormat
-    Dim DataWidth As Long
     Dim iCol As Integer
     Dim ResizeWindow As Single
-    Dim rsTemp As ADODB.Recordset
-    Dim WidestData As Long
     
     Me.MousePointer = vbHourglass
     
@@ -252,29 +248,7 @@ Private Sub dgdList_DblClick()
             ColRight = col.Left + col.Width
             If MouseY <= col.Top And MouseX >= (ColRight - ResizeWindow) And MouseX <= (ColRight + ResizeWindow) Then
                 dgdList.ClearSelCols
-                lblA.Caption = col.Caption
-                WidestData = lblA.Width
-                Set ColumnFormat = col.DataFormat
-                If Not RS.BOF And Not RS.EOF Then
-                    Set rsTemp = RS.Clone(adLockReadOnly)
-                    rsTemp.MoveFirst
-                    While Not rsTemp.EOF
-                        If Not IsNull(rsTemp(col.Caption).Value) Then
-                            If Not ColumnFormat Is Nothing Then
-                                lblA.Caption = Format(rsTemp(col.Caption).Value, col.DataFormat.Format)
-                            Else
-                                lblA.Caption = CStr(rsTemp(col.Caption).Value)
-                            End If
-                            DataWidth = lblA.Width
-                            If DataWidth > WidestData Then WidestData = DataWidth
-                        End If
-                        rsTemp.MoveNext
-                    Wend
-                    CloseRecordset rsTemp, True
-                End If
-                Set ColumnFormat = Nothing
-                col.Width = WidestData + (4 * ResizeWindow)
-                If col.Width > dgdList.Width Then col.Width = col.Width - ResizeWindow
+                Call ResizeColumn(col)
                 GoTo ExitSub
             End If
         End If
@@ -307,7 +281,7 @@ Private Sub dgdList_KeyUp(KeyCode As Integer, Shift As Integer)
             
             If Not dgdList.EditActive Then dgdList.EditActive = False
             dgdList.AllowUpdate = False
-            sbStatus.Panels("Status").Text = ""
+            sbStatus.Panels("Status").Text = vbNullString
         Case vbKeyF2
             fEditMode = True
             EditRow = dgdList.Row
@@ -374,6 +348,7 @@ Private Sub Form_Activate()
     Dim DateFormat As New StdDataFormat
     Dim col As Column
     Dim fld As ADODB.Field
+    Dim ResizeWindow As Single
     
     BooleanFormat.Format = "Yes/No"
     CurrencyFormat.Format = "Currency"
@@ -426,6 +401,17 @@ Private Sub Form_Activate()
     Else
         sbStatus.Panels("Message").Text = vbNullString
     End If
+    
+    'Resize Columns based on content...
+    ResizeWindow = 36
+    For i = dgdList.LeftCol To dgdList.Columns.Count - 1
+        Set col = dgdList.Columns(i)
+        If col.Visible And col.Width > 0 Then
+            dgdList.ClearSelCols
+            Call ResizeColumn(col)
+        End If
+    Next i
+    
     dgdList_Click
 End Sub
 Private Sub Form_Load()
@@ -534,6 +520,43 @@ Private Sub mnuListEdit_Click()
 End Sub
 Private Sub mnuListNew_Click()
     MsgBox "Sorry, New is not implemented yet...", vbExclamation, Me.Caption
+End Sub
+Private Sub ResizeColumn(col As Column)
+    Dim ColumnFormat As New StdDataFormat
+    Dim DataWidth As Long
+    Dim ResizeWindow As Single
+    Dim rsTemp As ADODB.Recordset
+    Dim WidestData As Long
+    
+    Me.MousePointer = vbHourglass
+    
+    ResizeWindow = 36
+    lblA.Caption = col.Caption
+    WidestData = lblA.Width
+    Set ColumnFormat = col.DataFormat
+    If Not RS.BOF And Not RS.EOF Then
+        Set rsTemp = RS.Clone(adLockReadOnly)
+        rsTemp.MoveFirst
+        While Not rsTemp.EOF
+            If Not IsNull(rsTemp(col.Caption).Value) Then
+                If Not ColumnFormat Is Nothing Then
+                    lblA.Caption = Format(rsTemp(col.Caption).Value, col.DataFormat.Format)
+                Else
+                    lblA.Caption = CStr(rsTemp(col.Caption).Value)
+                End If
+                DataWidth = lblA.Width
+                If DataWidth > WidestData Then WidestData = DataWidth
+            End If
+            rsTemp.MoveNext
+        Wend
+        CloseRecordset rsTemp, True
+    End If
+    Set ColumnFormat = Nothing
+    col.Width = WidestData + (4 * ResizeWindow)
+    If col.Width > dgdList.Width Then col.Width = col.Width - ResizeWindow
+    
+ExitSub:
+    Me.MousePointer = vbDefault
 End Sub
 Private Sub sbStatus_PanelClick(ByVal Panel As MSComctlLib.Panel)
     Dim frm As Form
