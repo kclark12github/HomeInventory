@@ -49,7 +49,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:13 AM"
+            TextSave        =   "10:40 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -670,13 +670,13 @@ Private Sub Form_Load()
         adoConn.Open .PathName, .UserName, .Password
     End With
     rsMain.CursorLocation = adUseClient
-    rsMain.Open "select * from [Master Book List] order by AlphaSort", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsMain.Open "select * from [Books] order by AlphaSort", adoConn, adOpenKeyset, adLockBatchOptimistic
 
     rsAuthors.CursorLocation = adUseClient
-    rsAuthors.Open "select distinct Author from [Master Book List] order by Author", adoConn, adOpenStatic, adLockReadOnly
+    rsAuthors.Open "select distinct Author from [Books] order by Author", adoConn, adOpenStatic, adLockReadOnly
     
     rsSubjects.CursorLocation = adUseClient
-    rsSubjects.Open "select distinct Subject from [Master Book List] order by Subject", adoConn, adOpenStatic, adLockReadOnly
+    rsSubjects.Open "select distinct Subject from [Books] order by Subject", adoConn, adOpenStatic, adLockReadOnly
     
     Set adodcMain.Recordset = rsMain
     frmMain.BindField lblID, "ID", rsMain
@@ -849,7 +849,7 @@ Private Sub mnuActionSQL_Click()
     Load frmSQL
     Set frmSQL.cnSQL = adoConn
     frmSQL.txtDatabase.Text = DBinfo.PathName
-    frmSQL.dbcTables.BoundText = "Master Book List"
+    frmSQL.dbcTables.BoundText = "Books"
     frmSQL.Show vbModal
 End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
