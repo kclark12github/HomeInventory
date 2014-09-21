@@ -1,14 +1,14 @@
 VERSION 5.00
 Begin VB.Form frmWebLinks 
    Caption         =   "Web Shortcuts"
-   ClientHeight    =   4152
-   ClientLeft      =   48
-   ClientTop       =   276
-   ClientWidth     =   7896
+   ClientHeight    =   4155
+   ClientLeft      =   45
+   ClientTop       =   270
+   ClientWidth     =   7905
    Icon            =   "frmWebLinks.frx":0000
    LinkTopic       =   "Form1"
-   ScaleHeight     =   4152
-   ScaleWidth      =   7896
+   ScaleHeight     =   4155
+   ScaleWidth      =   7905
    StartUpPosition =   1  'CenterOwner
    Begin HomeInventory.kfcWebLinks wlWebLinks 
       Height          =   4152
@@ -16,8 +16,8 @@ Begin VB.Form frmWebLinks
       TabIndex        =   0
       Top             =   0
       Width           =   7692
-      _ExtentX        =   13568
-      _ExtentY        =   7324
+      _ExtentX        =   13573
+      _ExtentY        =   7329
    End
 End
 Attribute VB_Name = "frmWebLinks"
@@ -39,6 +39,7 @@ Private Sub Form_Activate()
 End Sub
 Private Sub Form_Load()
     fActivated = False
+    Me.Move 0, 0, frmMain.Width, frmMain.Height
 End Sub
 Private Sub Form_Resize()
     If Me.WindowState <> vbMinimized Then
