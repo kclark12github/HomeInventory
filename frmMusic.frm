@@ -5,14 +5,14 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmMusic 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Music Inventory"
-   ClientHeight    =   3528
+   ClientHeight    =   3516
    ClientLeft      =   36
-   ClientTop       =   492
+   ClientTop       =   264
    ClientWidth     =   7524
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3528
+   ScaleHeight     =   3516
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
@@ -21,7 +21,7 @@ Begin VB.Form frmMusic
       Height          =   252
       Left            =   0
       TabIndex        =   22
-      Top             =   3276
+      Top             =   3264
       Width           =   7524
       _ExtentX        =   13272
       _ExtentY        =   445
@@ -49,7 +49,7 @@ Begin VB.Form frmMusic
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:21 PM"
+            TextSave        =   "3:15 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -511,6 +511,7 @@ Begin VB.Form frmMusic
    End
    Begin VB.Menu mnuAction 
       Caption         =   "&Action"
+      Visible         =   0   'False
       Begin VB.Menu mnuActionList 
          Caption         =   "&List"
       End
@@ -615,6 +616,8 @@ Private Sub mnuActionList_Click()
 End Sub
 Private Sub mnuActionModify_Click()
     ModifyCommand Me
+    
+    dbcArtist.SetFocus
 End Sub
 Private Sub mnuActionNew_Click()
     NewCommand Me, rsMain
@@ -625,6 +628,7 @@ Private Sub mnuActionNew_Click()
     chkCS.Value = vbUnchecked
     chkLP.Value = vbUnchecked
     strDefaultAlphaSort = vbNullString
+    dbcArtist.SetFocus
 End Sub
 Private Sub mnuActionRefresh_Click()
     RefreshCommand rsMain, SQLkey

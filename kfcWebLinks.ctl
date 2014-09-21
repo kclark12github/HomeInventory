@@ -365,7 +365,7 @@ Private WithEvents IE As SHDocVw.InternetExplorer
 Attribute IE.VB_VarHelpID = -1
 Private DBinfo As DataBaseInfo
 Private Declare Function SendMessage Lib "user32" Alias _
-    "SendMessageA" (ByVal hwnd As Long, _
+    "SendMessageA" (ByVal hWnd As Long, _
     ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
 Dim iScrollDir As Integer 'Which way to scroll
 Event BeginEditMode()
@@ -376,11 +376,10 @@ Private Sub AddEntry(ByRef strID As String, strLabel As String, strParentID As S
     
     Trace trcEnter, "AddEntry()"
     rsEntry.MaxRecords = 1
-    Trace trcBody, "rsEntry.Open ""SELECT * from MenuEntries"", adoconn, adOpenKeyset, adLockReadOnly"
-    rsEntry.Open "SELECT * from MenuEntries", adoConn, adOpenForwardOnly, adLockOptimistic
+    Trace trcBody, "rsEntry.Open ""SELECT * from MenuEntries"", adoconn, adOpenKeyset, adLockPessimistic"
+    rsEntry.Open "SELECT * from MenuEntries", adoConn, adOpenKeyset, adLockPessimistic
     Trace trcBody, "rsEntry.AddNew"
     rsEntry.AddNew
-    strID = rsEntry("ID")
     If Len(VBencode(strLabel)) > rsEntry("Label").DefinedSize Then
         rsEntry("Label") = Mid(VBencode(strLabel), 1, rsEntry("Label").DefinedSize)
     Else
@@ -396,6 +395,7 @@ Private Sub AddEntry(ByRef strID As String, strLabel As String, strParentID As S
     rsEntry("URL") = URLencode(strURL)
     rsEntry("HasMembers") = fHasMembers
     rsEntry.Update
+    strID = rsEntry("ID")
     rsEntry.Close
     Set rsEntry = Nothing
 
@@ -526,7 +526,7 @@ Private Sub cmdOK_Click()
     Else
         Set mNode = tvwDB.SelectedItem
         intID = Mid(lblID.Caption, 5)
-        rsEntry.Open "SELECT * from MenuEntries where ID=" & intID, adoConn, adOpenForwardOnly, adLockOptimistic
+        rsEntry.Open "SELECT * from MenuEntries where ID=" & intID, adoConn, adOpenKeyset, adLockPessimistic
         rsEntry("Label") = VBencode(txtLabel.Text)
         rsEntry("ParentID") = VBencode(txtParentID.Text)      'Set behind the scenes...
         rsEntry("TargetFrame") = VBencode(txtTargetFrame.Text)
@@ -596,11 +596,12 @@ Private Sub CopyNode(TargetNode As ComctlLib.Node, SourceID As String)
     
     If SourceHasMembers Then
         'Now copy his children to the new tree...
-        rsSourceEntry.Open "SELECT * from MenuEntries where ParentID=" & SourceID, adoConn, adOpenForwardOnly, adLockOptimistic
+        rsSourceEntry.Open "SELECT * from MenuEntries where ParentID=" & SourceID, adoConn, adOpenKeyset, adLockPessimistic
         While Not rsSourceEntry.EOF
             CopyNode mNode, rsSourceEntry("ID")
             rsSourceEntry.MoveNext
         Wend
+        rsSourceEntry.Update
         rsSourceEntry.Close
     End If
     Set rsSourceEntry = Nothing
@@ -611,7 +612,7 @@ Private Sub DeleteByParent(ParentID As Long)
     'Note: Working off ParentCode (the way it's currently defined) is flawed...
     '      It should probably be changed to the ID field of the parent record
     '      to avoid ambiguity between different records with the same ParentCode...
-    rsEntry.Open "SELECT * from MenuEntries where ParentID=" & ParentID, adoConn, adOpenForwardOnly, adLockOptimistic
+    rsEntry.Open "SELECT * from MenuEntries where ParentID=" & ParentID, adoConn, adOpenKeyset, adLockPessimistic
     While Not rsEntry.EOF
         DeleteByParent rsEntry("ID")
         rsEntry.Delete adAffectCurrent
@@ -733,7 +734,7 @@ Private Sub mnuContextDelete_Click()
         intID = Trim(Mid(mNode.Tag, 7))
     End If
     
-    rsEntry.Open "SELECT * from MenuEntries where ID=" & intID, adoConn, adOpenForwardOnly, adLockOptimistic
+    rsEntry.Open "SELECT * from MenuEntries where ID=" & intID, adoConn, adOpenKeyset, adLockPessimistic
     DeleteByParent rsEntry("ID")
     rsEntry.Delete adAffectCurrent
     rsEntry.Close
@@ -1003,9 +1004,9 @@ End Sub
 Private Sub timTimer_Timer()
     If iScrollDir = -1 Then 'Scroll Up
         ' Send a WM_VSCROLL message 0 is up and 1 is down
-        SendMessage tvwDB.hwnd, 277&, 0&, vbNull
+        SendMessage tvwDB.hWnd, 277&, 0&, vbNull
     Else 'Scroll Down
-        SendMessage tvwDB.hwnd, 277&, 1&, vbNull
+        SendMessage tvwDB.hWnd, 277&, 1&, vbNull
     End If
 End Sub
 Private Sub tvwDB_AfterLabelEdit(Cancel As Integer, NewString As String)
@@ -1020,7 +1021,7 @@ Private Sub tvwDB_AfterLabelEdit(Cancel As Integer, NewString As String)
         Set mNode = tvwDB.SelectedItem
         intID = Mid(mNode.Tag, InStr(mNode.Tag, ": ") + 2)
         
-        rsEntry.Open "SELECT Label from MenuEntries where ID=" & intID, adoConn, adOpenKeyset, adLockOptimistic
+        rsEntry.Open "SELECT Label from MenuEntries where ID=" & intID, adoConn, adOpenKeyset, adLockPessimistic
         rsEntry("Label") = VBencode(NewString)
         rsEntry.Update
         txtLabel.Text = NewString
@@ -1150,9 +1151,10 @@ Private Sub tvwDB_OLECompleteDrag(Effect As Long)
             End If
     
             Set rsEntry = New ADODB.Recordset
-            rsEntry.Open "SELECT * from MenuEntries where ID=" & strID, adoConn, adOpenForwardOnly, adLockOptimistic
+            rsEntry.Open "SELECT * from MenuEntries where ID=" & strID, adoConn, adOpenKeyset, adLockPessimistic
             DeleteByParent rsEntry("ID")
             rsEntry.Delete adAffectCurrent
+            rsEntry.Update
             rsEntry.Close
             Set rsEntry = Nothing
         End If
@@ -1266,7 +1268,7 @@ Private Sub tvwDB_OLEDragOver(Data As ComctlLib.DataObject, Effect As Long, Butt
     Dim i As Integer
     Dim vFN As String
     
-    Debug.Print "OLEDragOver(Data, " & Effect & ", " & Button & ", " & Shift & ", " & X & ", " & Y & ", " & State & ")"
+    'Debug.Print "OLEDragOver(Data, " & Effect & ", " & Button & ", " & Shift & ", " & X & ", " & Y & ", " & State & ")"
     If Shift And vbCtrlMask Then
         Effect = Effect And vbDropEffectCopy
     Else
