@@ -43,7 +43,7 @@ Begin VB.UserControl kfcWebLinks
       TabIndex        =   10
       Top             =   420
       Width           =   4092
-      Begin VB.Timer Timer1 
+      Begin VB.Timer timTimer 
          Enabled         =   0   'False
          Interval        =   200
          Left            =   780
