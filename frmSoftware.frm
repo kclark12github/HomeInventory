@@ -49,7 +49,7 @@ Begin VB.Form frmSoftware
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:38 AM"
+            TextSave        =   "10:24 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -899,21 +899,8 @@ End Sub
 Private Sub txtCost_GotFocus()
     TextSelected
 End Sub
-Private Sub txtCost_KeyPress(KeyAscii As Integer)
-    If KeyAscii < vbKey0 Or KeyAscii > vbKey9 Then
-        If KeyAscii <> Asc(".") Then
-            KeyAscii = 0    'Cancel the character.
-            Beep            'Sound error signal.
-        End If
-    End If
-End Sub
 Private Sub txtCost_Validate(Cancel As Boolean)
-    If txtCost.Text = vbNullString Then txtCost.Text = Format(0, "Currency")
-    If Not IsNumeric(txtCost.Text) Then
-        MsgBox "Invalid Cost entered.", vbExclamation, Me.Caption
-        TextSelected
-        Cancel = True
-    End If
+    ValidateCurrency txtCost.Text, Cancel
 End Sub
 Private Sub txtInventoried_GotFocus()
     TextSelected
@@ -929,9 +916,7 @@ Private Sub txtISBN_GotFocus()
     TextSelected
 End Sub
 Private Sub txtISBN_KeyPress(KeyAscii As Integer)
-    Dim Char As String
-    Char = Chr(KeyAscii)
-    KeyAscii = Asc(UCase(Char))
+    KeyPressUcase KeyAscii
 End Sub
 Private Sub txtTitle_GotFocus()
     TextSelected
@@ -946,21 +931,8 @@ End Sub
 Private Sub txtValue_GotFocus()
     TextSelected
 End Sub
-Private Sub txtValue_KeyPress(KeyAscii As Integer)
-    If KeyAscii < vbKey0 Or KeyAscii > vbKey9 Then
-        If KeyAscii <> Asc(".") Then
-            KeyAscii = 0    'Cancel the character.
-            Beep            'Sound error signal.
-        End If
-    End If
-End Sub
 Private Sub txtValue_Validate(Cancel As Boolean)
-    If txtValue.Text = vbNullString Then txtValue.Text = Format(0, "Currency")
-    If Not IsNumeric(txtValue.Text) Then
-        MsgBox "Invalid Value entered.", vbExclamation, Me.Caption
-        TextSelected
-        Cancel = True
-    End If
+    ValidateCurrency txtValue.Text, Cancel
 End Sub
 Private Sub txtVersion_GotFocus()
     TextSelected

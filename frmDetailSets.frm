@@ -49,7 +49,7 @@ Begin VB.Form frmDetailSets
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:37 AM"
+            TextSave        =   "10:21 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -927,29 +927,14 @@ End Sub
 Private Sub txtPrice_GotFocus()
     TextSelected
 End Sub
-Private Sub txtPrice_KeyPress(KeyAscii As Integer)
-    If KeyAscii < vbKey0 Or KeyAscii > vbKey9 Then
-        If KeyAscii <> Asc(".") Then
-            KeyAscii = 0    'Cancel the character.
-            Beep            'Sound error signal.
-        End If
-    End If
-End Sub
 Private Sub txtPrice_Validate(Cancel As Boolean)
-    If txtPrice.Text = vbNullString Then txtPrice.Text = Format(0, "Currency")
-    If Not IsNumeric(txtPrice.Text) Then
-        MsgBox "Invalid price entered.", vbExclamation, Me.Caption
-        TextSelected
-        Cancel = True
-    End If
+    ValidateCurrency txtPrice, Cancel
 End Sub
 Private Sub txtReference_GotFocus()
     TextSelected
 End Sub
 Private Sub txtReference_KeyPress(KeyAscii As Integer)
-    Dim Char As String
-    Char = Chr(KeyAscii)
-    KeyAscii = Asc(UCase(Char))
+    KeyPressUcase KeyAscii
 End Sub
 Private Sub txtReference_Validate(Cancel As Boolean)
     If txtReference.Text = vbNullString Then txtReference.Text = "Unknown"

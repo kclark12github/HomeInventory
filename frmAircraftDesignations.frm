@@ -49,7 +49,7 @@ Begin VB.Form frmAircraftDesignations
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:36 AM"
+            TextSave        =   "10:17 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -787,9 +787,7 @@ Private Sub txtDesignation_GotFocus()
     TextSelected
 End Sub
 Private Sub txtDesignation_KeyPress(KeyAscii As Integer)
-    Dim Char As String
-    Char = Chr(KeyAscii)
-    KeyAscii = Asc(UCase(Char))
+    KeyPressUcase KeyAscii
 End Sub
 Private Sub txtDesignation_Validate(Cancel As Boolean)
     If txtDesignation.Text = "" Then

@@ -49,7 +49,7 @@ Begin VB.Form frmMusic
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:37 AM"
+            TextSave        =   "10:22 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -896,9 +896,7 @@ Private Sub txtAlphaSort_GotFocus()
     TextSelected
 End Sub
 Private Sub txtAlphaSort_KeyPress(KeyAscii As Integer)
-    Dim Char As String
-    Char = Chr(KeyAscii)
-    KeyAscii = Asc(UCase(Char))
+    KeyPressUcase KeyAscii
 End Sub
 Private Sub txtAlphaSort_Validate(Cancel As Boolean)
     If txtAlphaSort.Text = "" Then
@@ -923,21 +921,8 @@ End Sub
 Private Sub txtPrice_GotFocus()
     TextSelected
 End Sub
-Private Sub txtPrice_KeyPress(KeyAscii As Integer)
-    If KeyAscii < vbKey0 Or KeyAscii > vbKey9 Then
-        If KeyAscii <> Asc(".") Then
-            KeyAscii = 0    'Cancel the character.
-            Beep            'Sound error signal.
-        End If
-    End If
-End Sub
 Private Sub txtPrice_Validate(Cancel As Boolean)
-    If txtPrice.Text = vbNullString Then txtPrice.Text = Format(0, "Currency")
-    If Not IsNumeric(txtPrice.Text) Then
-        MsgBox "Invalid price entered.", vbExclamation, Me.Caption
-        TextSelected
-        Cancel = True
-    End If
+    ValidateCurrency txtPrice.Text, Cancel
 End Sub
 Private Sub txtTitle_GotFocus()
     TextSelected

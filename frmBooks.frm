@@ -49,7 +49,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:36 AM"
+            TextSave        =   "10:16 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -878,9 +878,7 @@ Private Sub txtAlphaSort_GotFocus()
     TextSelected
 End Sub
 Private Sub txtAlphaSort_KeyPress(KeyAscii As Integer)
-    Dim Char As String
-    Char = Chr(KeyAscii)
-    KeyAscii = Asc(UCase(Char))
+    KeyPressUcase KeyAscii
 End Sub
 Private Sub txtAlphaSort_Validate(Cancel As Boolean)
     If txtAlphaSort.Text = "" Then
@@ -904,9 +902,7 @@ Private Sub txtISBN_GotFocus()
     TextSelected
 End Sub
 Private Sub txtISBN_KeyPress(KeyAscii As Integer)
-    Dim Char As String
-    Char = Chr(KeyAscii)
-    KeyAscii = Asc(UCase(Char))
+    KeyPressUcase KeyAscii
 End Sub
 Private Sub txtISBN_Validate(Cancel As Boolean)
     If txtISBN.Text = "" Then
@@ -918,14 +914,6 @@ Private Sub txtMisc_GotFocus()
 End Sub
 Private Sub txtPrice_GotFocus()
     TextSelected
-End Sub
-Private Sub txtPrice_KeyPress(KeyAscii As Integer)
-    If KeyAscii < vbKey0 Or KeyAscii > vbKey9 Then
-        If KeyAscii <> Asc(".") Then
-            KeyAscii = 0    'Cancel the character.
-            Beep            'Sound error signal.
-        End If
-    End If
 End Sub
 Private Sub txtPrice_Validate(Cancel As Boolean)
     If txtPrice.Text = vbNullString Then txtPrice.Text = Format(0, "Currency")

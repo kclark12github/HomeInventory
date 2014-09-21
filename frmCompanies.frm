@@ -49,7 +49,7 @@ Begin VB.Form frmCompanies
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:37 AM"
+            TextSave        =   "10:21 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -803,9 +803,7 @@ Private Sub txtCode_GotFocus()
     TextSelected
 End Sub
 Private Sub txtCode_KeyPress(KeyAscii As Integer)
-    Dim Char As String
-    Char = Chr(KeyAscii)
-    KeyAscii = Asc(UCase(Char))
+    KeyPressUcase KeyAscii
 End Sub
 Private Sub txtCode_Validate(Cancel As Boolean)
     If txtCode.Text = "" Then

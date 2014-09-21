@@ -49,7 +49,7 @@ Begin VB.Form frmVideoResearch
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:38 AM"
+            TextSave        =   "10:25 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -789,21 +789,8 @@ End Sub
 Private Sub txtCost_GotFocus()
     TextSelected
 End Sub
-Private Sub txtCost_KeyPress(KeyAscii As Integer)
-    If KeyAscii < vbKey0 Or KeyAscii > vbKey9 Then
-        If KeyAscii <> Asc(".") Then
-            KeyAscii = 0    'Cancel the character.
-            Beep            'Sound error signal.
-        End If
-    End If
-End Sub
 Private Sub txtCost_Validate(Cancel As Boolean)
-    If txtCost.Text = vbNullString Then txtCost.Text = Format(0, "Currency")
-    If Not IsNumeric(txtCost.Text) Then
-        MsgBox "Invalid Cost entered.", vbExclamation, Me.Caption
-        TextSelected
-        Cancel = True
-    End If
+    ValidateCurrency txtCost.Text, Cancel
 End Sub
 Private Sub txtSort_GotFocus()
     TextSelected
