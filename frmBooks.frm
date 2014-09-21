@@ -5,14 +5,14 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmBooks 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Book Inventory"
-   ClientHeight    =   4008
+   ClientHeight    =   4056
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4008
+   ScaleHeight     =   4056
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
@@ -23,7 +23,7 @@ Begin VB.Form frmBooks
       Height          =   372
       Left            =   6420
       TabIndex        =   10
-      Top             =   3540
+      Top             =   3420
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
@@ -32,7 +32,7 @@ Begin VB.Form frmBooks
       Height          =   372
       Left            =   5400
       TabIndex        =   9
-      Top             =   3540
+      Top             =   3420
       Width           =   972
    End
    Begin MSAdodcLib.Adodc adodcBooks 
@@ -703,7 +703,24 @@ Private Sub mnuActionRefresh_Click()
     rsBooks.Find "AlphaSort='" & SQLQuote(SaveBookmark) & "'"
 End Sub
 Private Sub mnuActionFilter_Click()
-    Debug.Print "mnuActionFilter_Click()"
+    Dim frm As Form
+    Dim Col As Column
+    
+    Load frmFilter
+    frmFilter.Caption = Me.Caption & " Filter"
+    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
+        Set frm = frmMain
+    Else
+        Set frm = Me
+    End If
+    frmFilter.Top = frm.Top
+    frmFilter.Left = frm.Left
+    frmFilter.Width = frm.Width
+    frmFilter.Height = frm.Height
+    
+    Set frmFilter.RS = rsBooks
+    
+    frmFilter.Show vbModal
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
@@ -754,6 +771,7 @@ Private Sub mnuActionReport_Click()
     frmViewReport.Left = frm.Left
     frmViewReport.Width = frm.Width
     frmViewReport.Height = frm.Height
+    frmViewReport.WindowState = vbMaximized
     
     Report.Database.SetDataSource vRS, 3, 1
     Report.ReadRecords

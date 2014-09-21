@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:02 AM"
+            TextSave        =   "7:49 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -231,7 +231,7 @@ Private Sub dgdList_RowColChange(LastRow As Variant, ByVal LastCol As Integer)
     UpdatePosition
 End Sub
 Private Sub dgdList_RowResize(Cancel As Integer)
-    sbStatus.Panels("Message").Text = "RowHeight: " & dgdList.RowHeight
+    If fDebug Then sbStatus.Panels("Message").Text = "RowHeight: " & dgdList.RowHeight
 End Sub
 Private Sub Form_Activate()
     Dim i As Integer
@@ -246,6 +246,10 @@ Private Sub Form_Activate()
     Me.Left = GetSetting(App.ProductName, Me.Caption & " Settings", "Form Left", Me.Left)
     Me.Width = GetSetting(App.ProductName, Me.Caption & " Settings", "Form Width", Me.Width)
     Me.Height = GetSetting(App.ProductName, Me.Caption & " Settings", "Form Height", Me.Height)
+        
+    If rsList.Filter <> vbNullString Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsList.Filter
+    End If
     dgdList_Click
 End Sub
 Private Sub Form_Load()
