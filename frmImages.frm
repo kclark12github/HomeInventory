@@ -72,6 +72,7 @@ Begin VB.Form frmImages
          _ExtentX        =   13356
          _ExtentY        =   4360
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmImages.frx":0000
       End
    End
@@ -254,7 +255,7 @@ Begin VB.Form frmImages
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:39 AM"
+            TextSave        =   "10:03 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -591,7 +592,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Const ChunkSize As Long = 8192
+Const ChunkSize As Long = 8196
 Dim adoConn As ADODB.Connection
 Dim WithEvents rsMain As ADODB.Recordset
 Attribute rsMain.VB_VarHelpID = -1
@@ -651,7 +652,7 @@ End Sub
 Private Sub cmdView_Click()
     Dim strTemp As String
     If rsMain.BOF Or rsMain.EOF Then Exit Sub
-    strTemp = ParsePath(frmMain.gstrDBPath, DrvDir) & "temp.dat"
+    strTemp = ParsePath(frmMain.gstrDBPath, DrvDir) & "temp.jpg"
     If DecodeImage(strTemp) Then
         Load frmPicture
         frmPicture.strPictureFile = strTemp
