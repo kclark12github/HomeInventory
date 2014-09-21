@@ -49,7 +49,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:37 PM"
+            TextSave        =   "1:15 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -220,7 +220,7 @@ Begin VB.Form frmBooks
       MaskColor       =   12632256
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   11
+         NumListImages   =   13
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmBooks.frx":0000
             Key             =   "Find"
@@ -265,6 +265,14 @@ Begin VB.Form frmBooks
             Picture         =   "frmBooks.frx":56DC
             Key             =   "Filter"
          EndProperty
+         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmBooks.frx":5B30
+            Key             =   "SQL"
+         EndProperty
+         BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmBooks.frx":5F84
+            Key             =   ""
+         EndProperty
       EndProperty
    End
    Begin MSComctlLib.ImageList imlLarge 
@@ -280,35 +288,35 @@ Begin VB.Form frmBooks
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   8
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":5B30
+            Picture         =   "frmBooks.frx":63D8
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":5F84
+            Picture         =   "frmBooks.frx":682C
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":6A50
+            Picture         =   "frmBooks.frx":72F8
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":6D6C
+            Picture         =   "frmBooks.frx":7614
             Key             =   "List"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":7838
+            Picture         =   "frmBooks.frx":80E0
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":7C8C
+            Picture         =   "frmBooks.frx":8534
             Key             =   ""
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":A440
+            Picture         =   "frmBooks.frx":ACE8
             Key             =   ""
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":A894
+            Picture         =   "frmBooks.frx":B13C
             Key             =   ""
          EndProperty
       EndProperty
@@ -329,7 +337,7 @@ Begin VB.Form frmBooks
       ImageList       =   "imlSmall"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   9
+         NumButtons      =   11
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Key             =   "List"
             Object.ToolTipText     =   "List all records"
@@ -381,6 +389,13 @@ Begin VB.Form frmBooks
                   Text            =   "Test2"
                EndProperty
             EndProperty
+         EndProperty
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "SQL"
+            ImageIndex      =   13
          EndProperty
       EndProperty
       BorderStyle     =   1
@@ -512,6 +527,12 @@ Begin VB.Form frmBooks
       End
       Begin VB.Menu mnuActionReport 
          Caption         =   "&Report"
+      End
+      Begin VB.Menu mnuActionSep3 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuActionSQL 
+         Caption         =   "&SQL"
       End
    End
 End
@@ -815,6 +836,11 @@ Private Sub mnuActionReport_Click()
     vRS.Close
     Set vRS = Nothing
 End Sub
+Private Sub mnuActionSQL_Click()
+    Load frmSQL
+    Set frmSQL.cnSQL = adoConn
+    frmSQL.Show vbModal
+End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
@@ -860,6 +886,8 @@ Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
             mnuActionDelete_Click
         Case "Report"
             mnuActionReport_Click
+        Case "SQL"
+            mnuActionSQL_Click
     End Select
 End Sub
 Private Sub txtAlphaSort_GotFocus()
