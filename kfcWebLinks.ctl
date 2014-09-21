@@ -1,13 +1,13 @@
 VERSION 5.00
 Object = "{6B7E6392-850A-101B-AFC0-4210102A8DA7}#1.3#0"; "COMCTL32.OCX"
 Begin VB.UserControl kfcWebLinks 
-   ClientHeight    =   4668
+   ClientHeight    =   3876
    ClientLeft      =   0
    ClientTop       =   0
    ClientWidth     =   7692
    ControlContainer=   -1  'True
    DefaultCancel   =   -1  'True
-   ScaleHeight     =   4668
+   ScaleHeight     =   3876
    ScaleWidth      =   7692
    ToolboxBitmap   =   "kfcWebLinks.ctx":0000
    Begin VB.Frame frameLayout 
@@ -43,6 +43,12 @@ Begin VB.UserControl kfcWebLinks
       TabIndex        =   10
       Top             =   420
       Width           =   4092
+      Begin VB.Timer Timer1 
+         Enabled         =   0   'False
+         Interval        =   200
+         Left            =   780
+         Top             =   2340
+      End
       Begin VB.CommandButton cmdHyperlink 
          Caption         =   "&Hyperlink"
          Height          =   372
@@ -359,6 +365,10 @@ Private LocalSite As String
 Private WithEvents IE As SHDocVw.InternetExplorer
 Attribute IE.VB_VarHelpID = -1
 Private DBinfo As DataBaseInfo
+Private Declare Function SendMessage Lib "user32" Alias _
+    "SendMessageA" (ByVal hwnd As Long, _
+    ByVal wMsg As Long, ByVal wParam As Long, lParam As Any) As Long
+Dim iScrollDir As Integer 'Which way to scroll
 Event BeginEditMode()
 Event EndEditMode()
 Private Sub AddEntry(ByRef strID As String, strLabel As String, strParentID As String, strTargetFrame As String, strButton As String, strURL As String, fHasMembers As Boolean)
@@ -921,7 +931,7 @@ Public Sub PopulateMenu()
     lblLoad.Visible = True
     
     SQLstatement = "SELECT Distinct ButtonLabel FROM MenuEntries order by ButtonLabel"
-'SQLstatement = "SELECT Distinct ButtonLabel FROM MenuEntries where buttonlabel = 'Books' order by ButtonLabel"
+SQLstatement = "SELECT Distinct ButtonLabel FROM MenuEntries where buttonlabel = 'Books' order by ButtonLabel"
     Trace trcBody, "rsButtons.Open """ & SQLstatement & """, adoconn, adOpenKeyset, adLockReadOnly"
     rsButtons.Open SQLstatement, adoConn, adOpenKeyset, adLockReadOnly
     
@@ -996,6 +1006,14 @@ Private Sub IEhyperlink(strURL, strFrame)
         TargetFrame = "_top"
     End If
     IE.Navigate TargetURL, , TargetFrame
+End Sub
+Private Sub timTimer_Timer()
+    If iScrollDir = -1 Then 'Scroll Up
+        ' Send a WM_VSCROLL message 0 is up and 1 is down
+        SendMessage tvwDB.hwnd, 277&, 0&, vbNull
+    Else 'Scroll Down
+        SendMessage tvwDB.hwnd, 277&, 1&, vbNull
+    End If
 End Sub
 Private Sub tvwDB_AfterLabelEdit(Cancel As Integer, NewString As String)
     Dim rsEntry As New ADODB.Recordset
@@ -1079,6 +1097,7 @@ Private Sub tvwDB_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As
     Dim ctl As Control
     
     Trace trcEnter, "tvwDB_MouseUp()"
+    timTimer.Enabled = False
     If Button = vbKeyRButton Then
         Set mNode = tvwDB.SelectedItem
         'Make everything visible & enabled to start...
@@ -1254,13 +1273,23 @@ Private Sub tvwDB_OLEDragOver(Data As ComctlLib.DataObject, Effect As Long, Butt
     Dim i As Integer
     Dim vFN As String
     
-    'Debug.Print "OLEDragOver(Data, " & Effect & ", " & Button & ", " & Shift & ", " & x & ", " & y & ", " & State & ")"
+    Debug.Print "OLEDragOver(Data, " & Effect & ", " & Button & ", " & Shift & ", " & X & ", " & Y & ", " & State & ")"
     If Shift And vbCtrlMask Then
         Effect = Effect And vbDropEffectCopy
     Else
         Effect = Effect And vbDropEffectMove
     End If
     
+    If Y > 0 And Y < 100 Then                                   'scroll up
+        iScrollDir = -1
+        timTimer.Enabled = True
+    ElseIf Y > (tvwDB.Height - 200) And Y < tvwDB.Height Then   'scroll down
+        iScrollDir = 1
+        timTimer.Enabled = True
+    Else
+        timTimer.Enabled = False
+    End If
+            
     Set tNode = tvwDB.HitTest(X, Y)
     If tNode Is Nothing Then
         Effect = Effect And vbDropEffectNone
@@ -1349,6 +1378,11 @@ Private Sub txtURL_GotFocus()
     txtURL.SelStart = 0
     txtURL.SelLength = Len(txtURL.Text)
 End Sub
+Private Sub UserControl_DragOver(Source As Control, X As Single, Y As Single, State As Integer)
+    If Source.Name = "tvwDB" Then
+        timTimer.Enabled = False
+    End If
+End Sub
 Private Sub UserControl_Resize()
     tsUpdate.Width = UserControl.ScaleWidth - (2 * 60)
     tsUpdate.Height = UserControl.ScaleHeight - (2 * 60)
@@ -1367,6 +1401,8 @@ Private Sub UserControl_Resize()
 End Sub
 Private Sub UserControl_Show()
     LocalSite = "http://" & LCase(XGetComputerName) & "/"
+    timTimer.Enabled = False
+    timTimer.Interval = 200
 End Sub
 Private Sub UserControl_Terminate()
     Trace trcEnter, "UserControl_Terminate()"
