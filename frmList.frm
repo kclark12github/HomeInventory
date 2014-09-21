@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:35 AM"
+            TextSave        =   "5:53 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -358,8 +358,8 @@ Private Sub Form_Load()
     dgdList.RowHeight = 192.189     'so I don't forget (this is for MS Sans Serif 8 point font)
 End Sub
 Private Sub Form_Resize()
-    If Me.Width < frmMain.MinWidth Then Me.Width = frmMain.MinWidth
-    If Me.Height < frmMain.MinHeight Then Me.Height = frmMain.MinHeight
+    If Me.Width < MinWidth Then Me.Width = MinWidth
+    If Me.Height < MinHeight Then Me.Height = MinHeight
     dgdList.Width = Me.ScaleWidth
     dgdList.Height = Me.ScaleHeight - sbStatus.Height
 End Sub
