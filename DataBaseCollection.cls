@@ -30,21 +30,9 @@ Public Function Add(Key As String, DataBaseName As String, PathName As String, P
     objNewMember.Key = Key
     objNewMember.DataBaseName = DataBaseName
     objNewMember.PathName = PathName
-    If IsObject(Provider) Then
-        Set objNewMember.Provider = Provider
-    Else
-        objNewMember.Provider = Provider
-    End If
-    If IsObject(UserName) Then
-        Set objNewMember.UserName = UserName
-    Else
-        objNewMember.UserName = UserName
-    End If
-    If IsObject(Password) Then
-        Set objNewMember.Password = Password
-    Else
-        objNewMember.Password = Password
-    End If
+    objNewMember.Provider = Provider
+    objNewMember.UserName = UserName
+    objNewMember.Password = Password
     If Len(sKey) = 0 Then
         mCol.Add objNewMember
     Else
