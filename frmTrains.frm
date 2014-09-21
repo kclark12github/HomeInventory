@@ -41,16 +41,16 @@ Begin VB.Form frmTrains
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   7964
+            Object.Width           =   8070
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1376
+            Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:15 PM"
+            TextSave        =   "3:34 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -479,6 +479,9 @@ Begin VB.Form frmTrains
       Begin VB.Menu mnuRecordsNew 
          Caption         =   "&New"
       End
+      Begin VB.Menu mnuRecordsCopy 
+         Caption         =   "&Copy/Append"
+      End
       Begin VB.Menu mnuRecordsModify 
          Caption         =   "&Modify"
       End
@@ -574,6 +577,9 @@ Private Sub Form_Load()
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
     Cancel = CloseConnection(Me)
+End Sub
+Private Sub mnuRecordsCopy_Click()
+    CopyCommand Me, rsMain, SQLkey
 End Sub
 Private Sub mnuRecordsFilter_Click()
     FilterCommand Me, rsMain, SQLkey

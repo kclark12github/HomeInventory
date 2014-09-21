@@ -319,6 +319,7 @@ Begin VB.Form frmKits
          _ExtentX        =   13361
          _ExtentY        =   6059
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmKits.frx":0442
       End
    End
@@ -346,16 +347,16 @@ Begin VB.Form frmKits
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8969
+            Object.Width           =   9075
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1376
+            Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:13 PM"
+            TextSave        =   "3:21 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -640,6 +641,9 @@ Begin VB.Form frmKits
       Begin VB.Menu mnuRecordsNew 
          Caption         =   "&New"
       End
+      Begin VB.Menu mnuRecordsCopy 
+         Caption         =   "&Copy/Append"
+      End
       Begin VB.Menu mnuRecordsModify 
          Caption         =   "&Modify"
       End
@@ -760,6 +764,9 @@ Private Sub Form_Load()
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
     Cancel = CloseConnection(Me)
+End Sub
+Private Sub mnuRecordsCopy_Click()
+    CopyCommand Me, rsMain, SQLkey
 End Sub
 Private Sub mnuRecordsFilter_Click()
     FilterCommand Me, rsMain, SQLkey

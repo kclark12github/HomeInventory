@@ -60,6 +60,7 @@ Begin VB.Form frmImages
             _ExtentX        =   13150
             _ExtentY        =   2778
             _Version        =   393217
+            Enabled         =   -1  'True
             TextRTF         =   $"frmImages.frx":2CFA
          End
       End
@@ -391,16 +392,16 @@ Begin VB.Form frmImages
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8493
+            Object.Width           =   8599
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1376
+            Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:14 PM"
+            TextSave        =   "3:30 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -480,15 +481,15 @@ Begin VB.Form frmImages
    End
    Begin MSComctlLib.Toolbar tbMain 
       Align           =   1  'Align Top
-      Height          =   615
+      Height          =   360
       Left            =   0
       TabIndex        =   25
       Top             =   0
       Width           =   8085
       _ExtentX        =   14261
-      _ExtentY        =   1085
-      ButtonWidth     =   487
-      ButtonHeight    =   466
+      _ExtentY        =   635
+      ButtonWidth     =   609
+      ButtonHeight    =   582
       Appearance      =   1
       Style           =   1
       ImageList       =   "imlSmall"
@@ -668,6 +669,9 @@ Begin VB.Form frmImages
       Begin VB.Menu mnuRecordsNew 
          Caption         =   "&New"
       End
+      Begin VB.Menu mnuRecordsCopy 
+         Caption         =   "&Copy/Append"
+      End
       Begin VB.Menu mnuRecordsModify 
          Caption         =   "&Modify"
       End
@@ -770,6 +774,9 @@ Private Sub Form_Load()
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
     Cancel = CloseConnection(Me)
+End Sub
+Private Sub mnuRecordsCopy_Click()
+    CopyCommand Me, rsMain, SQLkey
 End Sub
 Private Sub mnuRecordsFilter_Click()
     FilterCommand Me, rsMain, SQLkey
