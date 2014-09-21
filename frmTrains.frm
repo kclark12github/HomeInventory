@@ -506,7 +506,7 @@ Private Sub cmdOK_Click()
             
             SaveBookmark = rsTrains("Reference")
             rsTrains.Requery
-            rsTrains.Find "Reference='" & SaveBookmark & "'"
+            rsTrains.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
             rsManufacturers.Requery
             rsCatalogs.Requery
             rsScales.Requery

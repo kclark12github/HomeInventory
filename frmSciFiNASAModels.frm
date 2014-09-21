@@ -540,7 +540,7 @@ Private Sub cmdOK_Click()
             
             SaveBookmark = rsSciFiNASAModels("Reference")
             rsSciFiNASAModels.Requery
-            rsSciFiNASAModels.Find "Reference='" & SaveBookmark & "'"
+            rsSciFiNASAModels.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
             rsManufacturers.Requery
             rsCatalogs.Requery
             rsScales.Requery

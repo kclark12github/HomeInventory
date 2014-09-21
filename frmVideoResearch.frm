@@ -463,7 +463,7 @@ Private Sub cmdOK_Click()
             
             SaveBookmark = rsVideoResearch("Sort")
             rsVideoResearch.Requery
-            rsVideoResearch.Find "Sort='" & SaveBookmark & "'"
+            rsVideoResearch.Find "Sort='" & SQLQuote(SaveBookmark) & "'"
             rsDistributors.Requery
             rsSubjects.Requery
     End Select

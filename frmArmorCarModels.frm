@@ -580,7 +580,7 @@ Private Sub cmdOK_Click()
             
             SaveBookmark = rsArmorCarModels("Reference")
             rsArmorCarModels.Requery
-            rsArmorCarModels.Find "Reference='" & SaveBookmark & "'"
+            rsArmorCarModels.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
             rsManufacturers.Requery
             rsCatalogs.Requery
             rsScales.Requery

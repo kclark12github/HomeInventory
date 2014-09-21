@@ -479,7 +479,7 @@ Private Sub cmdOK_Click()
             
             SaveBookmark = rsTools("Reference")
             rsTools.Requery
-            rsTools.Find "Reference='" & SaveBookmark & "'"
+            rsTools.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
             rsManufacturers.Requery
             rsCatalogs.Requery
     End Select

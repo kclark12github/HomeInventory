@@ -515,7 +515,7 @@ Private Sub cmdOK_Click()
             
             SaveBookmark = rsMusic("AlphaSort")
             rsMusic.Requery
-            rsMusic.Find "AlphaSort='" & SaveBookmark & "'"
+            rsMusic.Find "AlphaSort='" & SQLQuote(SaveBookmark) & "'"
             rsArtists.Requery
             rsTypes.Requery
     End Select

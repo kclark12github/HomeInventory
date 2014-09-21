@@ -501,7 +501,7 @@ Private Sub cmdOK_Click()
             
             SaveBookmark = rsPaintsBrushes("Reference")
             rsPaintsBrushes.Requery
-            rsPaintsBrushes.Find "Reference='" & SaveBookmark & "'"
+            rsPaintsBrushes.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
             rsManufacturers.Requery
             rsCatalogs.Requery
             rsTypes.Requery

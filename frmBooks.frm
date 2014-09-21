@@ -26,6 +26,7 @@ Begin VB.Form frmBooks
       _ExtentX        =   13272
       _ExtentY        =   508
       ButtonWidth     =   1439
+      ButtonHeight    =   466
       Appearance      =   1
       Style           =   1
       TextAlignment   =   1
@@ -221,8 +222,8 @@ Begin VB.Form frmBooks
    Begin MSDataListLib.DataCombo dbcAuthor 
       Height          =   288
       Left            =   1464
-      TabIndex        =   0
-      Top             =   372
+      TabIndex        =   1
+      Top             =   672
       Width           =   5892
       _ExtentX        =   10393
       _ExtentY        =   508
@@ -274,10 +275,10 @@ Begin VB.Form frmBooks
    End
    Begin VB.TextBox txtTitle 
       Height          =   288
-      Left            =   1458
-      TabIndex        =   1
+      Left            =   1464
+      TabIndex        =   0
       Text            =   "Title"
-      Top             =   672
+      Top             =   372
       Width           =   5892
    End
    Begin MSComctlLib.ImageList imlLarge 
@@ -412,7 +413,7 @@ Begin VB.Form frmBooks
       Height          =   192
       Left            =   1008
       TabIndex        =   13
-      Top             =   720
+      Top             =   420
       Width           =   348
    End
    Begin VB.Label lblAuthor 
@@ -421,7 +422,7 @@ Begin VB.Form frmBooks
       Height          =   192
       Left            =   864
       TabIndex        =   12
-      Top             =   420
+      Top             =   720
       Width           =   492
    End
    Begin VB.Label lblID 
@@ -467,6 +468,8 @@ Option Explicit
 Dim adoConn As ADODB.Connection
 Dim WithEvents rsBooks As ADODB.Recordset
 Attribute rsBooks.VB_VarHelpID = -1
+Dim WithEvents CurrencyFormat As StdDataFormat
+Attribute CurrencyFormat.VB_VarHelpID = -1
 Dim rsAuthors As New ADODB.Recordset
 Dim rsSubjects As New ADODB.Recordset
 Dim strDefaultAlphaSort As String
@@ -505,10 +508,13 @@ Private Sub cmdOK_Click()
             
             SaveBookmark = rsBooks("AlphaSort")
             rsBooks.Requery
-            rsBooks.Find "AlphaSort='" & SaveBookmark & "'"
+            rsBooks.Find "AlphaSort='" & SQLQuote(SaveBookmark) & "'"
             rsAuthors.Requery
             rsSubjects.Requery
     End Select
+End Sub
+Private Sub CurrencyFormat_Format(ByVal DataValue As StdFormat.StdDataValue)
+    'DataValue.TargetObject.ForeColor = vbRed
 End Sub
 Private Sub dbcAuthor_GotFocus()
     TextSelected
@@ -531,6 +537,7 @@ Private Function DefaultAlphaSort() As String
     Dim iComma As Integer
     Dim iSemiColon As Integer
     Dim iSeparator As Integer
+    Dim iWith As Integer
     
     'Start with the Author's last name...
     LastName = dbcAuthor.Text
@@ -538,6 +545,7 @@ Private Function DefaultAlphaSort() As String
     iAmpersand = InStr(dbcAuthor.Text, " & ")
     iComma = InStr(dbcAuthor.Text, ",")
     iSemiColon = InStr(dbcAuthor.Text, ";")
+    iWith = InStr(dbcAuthor.Text, " with ")
     
     If iComma > 0 Then
         'Assume the comma separates authors, and...
@@ -551,6 +559,9 @@ Private Function DefaultAlphaSort() As String
     ElseIf iAmpersand > 0 Then
         'Assume the "&" separates authors, and...
         iSeparator = iAmpersand
+    ElseIf iWith > 0 Then
+        'Assume the "with" separates authors, and...
+        iSeparator = iWith
     End If
     
     If iSeparator > 0 Then
@@ -636,10 +647,11 @@ Private Sub Form_Unload(Cancel As Integer)
 End Sub
 Private Sub mnuActionList_Click()
     Dim frm As Form
-    Dim CurrencyFormat As New StdDataFormat
     Dim Col As Column
     
+    Set CurrencyFormat = New StdDataFormat
     CurrencyFormat.Format = "Currency"
+    'CurrencyFormat.Format = "$#,##0.00[Green];($#,##0.00)[Red]"
     
     Load frmList
     frmList.Caption = Me.Caption & " List"
@@ -655,8 +667,10 @@ Private Sub mnuActionList_Click()
     
     Set frmList.rsList = rsBooks
     Set frmList.mnuList = mnuAction
+    frmList.dgdList.AllowRowSizing = True
     Set frmList.dgdList.DataSource = frmList.rsList
-    Set frmList.dgdList.Columns("Price").DataFormat = CurrencyFormat
+    'Set frmList.dgdList.Columns("Price").DataFormat = CurrencyFormat
+    frmList.dgdList.Columns("Price").NumberFormat = "$#,##0.00[Green];($#,##0.00)[Red]"
     For Each Col In frmList.dgdList.Columns
         Col.Alignment = dbgGeneral
     Next Col
@@ -678,7 +692,7 @@ Private Sub mnuActionNew_Click()
     txtInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
     chkCataloged.Value = vbChecked
     strDefaultAlphaSort = ""
-    dbcAuthor.SetFocus
+    txtTitle.SetFocus
 End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete
@@ -696,7 +710,7 @@ Private Sub mnuActionModify_Click()
     adoConn.BeginTrans
     fTransaction = True
     
-    dbcAuthor.SetFocus
+    txtTitle.SetFocus
 End Sub
 Private Sub mnuActionReport_Click()
     Dim frm As Form
@@ -776,9 +790,10 @@ Private Sub txtAlphaSort_KeyPress(KeyAscii As Integer)
 End Sub
 Private Sub txtAlphaSort_Validate(Cancel As Boolean)
     If txtAlphaSort.Text = "" Then
-        MsgBox "AlphaSort must be specified!", vbExclamation, Me.Caption
-        txtAlphaSort.SetFocus
-        Cancel = True
+        txtAlphaSort.Text = DefaultAlphaSort
+        'MsgBox "AlphaSort must be specified!", vbExclamation, Me.Caption
+        'txtAlphaSort.SetFocus
+        'Cancel = True
     End If
 End Sub
 Private Sub txtInventoried_GotFocus()
@@ -835,5 +850,4 @@ Private Sub txtTitle_Validate(Cancel As Boolean)
         txtTitle.SetFocus
         Cancel = True
     End If
-    If txtAlphaSort.Text = "" Then txtAlphaSort.Text = DefaultAlphaSort
 End Sub

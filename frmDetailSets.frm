@@ -545,7 +545,7 @@ Private Sub cmdOK_Click()
             
             SaveBookmark = rsDetailSets("Reference")
             rsDetailSets.Requery
-            rsDetailSets.Find "Reference='" & SaveBookmark & "'"
+            rsDetailSets.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
             rsManufacturers.Requery
             rsCatalogs.Requery
             rsScales.Requery

@@ -492,7 +492,7 @@ Private Sub cmdOK_Click()
             
             SaveBookmark = rsCompanies("Code")
             rsCompanies.Requery
-            rsCompanies.Find "Code='" & SaveBookmark & "'"
+            rsCompanies.Find "Code='" & SQLQuote(SaveBookmark) & "'"
             rsProductTypes.Requery
     End Select
 End Sub

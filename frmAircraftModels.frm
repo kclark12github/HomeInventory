@@ -540,7 +540,7 @@ Private Sub cmdOK_Click()
             
             SaveBookmark = rsAircraftModels("Reference")
             rsAircraftModels.Requery
-            rsAircraftModels.Find "Reference='" & SaveBookmark & "'"
+            rsAircraftModels.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
             rsManufacturers.Requery
             rsCatalogs.Requery
             rsScales.Requery

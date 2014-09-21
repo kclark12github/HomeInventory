@@ -399,7 +399,7 @@ Private Sub cmdOK_Click()
             
             SaveBookmark = rsBlueAngelsHistory("Aircraft Type")
             rsBlueAngelsHistory.Requery
-            rsBlueAngelsHistory.Find "Aircraft Type='" & SaveBookmark & "'"
+            rsBlueAngelsHistory.Find "Aircraft Type='" & SQLQuote(SaveBookmark) & "'"
     End Select
 End Sub
 Private Sub Form_Load()

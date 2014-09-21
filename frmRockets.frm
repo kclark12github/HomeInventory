@@ -562,7 +562,7 @@ Private Sub cmdOK_Click()
             
             SaveBookmark = rsRockets("Reference")
             rsRockets.Requery
-            rsRockets.Find "Reference='" & SaveBookmark & "'"
+            rsRockets.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
             rsManufacturers.Requery
             rsCatalogs.Requery
             rsScales.Requery

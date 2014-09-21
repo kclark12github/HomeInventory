@@ -562,7 +562,7 @@ Private Sub cmdOK_Click()
             
             SaveBookmark = rsSoftware("Title")
             rsSoftware.Requery
-            rsSoftware.Find "Title='" & SaveBookmark & "'"
+            rsSoftware.Find "Title='" & SQLQuote(SaveBookmark) & "'"
             rsPublishers.Requery
             rsTypes.Requery
             rsPlatforms.Requery
