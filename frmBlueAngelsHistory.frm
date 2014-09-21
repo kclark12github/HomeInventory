@@ -48,7 +48,7 @@ Begin VB.Form frmBlueAngelsHistory
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:12 AM"
+            TextSave        =   "7:47 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -440,241 +440,69 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Dim adoConn As ADODB.Connection
 Dim WithEvents rsMain As ADODB.Recordset
 Attribute rsMain.VB_VarHelpID = -1
-Dim mode As ActionMode
-Dim fTransaction As Boolean
-Dim DBinfo As DataBaseInfo
 Private Sub cmdCancel_Click()
-    Select Case mode
-        Case modeDisplay
-            Unload Me
-        Case modeAdd, modeModify
-            rsMain.CancelUpdate
-            If mode = modeAdd And Not rsMain.EOF Then rsMain.MoveLast
-            adoConn.RollbackTrans
-            fTransaction = False
-            frmMain.ProtectFields Me
-            mode = modeDisplay
-            adodcMain.Enabled = True
-    End Select
+    CancelCommand Me, rsMain
 End Sub
 Private Sub cmdOK_Click()
-    Dim SaveBookmark As String
-    
-    Select Case mode
-        Case modeDisplay
-            Unload Me
-        Case modeAdd, modeModify
-            'Why we need to do this is buggy...
-            rsMain.UpdateBatch
-            adoConn.CommitTrans
-            fTransaction = False
-            frmMain.ProtectFields Me
-            mode = modeDisplay
-            adodcMain.Enabled = True
-    
-            mnuActionRefresh_Click
-    End Select
+    OKCommand Me, rsMain
 End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
+    adoConn.Open "FileDSN=" & gstrFileDSN
+    
     Set rsMain = New ADODB.Recordset
-    Set DBinfo = frmMain.DBcollection("Hobby")
-    With DBinfo
-        adoConn.Provider = .Provider
-        adoConn.CommandTimeout = 60
-        adoConn.ConnectionTimeout = 60
-        adoConn.Open .PathName, .UserName, .Password
-    End With
     rsMain.CursorLocation = adUseClient
-    rsMain.Open "select * from [Blue Angels History] order by Dates", adoConn, adOpenKeyset, adLockBatchOptimistic
+    SQLmain = "select * from [Blue Angels History] order by Dates"
+    SQLfilter = vbNullString
+    SQLkey = "Aircraft Type"
+    rsMain.Open SQLmain, adoConn, adOpenKeyset, adLockBatchOptimistic
+    DBcollection.Add "rsMain", rsMain
     
     Set adodcMain.Recordset = rsMain
-    frmMain.BindField lblID, "ID", rsMain
-    frmMain.BindField txtAircraftType, "Aircraft Type", rsMain
-    frmMain.BindField txtDates, "Dates", rsMain
-    frmMain.BindField txtKits, "Kits", rsMain
-    frmMain.BindField txtDecalSets, "Decal Sets", rsMain
-
-    frmMain.ProtectFields Me
+    BindField lblID, "ID", rsMain
+    BindField txtAircraftType, "Aircraft Type", rsMain
+    BindField txtDates, "Dates", rsMain
+    BindField txtKits, "Kits", rsMain
+    BindField txtDecalSets, "Decal Sets", rsMain
+    
+    ProtectFields Me
     mode = modeDisplay
     fTransaction = False
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
-    If fTransaction Then
-        MsgBox "Please complete the current operation before closing the window.", vbExclamation, Me.Caption
-        Cancel = 1
-        Exit Sub
-    End If
-    
-    If Not rsMain.EOF Then
-        If rsMain.EditMode <> adEditNone Then rsMain.CancelUpdate
-    End If
-    If (rsMain.State And adStateOpen) = adStateOpen Then rsMain.Close
-    Set rsMain = Nothing
-    
-    On Error Resume Next
-    adoConn.Close
-    If Err.Number = 3246 Then
-        adoConn.RollbackTrans
-        fTransaction = False
-        adoConn.Close
-    End If
-    Set adoConn = Nothing
-End Sub
-Private Sub mnuActionList_Click()
-    Dim frm As Form
-    
-    Load frmList
-    frmList.Caption = Me.Caption & " List"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmList.Top = frm.Top
-    frmList.Left = frm.Left
-    frmList.Width = frm.Width
-    frmList.Height = frm.Height
-    
-    Set frmList.rsList = rsMain
-    
-    adoConn.BeginTrans
-    fTransaction = True
-    frmList.Show vbModal
-    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-    End If
-    adoConn.CommitTrans
-    fTransaction = False
-End Sub
-Private Sub mnuActionRefresh_Click()
-    Dim SaveBookmark As String
-    
-    On Error Resume Next
-    SaveBookmark = rsMain("Aircraft Type")
-    rsMain.Requery
-    rsMain.Find "Aircraft Type='" & SQLQuote(SaveBookmark) & "'"
+    Cancel = CloseConnection(Me)
 End Sub
 Private Sub mnuActionFilter_Click()
-    Dim frm As Form
-    
-    Load frmFilter
-    frmFilter.Caption = Me.Caption & " Filter"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmFilter.Top = frm.Top
-    frmFilter.Left = frm.Left
-    frmFilter.Width = frm.Width
-    frmFilter.Height = frm.Height
-    
-    Set frmFilter.RS = rsMain
-    frmFilter.Show vbModal
-    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-    End If
-End Sub
-Private Sub mnuActionNew_Click()
-    mode = modeAdd
-    frmMain.OpenFields Me
-    adodcMain.Enabled = False
-    rsMain.AddNew
-    adoConn.BeginTrans
-    fTransaction = True
-    
-    txtAircraftType.SetFocus
+    FilterCommand Me, rsMain, SQLkey
 End Sub
 Private Sub mnuActionDelete_Click()
-    mode = modeDelete
-    If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsMain.Delete
-        rsMain.MoveNext
-        If rsMain.EOF Then rsMain.MoveLast
-    End If
-    mode = modeDisplay
+    DeleteCommand Me, rsMain
+End Sub
+Private Sub mnuActionList_Click()
+    ListCommand Me, rsMain
 End Sub
 Private Sub mnuActionModify_Click()
-    mode = modeModify
-    frmMain.OpenFields Me
-    adodcMain.Enabled = False
-    adoConn.BeginTrans
-    fTransaction = True
-    
-    txtAircraftType.SetFocus
+    ModifyCommand Me
+End Sub
+Private Sub mnuActionNew_Click()
+    NewCommand Me, rsMain
+End Sub
+Private Sub mnuActionRefresh_Click()
+    RefreshCommand SQLkey
 End Sub
 Private Sub mnuActionReport_Click()
-    Dim frm As Form
-    Dim scrApplication As New CRAXDRT.Application
-    Dim Report As New CRAXDRT.Report
-    Dim vRS As ADODB.Recordset
-    
-    MakeVirtualRecordset adoConn, rsMain, vRS
-    
-    Load frmViewReport
-    frmViewReport.Caption = Me.Caption & " Report"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmViewReport.Top = frm.Top
-    frmViewReport.Left = frm.Left
-    frmViewReport.Width = frm.Width
-    frmViewReport.Height = frm.Height
-    frmViewReport.WindowState = vbMaximized
-    
-    Set Report = scrApplication.OpenReport(App.Path & "\Reports\BlueAngels.rpt", crOpenReportByTempCopy)
-    Report.Database.SetDataSource vRS, 3, 1
-    Report.ReadRecords
-    
-    frmViewReport.scrViewer.ReportSource = Report
-    frmViewReport.Show vbModal
-    
-    Set scrApplication = Nothing
-    Set Report = Nothing
-    vRS.Close
-    Set vRS = Nothing
+    ReportCommand Me, rsMain, App.Path & "\Reports\BlueAngels.rpt"
 End Sub
 Private Sub mnuActionSQL_Click()
-    Load frmSQL
-    Set frmSQL.cnSQL = adoConn
-    frmSQL.txtDatabase.Text = DBinfo.PathName
-    frmSQL.dbcTables.BoundText = "Blue Angels History"
-    frmSQL.Show vbModal
+    SQLCommand "Blue Angels History"
 End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
-    Dim i As Integer
     
-    On Error GoTo ErrorHandler
-    If rsMain.BOF And rsMain.EOF Then
-        Caption = "No Records"
-    ElseIf rsMain.EOF Then
-        Caption = "EOF"
-    ElseIf rsMain.BOF Then
-        Caption = "BOF"
-    Else
-        Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("Dates") & ": " & rsMain("Aircraft Type")
-        
-        i = InStr(Caption, "&")
-        If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-            sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-        End If
-        sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
-    End If
-    
-    adodcMain.Caption = Caption
-    Exit Sub
-
-ErrorHandler:
-    MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
-    Resume Next
+    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset("Dates") & ": " & pRecordset("Aircraft Type")
+    UpdatePosition Me, Caption, pRecordset
 End Sub
 Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
@@ -696,6 +524,7 @@ Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
             mnuActionSQL_Click
     End Select
 End Sub
+'=================================================================================
 Private Sub txtAircraftType_GotFocus()
     TextSelected
 End Sub

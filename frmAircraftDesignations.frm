@@ -49,7 +49,7 @@ Begin VB.Form frmAircraftDesignations
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "6:53 PM"
+            TextSave        =   "7:47 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -591,7 +591,7 @@ End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     
-    Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset("Designation") & " " & pRecordset("Name")
+    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset("Designation") & " " & pRecordset("Name")
     UpdatePosition Me, Caption, pRecordset
 End Sub
 Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
