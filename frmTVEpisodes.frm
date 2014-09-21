@@ -9,6 +9,7 @@ Begin VB.Form frmTVEpisodes
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
+   Icon            =   "frmTVEpisodes.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -73,7 +74,7 @@ Begin VB.Form frmTVEpisodes
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:46 PM"
+            TextSave        =   "9:05 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -302,63 +303,63 @@ Begin VB.Form frmTVEpisodes
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTVEpisodes.frx":0000
+            Picture         =   "frmTVEpisodes.frx":1CFA
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTVEpisodes.frx":031C
+            Picture         =   "frmTVEpisodes.frx":2016
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTVEpisodes.frx":0644
+            Picture         =   "frmTVEpisodes.frx":233E
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTVEpisodes.frx":096C
+            Picture         =   "frmTVEpisodes.frx":2666
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTVEpisodes.frx":3120
+            Picture         =   "frmTVEpisodes.frx":4E1A
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTVEpisodes.frx":3574
+            Picture         =   "frmTVEpisodes.frx":526E
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTVEpisodes.frx":39C8
+            Picture         =   "frmTVEpisodes.frx":56C2
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTVEpisodes.frx":4494
+            Picture         =   "frmTVEpisodes.frx":618E
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTVEpisodes.frx":47BC
+            Picture         =   "frmTVEpisodes.frx":64B6
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTVEpisodes.frx":4C10
+            Picture         =   "frmTVEpisodes.frx":690A
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTVEpisodes.frx":5064
+            Picture         =   "frmTVEpisodes.frx":6D5E
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTVEpisodes.frx":54B8
+            Picture         =   "frmTVEpisodes.frx":71B2
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTVEpisodes.frx":5910
+            Picture         =   "frmTVEpisodes.frx":760A
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTVEpisodes.frx":5A6C
+            Picture         =   "frmTVEpisodes.frx":7766
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTVEpisodes.frx":5BC8
+            Picture         =   "frmTVEpisodes.frx":78C2
             Key             =   "NewRecord"
          EndProperty
       EndProperty

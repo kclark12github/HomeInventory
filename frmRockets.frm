@@ -9,6 +9,7 @@ Begin VB.Form frmRockets
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
+   Icon            =   "frmRockets.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -49,7 +50,7 @@ Begin VB.Form frmRockets
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:47 PM"
+            TextSave        =   "9:05 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -326,63 +327,63 @@ Begin VB.Form frmRockets
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmRockets.frx":0000
+            Picture         =   "frmRockets.frx":0442
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmRockets.frx":031C
+            Picture         =   "frmRockets.frx":075E
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmRockets.frx":0644
+            Picture         =   "frmRockets.frx":0A86
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmRockets.frx":096C
+            Picture         =   "frmRockets.frx":0DAE
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmRockets.frx":3120
+            Picture         =   "frmRockets.frx":3562
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmRockets.frx":3574
+            Picture         =   "frmRockets.frx":39B6
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmRockets.frx":39C8
+            Picture         =   "frmRockets.frx":3E0A
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmRockets.frx":4494
+            Picture         =   "frmRockets.frx":48D6
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmRockets.frx":47BC
+            Picture         =   "frmRockets.frx":4BFE
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmRockets.frx":4C10
+            Picture         =   "frmRockets.frx":5052
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmRockets.frx":5064
+            Picture         =   "frmRockets.frx":54A6
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmRockets.frx":54B8
+            Picture         =   "frmRockets.frx":58FA
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmRockets.frx":5910
+            Picture         =   "frmRockets.frx":5D52
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmRockets.frx":5A6C
+            Picture         =   "frmRockets.frx":5EAE
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmRockets.frx":5BC8
+            Picture         =   "frmRockets.frx":600A
             Key             =   "NewRecord"
          EndProperty
       EndProperty

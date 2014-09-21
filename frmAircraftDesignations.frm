@@ -9,6 +9,7 @@ Begin VB.Form frmAircraftDesignations
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
+   Icon            =   "frmAircraftDesignations.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -49,7 +50,7 @@ Begin VB.Form frmAircraftDesignations
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:49 PM"
+            TextSave        =   "9:05 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -132,7 +133,7 @@ Begin VB.Form frmAircraftDesignations
       Left            =   1458
       MultiLine       =   -1  'True
       TabIndex        =   5
-      Text            =   "frmAircraftDesignations.frx":0000
+      Text            =   "frmAircraftDesignations.frx":0442
       Top             =   1956
       Width           =   5832
    End
@@ -282,63 +283,63 @@ Begin VB.Form frmAircraftDesignations
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":0006
+            Picture         =   "frmAircraftDesignations.frx":0448
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":0322
+            Picture         =   "frmAircraftDesignations.frx":0764
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":064A
+            Picture         =   "frmAircraftDesignations.frx":0A8C
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":0972
+            Picture         =   "frmAircraftDesignations.frx":0DB4
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":3126
+            Picture         =   "frmAircraftDesignations.frx":3568
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":357A
+            Picture         =   "frmAircraftDesignations.frx":39BC
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":39CE
+            Picture         =   "frmAircraftDesignations.frx":3E10
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":449A
+            Picture         =   "frmAircraftDesignations.frx":48DC
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":47C2
+            Picture         =   "frmAircraftDesignations.frx":4C04
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":4C16
+            Picture         =   "frmAircraftDesignations.frx":5058
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":506A
+            Picture         =   "frmAircraftDesignations.frx":54AC
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":54BE
+            Picture         =   "frmAircraftDesignations.frx":5900
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":5916
+            Picture         =   "frmAircraftDesignations.frx":5D58
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":5A72
+            Picture         =   "frmAircraftDesignations.frx":5EB4
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":5BCE
+            Picture         =   "frmAircraftDesignations.frx":6010
             Key             =   "NewRecord"
          EndProperty
       EndProperty
