@@ -184,11 +184,13 @@ Const gstrProvider = "Microsoft.Jet.OLEDB.3.51"
 'Const gstrConnectionString = "E:\WebShare\wwwroot\Access\KFC.mdb"
 Const gstrRunTimeUserName = "admin"
 Const gstrRunTimePassword = vbNullString
-Const gstrDBlocation = "E:\WebShare\wwwroot\Access\"
-Const gstrDefaultImagePath = "E:\WebShare\wwwroot\Aircraft\Fighter Aircraft\F-14 Tomcat\F14_102.jpg"
+'Const gstrDefaultImage = "EarthRise.jpg"
+Const gstrDefaultImage = "F14_102.jpg"
 Const iMinWidth = 2184
 Const iMinHeight = 1440
 
+Public gstrDBlocation As String
+Public gstrDefaultImagePath As String
 Public frmReport As Form
 Public rdcReport As CRAXDRT.Report
 Public MinWidth As Integer
@@ -264,6 +266,7 @@ Private Sub LoadBackground()
     Dim NeedHBar As Boolean
     Dim NeedVBar As Boolean
     
+    On Error Resume Next
     scWidth = Screen.Width / Screen.TwipsPerPixelX
     scHeight = Screen.Height / Screen.TwipsPerPixelY
     
@@ -271,6 +274,16 @@ Private Sub LoadBackground()
     borderHeight = Me.Height - Me.ScaleHeight
     
     picBackground.Picture = LoadPicture(gstrImagePath)
+    If Err.Number <> 0 Then
+        MsgBox Err.Description & " (" & Err.Number & "). Using default image...", vbExclamation, Me.Caption
+        gstrImagePath = gstrDefaultImagePath & "\" & gstrDefaultImage
+        picBackground.Picture = LoadPicture(gstrImagePath)
+        If Err.Number <> 0 Then
+            MsgBox Err.Description & " (" & Err.Number & "). Bagging this image crap... We didn't need no stinking images anyway...", vbExclamation, Me.Caption
+            Exit Sub
+        End If
+        SaveSetting App.FileDescription, "Environment", "ImagePath", gstrImagePath
+    End If
     picBackground.Move 0, 0
     
     'Everything is governed by the size of the picture...
@@ -299,7 +312,7 @@ Private Sub LoadBackground()
     Me.Move (Screen.Width - Me.Width) / 2, (Screen.Height - Me.Height) / 2
 End Sub
 Private Sub LoadDBcoll(DBname As String)
-    DBcollection.Add DBname, DBname, gstrDBlocation & DBname & ".mdb", gstrProvider, gstrRunTimeUserName, gstrRunTimePassword, DBname
+    DBcollection.Add DBname, DBname, gstrDBlocation & "\" & DBname & ".mdb", gstrProvider, gstrRunTimeUserName, gstrRunTimePassword, DBname
 End Sub
 Private Sub Form_Activate()
     'LoadBackground
@@ -308,6 +321,10 @@ Private Sub Form_Load()
     MinWidth = iMinWidth
     MinHeight = iMinHeight
     
+    gstrDBlocation = "E:\WebShare\wwwroot\Access"
+    If Dir(gstrDBlocation, vbDirectory) = vbNullString Then
+        gstrDBlocation = App.Path & "\Database"
+    End If
     LoadDBcoll "Books"
     LoadDBcoll "Hobby"
     LoadDBcoll "KFC"
@@ -317,7 +334,8 @@ Private Sub Form_Load()
     LoadDBcoll "UserAccessInfo"
     LoadDBcoll "VideoTapes"
     
-    gstrImagePath = GetSetting(App.FileDescription, "Environment", "ImagePath", gstrDefaultImagePath)
+    gstrDefaultImagePath = App.Path & "\Images"
+    gstrImagePath = GetSetting(App.FileDescription, "Environment", "ImagePath", gstrDefaultImagePath & "\" & gstrDefaultImage)
     LoadBackground
 End Sub
 Private Sub Form_Resize()
