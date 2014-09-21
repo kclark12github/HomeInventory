@@ -584,16 +584,17 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 Public RS As ADODB.Recordset
+Public strFilter As String
 Const vSpace As Integer = 60
 Const hSpace As Integer = 60
 Const StartTop As Integer = 60
 Const StartLeft As Integer = 240
 Private Sub cmdApply_Click()
-    Dim sqlSource As String
+    Dim SQLsource As String
     Dim i As Integer
     'Parse fields on screen and build a filter for the recordset...
     
-    sqlSource = ""
+    SQLsource = ""
     For i = 0 To RS.Fields.Count - 1
         If Len(txtFields(i).Text) > 0 Then
             If Mid(txtFields(i).Text, 1, 1) = "=" Or _
@@ -603,36 +604,37 @@ Private Sub cmdApply_Click()
                 Mid(txtFields(i).Text, 1, 1) = ">" Or _
                 UCase(Mid(txtFields(i).Text, 1, 5)) = "NOT " Then
                 'Take what the user said literally...
-                sqlSource = sqlSource & RS.Fields(i).Name & " " & txtFields(i).Text & " and "
+                SQLsource = SQLsource & RS.Fields(i).Name & " " & txtFields(i).Text & " and "
             ElseIf UCase(Mid(txtFields(i).Text, 1, 4)) = "LIKE" Then
                 'Force the "like" to uppercase for parsing later...
-                sqlSource = sqlSource & RS.Fields(i).Name & " LIKE" & Mid(txtFields(i).Text, 5) & " and "
+                SQLsource = SQLsource & RS.Fields(i).Name & " LIKE" & Mid(txtFields(i).Text, 5) & " and "
             ElseIf UCase(Mid(txtFields(i).Text, 1, 7)) = "BETWEEN" Then
                 'Force the "between" to uppercase for parsing later...
-                sqlSource = sqlSource & RS.Fields(i).Name & " BETWEEN" & Mid(txtFields(i).Text, 8) & " and "
+                SQLsource = SQLsource & RS.Fields(i).Name & " BETWEEN" & Mid(txtFields(i).Text, 8) & " and "
             ElseIf UCase(Mid(txtFields(i).Text, 1, 2)) = "IN" Then
                 'Force the "in" to uppercase for parsing later...
-                sqlSource = sqlSource & RS.Fields(i).Name & " IN" & Mid(txtFields(i).Text, 3) & " and "
+                SQLsource = SQLsource & RS.Fields(i).Name & " IN" & Mid(txtFields(i).Text, 3) & " and "
             Else
                 Select Case RS.Fields(i).Type
                     Case adChar, adVarChar, adLongVarChar, adWChar, adVarWChar, adLongVarWChar
-                        sqlSource = sqlSource & RS.Fields(i).Name & " = '" & SQLQuote(txtFields(i).Text) & "' and "
+                        SQLsource = SQLsource & RS.Fields(i).Name & " = '" & SQLQuote(txtFields(i).Text) & "' and "
                     Case adDate, adDBDate, adDBTime, adDBTimeStamp
-                        sqlSource = sqlSource & RS.Fields(i).Name & " = #" & txtFields(i).Text & "# and "
+                        SQLsource = SQLsource & RS.Fields(i).Name & " = #" & txtFields(i).Text & "# and "
                     Case Else
-                        sqlSource = sqlSource & RS.Fields(i).Name & " = " & SQLQuote(txtFields(i).Text) & " and "
+                        SQLsource = SQLsource & RS.Fields(i).Name & " = " & SQLQuote(txtFields(i).Text) & " and "
                 End Select
             End If
         End If
     Next i
-    If Len(sqlSource) > 0 Then sqlSource = Left(sqlSource, Len(sqlSource) - 5)  'Get rid of the final " and "...
+    If Len(SQLsource) > 0 Then SQLsource = Left(SQLsource, Len(SQLsource) - 5)  'Get rid of the final " and "...
     On Error Resume Next
-    RS.Filter = sqlSource
+    RS.Filter = SQLsource
+    strFilter = SQLsource
     If Err.Number > 0 Then
-        MsgBox "Invalid filter specified:" & vbCr & sqlSource, vbExclamation
+        MsgBox "Invalid filter specified:" & vbCr & SQLsource, vbExclamation
         Err.Clear
     Else
-        Unload Me
+        Me.Hide
     End If
 End Sub
 Private Sub cmdCancel_Click()
@@ -691,7 +693,11 @@ Private Sub Form_Activate()
     txtFields(0).SetFocus
 
     'Now, take any existing filter, parse it, and populate the fields on this screen...
-    If RS.Filter <> 0 And RS.Filter <> "" Then ParseFilter RS.Filter
+    If strFilter <> "" Then
+        ParseFilter strFilter
+    ElseIf RS.Filter <> 0 And RS.Filter <> "" Then
+        ParseFilter RS.Filter
+    End If
 End Sub
 Private Sub Form_Load()
     Dim i As Integer

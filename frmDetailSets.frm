@@ -49,7 +49,7 @@ Begin VB.Form frmDetailSets
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:14 AM"
+            TextSave        =   "8:14 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -579,7 +579,6 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Dim adoConn As ADODB.Connection
 Dim WithEvents rsMain As ADODB.Recordset
 Attribute rsMain.VB_VarHelpID = -1
 Dim rsManufacturers As New ADODB.Recordset
@@ -587,43 +586,121 @@ Dim rsCatalogs As New ADODB.Recordset
 Dim rsScales As New ADODB.Recordset
 Dim rsNations As New ADODB.Recordset
 Dim rsTypes As New ADODB.Recordset
-Dim mode As ActionMode
-Dim fTransaction As Boolean
-Dim DBinfo As DataBaseInfo
 Private Sub cmdCancel_Click()
-    Select Case mode
-        Case modeDisplay
-            Unload Me
-        Case modeAdd, modeModify
-            rsMain.CancelUpdate
-            If mode = modeAdd And Not rsMain.EOF Then rsMain.MoveLast
-            adoConn.RollbackTrans
-            fTransaction = False
-            frmMain.ProtectFields Me
-            mode = modeDisplay
-            adodcMain.Enabled = True
-    End Select
+    CancelCommand Me, rsMain
 End Sub
 Private Sub cmdOK_Click()
-    Dim SaveBookmark As String
+    OKCommand Me, rsMain
+End Sub
+Private Sub Form_Load()
+    Set adoConn = New ADODB.Connection
+    adoConn.Open "FileDSN=" & gstrFileDSN
     
-    Select Case mode
-        Case modeDisplay
-            Unload Me
-        Case modeAdd, modeModify
-            'Why we need to do this is buggy...
-            rsMain("Manufacturer") = dbcManufacturer.BoundText
-            rsMain("Catalog") = dbcCatalog.BoundText
-            rsMain.UpdateBatch
-            adoConn.CommitTrans
-            fTransaction = False
-            frmMain.ProtectFields Me
-            mode = modeDisplay
-            adodcMain.Enabled = True
-            
+    Set rsMain = New ADODB.Recordset
+    rsMain.CursorLocation = adUseClient
+    SQLmain = "select * from [Detail Sets] order by Scale,Name"
+    SQLfilter = vbNullString
+    SQLkey = "Reference"
+    rsMain.Open SQLmain, adoConn, adOpenKeyset, adLockBatchOptimistic
+    DBcollection.Add "rsMain", rsMain
+    
+    rsManufacturers.CursorLocation = adUseClient
+    rsManufacturers.Open "select distinct Manufacturer from [Detail Sets] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsManufacturers", rsManufacturers
+    
+    rsCatalogs.CursorLocation = adUseClient
+    rsCatalogs.Open "select distinct Catalog from [Detail Sets] order by Catalog", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsCatalogs", rsCatalogs
+    
+    rsScales.CursorLocation = adUseClient
+    rsScales.Open "select distinct Scale from [Detail Sets] order by Scale", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsScales", rsScales
+    
+    rsNations.CursorLocation = adUseClient
+    rsNations.Open "select distinct Nation from [Detail Sets] order by Nation", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsNations", rsNations
+    
+    rsTypes.CursorLocation = adUseClient
+    rsTypes.Open "select distinct Type from [Detail Sets] order by Type", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsTypes", rsTypes
+    
+    Set adodcMain.Recordset = rsMain
+    BindField lblID, "ID", rsMain
+    BindField dbcManufacturer, "Manufacturer", rsMain, rsManufacturers, "Manufacturer", "Manufacturer"
+    BindField txtName, "Name", rsMain
+    BindField txtPrice, "Price", rsMain
+    BindField dbcScale, "Scale", rsMain, rsScales, "Scale", "Scale"
+    BindField txtReference, "Reference", rsMain
+    BindField dbcCatalog, "Catalog", rsMain, rsCatalogs, "Catalog", "Catalog"
+    BindField dbcNation, "Nation", rsMain, rsNations, "Nation", "Nation"
+    BindField dbcType, "Type", rsMain, rsTypes, "Type", "Type"
+    BindField txtCount, "Count", rsMain
+    BindField txtInventoried, "DateInventoried", rsMain
+
+    ProtectFields Me
+    mode = modeDisplay
+    fTransaction = False
+End Sub
+Private Sub Form_Unload(Cancel As Integer)
+    Cancel = CloseConnection(Me)
+End Sub
+Private Sub mnuActionFilter_Click()
+    FilterCommand Me, rsMain, SQLkey
+End Sub
+Private Sub mnuActionDelete_Click()
+    DeleteCommand Me, rsMain
+End Sub
+Private Sub mnuActionList_Click()
+    ListCommand Me, rsMain
+End Sub
+Private Sub mnuActionModify_Click()
+    ModifyCommand Me
+End Sub
+Private Sub mnuActionNew_Click()
+    NewCommand Me, rsMain
+
+    txtInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
+End Sub
+Private Sub mnuActionRefresh_Click()
+    RefreshCommand SQLkey
+End Sub
+Private Sub mnuActionReport_Click()
+    ReportCommand Me, rsMain, App.Path & "\Reports\DetailSets.rpt"
+End Sub
+Private Sub mnuActionSQL_Click()
+    SQLCommand "Detail Sets"
+End Sub
+Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+    Dim Caption As String
+    
+    If Not pRecordset.BOF And Not pRecordset.EOF Then
+        Caption = "Reference #" & pRecordset.Bookmark & ": "
+        If IsNumeric(rsMain("Scale")) Then Caption = Caption & "1/"
+        Caption = Caption & pRecordset("Scale") & " Scale; " & pRecordset("Name")
+    End If
+    UpdatePosition Me, Caption, pRecordset
+End Sub
+Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
+    Select Case Button.Key
+        Case "List"
+            mnuActionList_Click
+        Case "Refresh"
             mnuActionRefresh_Click
+        Case "Filter"
+            mnuActionFilter_Click
+        Case "New"
+            mnuActionNew_Click
+        Case "Modify"
+            mnuActionModify_Click
+        Case "Delete"
+            mnuActionDelete_Click
+        Case "Report"
+            mnuActionReport_Click
+        Case "SQL"
+            mnuActionSQL_Click
     End Select
 End Sub
+'=================================================================================
 Private Sub dbcCatalog_GotFocus()
     TextSelected
 End Sub
@@ -673,271 +750,6 @@ Private Sub dbcType_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
-End Sub
-Private Sub Form_Load()
-    Set adoConn = New ADODB.Connection
-    Set rsMain = New ADODB.Recordset
-    Set DBinfo = frmMain.DBcollection("Hobby")
-    With DBinfo
-        adoConn.Provider = .Provider
-        adoConn.CommandTimeout = 60
-        adoConn.ConnectionTimeout = 60
-        adoConn.Open .PathName, .UserName, .Password
-    End With
-    rsMain.CursorLocation = adUseClient
-    rsMain.Open "select * from [Detail Sets] order by Scale,Name", adoConn, adOpenKeyset, adLockBatchOptimistic
-    
-    rsManufacturers.CursorLocation = adUseClient
-    rsManufacturers.Open "select distinct Manufacturer from [Detail Sets] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
-    
-    rsCatalogs.CursorLocation = adUseClient
-    rsCatalogs.Open "select distinct Catalog from [Detail Sets] order by Catalog", adoConn, adOpenStatic, adLockReadOnly
-    
-    rsScales.CursorLocation = adUseClient
-    rsScales.Open "select distinct Scale from [Detail Sets] order by Scale", adoConn, adOpenStatic, adLockReadOnly
-    
-    rsNations.CursorLocation = adUseClient
-    rsNations.Open "select distinct Nation from [Detail Sets] order by Nation", adoConn, adOpenStatic, adLockReadOnly
-    
-    rsTypes.CursorLocation = adUseClient
-    rsTypes.Open "select distinct Type from [Detail Sets] order by Type", adoConn, adOpenStatic, adLockReadOnly
-    
-    Set adodcMain.Recordset = rsMain
-    frmMain.BindField lblID, "ID", rsMain
-    frmMain.BindField dbcManufacturer, "Manufacturer", rsMain, rsManufacturers, "Manufacturer", "Manufacturer"
-    frmMain.BindField txtName, "Name", rsMain
-    frmMain.BindField txtPrice, "Price", rsMain
-    frmMain.BindField dbcScale, "Scale", rsMain, rsScales, "Scale", "Scale"
-    frmMain.BindField txtReference, "Reference", rsMain
-    frmMain.BindField dbcCatalog, "Catalog", rsMain, rsCatalogs, "Catalog", "Catalog"
-    frmMain.BindField dbcNation, "Nation", rsMain, rsNations, "Nation", "Nation"
-    frmMain.BindField dbcType, "Type", rsMain, rsTypes, "Type", "Type"
-    frmMain.BindField txtCount, "Count", rsMain
-    frmMain.BindField txtInventoried, "DateInventoried", rsMain
-
-    frmMain.ProtectFields Me
-    mode = modeDisplay
-    fTransaction = False
-End Sub
-Private Sub Form_Unload(Cancel As Integer)
-    If fTransaction Then
-        MsgBox "Please complete the current operation before closing the window.", vbExclamation, Me.Caption
-        Cancel = 1
-        Exit Sub
-    End If
-    
-    If Not rsMain.EOF Then
-        If rsMain.EditMode <> adEditNone Then rsMain.CancelUpdate
-    End If
-    If (rsMain.State And adStateOpen) = adStateOpen Then rsMain.Close
-    Set rsMain = Nothing
-    rsManufacturers.Close
-    Set rsManufacturers = Nothing
-    rsCatalogs.Close
-    Set rsCatalogs = Nothing
-    rsScales.Close
-    Set rsScales = Nothing
-    rsNations.Close
-    Set rsNations = Nothing
-    rsTypes.Close
-    Set rsTypes = Nothing
-    
-    On Error Resume Next
-    adoConn.Close
-    If Err.Number = 3246 Then
-        adoConn.RollbackTrans
-        fTransaction = False
-        adoConn.Close
-    End If
-    Set adoConn = Nothing
-End Sub
-Private Sub mnuActionList_Click()
-    Dim frm As Form
-    
-    Load frmList
-    frmList.Caption = Me.Caption & " List"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmList.Top = frm.Top
-    frmList.Left = frm.Left
-    frmList.Width = frm.Width
-    frmList.Height = frm.Height
-    
-    Set frmList.rsList = rsMain
-    
-    adoConn.BeginTrans
-    fTransaction = True
-    frmList.Show vbModal
-    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-    Else
-        sbStatus.Panels("Message").Text = vbNullString
-    End If
-    adoConn.CommitTrans
-    fTransaction = False
-End Sub
-Private Sub mnuActionRefresh_Click()
-    Dim SaveBookmark As String
-    
-    On Error Resume Next
-    SaveBookmark = rsMain("Reference")
-    rsMain.Requery
-    rsMain.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
-    rsManufacturers.Requery
-    rsCatalogs.Requery
-    rsScales.Requery
-    rsNations.Requery
-    rsTypes.Requery
-End Sub
-Private Sub mnuActionFilter_Click()
-    Dim frm As Form
-    
-    Load frmFilter
-    frmFilter.Caption = Me.Caption & " Filter"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmFilter.Top = frm.Top
-    frmFilter.Left = frm.Left
-    frmFilter.Width = frm.Width
-    frmFilter.Height = frm.Height
-    
-    Set frmFilter.RS = rsMain
-    frmFilter.Show vbModal
-    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-    Else
-        sbStatus.Panels("Message").Text = vbNullString
-    End If
-End Sub
-Private Sub mnuActionNew_Click()
-    mode = modeAdd
-    frmMain.OpenFields Me
-    adodcMain.Enabled = False
-    rsMain.AddNew
-    adoConn.BeginTrans
-    fTransaction = True
-    
-    txtInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
-    txtName.SetFocus
-End Sub
-Private Sub mnuActionDelete_Click()
-    mode = modeDelete
-    If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsMain.Delete
-        rsMain.MoveNext
-        If rsMain.EOF Then rsMain.MoveLast
-    End If
-    mode = modeDisplay
-End Sub
-Private Sub mnuActionModify_Click()
-    mode = modeModify
-    frmMain.OpenFields Me
-    adodcMain.Enabled = False
-    adoConn.BeginTrans
-    fTransaction = True
-    
-    txtName.SetFocus
-End Sub
-Private Sub mnuActionReport_Click()
-    Dim frm As Form
-    Dim scrApplication As New CRAXDRT.Application
-    Dim Report As New CRAXDRT.Report
-    Dim vRS As ADODB.Recordset
-    
-    MakeVirtualRecordset adoConn, rsMain, vRS
-    
-    Load frmViewReport
-    frmViewReport.Caption = Me.Caption & " Report"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmViewReport.Top = frm.Top
-    frmViewReport.Left = frm.Left
-    frmViewReport.Width = frm.Width
-    frmViewReport.Height = frm.Height
-    frmViewReport.WindowState = vbMaximized
-    
-    Set Report = scrApplication.OpenReport(App.Path & "\Reports\DetailSets.rpt", crOpenReportByTempCopy)
-    Report.Database.SetDataSource vRS, 3, 1
-    Report.ReadRecords
-    
-    frmViewReport.scrViewer.ReportSource = Report
-    frmViewReport.Show vbModal
-    
-    Set scrApplication = Nothing
-    Set Report = Nothing
-    vRS.Close
-    Set vRS = Nothing
-End Sub
-Private Sub mnuActionSQL_Click()
-    Load frmSQL
-    Set frmSQL.cnSQL = adoConn
-    frmSQL.txtDatabase.Text = DBinfo.PathName
-    frmSQL.dbcTables.BoundText = "Detail Sets"
-    frmSQL.Show vbModal
-End Sub
-Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
-    Dim Caption As String
-    Dim i As Integer
-    
-    On Error GoTo ErrorHandler
-    If rsMain.BOF And rsMain.EOF Then
-        Caption = "No Records"
-    ElseIf rsMain.EOF Then
-        Caption = "EOF"
-    ElseIf rsMain.BOF Then
-        Caption = "BOF"
-    Else
-        If IsNumeric(rsMain("Scale")) Then
-            Caption = "Reference #" & rsMain.Bookmark & ": 1/" & rsMain("Scale") & " Scale; " & rsMain("Name")
-        Else
-            Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("Scale") & " Scale; " & rsMain("Name")
-        End If
-        
-        i = InStr(Caption, "&")
-        If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-            sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-        Else
-            sbStatus.Panels("Message").Text = vbNullString
-        End If
-        sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
-    End If
-    
-    adodcMain.Caption = Caption
-    Exit Sub
-
-ErrorHandler:
-    MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
-    Resume Next
-End Sub
-Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
-    Select Case Button.Key
-        Case "List"
-            mnuActionList_Click
-        Case "Refresh"
-            mnuActionRefresh_Click
-        Case "Filter"
-            mnuActionFilter_Click
-        Case "New"
-            mnuActionNew_Click
-        Case "Modify"
-            mnuActionModify_Click
-        Case "Delete"
-            mnuActionDelete_Click
-        Case "Report"
-            mnuActionReport_Click
-        Case "SQL"
-            mnuActionSQL_Click
-    End Select
 End Sub
 Private Sub txtCount_GotFocus()
     TextSelected

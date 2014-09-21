@@ -37,7 +37,7 @@ Begin VB.Form frmMain
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:02 PM"
+            TextSave        =   "8:19 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -99,8 +99,8 @@ Begin VB.Form frmMain
    End
    Begin VB.Menu mnuFile 
       Caption         =   "&File"
-      Begin VB.Menu mnuFileBackground 
-         Caption         =   "&Select Background"
+      Begin VB.Menu mnuFileOptions 
+         Caption         =   "&Options"
       End
       Begin VB.Menu mnuFileSep1 
          Caption         =   "-"
@@ -215,108 +215,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-
-Private cnKFC As New ADODB.Connection
-Private cmdKFC As New ADODB.Command
-'Const gstrProvider = "Microsoft.Jet.OLEDB.3.51"
-Const gstrProvider = "Microsoft.Jet.OLEDB.4.0"
-'Const gstrConnectionString = "DBQ=F:\Program Files\Home Inventory\Database\Ken's Stuff.mdb;DefaultDir=F:\Program Files\Home Inventory\Database;Driver={Microsoft Access Driver (*.mdb)};DriverId=281;FIL=MS Access;FILEDSN=C:\Program Files\Common Files\ODBC\Data Sources\Ken's Stuff.dsn;MaxBufferSize=2048;MaxScanRows=8;PageTimeout=5;SafeTransactions=0;Threads=3;UID=admin;UserCommitSync=Yes;"
-Const gstrRunTimeUserName = "admin"
-Const gstrRunTimePassword = vbNullString
-'Const gstrDefaultImage = "EarthRise.jpg"
-Const gstrDefaultImage = "F14_102.jpg"
-Const iMinWidth = 2184
-Const iMinHeight = 1440
-
-Public gstrDBPath As String
-Public gstrDefaultImagePath As String
-Public frmReport As Form
-Public rdcReport As CRAXDRT.Report
-Public MinWidth As Integer
-Public MinHeight As Integer
-
-Public gstrImagePath As String
-Public DBcollection As New DataBaseCollection
-Public Enum ActionMode
-    modeDisplay = 0
-    modeAdd = 1
-    modeModify = 2
-    modeDelete = 3
-End Enum
 Private fActivated As Boolean
-Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Recordset, Optional RowSource As ADODB.Recordset, Optional BoundColumn As String, Optional ListField As String)
-    Dim DateTimeFormat As StdDataFormat
-    Select Case TypeName(ctl)
-        Case "CheckBox", "Label", "PictureBox", "RichTextBox", "TextBox"
-            Set ctl.DataSource = Nothing
-            ctl.DataField = DataField
-            Set ctl.DataSource = DataSource
-            If DataSource(DataField).Type = adDate Then
-                If ctl.DataFormat.Format = vbNullString Then
-                    Set DateTimeFormat = New StdDataFormat
-                    DateTimeFormat.Format = "dd-MMM-yyyy hh:mm AMPM"
-                    Set ctl.DataFormat = DateTimeFormat
-                End If
-            End If
-        Case "DataCombo"
-            Set ctl.DataSource = Nothing
-            ctl.DataField = DataField
-            Set ctl.DataSource = DataSource
-            Set ctl.RowSource = Nothing
-            ctl.BoundColumn = BoundColumn
-            ctl.ListField = ListField
-            Set ctl.RowSource = RowSource
-    End Select
-End Sub
-Public Sub BindFieldDAO(ctl As Control, DataField As String, DataSource As DAO.Recordset, Optional RowSource As DAO.Recordset, Optional BoundColumn As String, Optional ListField As String)
-    Dim DateTimeFormat As StdDataFormat
-    Select Case TypeName(ctl)
-        Case "CheckBox", "Label", "PictureBox", "RichTextBox", "TextBox"
-            Set ctl.DataSource = Nothing
-            ctl.DataField = DataField
-            'Set ctl.DataSource = DataSource
-            If DataSource(DataField).Type = adDate Then
-                If ctl.DataFormat.Format = vbNullString Then
-                    Set DateTimeFormat = New StdDataFormat
-                    DateTimeFormat.Format = "dd-MMM-yyyy hh:mm AMPM"
-                    Set ctl.DataFormat = DateTimeFormat
-                End If
-            End If
-    End Select
-End Sub
-Public Sub OpenFields(pForm As Form)
-    Dim ctl As Control
-    For Each ctl In pForm.Controls
-        Select Case TypeName(ctl)
-            Case "ComboBox", "DataCombo", "DataGrid", "RichTextBox", "TextBox"
-                'ctl.Locked = False
-                ctl.Enabled = True
-                ctl.BackColor = vbWindowBackground
-            Case "CheckBox", "PictureBox"
-                ctl.Enabled = True
-        End Select
-    Next ctl
-    pForm.sbStatus.Panels("Status").Text = "Edit Mode"
-    pForm.cmdCancel.Caption = "Cancel"
-    pForm.cmdOK.Visible = True
-End Sub
-Public Sub ProtectFields(pForm As Form)
-    Dim ctl As Control
-    For Each ctl In pForm.Controls
-        Select Case TypeName(ctl)
-            Case "ComboBox", "DataCombo", "DataGrid", "RichTextBox", "TextBox"
-                'ctl.Locked = True
-                ctl.Enabled = False
-                ctl.BackColor = vbButtonFace
-            Case "CheckBox", "PictureBox"
-                ctl.Enabled = False
-        End Select
-    Next ctl
-
-    pForm.sbStatus.Panels("Status").Text = ""
-    pForm.cmdCancel.Caption = "&Exit"
-    pForm.cmdOK.Visible = False
-End Sub
 Private Sub LoadBackground()
     Dim iWidth As Integer
     Dim iHeight As Integer
@@ -372,37 +271,21 @@ Private Sub LoadBackground()
     Me.Height = iHeight
     Me.Move (Screen.Width - Me.Width) / 2, (Screen.Height - Me.Height) / 2
 End Sub
-Private Sub LoadDBcoll(DBname As String)
-    DBcollection.Add DBname, DBname, gstrDBPath, gstrProvider, gstrRunTimeUserName, gstrRunTimePassword, DBname
-End Sub
 Private Sub Form_Activate()
     If fActivated Then Exit Sub
     fActivated = True
     
     Me.MousePointer = vbHourglass
-    gstrDBPath = GetSetting(App.FileDescription, "Environment", "DatabasePath", "")
-    If gstrDBPath = vbNullString Then
-        With dlgMain
-            .DialogTitle = "Select Database"
-            .FileName = gstrDBPath
-            .Filter = "Microsoft Access Databases (*.mdb)|*.mdb|All Files (*.*)|*.*"
-            .FilterIndex = 1
-            .ShowOpen
-            gstrDBPath = .FileName
-            SaveSetting App.FileDescription, "Environment", "DatabasePath", gstrDBPath
-        End With
+    gstrFileDSN = GetSetting(App.FileDescription, "Environment", "FileDSN", "")
+    If gstrFileDSN = vbNullString Then
+        mnuFileOptions_Click
     End If
-    LoadDBcoll "Books"
-    LoadDBcoll "Hobby"
-    LoadDBcoll "KFC"
-    LoadDBcoll "Music"
-    LoadDBcoll "Software"
-    LoadDBcoll "US Navy Ships"
-    LoadDBcoll "UserAccessInfo"
-    LoadDBcoll "VideoTapes"
     
-    'Me.Caption = Me.Caption & " - " & gstrDBPath
-    sbStatus.Panels("DatabasePath").Text = gstrDBPath
+    If ParsePath(gstrFileDSN, DrvDirNoSlash) = gstrODBCFileDSNDir Then
+        sbStatus.Panels("DatabasePath").Text = ParsePath(gstrFileDSN, FileNameBase)
+    Else
+        sbStatus.Panels("DatabasePath").Text = ParsePath(gstrFileDSN, DrvDirFileNameBase)
+    End If
     Me.MousePointer = vbDefault
 End Sub
 Private Sub Form_Load()
@@ -410,9 +293,11 @@ Private Sub Form_Load()
     MinWidth = iMinWidth
     MinHeight = iMinHeight
     
+    gstrODBCFileDSNDir = VbRegQueryValue(HKEY_CURRENT_USER, "SOFTWARE\ODBC\ODBC.INI\ODBC File DSN", "DefaultDSNDir")
     gstrDefaultImagePath = App.Path & "\Images"
     gstrImagePath = GetSetting(App.FileDescription, "Environment", "ImagePath", gstrDefaultImagePath & "\" & gstrDefaultImage)
     LoadBackground
+    DBcollection.Clear
 End Sub
 Private Sub Form_Resize()
     shpCorner.Visible = False
@@ -580,29 +465,16 @@ Private Sub mnuDataBaseVideoLibraryTVEpisodes_Click()
     Me.MousePointer = vbDefault
     frmTVEpisodes.Show vbModal
 End Sub
-Private Sub mnuFileBackground_Click()
-    Dim CurrentPath As String
-    Dim CurrentDrive As String
-    Dim CurrentImage As String
-    
-    CurrentPath = ParsePath(gstrImagePath, DrvDirNoSlash)
-    CurrentDrive = ParsePath(gstrImagePath, DrvOnly)
-    CurrentImage = ParsePath(gstrImagePath, FileNameBaseExt)
-    ChDrive CurrentDrive
-    ChDir CurrentPath
-    With dlgMain
-        .DialogTitle = "Select New Background Image"
-        .FileName = CurrentImage
-        .Filter = "All Picture Files|*.jpg;*.gif;*.bmp;*.dib;*.ico;*.cur;*.wmf;*.emf|JPEG Images (*.jpg)|*.jpg|CompuServe GIF Images (*.gif)|*.gif|Windows Bitmaps (*.bmp;*.dib)|*.bmp;*.dib|Icons (*.ico;*.cur)|*.ico;*.cur|Metafiles (*.wmf;*.emf)|*.wmf;*.emf|All Files (*.*)|*.*"
-        .FilterIndex = 1
-        .ShowOpen    ' Call the open file procedure.
-        gstrImagePath = .FileName
-        SaveSetting App.FileDescription, "Environment", "ImagePath", gstrImagePath
-    End With
+Private Sub mnuFileOptions_Click()
+    Me.MousePointer = vbHourglass
+    Load frmOptions
+    Me.MousePointer = vbDefault
+    frmOptions.Show vbModal
     LoadBackground
 End Sub
 Private Sub mnuFileExit_Click()
     Unload Me
+    End
 End Sub
 Private Sub mnuHelpAbout_Click()
     frmAbout.Show vbModal

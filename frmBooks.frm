@@ -49,7 +49,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:40 PM"
+            TextSave        =   "7:58 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -542,7 +542,6 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Dim adoConn As ADODB.Connection
 Dim WithEvents rsMain As ADODB.Recordset
 Attribute rsMain.VB_VarHelpID = -1
 Dim WithEvents CurrencyFormat As StdDataFormat
@@ -550,46 +549,106 @@ Attribute CurrencyFormat.VB_VarHelpID = -1
 Dim rsAuthors As New ADODB.Recordset
 Dim rsSubjects As New ADODB.Recordset
 Dim strDefaultAlphaSort As String
-Dim mode As ActionMode
-Dim fTransaction As Boolean
-Dim DBinfo As DataBaseInfo
 Private Sub cmdCancel_Click()
-    Select Case mode
-        Case modeDisplay
-            Unload Me
-        Case modeAdd, modeModify
-            rsMain.CancelUpdate
-            If mode = modeAdd And Not rsMain.EOF Then rsMain.MoveLast
-            adoConn.RollbackTrans
-            fTransaction = False
-            frmMain.ProtectFields Me
-            mode = modeDisplay
-            adodcMain.Enabled = True
-    End Select
+    CancelCommand Me, rsMain
 End Sub
 Private Sub cmdOK_Click()
-    Dim SaveBookmark As String
+    OKCommand Me, rsMain
+End Sub
+Private Sub Form_Load()
+    Set adoConn = New ADODB.Connection
+    adoConn.Open "FileDSN=" & gstrFileDSN
     
-    Select Case mode
-        Case modeDisplay
-            Unload Me
-        Case modeAdd, modeModify
-            'Why we need to do this is buggy...
-            rsMain("Author") = dbcAuthor.Text
-            rsMain("Subject") = dbcSubject.Text
-            rsMain.UpdateBatch
-            adoConn.CommitTrans
-            fTransaction = False
-            frmMain.ProtectFields Me
-            mode = modeDisplay
-            adodcMain.Enabled = True
-            
+    Set rsMain = New ADODB.Recordset
+    rsMain.CursorLocation = adUseClient
+    SQLmain = "select * from [Books] order by AlphaSort"
+    SQLfilter = vbNullString
+    SQLkey = "AlphaSort"
+    rsMain.Open SQLmain, adoConn, adOpenKeyset, adLockBatchOptimistic
+    DBcollection.Add "rsMain", rsMain
+    
+    rsAuthors.CursorLocation = adUseClient
+    rsAuthors.Open "select distinct Author from [Books] order by Author", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsAuthors", rsAuthors
+    
+    rsSubjects.CursorLocation = adUseClient
+    rsSubjects.Open "select distinct Subject from [Books] order by Subject", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsSubjects", rsSubjects
+    
+    Set adodcMain.Recordset = rsMain
+    BindField lblID, "ID", rsMain
+    BindField dbcAuthor, "Author", rsMain, rsAuthors, "Author", "Author"
+    BindField txtTitle, "Title", rsMain
+    BindField txtISBN, "ISBN", rsMain
+    BindField txtPrice, "Price", rsMain
+    BindField txtAlphaSort, "AlphaSort", rsMain
+    BindField dbcSubject, "Subject", rsMain, rsSubjects, "Subject", "Subject"
+    BindField txtMisc, "Misc", rsMain
+    BindField chkCataloged, "Cataloged", rsMain
+    BindField txtInventoried, "Inventoried", rsMain
+
+    ProtectFields Me
+    mode = modeDisplay
+    fTransaction = False
+End Sub
+Private Sub Form_Unload(Cancel As Integer)
+    Cancel = CloseConnection(Me)
+End Sub
+Private Sub mnuActionFilter_Click()
+    FilterCommand Me, rsMain, SQLkey
+End Sub
+Private Sub mnuActionDelete_Click()
+    DeleteCommand Me, rsMain
+End Sub
+Private Sub mnuActionList_Click()
+    ListCommand Me, rsMain
+End Sub
+Private Sub mnuActionModify_Click()
+    ModifyCommand Me
+End Sub
+Private Sub mnuActionNew_Click()
+    NewCommand Me, rsMain
+    
+    txtInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
+    chkCataloged.Value = vbChecked
+    strDefaultAlphaSort = vbNullString
+End Sub
+Private Sub mnuActionRefresh_Click()
+    RefreshCommand SQLkey
+End Sub
+Private Sub mnuActionReport_Click()
+    ReportCommand Me, rsMain, App.Path & "\Reports\Books.rpt"
+End Sub
+Private Sub mnuActionSQL_Click()
+    SQLCommand "Books"
+End Sub
+Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+    Dim Caption As String
+    
+    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset(SQLkey)
+    UpdatePosition Me, Caption, pRecordset
+End Sub
+Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
+    Select Case Button.Key
+        Case "List"
+            mnuActionList_Click
+        Case "Refresh"
             mnuActionRefresh_Click
+        Case "Filter"
+            mnuActionFilter_Click
+        Case "New"
+            mnuActionNew_Click
+        Case "Modify"
+            mnuActionModify_Click
+        Case "Delete"
+            mnuActionDelete_Click
+        Case "Report"
+            mnuActionReport_Click
+        Case "SQL"
+            mnuActionSQL_Click
     End Select
 End Sub
-Private Sub CurrencyFormat_Format(ByVal DataValue As StdFormat.StdDataValue)
-    'DataValue.TargetObject.ForeColor = vbRed
-End Sub
+'=================================================================================
 Private Sub dbcAuthor_GotFocus()
     TextSelected
 End Sub
@@ -659,250 +718,6 @@ Private Function DefaultAlphaSort() As String
     
     DefaultAlphaSort = UCase(LastName & ": " & Title)
 End Function
-Private Sub Form_Load()
-    Set adoConn = New ADODB.Connection
-    Set rsMain = New ADODB.Recordset
-    Set DBinfo = frmMain.DBcollection("Books")
-    With DBinfo
-        adoConn.Provider = .Provider
-        adoConn.CommandTimeout = 60
-        adoConn.ConnectionTimeout = 60
-        adoConn.Open .PathName, .UserName, .Password
-    End With
-    rsMain.CursorLocation = adUseClient
-    rsMain.Open "select * from [Books] order by AlphaSort", adoConn, adOpenKeyset, adLockBatchOptimistic
-
-    rsAuthors.CursorLocation = adUseClient
-    rsAuthors.Open "select distinct Author from [Books] order by Author", adoConn, adOpenStatic, adLockReadOnly
-    
-    rsSubjects.CursorLocation = adUseClient
-    rsSubjects.Open "select distinct Subject from [Books] order by Subject", adoConn, adOpenStatic, adLockReadOnly
-    
-    Set adodcMain.Recordset = rsMain
-    frmMain.BindField lblID, "ID", rsMain
-    frmMain.BindField dbcAuthor, "Author", rsMain, rsAuthors, "Author", "Author"
-    frmMain.BindField txtTitle, "Title", rsMain
-    frmMain.BindField txtISBN, "ISBN", rsMain
-    frmMain.BindField txtPrice, "Price", rsMain
-    frmMain.BindField txtAlphaSort, "AlphaSort", rsMain
-    frmMain.BindField dbcSubject, "Subject", rsMain, rsSubjects, "Subject", "Subject"
-    frmMain.BindField txtMisc, "Misc", rsMain
-    frmMain.BindField chkCataloged, "Cataloged", rsMain
-    frmMain.BindField txtInventoried, "Inventoried", rsMain
-    
-    frmMain.ProtectFields Me
-    mode = modeDisplay
-    fTransaction = False
-End Sub
-Private Sub Form_Unload(Cancel As Integer)
-    If fTransaction Then
-        MsgBox "Please complete the current operation before closing the window.", vbExclamation, Me.Caption
-        Cancel = 1
-        Exit Sub
-    End If
-    
-    If Not rsMain.EOF Then
-        If rsMain.EditMode <> adEditNone Then rsMain.CancelUpdate
-    End If
-    If (rsMain.State And adStateOpen) = adStateOpen Then rsMain.Close
-    Set rsMain = Nothing
-    rsAuthors.Close
-    Set rsAuthors = Nothing
-    rsSubjects.Close
-    Set rsSubjects = Nothing
-    
-    On Error Resume Next
-    adoConn.Close
-    If Err.Number = 3246 Then
-        adoConn.RollbackTrans
-        fTransaction = False
-        adoConn.Close
-    End If
-    Set adoConn = Nothing
-End Sub
-Private Sub mnuActionList_Click()
-    Dim frm As Form
-    
-    Load frmList
-    frmList.Caption = Me.Caption & " List"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmList.Top = frm.Top
-    frmList.Left = frm.Left
-    frmList.Width = frm.Width
-    frmList.Height = frm.Height
-    
-    Set frmList.rsList = rsMain
-    
-    adoConn.BeginTrans
-    fTransaction = True
-    frmList.Show vbModal
-    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-    Else
-        sbStatus.Panels("Message").Text = vbNullString
-    End If
-    adoConn.CommitTrans
-    fTransaction = False
-End Sub
-Private Sub mnuActionRefresh_Click()
-    Dim SaveBookmark As String
-    
-    On Error Resume Next
-    SaveBookmark = rsMain("AlphaSort")
-    rsMain.Requery
-    rsMain.Find "AlphaSort='" & SQLQuote(SaveBookmark) & "'"
-    rsAuthors.Requery
-    rsSubjects.Requery
-End Sub
-Private Sub mnuActionFilter_Click()
-    Dim frm As Form
-    
-    Load frmFilter
-    frmFilter.Caption = Me.Caption & " Filter"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmFilter.Top = frm.Top
-    frmFilter.Left = frm.Left
-    frmFilter.Width = frm.Width
-    frmFilter.Height = frm.Height
-    
-    Set frmFilter.RS = rsMain
-    frmFilter.Show vbModal
-    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-    Else
-        sbStatus.Panels("Message").Text = vbNullString
-    End If
-End Sub
-Private Sub mnuActionNew_Click()
-    mode = modeAdd
-    frmMain.OpenFields Me
-    adodcMain.Enabled = False
-    rsMain.AddNew
-    adoConn.BeginTrans
-    fTransaction = True
-    
-    txtInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
-    chkCataloged.Value = vbChecked
-    strDefaultAlphaSort = ""
-    txtTitle.SetFocus
-End Sub
-Private Sub mnuActionDelete_Click()
-    mode = modeDelete
-    If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsMain.Delete
-        rsMain.MoveNext
-        If rsMain.EOF Then rsMain.MoveLast
-    End If
-    mode = modeDisplay
-End Sub
-Private Sub mnuActionModify_Click()
-    mode = modeModify
-    frmMain.OpenFields Me
-    adodcMain.Enabled = False
-    adoConn.BeginTrans
-    fTransaction = True
-    
-    txtTitle.SetFocus
-End Sub
-Private Sub mnuActionReport_Click()
-    Dim frm As Form
-    Dim scrApplication As New CRAXDRT.Application
-    Dim Report As New CRAXDRT.Report
-    Dim vRS As ADODB.Recordset
-    
-    MakeVirtualRecordset adoConn, rsMain, vRS
-    
-    Load frmViewReport
-    frmViewReport.Caption = Me.Caption & " Report"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmViewReport.Top = frm.Top
-    frmViewReport.Left = frm.Left
-    frmViewReport.Width = frm.Width
-    frmViewReport.Height = frm.Height
-    frmViewReport.WindowState = vbMaximized
-    
-    Set Report = scrApplication.OpenReport(App.Path & "\Reports\Books.rpt", crOpenReportByTempCopy)
-    Report.Database.SetDataSource vRS, 3, 1
-    Report.ReadRecords
-    
-    frmViewReport.scrViewer.ReportSource = Report
-    frmViewReport.Show vbModal
-    
-    Set scrApplication = Nothing
-    Set Report = Nothing
-    vRS.Close
-    Set vRS = Nothing
-End Sub
-Private Sub mnuActionSQL_Click()
-    Load frmSQL
-    Set frmSQL.cnSQL = adoConn
-    frmSQL.txtDatabase.Text = DBinfo.PathName
-    frmSQL.dbcTables.BoundText = "Books"
-    frmSQL.Show vbModal
-End Sub
-Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
-    Dim Caption As String
-    Dim i As Integer
-    
-    On Error GoTo ErrorHandler
-    If rsMain.BOF And rsMain.EOF Then
-        Caption = "No Records"
-    ElseIf rsMain.EOF Then
-        Caption = "EOF"
-    ElseIf rsMain.BOF Then
-        Caption = "BOF"
-    Else
-        Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("ALPHASORT")
-        
-        i = InStr(Caption, "&")
-        If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-            sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-        Else
-            sbStatus.Panels("Message").Text = vbNullString
-        End If
-        sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
-    End If
-    
-    adodcMain.Caption = Caption
-    Exit Sub
-    
-ErrorHandler:
-    MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
-    Resume Next
-End Sub
-Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
-    Select Case Button.Key
-        Case "List"
-            mnuActionList_Click
-        Case "Refresh"
-            mnuActionRefresh_Click
-        Case "Filter"
-            mnuActionFilter_Click
-        Case "New"
-            mnuActionNew_Click
-        Case "Modify"
-            mnuActionModify_Click
-        Case "Delete"
-            mnuActionDelete_Click
-        Case "Report"
-            mnuActionReport_Click
-        Case "SQL"
-            mnuActionSQL_Click
-    End Select
-End Sub
 Private Sub txtAlphaSort_GotFocus()
     TextSelected
 End Sub
