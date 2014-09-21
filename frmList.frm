@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "3:58 PM"
+            TextSave        =   "12:16 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -142,6 +142,16 @@ Begin VB.Form frmList
          EndProperty
       EndProperty
    End
+   Begin VB.Label lblA 
+      AutoSize        =   -1  'True
+      Caption         =   "A"
+      Height          =   192
+      Left            =   2700
+      TabIndex        =   2
+      Top             =   1080
+      Visible         =   0   'False
+      Width           =   108
+   End
    Begin VB.Menu mnuList 
       Caption         =   "&List"
       Visible         =   0   'False
@@ -170,6 +180,8 @@ Attribute VB_Exposed = False
 Option Explicit
 Public rsList As ADODB.Recordset
 Private Key As String
+Private MouseY As Single
+Private MouseX As Single
 Private SortDESC() As Boolean
 Private fDebug As Boolean
 Private Sub dgdList_AfterColEdit(ByVal ColIndex As Integer)
@@ -209,6 +221,55 @@ Private Sub dgdList_ColEdit(ByVal ColIndex As Integer)
     sbStatus.Panels("Status").Text = "Edit Mode"
     If fDebug Then sbStatus.Panels("Message").Text = "ColEdit"
 End Sub
+Private Sub dgdList_DblClick()
+    Dim iCol As Integer
+    Dim iRow As Long
+    Dim col As Column
+    Dim ResizeCol As Column
+    Dim ResizeWindow As Single
+    Dim ColRight As Single
+    Dim Bookmark As Variant
+    Dim DataWidth As Long
+    Dim WidestData As Long
+    Dim rsTemp As ADODB.Recordset
+    
+    Me.MousePointer = vbHourglass
+    
+    ResizeWindow = 36
+    For iCol = dgdList.LeftCol To dgdList.LeftCol + dgdList.VisibleCols - 1
+        Set col = dgdList.Columns(iCol)
+        ColRight = col.Left + col.Width
+        If MouseY <= col.Top And MouseX >= (ColRight - ResizeWindow) And MouseX <= (ColRight + ResizeWindow) Then
+            dgdList.ClearSelCols
+            If Not IsEmpty(dgdList.Bookmark) Then Bookmark = dgdList.Bookmark
+            iRow = dgdList.FirstRow
+            lblA.Caption = col.Caption
+            WidestData = lblA.Width
+            Set rsTemp = rsList.Clone(adLockReadOnly)
+            rsTemp.MoveFirst
+            While Not rsTemp.EOF
+                If Not IsNull(rsTemp(col.Caption).Value) Then
+                    lblA.Caption = CStr(rsTemp(col.Caption).Value)
+                    DataWidth = lblA.Width
+                    If DataWidth > WidestData Then WidestData = DataWidth
+                End If
+                rsTemp.MoveNext
+            Wend
+            CloseRecordset rsTemp, True
+            col.Width = WidestData + (4 * ResizeWindow)
+            If col.Width > dgdList.Width Then col.Width = col.Width - ResizeWindow
+            If Not IsEmpty(Bookmark) Then
+                dgdList.Bookmark = Bookmark
+            Else
+                rsList.MoveFirst
+            End If
+            GoTo ExitSub
+        End If
+    Next iCol
+    
+ExitSub:
+    Me.MousePointer = vbDefault
+End Sub
 Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
     If SortDESC(ColIndex) Then
         rsList.Sort = dgdList.Columns(ColIndex).Caption & " DESC"
@@ -227,6 +288,10 @@ Private Sub dgdList_KeyUp(KeyCode As Integer, Shift As Integer)
             sbStatus.Panels("Status").Text = "Edit Mode"
     End Select
 End Sub
+Private Sub dgdList_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    MouseX = X
+    MouseY = Y
+End Sub
 Private Sub dgdList_RowColChange(LastRow As Variant, ByVal LastCol As Integer)
     UpdatePosition
 End Sub
@@ -238,7 +303,7 @@ Private Sub Form_Activate()
     Dim BooleanFormat As New StdDataFormat
     Dim CurrencyFormat As New StdDataFormat
     Dim DateFormat As New StdDataFormat
-    Dim Col As Column
+    Dim col As Column
     Dim fld As ADODB.Field
     
     BooleanFormat.Format = "Yes/No"
@@ -249,19 +314,19 @@ Private Sub Form_Activate()
     ReDim SortDESC(0 To dgdList.Columns.Count - 1)
     
     For Each fld In rsList.Fields
-        Set Col = dgdList.Columns(fld.Name)
+        Set col = dgdList.Columns(fld.Name)
         Select Case fld.Type
             Case adCurrency
-                Set Col.DataFormat = CurrencyFormat
-                Col.Alignment = dbgRight
+                Set col.DataFormat = CurrencyFormat
+                col.Alignment = dbgRight
             Case adBoolean
-                Set Col.DataFormat = BooleanFormat
-                Col.Alignment = dbgCenter
+                Set col.DataFormat = BooleanFormat
+                col.Alignment = dbgCenter
             Case adDate, adDBDate
-                Set Col.DataFormat = DateFormat
-                Col.Alignment = dbgCenter
+                Set col.DataFormat = DateFormat
+                col.Alignment = dbgCenter
             Case Else
-                Col.Alignment = dbgGeneral
+                col.Alignment = dbgGeneral
         End Select
     Next
     

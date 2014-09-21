@@ -79,7 +79,7 @@ Begin VB.Form frmSQL
       TabIndex        =   5
       Top             =   2160
       Width           =   3492
-      Begin MSDataGridLib.DataGrid dgdResults 
+      Begin MSDataGridLib.DataGrid dgdList 
          Height          =   852
          Left            =   60
          TabIndex        =   9
@@ -210,7 +210,7 @@ Begin VB.Form frmSQL
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:26 PM"
+            TextSave        =   "12:20 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -240,7 +240,7 @@ Dim InitialWidth As Double
 Dim InitialHeight As Double
 Dim RecordsAffected As Long
 Public cnSQL As ADODB.Connection
-Dim adoRS As ADODB.Recordset
+Dim rsList As ADODB.Recordset
 Dim rsTables As New ADODB.Recordset
 Dim rsFields As New ADODB.Recordset
 Dim MouseY As Single
@@ -264,30 +264,30 @@ Private Sub ExecuteSQL()
     CurrencyFormat.Format = "Currency"
     DateFormat.Format = "dd-MMM-yyyy hh:nn AMPM"
     
-    Set dgdResults.DataSource = Nothing
+    Set dgdList.DataSource = Nothing
     txtResults.Text = vbNullString
     txtResults.Visible = True
     txtResults.SetFocus
-    dgdResults.Visible = False
+    dgdList.Visible = False
     
     fActiveTrans = False
     Select Case UCase(Mid(txtSQL.Text, 1, 6))
         Case "UPDATE", "DELETE"
             cnSQL.BeginTrans
             fActiveTrans = True
-            Set adoRS = cnSQL.Execute(txtSQL.Text, RecordsAffected)
-            dgdResults.Visible = False
+            Set rsList = cnSQL.Execute(txtSQL.Text, RecordsAffected)
+            dgdList.Visible = False
             txtResults.Visible = True
         Case "SELECT"
-            CloseRecordset adoRS, True
-            Set adoRS = New ADODB.Recordset
-            adoRS.CursorLocation = adUseClient
-            adoRS.Open txtSQL.Text, cnSQL, adOpenKeyset, adLockReadOnly
-            Set dgdResults.DataSource = adoRS
-            ReDim SortDESC(0 To dgdResults.Columns.Count - 1)
+            CloseRecordset rsList, True
+            Set rsList = New ADODB.Recordset
+            rsList.CursorLocation = adUseClient
+            rsList.Open txtSQL.Text, cnSQL, adOpenKeyset, adLockReadOnly
+            Set dgdList.DataSource = rsList
+            ReDim SortDESC(0 To dgdList.Columns.Count - 1)
             
-            For Each fld In adoRS.Fields
-                Set col = dgdResults.Columns(fld.Name)
+            For Each fld In rsList.Fields
+                Set col = dgdList.Columns(fld.Name)
                 Select Case fld.Type
                     Case adCurrency
                         Set col.DataFormat = CurrencyFormat
@@ -302,7 +302,7 @@ Private Sub ExecuteSQL()
                         col.Alignment = dbgGeneral
                 End Select
             Next
-            dgdResults.Visible = True
+            dgdList.Visible = True
             txtResults.Visible = False
     End Select
     
@@ -322,7 +322,7 @@ Private Sub ExecuteSQL()
                             Exit Sub
                         End If
                     Case "SELECT"
-                        If adoRS.RecordCount = 0 Then MsgBox strOutput, vbExclamation, Me.Caption
+                        If rsList.RecordCount = 0 Then MsgBox strOutput, vbExclamation, Me.Caption
                     Case Else
                 End Select
             End If
@@ -335,7 +335,7 @@ Private Sub ExecuteSQL()
         Case "UPDATE"
             fResponse = MsgBox(RecordsAffected & " Records updated... Commit transaction?", vbYesNo, Me.Caption) = vbYes
         Case "SELECT"
-            RecordsAffected = adoRS.RecordCount
+            RecordsAffected = rsList.RecordCount
         Case Else
     End Select
     
@@ -390,7 +390,7 @@ Private Sub dbcTables_Click(Area As Integer)
     Next fld
     cboFields.ListIndex = 0
 End Sub
-Private Sub dgdResults_DblClick()
+Private Sub dgdList_DblClick()
     Dim iCol As Integer
     Dim iRow As Long
     Dim col As Column
@@ -398,45 +398,56 @@ Private Sub dgdResults_DblClick()
     Dim ResizeWindow As Single
     Dim ColRight As Single
     Dim Bookmark As Variant
-    Dim DataWidth As Long
-    Dim WidestData As Long
+    Dim DataWidth As Single
+    Dim WidestData As Single
+    Dim rsTemp As ADODB.Recordset
+    
+    Me.MousePointer = vbHourglass
     
     ResizeWindow = 36
-    For iCol = dgdResults.LeftCol To dgdResults.LeftCol + dgdResults.VisibleCols - 1
-        Set col = dgdResults.Columns(iCol)
+    For iCol = dgdList.LeftCol To dgdList.LeftCol + dgdList.VisibleCols - 1
+        Set col = dgdList.Columns(iCol)
         ColRight = col.Left + col.Width
         If MouseY <= col.Top And MouseX >= (ColRight - ResizeWindow) And MouseX <= (ColRight + ResizeWindow) Then
-            dgdResults.ClearSelCols
-            If Not IsEmpty(dgdResults.Bookmark) Then Bookmark = dgdResults.Bookmark
-            iRow = dgdResults.FirstRow
-            WidestData = Len(col.Caption)
-            adoRS.MoveFirst
-            While Not adoRS.EOF
-                If Not IsNull(adoRS(col.Caption).Value) Then
-                    DataWidth = Len(CStr(adoRS(col.Caption).Value))
+            dgdList.ClearSelCols
+            If Not IsEmpty(dgdList.Bookmark) Then Bookmark = dgdList.Bookmark
+            iRow = dgdList.FirstRow
+            lblA.Caption = col.Caption
+            WidestData = lblA.Width
+            Set rsTemp = rsList.Clone(adLockReadOnly)
+            rsTemp.MoveFirst
+            While Not rsTemp.EOF
+                If Not IsNull(rsTemp(col.Caption).Value) Then
+                    lblA.Caption = CStr(rsTemp(col.Caption).Value)
+                    DataWidth = lblA.Width
                     If DataWidth > WidestData Then WidestData = DataWidth
                 End If
-                adoRS.MoveNext
+                rsTemp.MoveNext
             Wend
-            col.Width = WidestData * lblA.Width
-            If col.Width > dgdResults.Width Then col.Width = col.Width - ResizeWindow
+            CloseRecordset rsTemp, True
+            col.Width = WidestData + (4 * ResizeWindow)
+            If col.Width > dgdList.Width Then col.Width = col.Width - ResizeWindow
             If Not IsEmpty(Bookmark) Then
-                dgdResults.Bookmark = Bookmark
+                dgdList.Bookmark = Bookmark
             Else
-                adoRS.MoveFirst
+                rsList.MoveFirst
             End If
+            GoTo ExitSub
         End If
     Next iCol
+    
+ExitSub:
+    Me.MousePointer = vbDefault
 End Sub
-Private Sub dgdResults_HeadClick(ByVal ColIndex As Integer)
+Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
     If SortDESC(ColIndex) Then
-        adoRS.Sort = dgdResults.Columns(ColIndex).Caption & " DESC"
+        rsList.Sort = dgdList.Columns(ColIndex).Caption & " DESC"
     Else
-        adoRS.Sort = dgdResults.Columns(ColIndex).Caption & " ASC"
+        rsList.Sort = dgdList.Columns(ColIndex).Caption & " ASC"
     End If
     SortDESC(ColIndex) = Not SortDESC(ColIndex)
 End Sub
-Private Sub dgdResults_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub dgdList_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     MouseX = X
     MouseY = Y
 End Sub
@@ -444,7 +455,7 @@ Private Sub Form_Activate()
     Dim SQLsource As String
     
     sbStatus.Panels("Status").Text = "SQL"
-    dgdResults.Visible = False
+    dgdList.Visible = False
     txtResults.Visible = True
     
     CloseRecordset rsTables, False
@@ -486,11 +497,11 @@ Private Sub Form_Resize()
     txtSQL.Move MarginTwips, 3 * MarginTwips, frameSQL.Width - (2 * MarginTwips), frameSQL.Height - (4 * MarginTwips)
     'frameResults.Move MarginTwips, frameSQL.Top + frameSQL.Height + MarginTwips, NewFrameWidth, Me.ScaleHeight - frameSQL.Height - (3 * MarginTwips) - sbStatus.Height
     frameResults.Move MarginTwips, frameSQL.Top + frameSQL.Height + MarginTwips, NewFrameWidth, Me.ScaleHeight - frameSQL.Height - (3 * MarginTwips) - sbStatus.Height - cbToolBar.Height
-    dgdResults.Move MarginTwips, 3 * MarginTwips, frameResults.Width - (2 * MarginTwips), frameResults.Height - (4 * MarginTwips)
+    dgdList.Move MarginTwips, 3 * MarginTwips, frameResults.Width - (2 * MarginTwips), frameResults.Height - (4 * MarginTwips)
     txtResults.Move MarginTwips, 3 * MarginTwips, frameResults.Width - (2 * MarginTwips), frameResults.Height - (4 * MarginTwips)
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
-    CloseRecordset adoRS, True
+    CloseRecordset rsList, True
     CloseRecordset rsTables, True
     CloseRecordset rsFields, True
     Set cnSQL = Nothing
