@@ -37,7 +37,7 @@ Begin VB.Form frmMain
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:41 AM"
+            TextSave        =   "5:02 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -268,6 +268,22 @@ Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Re
             Set ctl.RowSource = RowSource
     End Select
 End Sub
+Public Sub BindFieldDAO(ctl As Control, DataField As String, DataSource As DAO.Recordset, Optional RowSource As DAO.Recordset, Optional BoundColumn As String, Optional ListField As String)
+    Dim DateTimeFormat As StdDataFormat
+    Select Case TypeName(ctl)
+        Case "CheckBox", "Label", "PictureBox", "RichTextBox", "TextBox"
+            Set ctl.DataSource = Nothing
+            ctl.DataField = DataField
+            'Set ctl.DataSource = DataSource
+            If DataSource(DataField).Type = adDate Then
+                If ctl.DataFormat.Format = vbNullString Then
+                    Set DateTimeFormat = New StdDataFormat
+                    DateTimeFormat.Format = "dd-MMM-yyyy hh:mm AMPM"
+                    Set ctl.DataFormat = DateTimeFormat
+                End If
+            End If
+    End Select
+End Sub
 Public Sub OpenFields(pForm As Form)
     Dim ctl As Control
     For Each ctl In pForm.Controls
@@ -276,7 +292,7 @@ Public Sub OpenFields(pForm As Form)
                 'ctl.Locked = False
                 ctl.Enabled = True
                 ctl.BackColor = vbWindowBackground
-            Case "CheckBox"
+            Case "CheckBox", "PictureBox"
                 ctl.Enabled = True
         End Select
     Next ctl
@@ -292,7 +308,7 @@ Public Sub ProtectFields(pForm As Form)
                 'ctl.Locked = True
                 ctl.Enabled = False
                 ctl.BackColor = vbButtonFace
-            Case "CheckBox"
+            Case "CheckBox", "PictureBox"
                 ctl.Enabled = False
         End Select
     Next ctl
