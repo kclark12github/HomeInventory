@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:49 AM"
+            TextSave        =   "9:34 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -164,6 +164,7 @@ Begin VB.Form frmList
       End
       Begin VB.Menu mnuListNew 
          Caption         =   "&New Record"
+         Visible         =   0   'False
       End
       Begin VB.Menu mnuListCopy 
          Caption         =   "&Copy/Append Record"
@@ -501,7 +502,27 @@ ErrorHandler:
     Resume Next
 End Sub
 Private Sub mnuListDelete_Click()
-    MsgBox "Sorry, Delete is not implemented yet...", vbExclamation, Me.Caption
+    Dim Table As String
+    Dim RecordsAffected As Long
+    
+    On Error GoTo ErrorHandler
+        
+    If MsgBox("Are you sure you want to delete record #" & RS.Bookmark & "...?", vbYesNo, Me.Caption) = vbYes Then
+        'RS.Delete adAffectCurrent
+        'RS.Update
+        Table = RS.Fields("ID").Properties("BASETABLENAME")
+        adoConn.Execute "delete from [" & Table & "] where ID=" & RS("ID"), RecordsAffected
+        RefreshCommand RS, SQLkey
+    End If
+
+ExitSub:
+    Exit Sub
+    
+ErrorHandler:
+    Dim errorCode As Long
+    MsgBox BuildADOerror(adoConn, errorCode), vbCritical, "frmList.mnuListDelete"
+    GoTo ExitSub
+    Resume Next
 End Sub
 Private Sub mnuListEdit_Click()
     dgdList_KeyUp vbKeyF2, 0
