@@ -47,9 +47,62 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Public strPictureFile As String
+Const iMinWidth = 2184
+Const iMinHeight = 1440
+Dim fActivated As Boolean
+Private Sub LoadImage()
+    Dim iWidth As Integer
+    Dim iHeight As Integer
+    Dim scWidth As Integer
+    Dim scHeight As Integer
+    Dim borderWidth As Integer
+    Dim borderHeight As Integer
+    Dim NeedHBar As Boolean
+    Dim NeedVBar As Boolean
+    
+    On Error Resume Next
+    scWidth = Screen.Width / Screen.TwipsPerPixelX
+    scHeight = Screen.Height / Screen.TwipsPerPixelY
+    
+    borderWidth = Me.Width - Me.ScaleWidth
+    borderHeight = Me.Height - Me.ScaleHeight
+    
+    picImage.Picture = frmImages.picImage.Picture
+    picImage.Move 0, 0 ', picImage.Picture.Width, picImage.Picture.Height
+    
+    'Everything is governed by the size of the picture...
+    iWidth = picImage.Width + borderWidth
+    iHeight = borderHeight + picImage.Height
+    
+    scrollH.Visible = False
+    If iWidth < iMinWidth Then
+        iWidth = iMinWidth
+    ElseIf iWidth >= Screen.Width Then
+        iWidth = Screen.Width
+        scrollH.Visible = True
+        scrollH.Value = 0
+    End If
+    
+    scrollV.Visible = False
+    If iHeight < iMinHeight Then
+        iHeight = iMinHeight
+    ElseIf iHeight > Screen.Height Then
+        iHeight = Screen.Height
+        scrollV.Visible = True
+        scrollV.Value = 0
+    End If
+    Me.Width = iWidth
+    Me.Height = iHeight
+    Me.Move (Screen.Width - Me.Width) / 2, (Screen.Height - Me.Height) / 2
+End Sub
 Private Sub Form_Activate()
-    picImage.Picture = LoadPicture(strPictureFile)
+    If fActivated Then Exit Sub
+    fActivated = True
+End Sub
+Private Sub Form_Load()
+    fActivated = False
+    Me.Caption = frmImages.rsMain("Name")
+    LoadImage
 End Sub
 Private Sub Form_Resize()
     picImage.Move 0, 0, Me.ScaleWidth, Me.ScaleHeight
@@ -72,9 +125,6 @@ Private Sub Form_Resize()
             scrollV.LargeChange = picImage.Height / 50
         End If
     End If
-End Sub
-Private Sub Form_Unload(Cancel As Integer)
-    Kill strPictureFile
 End Sub
 Private Sub scrollH_Change()
     picImage.Left = -scrollH.Value

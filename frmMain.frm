@@ -37,7 +37,7 @@ Begin VB.Form frmMain
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:23 AM"
+            TextSave        =   "10:41 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -218,8 +218,8 @@ Option Explicit
 
 Private cnKFC As New ADODB.Connection
 Private cmdKFC As New ADODB.Command
-Const gstrProvider = "Microsoft.Jet.OLEDB.3.51"
-'Const gstrProvider = "Microsoft.Jet.OLEDB.4.0"
+'Const gstrProvider = "Microsoft.Jet.OLEDB.3.51"
+Const gstrProvider = "Microsoft.Jet.OLEDB.4.0"
 'Const gstrConnectionString = "DBQ=F:\Program Files\Home Inventory\Database\Ken's Stuff.mdb;DefaultDir=F:\Program Files\Home Inventory\Database;Driver={Microsoft Access Driver (*.mdb)};DriverId=281;FIL=MS Access;FILEDSN=C:\Program Files\Common Files\ODBC\Data Sources\Ken's Stuff.dsn;MaxBufferSize=2048;MaxScanRows=8;PageTimeout=5;SafeTransactions=0;Threads=3;UID=admin;UserCommitSync=Yes;"
 Const gstrRunTimeUserName = "admin"
 Const gstrRunTimePassword = vbNullString
