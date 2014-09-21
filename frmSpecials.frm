@@ -57,7 +57,7 @@ Begin VB.Form frmSpecials
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "8:45 PM"
+            TextSave        =   "4:03 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -699,7 +699,7 @@ Private Sub mnuActionModify_Click()
 End Sub
 Private Sub mnuActionReport_Click()
     Dim frm As Form
-    Dim Report As New scrVideoResearchReport
+    Dim Report As New scrSpecials
     Dim vRS As ADODB.Recordset
     
     MakeVirtualRecordset adoConn, rsMain, vRS

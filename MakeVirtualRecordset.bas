@@ -48,7 +48,7 @@ Public Function MakeVirtualRecordset(ByRef ADOConnection As ADODB.Connection, RS
             'Populate the grid with the recordset data...
             vRS.AddNew
             For Each fld In adoRS.Fields
-                vRS(fld.Name) = adoRS(fld.Name)
+                vRS(fld.Name).Value = adoRS(fld.Name).Value
             Next fld
             vRS.Update
             adoRS.MoveNext
