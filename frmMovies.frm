@@ -9,6 +9,7 @@ Begin VB.Form frmMovies
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
+   Icon            =   "frmMovies.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -57,7 +58,7 @@ Begin VB.Form frmMovies
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:46 PM"
+            TextSave        =   "7:44 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -282,63 +283,63 @@ Begin VB.Form frmMovies
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMovies.frx":0000
+            Picture         =   "frmMovies.frx":030A
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMovies.frx":031C
+            Picture         =   "frmMovies.frx":0626
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMovies.frx":0644
+            Picture         =   "frmMovies.frx":094E
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMovies.frx":096C
+            Picture         =   "frmMovies.frx":0C76
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMovies.frx":3120
+            Picture         =   "frmMovies.frx":342A
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMovies.frx":3574
+            Picture         =   "frmMovies.frx":387E
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMovies.frx":39C8
+            Picture         =   "frmMovies.frx":3CD2
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMovies.frx":4494
+            Picture         =   "frmMovies.frx":479E
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMovies.frx":47BC
+            Picture         =   "frmMovies.frx":4AC6
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMovies.frx":4C10
+            Picture         =   "frmMovies.frx":4F1A
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMovies.frx":5064
+            Picture         =   "frmMovies.frx":536E
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMovies.frx":54B8
+            Picture         =   "frmMovies.frx":57C2
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMovies.frx":5910
+            Picture         =   "frmMovies.frx":5C1A
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMovies.frx":5A6C
+            Picture         =   "frmMovies.frx":5D76
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmMovies.frx":5BC8
+            Picture         =   "frmMovies.frx":5ED2
             Key             =   "NewRecord"
          EndProperty
       EndProperty
