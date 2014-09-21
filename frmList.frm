@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:30 PM"
+            TextSave        =   "12:23 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -636,7 +636,7 @@ Private Sub ResetColumns()
                 If ctl.Tag = vbNullString Then GoTo SkipControl
                 Select Case TypeName(ctl)
                     Case "CheckBox", "DataCombo", "Label", "PictureBox", "RichTextBox", "TextBox"
-                        If ctl.DataField = fld.Name Then
+                        If UCase(ctl.DataField) = UCase(fld.Name) Then
                             If ctl.Tag <> vbNullString Then fFoundControl = True
                             Exit For
                         End If
