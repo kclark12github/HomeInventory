@@ -483,6 +483,8 @@ Public Function dbcValidate(fld As ADODB.Field, ctl As DataCombo) As Integer
             If MsgBox("""" & ctl.Text & """ isn't in the list... Do you want it added...?", vbYesNo) = vbNo Then
                 ctl.BoundText = vbNullString
                 Exit Function
+            Else
+                dbcValidate = 1 '...to denote that it will be added...
             End If
         End If
         CloseRecordset adoRS, True
