@@ -229,6 +229,9 @@ Public Sub OpenFields(pForm As Form)
                 ctl.Enabled = True
         End Select
     Next ctl
+    pForm.sbStatus.Panels("Status").Text = "Edit Mode"
+    pForm.cmdCancel.Caption = "Cancel"
+    pForm.cmdOK.Visible = True
 End Sub
 Public Sub ProtectFields(pForm As Form)
     Dim ctl As Control
@@ -242,6 +245,10 @@ Public Sub ProtectFields(pForm As Form)
                 ctl.Enabled = False
         End Select
     Next ctl
+
+    pForm.sbStatus.Panels("Status").Text = ""
+    pForm.cmdCancel.Caption = "&Exit"
+    pForm.cmdOK.Visible = False
 End Sub
 Private Sub LoadBackground()
     Dim iWidth As Integer

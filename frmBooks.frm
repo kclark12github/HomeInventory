@@ -49,7 +49,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "9:14 PM"
+            TextSave        =   "12:33 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -538,14 +538,12 @@ Private Sub cmdCancel_Click()
             Unload Me
         Case modeAdd, modeModify
             rsBooks.CancelUpdate
+            If mode = modeAdd Then rsBooks.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            sbStatus.Panels("Status").Text = ""
             adodcBooks.Enabled = True
-            cmdCancel.Caption = "&Exit"
-            cmdOK.Visible = False
     End Select
 End Sub
 Private Sub cmdOK_Click()
@@ -563,14 +561,10 @@ Private Sub cmdOK_Click()
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
-            sbStatus.Panels("Status").Text = ""
             adodcBooks.Enabled = True
             
             rsAuthors.Requery
             rsSubjects.Requery
-            
-            cmdCancel.Caption = "&Exit"
-            cmdOK.Visible = False
     End Select
 End Sub
 Private Sub CurrencyFormat_Format(ByVal DataValue As StdFormat.StdDataValue)
@@ -677,11 +671,7 @@ Private Sub Form_Load()
     
     frmMain.ProtectFields Me
     mode = modeDisplay
-    sbStatus.Panels("Status").Text = ""
     fTransaction = False
-
-    cmdCancel.Caption = "&Exit"
-    cmdOK.Visible = False
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
     If fTransaction Then
@@ -777,7 +767,6 @@ Private Sub mnuActionFilter_Click()
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
-    sbStatus.Panels("Status").Text = "Edit Mode"
     frmMain.OpenFields Me
     adodcBooks.Enabled = False
     rsBooks.AddNew
@@ -788,9 +777,6 @@ Private Sub mnuActionNew_Click()
     chkCataloged.Value = vbChecked
     strDefaultAlphaSort = ""
     txtTitle.SetFocus
-
-    cmdCancel.Caption = "Cancel"
-    cmdOK.Visible = True
 End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete
@@ -800,24 +786,15 @@ Private Sub mnuActionDelete_Click()
         If rsBooks.EOF Then rsBooks.MoveLast
     End If
     mode = modeDisplay
-    sbStatus.Panels("Status").Text = ""
-    
-    cmdCancel.Caption = "&Exit"
-    cmdOK.Visible = False
 End Sub
 Private Sub mnuActionModify_Click()
     mode = modeModify
-    sbStatus.Panels("Status").Text = "Edit Mode"
-
     frmMain.OpenFields Me
     adodcBooks.Enabled = False
     adoConn.BeginTrans
     fTransaction = True
     
     txtTitle.SetFocus
-
-    cmdCancel.Caption = "Cancel"
-    cmdOK.Visible = True
 End Sub
 Private Sub mnuActionReport_Click()
     Dim frm As Form
