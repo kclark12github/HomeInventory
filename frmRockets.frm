@@ -49,7 +49,7 @@ Begin VB.Form frmRockets
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:46 PM"
+            TextSave        =   "12:09 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -650,7 +650,7 @@ End Sub
 Private Sub mnuRecordsNew_Click()
     NewCommand Me, rsMain
     
-    txtInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
+    txtInventoried.Text = Format(Now(), fmtDate)
     txtDesignation.SetFocus
 End Sub
 Private Sub mnuRecordsRefresh_Click()

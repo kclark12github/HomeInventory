@@ -1,5 +1,6 @@
 Attribute VB_Name = "modMain"
 Option Explicit
+Global Const fmtDate As String = "dd-MMM-yyyy hh:nn AMPM"
 Global Const gstrProvider As String = "Microsoft.Jet.OLEDB.4.0"
 'Global Const gstrProvider As String = "Microsoft.Jet.OLEDB.3.51"
 Global Const gstrConnectionString As String = "DBQ=F:\Program Files\Home Inventory\Database\Ken's Stuff.mdb;DefaultDir=F:\Program Files\Home Inventory\Database;Driver={Microsoft Access Driver (*.mdb)};DriverId=281;FIL=MS Access;FILEDSN=C:\Program Files\Common Files\ODBC\Data Sources\Ken's Stuff.dsn;MaxBufferSize=2048;MaxScanRows=8;PageTimeout=5;SafeTransactions=0;Threads=3;UID=admin;UserCommitSync=Yes;"
@@ -44,7 +45,7 @@ Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Re
             If DataSource(DataField).Type = adDate Then
                 If ctl.DataFormat.Format = vbNullString Then
                     Set DateTimeFormat = New StdDataFormat
-                    DateTimeFormat.Format = "dd-MMM-yyyy hh:mm AMPM"
+                    DateTimeFormat.Format = fmtDate
                     Set ctl.DataFormat = DateTimeFormat
                 End If
             End If
@@ -57,6 +58,16 @@ Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Re
             ctl.ListField = ListField
             Set ctl.RowSource = RowSource
     End Select
+
+    Select Case TypeName(ctl)
+        Case "TextBox"
+            Select Case DataSource(DataField).Type
+                Case adDate, adDBDate, adDBTime, adDBTimeStamp
+                Case Else
+                    ctl.MaxLength = DataSource(DataField).DefinedSize
+            End Select
+        Case "DataCombo"
+    End Select
 End Sub
 'Public Sub BindFieldDAO(ctl As Control, DataField As String, DataSource As DAO.Recordset, Optional RowSource As DAO.Recordset, Optional BoundColumn As String, Optional ListField As String)
 '    Dim DateTimeFormat As StdDataFormat
@@ -68,7 +79,7 @@ End Sub
 '            If DataSource(DataField).Type = adDate Then
 '                If ctl.DataFormat.Format = vbNullString Then
 '                    Set DateTimeFormat = New StdDataFormat
-'                    DateTimeFormat.Format = "dd-MMM-yyyy hh:mm AMPM"
+'                    DateTimeFormat.Format = fmtDate
 '                    Set ctl.DataFormat = DateTimeFormat
 '                End If
 '            End If
@@ -268,6 +279,11 @@ Public Sub OKCommand(frm As Form, RS As ADODB.Recordset)
             'Why we need to do this is buggy...
             'rsMain("Manufacturer") = dbcManufacturer.BoundText
             'rsMain("Catalog") = dbcCatalog.BoundText
+            
+            'Ignore errors because more than likely they're caused by exceeding
+            'a field length. This is handled for TextBoxes, but cannot be easily
+            'done for DataCombo controls (no .MaxLength property)...
+            On Error Resume Next
             If RS.LockType = adLockBatchOptimistic Then
                 RS.UpdateBatch
             Else
@@ -435,4 +451,7 @@ Public Sub UpdatePosition(frm As Form, ByVal Caption As String, RS As ADODB.Reco
 ErrorHandler:
     MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, frm.Caption
     Resume Next
+End Sub
+Public Sub dbcValidate(fld As ADODB.Field, ctl As DataCombo)
+    If Len(ctl.Text) > fld.DefinedSize Then ctl.Text = Mid(ctl.Text, 1, fld.DefinedSize)
 End Sub

@@ -318,6 +318,7 @@ Begin VB.Form frmKits
          _ExtentX        =   13356
          _ExtentY        =   4360
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmKits.frx":0000
       End
    End
@@ -354,7 +355,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:52 PM"
+            TextSave        =   "12:09 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -698,7 +699,7 @@ Private Sub Form_Load()
     SQLmain = "select * from [Kits] order by Manufacturer,Type,Reference,Scale"
     SQLfilter = vbNullString
     SQLkey = "Reference"
-    rsMain.Open SQLmain, adoConn, adOpenKeyset, adLockOptimistic
+    rsMain.Open SQLmain, adoConn, adOpenKeyset, adLockBatchOptimistic
     DBcollection.Add "rsMain", rsMain
     
     rsManufacturers.CursorLocation = adUseClient
@@ -775,8 +776,8 @@ Private Sub mnuRecordsNew_Click()
     NewCommand Me, rsMain
     
     Set tsKits.SelectedItem = tsKits.Tabs(1)
-    txtDateInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
-    txtDateVerified.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
+    txtDateInventoried.Text = Format(Now(), fmtDate)
+    txtDateVerified.Text = Format(Now(), fmtDate)
     txtDesignation.SetFocus
 End Sub
 Private Sub mnuRecordsRefresh_Click()
@@ -846,6 +847,7 @@ Private Sub dbcCatalog_GotFocus()
 End Sub
 Private Sub dbcCatalog_Validate(Cancel As Boolean)
     If Trim(dbcCatalog.Text) = vbNullString Then dbcCatalog.Text = "Unknown"
+    dbcValidate rsMain("Catalog"), dbcCatalog
     If rsCatalogs.Bookmark <> dbcCatalog.SelectedItem Then rsCatalogs.Bookmark = dbcCatalog.SelectedItem
 End Sub
 Private Sub dbcConditions_GotFocus()
@@ -853,6 +855,7 @@ Private Sub dbcConditions_GotFocus()
 End Sub
 Private Sub dbcConditions_Validate(Cancel As Boolean)
     If Trim(dbcConditions.Text) = vbNullString Then dbcConditions.Text = "Unknown"
+    dbcValidate rsMain("Condition"), dbcConditions
     If rsConditions.Bookmark <> dbcConditions.SelectedItem Then rsConditions.Bookmark = dbcConditions.SelectedItem
 End Sub
 Private Sub dbcLocations_GotFocus()
@@ -860,6 +863,7 @@ Private Sub dbcLocations_GotFocus()
 End Sub
 Private Sub dbcLocations_Validate(Cancel As Boolean)
     If Trim(dbcLocations.Text) = vbNullString Then dbcLocations.Text = "Unknown"
+    dbcValidate rsMain("Location"), dbcLocations
     If rsLocations.Bookmark <> dbcLocations.SelectedItem Then rsLocations.Bookmark = dbcLocations.SelectedItem
 End Sub
 Private Sub dbcManufacturer_GotFocus()
@@ -872,6 +876,7 @@ Private Sub dbcManufacturer_Validate(Cancel As Boolean)
         dbcManufacturer.SetFocus
         Cancel = True
     End If
+    dbcValidate rsMain("Manufacturer"), dbcManufacturer
     If rsManufacturers.Bookmark <> dbcManufacturer.SelectedItem Then rsManufacturers.Bookmark = dbcManufacturer.SelectedItem
 End Sub
 Private Sub dbcNation_GotFocus()
@@ -884,6 +889,7 @@ Private Sub dbcNation_Validate(Cancel As Boolean)
         dbcNation.SetFocus
         Cancel = True
     End If
+    dbcValidate rsMain("Nation"), dbcNation
     If rsNations.Bookmark <> dbcNation.SelectedItem Then rsNations.Bookmark = dbcNation.SelectedItem
 End Sub
 Private Sub dbcScale_GotFocus()
@@ -891,6 +897,7 @@ Private Sub dbcScale_GotFocus()
 End Sub
 Private Sub dbcScale_Validate(Cancel As Boolean)
     If dbcScale.Text = vbNullString Then dbcScale.Text = "Unknown"
+    dbcValidate rsMain("Scale"), dbcScale
     If rsScales.Bookmark <> dbcScale.SelectedItem Then rsScales.Bookmark = dbcScale.SelectedItem
 End Sub
 Private Sub dbcType_GotFocus()
@@ -903,6 +910,7 @@ Private Sub dbcType_Validate(Cancel As Boolean)
         dbcType.SetFocus
         Cancel = True
     End If
+    dbcValidate rsMain("Type"), dbcType
     If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
 End Sub
 Private Sub txtDateVerified_GotFocus()

@@ -210,7 +210,7 @@ Begin VB.Form frmSQL
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:34 AM"
+            TextSave        =   "12:10 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -262,7 +262,7 @@ Private Sub ExecuteSQL()
     On Error GoTo ErrorHandler
     BooleanFormat.Format = "Yes/No"
     CurrencyFormat.Format = "Currency"
-    DateFormat.Format = "dd-MMM-yyyy hh:nn AMPM"
+    DateFormat.Format = fmtDate
     
     Set dgdList.DataSource = Nothing
     txtResults.Text = vbNullString

@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:34 AM"
+            TextSave        =   "12:10 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -374,7 +374,7 @@ Private Sub Form_Activate()
     
     BooleanFormat.Format = "Yes/No"
     CurrencyFormat.Format = "Currency"
-    DateFormat.Format = "dd-MMM-yyyy hh:nn AMPM"
+    DateFormat.Format = fmtDate
     
     If vrsList Is Nothing Then
         Set RS = frmList.rsList
