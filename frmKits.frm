@@ -2,28 +2,333 @@ VERSION 5.00
 Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form frmKits 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Model Kits"
-   ClientHeight    =   5136
+   ClientHeight    =   4548
    ClientLeft      =   36
    ClientTop       =   492
-   ClientWidth     =   7524
+   ClientWidth     =   8088
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5136
-   ScaleWidth      =   7524
+   ScaleHeight     =   4548
+   ScaleWidth      =   8088
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
+   Begin VB.Frame fraKits 
+      Height          =   2712
+      Index           =   0
+      Left            =   180
+      TabIndex        =   19
+      Top             =   660
+      Width           =   7692
+      Begin VB.TextBox txtDateVerified 
+         Height          =   288
+         Left            =   4884
+         TabIndex        =   15
+         Text            =   "Date Verified"
+         Top             =   2280
+         Width           =   1812
+      End
+      Begin VB.TextBox txtName 
+         Height          =   288
+         Left            =   1524
+         TabIndex        =   4
+         Text            =   "Name"
+         Top             =   492
+         Width           =   5892
+      End
+      Begin VB.TextBox txtDesignation 
+         Height          =   288
+         Left            =   1524
+         TabIndex        =   2
+         Text            =   "Designation"
+         Top             =   180
+         Width           =   2172
+      End
+      Begin VB.TextBox txtPrice 
+         Alignment       =   1  'Right Justify
+         BeginProperty DataFormat 
+            Type            =   1
+            Format          =   """$""#,##0.00"
+            HaveTrueFalseNull=   0
+            FirstDayOfWeek  =   0
+            FirstWeekOfYear =   0
+            LCID            =   1033
+            SubFormatType   =   2
+         EndProperty
+         Height          =   288
+         Left            =   3180
+         TabIndex        =   6
+         Top             =   780
+         Width           =   1332
+      End
+      Begin VB.TextBox txtDateInventoried 
+         Height          =   288
+         Left            =   1524
+         TabIndex        =   14
+         Text            =   "Date Inventoried"
+         Top             =   2292
+         Width           =   1812
+      End
+      Begin VB.TextBox txtReference 
+         Height          =   288
+         Left            =   5940
+         TabIndex        =   10
+         Text            =   "Reference"
+         Top             =   1380
+         Width           =   1452
+      End
+      Begin VB.CheckBox chkOutOfProduction 
+         Caption         =   "Out of Production"
+         Height          =   192
+         Left            =   4680
+         TabIndex        =   7
+         Top             =   840
+         Width           =   1932
+      End
+      Begin MSDataListLib.DataCombo dbcManufacturer 
+         Height          =   288
+         Left            =   1524
+         TabIndex        =   8
+         Top             =   1092
+         Width           =   5892
+         _ExtentX        =   10393
+         _ExtentY        =   508
+         _Version        =   393216
+         MatchEntry      =   -1  'True
+         Text            =   "Manufacturer"
+      End
+      Begin MSDataListLib.DataCombo dbcCatalog 
+         Height          =   288
+         Left            =   1524
+         TabIndex        =   9
+         Top             =   1380
+         Width           =   3252
+         _ExtentX        =   5736
+         _ExtentY        =   508
+         _Version        =   393216
+         MatchEntry      =   -1  'True
+         Text            =   "Catalog"
+      End
+      Begin MSDataListLib.DataCombo dbcNation 
+         Height          =   288
+         Left            =   1524
+         TabIndex        =   11
+         Top             =   1680
+         Width           =   3252
+         _ExtentX        =   5736
+         _ExtentY        =   508
+         _Version        =   393216
+         MatchEntry      =   -1  'True
+         Text            =   "Nation"
+      End
+      Begin MSDataListLib.DataCombo dbcScale 
+         Height          =   288
+         Left            =   1524
+         TabIndex        =   5
+         Top             =   792
+         Width           =   1092
+         _ExtentX        =   1926
+         _ExtentY        =   508
+         _Version        =   393216
+         MatchEntry      =   -1  'True
+         Text            =   "Scale"
+      End
+      Begin MSDataListLib.DataCombo dbcType 
+         Height          =   288
+         Left            =   4404
+         TabIndex        =   3
+         Top             =   180
+         Width           =   3012
+         _ExtentX        =   5313
+         _ExtentY        =   508
+         _Version        =   393216
+         MatchEntry      =   -1  'True
+         Text            =   "Type"
+      End
+      Begin MSDataListLib.DataCombo dbcConditions 
+         Height          =   288
+         Left            =   1524
+         TabIndex        =   12
+         Top             =   1980
+         Width           =   1692
+         _ExtentX        =   2985
+         _ExtentY        =   508
+         _Version        =   393216
+         MatchEntry      =   -1  'True
+         Text            =   "Condition"
+      End
+      Begin MSDataListLib.DataCombo dbcLocations 
+         Height          =   288
+         Left            =   4152
+         TabIndex        =   13
+         Top             =   1980
+         Width           =   3252
+         _ExtentX        =   5736
+         _ExtentY        =   508
+         _Version        =   393216
+         MatchEntry      =   -1  'True
+         Text            =   "Location"
+      End
+      Begin VB.Label lblManufacturer 
+         AutoSize        =   -1  'True
+         Caption         =   "Manufacturer:"
+         Height          =   192
+         Left            =   456
+         TabIndex        =   32
+         Top             =   1140
+         Width           =   960
+      End
+      Begin VB.Label lblName 
+         AutoSize        =   -1  'True
+         Caption         =   "Name:"
+         Height          =   192
+         Left            =   936
+         TabIndex        =   31
+         Top             =   540
+         Width           =   480
+      End
+      Begin VB.Label lblDesignation 
+         AutoSize        =   -1  'True
+         Caption         =   "Designation:"
+         Height          =   192
+         Left            =   516
+         TabIndex        =   30
+         Top             =   240
+         Width           =   900
+      End
+      Begin VB.Label lblPrice 
+         AutoSize        =   -1  'True
+         Caption         =   "Price:"
+         BeginProperty DataFormat 
+            Type            =   0
+            Format          =   """$""#,##0.00"
+            HaveTrueFalseNull=   0
+            FirstDayOfWeek  =   0
+            FirstWeekOfYear =   0
+            LCID            =   1033
+            SubFormatType   =   0
+         EndProperty
+         Height          =   192
+         Left            =   2748
+         TabIndex        =   29
+         Top             =   840
+         Width           =   408
+      End
+      Begin VB.Label lblNation 
+         AutoSize        =   -1  'True
+         Caption         =   "Nation:"
+         Height          =   192
+         Left            =   912
+         TabIndex        =   28
+         Top             =   1728
+         Width           =   504
+      End
+      Begin VB.Label lblDateInventoried 
+         AutoSize        =   -1  'True
+         Caption         =   "Date Inventoried:"
+         Height          =   192
+         Left            =   240
+         TabIndex        =   27
+         Top             =   2340
+         Width           =   1212
+      End
+      Begin VB.Label lblScale 
+         AutoSize        =   -1  'True
+         Caption         =   "Scale:"
+         Height          =   192
+         Left            =   960
+         TabIndex        =   26
+         Top             =   840
+         Width           =   456
+      End
+      Begin VB.Label lblReference 
+         AutoSize        =   -1  'True
+         Caption         =   "Reference:"
+         Height          =   192
+         Left            =   5040
+         TabIndex        =   25
+         Top             =   1428
+         Width           =   792
+      End
+      Begin VB.Label lblCatalog 
+         AutoSize        =   -1  'True
+         Caption         =   "Catalog:"
+         Height          =   192
+         Left            =   816
+         TabIndex        =   24
+         Top             =   1428
+         Width           =   600
+      End
+      Begin VB.Label lblType 
+         AutoSize        =   -1  'True
+         Caption         =   "Type:"
+         Height          =   192
+         Left            =   3900
+         TabIndex        =   23
+         Top             =   240
+         Width           =   420
+      End
+      Begin VB.Label lblDateVerified 
+         AutoSize        =   -1  'True
+         Caption         =   "Date Verified:"
+         Height          =   192
+         Left            =   3780
+         TabIndex        =   22
+         Top             =   2328
+         Width           =   972
+      End
+      Begin VB.Label lblLocation 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Location:"
+         Height          =   192
+         Left            =   3396
+         TabIndex        =   21
+         Top             =   2028
+         Width           =   648
+      End
+      Begin VB.Label lblCondition 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Condition:"
+         Height          =   192
+         Left            =   708
+         TabIndex        =   20
+         Top             =   2040
+         Width           =   708
+      End
+   End
+   Begin VB.Frame fraKits 
+      Height          =   2712
+      Index           =   1
+      Left            =   180
+      TabIndex        =   36
+      Top             =   660
+      Width           =   7692
+      Begin RichTextLib.RichTextBox rtxtNotes 
+         Height          =   2472
+         Left            =   60
+         TabIndex        =   1
+         Top             =   180
+         Width           =   7572
+         _ExtentX        =   13356
+         _ExtentY        =   4360
+         _Version        =   393217
+         TextRTF         =   $"frmKits.frx":0000
+      End
+   End
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   33
-      Top             =   4884
-      Width           =   7524
-      _ExtentX        =   13272
+      TabIndex        =   18
+      Top             =   4296
+      Width           =   8088
+      _ExtentX        =   14266
       _ExtentY        =   445
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
@@ -40,7 +345,7 @@ Begin VB.Form frmKits
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8086
+            Object.Width           =   9081
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
@@ -49,66 +354,34 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:14 AM"
+            TextSave        =   "12:28 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
-   End
-   Begin VB.CheckBox chkOutOfProduction 
-      Caption         =   "Out of Production"
-      Height          =   192
-      Left            =   4680
-      TabIndex        =   5
-      Top             =   1020
-      Width           =   1932
-   End
-   Begin VB.TextBox txtDateVerified 
-      Height          =   288
-      Left            =   4824
-      TabIndex        =   14
-      Text            =   "DateVerified"
-      Top             =   3660
-      Width           =   1812
-   End
-   Begin VB.TextBox txtNotes 
-      Height          =   1152
-      Left            =   1536
-      MultiLine       =   -1  'True
-      TabIndex        =   12
-      Top             =   2460
-      Width           =   5892
-   End
-   Begin VB.TextBox txtReference 
-      Height          =   288
-      Left            =   5940
-      TabIndex        =   8
-      Text            =   "Reference"
-      Top             =   1560
-      Width           =   1452
    End
    Begin VB.CommandButton cmdCancel 
       Cancel          =   -1  'True
       Caption         =   "Cancel"
       CausesValidation=   0   'False
       Height          =   372
-      Left            =   6480
-      TabIndex        =   16
-      Top             =   4500
+      Left            =   6960
+      TabIndex        =   17
+      Top             =   3900
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
       Caption         =   "OK"
       Default         =   -1  'True
       Height          =   372
-      Left            =   5460
-      TabIndex        =   15
-      Top             =   4500
+      Left            =   5940
+      TabIndex        =   16
+      Top             =   3900
       Width           =   972
    End
    Begin MSAdodcLib.Adodc adodcMain 
       Height          =   312
-      Left            =   264
-      Top             =   4020
+      Left            =   468
+      Top             =   3480
       Width           =   7152
       _ExtentX        =   12615
       _ExtentY        =   550
@@ -151,134 +424,9 @@ Begin VB.Form frmKits
       EndProperty
       _Version        =   393216
    End
-   Begin VB.TextBox txtDateInventoried 
-      Height          =   288
-      Left            =   1524
-      TabIndex        =   13
-      Text            =   "Inventoried"
-      Top             =   3672
-      Width           =   1812
-   End
-   Begin MSDataListLib.DataCombo dbcManufacturer 
-      Height          =   288
-      Left            =   1524
-      TabIndex        =   6
-      Top             =   1272
-      Width           =   5892
-      _ExtentX        =   10393
-      _ExtentY        =   508
-      _Version        =   393216
-      MatchEntry      =   -1  'True
-      Text            =   "Manufacturer"
-   End
-   Begin VB.TextBox txtPrice 
-      Alignment       =   1  'Right Justify
-      BeginProperty DataFormat 
-         Type            =   1
-         Format          =   """$""#,##0.00"
-         HaveTrueFalseNull=   0
-         FirstDayOfWeek  =   0
-         FirstWeekOfYear =   0
-         LCID            =   1033
-         SubFormatType   =   2
-      EndProperty
-      Height          =   288
-      Left            =   3180
-      TabIndex        =   4
-      Top             =   960
-      Width           =   1332
-   End
-   Begin VB.TextBox txtDesignation 
-      Height          =   240
-      Left            =   72
-      TabIndex        =   0
-      Text            =   "Designation"
-      Top             =   552
-      Width           =   0
-   End
-   Begin VB.TextBox txtName 
-      Height          =   288
-      Left            =   1524
-      TabIndex        =   2
-      Text            =   "Name"
-      Top             =   672
-      Width           =   5892
-   End
-   Begin MSDataListLib.DataCombo dbcCatalog 
-      Height          =   288
-      Left            =   1524
-      TabIndex        =   7
-      Top             =   1560
-      Width           =   3252
-      _ExtentX        =   5736
-      _ExtentY        =   508
-      _Version        =   393216
-      MatchEntry      =   -1  'True
-      Text            =   "Catalog"
-   End
-   Begin MSDataListLib.DataCombo dbcNation 
-      Height          =   288
-      Left            =   1524
-      TabIndex        =   9
-      Top             =   1860
-      Width           =   3252
-      _ExtentX        =   5736
-      _ExtentY        =   508
-      _Version        =   393216
-      MatchEntry      =   -1  'True
-      Text            =   "Nation"
-   End
-   Begin MSDataListLib.DataCombo dbcScale 
-      Height          =   288
-      Left            =   1524
-      TabIndex        =   3
-      Top             =   972
-      Width           =   1092
-      _ExtentX        =   1926
-      _ExtentY        =   508
-      _Version        =   393216
-      MatchEntry      =   -1  'True
-      Text            =   "Scale"
-   End
-   Begin MSDataListLib.DataCombo dbcType 
-      Height          =   288
-      Left            =   4404
-      TabIndex        =   1
-      Top             =   360
-      Width           =   3012
-      _ExtentX        =   5313
-      _ExtentY        =   508
-      _Version        =   393216
-      MatchEntry      =   -1  'True
-      Text            =   "Type"
-   End
-   Begin MSDataListLib.DataCombo dbcLocations 
-      Height          =   288
-      Left            =   4152
-      TabIndex        =   11
-      Top             =   2160
-      Width           =   3252
-      _ExtentX        =   5736
-      _ExtentY        =   508
-      _Version        =   393216
-      MatchEntry      =   -1  'True
-      Text            =   "Location"
-   End
-   Begin MSDataListLib.DataCombo dbcConditions 
-      Height          =   288
-      Left            =   1524
-      TabIndex        =   10
-      Top             =   2160
-      Width           =   1692
-      _ExtentX        =   2985
-      _ExtentY        =   508
-      _Version        =   393216
-      MatchEntry      =   -1  'True
-      Text            =   "Condition"
-   End
    Begin MSComctlLib.ImageList imlSmall 
-      Left            =   480
-      Top             =   4380
+      Left            =   1500
+      Top             =   3780
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -289,62 +437,62 @@ Begin VB.Form frmKits
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   13
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":0000
+            Picture         =   "frmKits.frx":00D5
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":031C
+            Picture         =   "frmKits.frx":03F1
             Key             =   ""
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":0644
+            Picture         =   "frmKits.frx":0719
             Key             =   ""
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":096C
+            Picture         =   "frmKits.frx":0A41
             Key             =   ""
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":3120
+            Picture         =   "frmKits.frx":31F5
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":3574
+            Picture         =   "frmKits.frx":3649
             Key             =   "List"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":4040
+            Picture         =   "frmKits.frx":4115
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":4494
+            Picture         =   "frmKits.frx":4569
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":4F60
+            Picture         =   "frmKits.frx":5035
             Key             =   ""
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":5288
+            Picture         =   "frmKits.frx":535D
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":56DC
+            Picture         =   "frmKits.frx":57B1
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":5B30
+            Picture         =   "frmKits.frx":5C05
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":5F84
+            Picture         =   "frmKits.frx":6059
             Key             =   ""
          EndProperty
       EndProperty
    End
    Begin MSComctlLib.ImageList imlLarge 
-      Left            =   60
-      Top             =   4380
+      Left            =   1080
+      Top             =   3780
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -355,35 +503,35 @@ Begin VB.Form frmKits
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   8
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":63D8
+            Picture         =   "frmKits.frx":64AD
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":682C
+            Picture         =   "frmKits.frx":6901
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":72F8
+            Picture         =   "frmKits.frx":73CD
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":7614
+            Picture         =   "frmKits.frx":76E9
             Key             =   "List"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":80E0
+            Picture         =   "frmKits.frx":81B5
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":8534
+            Picture         =   "frmKits.frx":8609
             Key             =   ""
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":ACE8
+            Picture         =   "frmKits.frx":ADBD
             Key             =   ""
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":B13C
+            Picture         =   "frmKits.frx":B211
             Key             =   ""
          EndProperty
       EndProperty
@@ -392,10 +540,10 @@ Begin VB.Form frmKits
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   34
+      TabIndex        =   35
       Top             =   0
-      Width           =   7524
-      _ExtentX        =   13272
+      Width           =   8088
+      _ExtentX        =   14266
       _ExtentY        =   508
       ButtonWidth     =   487
       ButtonHeight    =   466
@@ -467,160 +615,49 @@ Begin VB.Form frmKits
       EndProperty
       BorderStyle     =   1
    End
-   Begin VB.Label lblCondition 
-      Alignment       =   1  'Right Justify
-      AutoSize        =   -1  'True
-      Caption         =   "Condition:"
-      Height          =   192
-      Left            =   708
-      TabIndex        =   32
-      Top             =   2220
-      Width           =   708
-   End
-   Begin VB.Label lblLocation 
-      Alignment       =   1  'Right Justify
-      AutoSize        =   -1  'True
-      Caption         =   "Location:"
-      Height          =   192
-      Left            =   3396
-      TabIndex        =   31
-      Top             =   2208
-      Width           =   648
-   End
-   Begin VB.Label lblDateVerified 
-      AutoSize        =   -1  'True
-      Caption         =   "Date Verified:"
-      Height          =   192
-      Left            =   3720
-      TabIndex        =   30
-      Top             =   3708
-      Width           =   972
-   End
-   Begin VB.Label lblNotes 
-      AutoSize        =   -1  'True
-      Caption         =   "Notes:"
-      Height          =   192
-      Left            =   960
-      TabIndex        =   29
-      Top             =   2520
-      Width           =   468
-   End
-   Begin VB.Label lblType 
-      AutoSize        =   -1  'True
-      Caption         =   "Type:"
-      Height          =   192
-      Left            =   3900
-      TabIndex        =   28
-      Top             =   420
-      Width           =   420
-   End
-   Begin VB.Label lblCatalog 
-      AutoSize        =   -1  'True
-      Caption         =   "Catalog:"
-      Height          =   192
-      Left            =   816
-      TabIndex        =   27
-      Top             =   1608
-      Width           =   600
-   End
-   Begin VB.Label lblReference 
-      AutoSize        =   -1  'True
-      Caption         =   "Reference:"
-      Height          =   192
-      Left            =   5040
-      TabIndex        =   26
-      Top             =   1608
-      Width           =   792
-   End
-   Begin VB.Label lblScale 
-      AutoSize        =   -1  'True
-      Caption         =   "Scale:"
-      Height          =   192
-      Left            =   960
-      TabIndex        =   25
-      Top             =   1020
-      Width           =   456
-   End
-   Begin VB.Label lblIDlabel 
-      AutoSize        =   -1  'True
-      Caption         =   "ID:"
-      Height          =   192
-      Left            =   6804
-      TabIndex        =   24
-      Top             =   3720
-      Width           =   192
-   End
-   Begin VB.Label lblDateInventoried 
-      AutoSize        =   -1  'True
-      Caption         =   "Date Inventoried:"
-      Height          =   192
-      Left            =   240
-      TabIndex        =   23
-      Top             =   3720
-      Width           =   1212
-   End
-   Begin VB.Label lblNation 
-      AutoSize        =   -1  'True
-      Caption         =   "Nation:"
-      Height          =   192
-      Left            =   912
-      TabIndex        =   22
-      Top             =   1908
-      Width           =   504
-   End
-   Begin VB.Label lblPrice 
-      AutoSize        =   -1  'True
-      Caption         =   "Price:"
-      BeginProperty DataFormat 
-         Type            =   0
-         Format          =   """$""#,##0.00"
-         HaveTrueFalseNull=   0
-         FirstDayOfWeek  =   0
-         FirstWeekOfYear =   0
-         LCID            =   1033
-         SubFormatType   =   0
+   Begin MSComctlLib.TabStrip tsKits 
+      Height          =   3072
+      Left            =   120
+      TabIndex        =   0
+      Top             =   360
+      Width           =   7812
+      _ExtentX        =   13780
+      _ExtentY        =   5419
+      _Version        =   393216
+      BeginProperty Tabs {1EFB6598-857C-11D1-B16A-00C0F0283628} 
+         NumTabs         =   2
+         BeginProperty Tab1 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
+            Caption         =   "General"
+            Key             =   "General"
+            Object.Tag             =   "General"
+            ImageVarType    =   2
+         EndProperty
+         BeginProperty Tab2 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
+            Caption         =   "Notes"
+            Key             =   "Notes"
+            Object.Tag             =   "Notes"
+            Object.ToolTipText     =   "Notes"
+            ImageVarType    =   2
+         EndProperty
       EndProperty
-      Height          =   192
-      Left            =   2748
-      TabIndex        =   21
-      Top             =   1020
-      Width           =   408
-   End
-   Begin VB.Label lblDesignation 
-      AutoSize        =   -1  'True
-      Caption         =   "Designation:"
-      Height          =   192
-      Left            =   516
-      TabIndex        =   20
-      Top             =   420
-      Width           =   900
-   End
-   Begin VB.Label lblName 
-      AutoSize        =   -1  'True
-      Caption         =   "Name:"
-      Height          =   192
-      Left            =   936
-      TabIndex        =   19
-      Top             =   720
-      Width           =   480
-   End
-   Begin VB.Label lblManufacturer 
-      AutoSize        =   -1  'True
-      Caption         =   "Manufacturer:"
-      Height          =   192
-      Left            =   456
-      TabIndex        =   18
-      Top             =   1320
-      Width           =   960
    End
    Begin VB.Label lblID 
       AutoSize        =   -1  'True
       Caption         =   "lblID"
       Height          =   192
-      Left            =   7092
-      TabIndex        =   17
-      Top             =   3720
+      Left            =   408
+      TabIndex        =   34
+      Top             =   4020
       Width           =   324
+   End
+   Begin VB.Label lblIDlabel 
+      AutoSize        =   -1  'True
+      Caption         =   "ID:"
+      Height          =   192
+      Left            =   120
+      TabIndex        =   33
+      Top             =   4020
+      Width           =   192
    End
    Begin VB.Menu mnuAction 
       Caption         =   "&Action"
@@ -832,8 +869,9 @@ Private Sub Form_Load()
     'frmMain.BindField txtCount, "Count", rsMain
     frmMain.BindField txtDateInventoried, "DateInventoried", rsMain
     frmMain.BindField txtDateVerified, "DateVerified", rsMain
-    frmMain.BindField txtNotes, "Notes", rsMain
+    frmMain.BindField rtxtNotes, "Notes", rsMain
 
+    Set tsKits.SelectedItem = tsKits.Tabs(1)
     frmMain.ProtectFields Me
     mode = modeDisplay
     fTransaction = False
@@ -1033,7 +1071,6 @@ ErrorHandler:
     MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
     Resume Next
 End Sub
-
 Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
         Case "List"
@@ -1053,6 +1090,20 @@ Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
         Case "SQL"
             mnuActionSQL_Click
     End Select
+End Sub
+Private Sub tsKits_Click()
+    Dim i As Integer
+    
+    With tsKits
+        For i = 0 To .Tabs.Count - 1
+            If i = .SelectedItem.Index - 1 Then
+                fraKits(i).Enabled = True
+                fraKits(i).ZOrder
+            Else
+                fraKits(i).Enabled = False
+            End If
+        Next
+    End With
 End Sub
 Private Sub txtDateVerified_GotFocus()
     TextSelected
