@@ -1415,8 +1415,14 @@ Private Sub UserControl_Terminate()
     Trace trcEnter, "UserControl_Terminate()"
     ' Close everything...
     On Error Resume Next
-    adoConn.Close
-    Set adoConn = Nothing
+    If Not adoConn Is Nothing Then
+        If (adoConn.State And adStateOpen) = adStateOpen Then
+            adoConn.Close
+        End If
+        If Destroy Then
+            Set adoConn = Nothing
+        End If
+    End If
     Trace trcExit, "UserControl_Terminate()"
 End Sub
 
