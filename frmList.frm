@@ -62,7 +62,7 @@ Begin VB.Form frmList
          EndProperty
          BeginProperty Panel6 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   3175
+            Object.Width           =   3112
             Key             =   "Message"
          EndProperty
          BeginProperty Panel7 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:10 PM"
+            TextSave        =   "12:49 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -454,8 +454,60 @@ Private Sub Form_Unload(Cancel As Integer)
     SaveSetting App.ProductName, Me.Caption & " Settings", "Form Width", Me.Width
     SaveSetting App.ProductName, Me.Caption & " Settings", "Form Height", Me.Height
 End Sub
+Private Sub mnuListCopy_Click()
+    Dim Table As String
+    Dim FieldList As String
+    Dim Values As String
+    Dim fld As ADODB.Field
+    Dim RecordsAffected As Long
+    
+    On Error GoTo ErrorHandler
+        
+    Table = RS.Fields(0).Properties("BASETABLENAME")
+    For Each fld In RS.Fields
+        If (RS(fld.Name).Attributes And adFldUpdatable) = adFldUpdatable Then
+            FieldList = FieldList & fld.Name & ","
+            If IsNull(fld.Value) Then
+                Values = Values & "Null,"
+            Else
+                Select Case fld.Type
+                    Case adCurrency
+                        Values = Values & fld.Value & ","
+                    Case adBoolean
+                        Values = Values & fld.Value & ","
+                    Case adDate, adDBDate, adDBTimeStamp
+                        Values = Values & "#" & fld.Value & "#,"
+                    Case adBinary, adLongVarBinary, adLongVarChar, adChar, adVarChar
+                        Values = Values & "'" & SQLQuote(fld.Value) & "',"
+                    Case Else
+                        Values = Values & "'" & SQLQuote(fld.Value) & "',"
+                End Select
+            End If
+        End If
+    Next fld
+    FieldList = Mid(FieldList, 1, Len(FieldList) - 1)
+    Values = Mid(Values, 1, Len(Values) - 1)
+    
+    adoConn.Execute "insert into [" & Table & "] (" & FieldList & ") values (" & Values & ")", RecordsAffected
+    RefreshCommand RS, SQLkey
+    
+ExitSub:
+    Exit Sub
+    
+ErrorHandler:
+    Dim errorCode As Long
+    MsgBox BuildADOerror(adoConn, errorCode), vbCritical, "frmList.mnuListCopy"
+    GoTo ExitSub
+    Resume Next
+End Sub
+Private Sub mnuListDelete_Click()
+    MsgBox "Sorry, Delete is not implemented yet...", vbExclamation, Me.Caption
+End Sub
 Private Sub mnuListEdit_Click()
     dgdList_KeyUp vbKeyF2, 0
+End Sub
+Private Sub mnuListNew_Click()
+    MsgBox "Sorry, New is not implemented yet...", vbExclamation, Me.Caption
 End Sub
 Private Sub sbStatus_PanelClick(ByVal Panel As MSComctlLib.Panel)
     Dim frm As Form

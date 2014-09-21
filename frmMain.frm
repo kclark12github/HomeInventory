@@ -61,7 +61,7 @@ Begin VB.Form frmMain
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:30 PM"
+            TextSave        =   "12:49 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -253,19 +253,19 @@ Private Sub LoadBackground()
         scrollH.Value = 0
     End If
     
-    ScrollV.Visible = False
+    scrollV.Visible = False
     If iHeight < iMinHeight Then
         iHeight = iMinHeight
     ElseIf iHeight > Screen.Height Then
         iHeight = Screen.Height
-        ScrollV.Visible = True
-        ScrollV.Value = 0
+        scrollV.Visible = True
+        scrollV.Value = 0
     End If
     Me.Width = iWidth
     Me.Height = iHeight
     
     iWidth = iWidth - borderWidth
-    If ScrollV.Visible Then iWidth = ScrollV.Left
+    If scrollV.Visible Then iWidth = scrollV.Left
     iHeight = iHeight - borderHeight
     If scrollH.Visible Then iHeight = scrollH.Top
     picWindow.Move 0, 0, iWidth, iHeight
@@ -291,6 +291,8 @@ Private Sub Form_Activate()
     Me.MousePointer = vbDefault
 End Sub
 Private Sub Form_Load()
+    Dim iPos As Integer
+    
     fActivated = False
     MinWidth = iMinWidth
     MinHeight = iMinHeight
@@ -300,6 +302,9 @@ Private Sub Form_Load()
     gstrImagePath = GetSetting(App.FileDescription, "Environment", "ImagePath", gstrDefaultImagePath & "\" & gstrDefaultImage)
     LoadBackground
     DBcollection.Clear
+    
+    SetDateFormats
+    fmtDate = fmtFullDateTime
 End Sub
 Private Sub Form_Resize()
     If Me.WindowState <> vbMinimized Then
@@ -307,22 +312,22 @@ Private Sub Form_Resize()
             scrollH.Top = Me.ScaleHeight - scrollH.Height - sbStatus.Height
             scrollH.Left = 0
             scrollH.Width = Me.ScaleWidth
-            If ScrollV.Visible Then scrollH.Width = scrollH.Width - ScrollV.Width
+            If scrollV.Visible Then scrollH.Width = scrollH.Width - scrollV.Width
             scrollH.Max = picImage.Width - Me.ScaleWidth
             scrollH.SmallChange = picImage.Width / 100
             scrollH.LargeChange = picImage.Width / 20
             picWindow.Height = scrollH.Top
         End If
         
-        If ScrollV.Visible Then
-            ScrollV.Top = 0
-            ScrollV.Left = Me.ScaleWidth - ScrollV.Width
-            ScrollV.Height = Me.ScaleHeight - sbStatus.Height
-            If scrollH.Visible Then ScrollV.Height = ScrollV.Height - scrollH.Height
-            ScrollV.Max = picImage.Height - Me.ScaleHeight
-            ScrollV.SmallChange = picImage.Height / 100
-            ScrollV.LargeChange = picImage.Height / 20
-            picWindow.Width = ScrollV.Left
+        If scrollV.Visible Then
+            scrollV.Top = 0
+            scrollV.Left = Me.ScaleWidth - scrollV.Width
+            scrollV.Height = Me.ScaleHeight - sbStatus.Height
+            If scrollH.Visible Then scrollV.Height = scrollV.Height - scrollH.Height
+            scrollV.Max = picImage.Height - Me.ScaleHeight
+            scrollV.SmallChange = picImage.Height / 100
+            scrollV.LargeChange = picImage.Height / 20
+            picWindow.Width = scrollV.Left
         End If
     End If
 End Sub
@@ -476,5 +481,5 @@ Private Sub scrollH_Change()
     picImage.Left = -scrollH.Value
 End Sub
 Private Sub scrollV_Change()
-    picImage.Top = -ScrollV.Value
+    picImage.Top = -scrollV.Value
 End Sub

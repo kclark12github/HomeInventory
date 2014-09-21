@@ -1,6 +1,6 @@
 Attribute VB_Name = "modMain"
 Option Explicit
-Global Const fmtDate As String = "dd-MMM-yyyy hh:nn AMPM"
+'Global Const fmtDate As String = "dd-MMM-yyyy hh:nn AMPM"
 Global Const gstrProvider As String = "Microsoft.Jet.OLEDB.4.0"
 'Global Const gstrProvider As String = "Microsoft.Jet.OLEDB.3.51"
 Global Const gstrConnectionString As String = "DBQ=F:\Program Files\Home Inventory\Database\Ken's Stuff.mdb;DefaultDir=F:\Program Files\Home Inventory\Database;Driver={Microsoft Access Driver (*.mdb)};DriverId=281;FIL=MS Access;FILEDSN=C:\Program Files\Common Files\ODBC\Data Sources\Ken's Stuff.dsn;MaxBufferSize=2048;MaxScanRows=8;PageTimeout=5;SafeTransactions=0;Threads=3;UID=admin;UserCommitSync=Yes;"
@@ -13,6 +13,23 @@ Global Const iMinWidth As Single = 2184
 Global Const iMinHeight As Single = 1440
 Global Const ResizeWindow As Single = 36
 Global Const gfUseFilterMethod As Boolean = True
+
+Private Const LOCALE_SSHORTDATE = &H1F
+Private Const WM_SETTINGCHANGE = &H1A
+'same as the old WM_WININICHANGE
+Private Const HWND_BROADCAST = &HFFFF&
+
+'Private Declare Function SetLocaleInfo Lib "kernel32" Alias _
+    "SetLocaleInfoA" (ByVal Locale As Long, ByVal LCType As Long, ByVal lpLCData As String) As Boolean
+Private Declare Function GetSystemDefaultLCID Lib "kernel32" () As Long
+Private Declare Function GetLocaleInfo Lib "kernel32" Alias _
+    "GetLocaleInfoA" (ByVal Locale As Long, ByVal LCType As Long, ByVal lpLCData As String, ByVal cchData As Long) As Long
+
+Public fmtDate As String
+Public fmtShortDate As String
+Public fmtLongDate As String
+Public fmtFullDateTime As String
+
 Public Enum ActionMode
     modeDisplay = 0
     modeAdd = 1
@@ -208,6 +225,15 @@ Public Sub FilterCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String
         RefreshCommand RS, Key
     End If
 End Sub
+Public Function GetRegionalShortDateFormat() As String
+    Dim dwLCID As Long
+    Dim dataLen As Integer
+    Dim Buffer As String * 100
+    
+    dwLCID = GetSystemDefaultLCID()
+    dataLen = GetLocaleInfo(dwLCID, LOCALE_SSHORTDATE, Buffer, 100)
+    GetRegionalShortDateFormat = Left$(Buffer, dataLen - 1)
+End Function
 Public Sub ListCommand(frm As Form, RS As ADODB.Recordset, Optional AllowUpdate As Boolean = True)
     Dim vRS As ADODB.Recordset
     
@@ -414,6 +440,16 @@ Public Sub SearchCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String
     Set frmSearch.RS = RS
     frmSearch.Show vbModal
     'RefreshCommand RS, Key
+End Sub
+Public Sub SetDateFormats()
+    Dim iPos As Integer
+    fmtShortDate = GetRegionalShortDateFormat()
+    fmtLongDate = fmtShortDate
+    If InStr(LCase(fmtLongDate), "yyyy") = 0 Then
+        iPos = InStr(LCase(fmtLongDate), "yy")
+        fmtLongDate = Mid(fmtLongDate, 1, iPos - 1) & "yyyy"
+    End If
+    fmtFullDateTime = fmtLongDate & " hh:nn:ss AMPM"
 End Sub
 Public Sub SQLCommand(ByVal TableName As String)
     Load frmSQL
