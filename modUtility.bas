@@ -8,8 +8,10 @@ Public Enum trcLevel
     trcExit = 1
 End Enum
 Public gfTraceMode As Boolean
+Public gstrTraceFile As String
 Public Sub Trace(trcTraceLevel As trcLevel, strMessage As String)
     Static indentLevel As Integer
+    Dim TraceUnit As Integer
     Dim i As Integer
     Dim strTabs As String
     Dim strTraceMessage As String
@@ -30,7 +32,12 @@ Public Sub Trace(trcTraceLevel As trcLevel, strMessage As String)
     End If
     
     Debug.Print strTraceMessage
-    'Print #gintTraceUnit, strTraceMessage
+    If gstrTraceFile <> vbNullString Then
+        TraceUnit = FreeFile
+        Open gstrTraceFile For Append As #TraceUnit
+        Print #TraceUnit, strTraceMessage
+        Close #TraceUnit
+    End If
 
     If trcTraceLevel = trcEnter Then indentLevel = indentLevel + 1
 End Sub

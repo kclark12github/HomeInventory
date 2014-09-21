@@ -61,7 +61,7 @@ Begin VB.Form frmMain
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:33 PM"
+            TextSave        =   "12:08 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -302,6 +302,15 @@ Private Sub Form_Load()
     gstrDefaultImagePath = App.Path & "\Images"
     gstrImagePath = GetSetting(App.FileDescription, "Environment", "ImagePath", gstrDefaultImagePath & "\" & gstrDefaultImage)
     LoadBackground
+    gfUseFilterMethod = GetSetting(App.FileDescription, "Environment", "UseFilterMethod", False)
+    
+    gfTraceMode = GetSetting(App.FileDescription, "Environment", "TraceMode", False)
+    gstrTraceFile = GetSetting(App.FileDescription, "Environment", "TraceFile", ParsePath(App.Path, DrvDir) & "Trace.log")
+    If gfTraceMode Then
+        Call Trace(trcBody, String(132, "="))
+        Call Trace(trcBody, App.FileDescription & " Start - " & gstrTraceFile)
+    End If
+    
     DBcollection.Clear
     
     SetDateFormats
@@ -331,6 +340,10 @@ Private Sub Form_Resize()
             picWindow.Width = scrollV.Left
         End If
     End If
+End Sub
+Private Sub Form_Unload(Cancel As Integer)
+    Call Trace(trcBody, App.FileDescription & " Exit.")
+    Call Trace(trcBody, String(132, "="))
 End Sub
 Private Sub mnuDataBaseBooks_Click()
     Me.MousePointer = vbHourglass

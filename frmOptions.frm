@@ -2,101 +2,129 @@ VERSION 5.00
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.Form frmOptions 
    Caption         =   "Options"
-   ClientHeight    =   1884
+   ClientHeight    =   3348
    ClientLeft      =   48
    ClientTop       =   276
    ClientWidth     =   5820
    Icon            =   "frmOptions.frx":0000
    LinkTopic       =   "Form1"
-   ScaleHeight     =   1884
+   ScaleHeight     =   3348
    ScaleWidth      =   5820
    StartUpPosition =   1  'CenterOwner
+   Begin VB.Frame fraTrace 
+      Caption         =   "Trace Information"
+      Height          =   912
+      Left            =   60
+      TabIndex        =   9
+      Top             =   1560
+      Width           =   5532
+      Begin VB.CommandButton cmdBrowseTraceFile 
+         Caption         =   "Select &Trace File"
+         Height          =   288
+         Left            =   3888
+         TabIndex        =   12
+         Top             =   480
+         Width           =   1572
+      End
+      Begin VB.TextBox txtTraceFile 
+         BackColor       =   &H8000000F&
+         Height          =   288
+         Left            =   120
+         TabIndex        =   11
+         Top             =   480
+         Width           =   3672
+      End
+      Begin VB.CheckBox chkTraceMode 
+         Caption         =   "Trace Mode"
+         Height          =   252
+         Left            =   120
+         TabIndex        =   10
+         Top             =   240
+         Width           =   1392
+      End
+   End
+   Begin VB.Frame fraBackground 
+      Caption         =   "Background Image"
+      Height          =   612
+      Left            =   60
+      TabIndex        =   6
+      Top             =   120
+      Width           =   5532
+      Begin VB.TextBox txtBackground 
+         BackColor       =   &H8000000F&
+         Enabled         =   0   'False
+         Height          =   288
+         Left            =   120
+         TabIndex        =   8
+         Top             =   240
+         Width           =   3672
+      End
+      Begin VB.CommandButton cmdBrowseImages 
+         Caption         =   "&Select New Image"
+         Height          =   288
+         Left            =   3900
+         TabIndex        =   7
+         Top             =   240
+         Width           =   1572
+      End
+   End
+   Begin VB.Frame fraDSN 
+      Caption         =   "Data Source Name"
+      Height          =   612
+      Left            =   60
+      TabIndex        =   3
+      Top             =   840
+      Width           =   5532
+      Begin VB.TextBox txtDSN 
+         BackColor       =   &H8000000F&
+         Enabled         =   0   'False
+         Height          =   288
+         Left            =   120
+         TabIndex        =   5
+         Top             =   240
+         Width           =   3672
+      End
+      Begin VB.CommandButton cmdBrowseDSN 
+         Caption         =   "&Browse"
+         Height          =   288
+         Left            =   3888
+         TabIndex        =   4
+         Top             =   240
+         Width           =   1572
+      End
+   End
    Begin VB.CheckBox chkUseFilterMethod 
       Caption         =   "Use Filter Method"
       Height          =   252
-      Left            =   1740
-      TabIndex        =   8
-      Top             =   840
+      Left            =   1824
+      TabIndex        =   2
+      Top             =   2520
       Width           =   2172
    End
    Begin VB.CommandButton cmdCancel 
       Cancel          =   -1  'True
       Caption         =   "Cancel"
       Height          =   372
-      Left            =   2964
-      TabIndex        =   7
-      Top             =   1320
+      Left            =   2904
+      TabIndex        =   1
+      Top             =   2880
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
       Caption         =   "OK"
       Default         =   -1  'True
       Height          =   372
-      Left            =   1884
-      TabIndex        =   6
-      Top             =   1320
+      Left            =   1824
+      TabIndex        =   0
+      Top             =   2880
       Width           =   972
    End
-   Begin VB.CommandButton cmdBrowseDSN 
-      Caption         =   "&Browse"
-      Height          =   288
-      Left            =   4020
-      TabIndex        =   5
-      Top             =   480
-      Width           =   1572
-   End
-   Begin VB.TextBox txtDSN 
-      BackColor       =   &H8000000F&
-      Enabled         =   0   'False
-      Height          =   288
-      Left            =   1752
-      TabIndex        =   3
-      Top             =   480
-      Width           =   2172
-   End
-   Begin VB.CommandButton cmdBrowseImages 
-      Caption         =   "&Select New Image"
-      Height          =   288
-      Left            =   4020
-      TabIndex        =   2
-      Top             =   120
-      Width           =   1572
-   End
-   Begin VB.TextBox txtBackground 
-      BackColor       =   &H8000000F&
-      Enabled         =   0   'False
-      Height          =   288
-      Left            =   1740
-      TabIndex        =   0
-      Top             =   120
-      Width           =   2172
-   End
    Begin MSComDlg.CommonDialog dlgOptions 
-      Left            =   180
-      Top             =   900
+      Left            =   5400
+      Top             =   2880
       _ExtentX        =   677
       _ExtentY        =   677
       _Version        =   393216
-   End
-   Begin VB.Label lblDSN 
-      Alignment       =   1  'Right Justify
-      AutoSize        =   -1  'True
-      Caption         =   "Data Source Name:"
-      Height          =   192
-      Left            =   228
-      TabIndex        =   4
-      Top             =   528
-      Width           =   1416
-   End
-   Begin VB.Label lblBackground 
-      Alignment       =   1  'Right Justify
-      AutoSize        =   -1  'True
-      Caption         =   "Background Image:"
-      Height          =   192
-      Left            =   228
-      TabIndex        =   1
-      Top             =   168
-      Width           =   1404
    End
 End
 Attribute VB_Name = "frmOptions"
@@ -107,6 +135,9 @@ Attribute VB_Exposed = False
 Option Explicit
 Dim strFileDSN As String
 Dim strImagePath As String
+Private Sub chkTraceMode_Click()
+    cmdBrowseTraceFile.Enabled = (chkTraceMode.Value = vbChecked)
+End Sub
 Private Sub cmdBrowseDSN_Click()
     With dlgOptions
         .DialogTitle = "Select Database"
@@ -139,6 +170,25 @@ Private Sub cmdBrowseImages_Click()
     End With
     txtBackground.Text = ParsePath(strImagePath, FileNameBaseExt)
 End Sub
+Private Sub cmdBrowseTraceFile_Click()
+    Dim CurrentPath As String
+    Dim CurrentDrive As String
+    Dim CurrentImage As String
+    
+    CurrentPath = ParsePath(txtTraceFile.Text, DrvDirNoSlash)
+    CurrentDrive = ParsePath(txtTraceFile.Text, DrvOnly)
+    CurrentImage = ParsePath(txtTraceFile.Text, FileNameBaseExt)
+    ChDrive CurrentDrive
+    ChDir CurrentPath
+    With dlgOptions
+        .DialogTitle = "Select New Trace File"
+        .FileName = ParsePath(txtTraceFile.Text, FileNameBaseExt)
+        .Filter = "Log Files|*.log|All Files (*.*)|*.*"
+        .FilterIndex = 1
+        .ShowOpen    ' Call the open file procedure.
+        txtTraceFile.Text = .FileName
+    End With
+End Sub
 Private Sub cmdCancel_Click()
     Unload Me
 End Sub
@@ -148,6 +198,11 @@ Private Sub cmdOK_Click()
     gstrImagePath = strImagePath
     SaveSetting App.FileDescription, "Environment", "ImagePath", strImagePath
     gfUseFilterMethod = (chkUseFilterMethod.Value = vbChecked)
+    SaveSetting App.FileDescription, "Environment", "UseFilterMethod", gfUseFilterMethod
+    
+    Call UpdateTraceFile
+    SaveSetting App.FileDescription, "Environment", "TraceMode", gfTraceMode
+    SaveSetting App.FileDescription, "Environment", "TraceFile", gstrTraceFile
     Unload Me
 End Sub
 Private Sub Form_Activate()
@@ -162,5 +217,37 @@ Private Sub Form_Load()
         chkUseFilterMethod.Value = vbChecked
     Else
         chkUseFilterMethod.Value = vbUnchecked
+    End If
+    If gfTraceMode Then
+        chkTraceMode.Value = vbChecked
+    Else
+        chkTraceMode.Value = vbUnchecked
+    End If
+    txtTraceFile.Text = gstrTraceFile
+    cmdBrowseTraceFile.Enabled = (chkTraceMode.Value = vbChecked)
+End Sub
+Private Sub txtBackground_Validate(Cancel As Boolean)
+    If Trim(txtBackground.Text) = vbNullString Then Cancel = True
+End Sub
+Private Sub txtDSN_Validate(Cancel As Boolean)
+    If Trim(txtDSN.Text) = vbNullString Then Cancel = True
+End Sub
+Private Sub txtTraceFile_Validate(Cancel As Boolean)
+    If Trim(txtTraceFile.Text) = vbNullString Then Cancel = True
+End Sub
+Private Sub UpdateTraceFile()
+    If chkTraceMode.Value = vbUnchecked Then
+        Call Trace(trcBody, "Trace File Closed.")
+        Call Trace(trcBody, String(132, "="))
+        gfTraceMode = False
+    Else
+        gfTraceMode = True
+        If gstrTraceFile <> txtTraceFile.Text Then
+            Call Trace(trcBody, "Trace File Closed.")
+            Call Trace(trcBody, String(132, "="))
+        End If
+        gstrTraceFile = txtTraceFile.Text
+        Call Trace(trcBody, String(132, "="))
+        Call Trace(trcBody, "Trace File Opened - " & gstrTraceFile)
     End If
 End Sub
