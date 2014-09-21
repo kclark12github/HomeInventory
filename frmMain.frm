@@ -209,7 +209,7 @@ Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Re
             ctl.DataField = DataField
             If DataSource(DataField).Type = adDate Then
                 Set DateTimeFormat = New StdDataFormat
-                DateTimeFormat.Format = "mm/dd/yyyy hh:mm AMPM"
+                DateTimeFormat.Format = "dd-MMM-yyyy hh:mm AMPM"
                 Set ctl.DataFormat = DateTimeFormat
             End If
         Case "DataCombo"
