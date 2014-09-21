@@ -1014,8 +1014,13 @@ Private Sub cmdApply_Click()
     
     SQLsource = vbNullString
     For i = 0 To RS.Fields.Count - 1
-        If txtFields(i).Enabled Then Set ctl = txtFields(i) Else Set ctl = dbcFields(i)
-        If Trim(ctl.Text) <> vbNullString Then SQLsource = SQLsource & RS.Fields(i).Name & " " & ctl.Text & " And "
+        If txtFields(i).Enabled Then
+            Set ctl = txtFields(i)
+            If Trim(ctl.Text) <> vbNullString Then SQLsource = SQLsource & RS.Fields(i).Name & " " & ctl.Text & " And "
+        Else
+            Set ctl = dbcFields(i)
+            If Trim(ctl.Text) <> vbNullString Then SQLsource = SQLsource & RS.Fields(i).Name & "='" & ctl.Text & "' And "
+        End If
     Next i
     If Len(SQLsource) > 0 Then SQLsource = Left(SQLsource, Len(SQLsource) - 5)  'Get rid of the final " And "...
     On Error Resume Next
