@@ -614,7 +614,7 @@ Private Sub cmdApply_Click()
                 sqlSource = sqlSource & RS.Fields(i).Name & " IN" & Mid(txtFields(i).Text, 3) & " and "
             Else
                 Select Case RS.Fields(i).Type
-                    Case adVarChar, adChar
+                    Case adChar, adVarChar, adLongVarChar, adWChar, adVarWChar, adLongVarWChar
                         sqlSource = sqlSource & RS.Fields(i).Name & " = '" & SQLQuote(txtFields(i).Text) & "' and "
                     Case adDate, adDBDate, adDBTime, adDBTimeStamp
                         sqlSource = sqlSource & RS.Fields(i).Name & " = #" & txtFields(i).Text & "# and "
