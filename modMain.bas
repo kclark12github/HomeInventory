@@ -85,6 +85,10 @@ Public Sub CancelCommand(frm As Form, RS As ADODB.Recordset)
             ProtectFields frm
             mode = modeDisplay
             frm.adodcMain.Enabled = True
+            
+            frm.mnuFile.Enabled = True
+            frm.mnuRecords.Enabled = True
+            frm.tbMain.Enabled = True
     End Select
 End Sub
 Public Function CloseConnection(frm As Form) As Integer
@@ -195,6 +199,9 @@ End Sub
 Public Sub ModifyCommand(frm As Form)
     mode = modeModify
     OpenFields frm
+    frm.mnuFile.Enabled = False
+    frm.mnuRecords.Enabled = False
+    frm.tbMain.Enabled = False
     frm.adodcMain.Enabled = False
     adoConn.BeginTrans
     fTransaction = True
@@ -202,6 +209,9 @@ End Sub
 Public Sub NewCommand(frm As Form, RS As ADODB.Recordset)
     mode = modeAdd
     OpenFields frm
+    frm.mnuFile.Enabled = False
+    frm.mnuRecords.Enabled = False
+    frm.tbMain.Enabled = False
     frm.adodcMain.Enabled = False
     RS.AddNew
     adoConn.BeginTrans
@@ -223,6 +233,10 @@ Public Sub OKCommand(frm As Form, RS As ADODB.Recordset)
             frm.adodcMain.Enabled = True
             
             RefreshCommand RS, SQLkey
+            
+            frm.mnuFile.Enabled = True
+            frm.mnuRecords.Enabled = True
+            frm.tbMain.Enabled = True
     End Select
 End Sub
 Public Sub OpenFields(pForm As Form)

@@ -16,86 +16,6 @@ Begin VB.Form frmImages
    ScaleHeight     =   4536
    ScaleWidth      =   8088
    StartUpPosition =   1  'CenterOwner
-   Begin MSComDlg.CommonDialog dlgImages 
-      Left            =   2040
-      Top             =   3840
-      _ExtentX        =   677
-      _ExtentY        =   677
-      _Version        =   393216
-   End
-   Begin VB.Frame fraImages 
-      Height          =   2712
-      Index           =   2
-      Left            =   180
-      TabIndex        =   21
-      Top             =   660
-      Width           =   7692
-      Begin VB.CommandButton cmdLoad 
-         Caption         =   "&Load Image"
-         Height          =   252
-         Left            =   4800
-         TabIndex        =   24
-         Top             =   2400
-         Width           =   1392
-      End
-      Begin VB.CommandButton cmdView 
-         Caption         =   "&View Full Picture"
-         Height          =   252
-         Left            =   6240
-         TabIndex        =   23
-         Top             =   2400
-         Width           =   1392
-      End
-      Begin VB.PictureBox picImage 
-         DataField       =   "Image"
-         DataSource      =   "dtaData"
-         Height          =   2232
-         Left            =   60
-         ScaleHeight     =   2184
-         ScaleWidth      =   7524
-         TabIndex        =   22
-         Top             =   180
-         Width           =   7572
-      End
-   End
-   Begin VB.Frame fraImages 
-      Height          =   2712
-      Index           =   1
-      Left            =   180
-      TabIndex        =   2
-      Top             =   660
-      Width           =   7692
-      Begin RichTextLib.RichTextBox rtxtCaption 
-         Height          =   2472
-         Left            =   60
-         TabIndex        =   3
-         Top             =   180
-         Width           =   7572
-         _ExtentX        =   13356
-         _ExtentY        =   4360
-         _Version        =   393217
-         TextRTF         =   $"frmImages.frx":0000
-      End
-   End
-   Begin VB.CommandButton cmdOK 
-      Caption         =   "OK"
-      Default         =   -1  'True
-      Height          =   372
-      Left            =   5940
-      TabIndex        =   6
-      Top             =   3900
-      Width           =   972
-   End
-   Begin VB.CommandButton cmdCancel 
-      Cancel          =   -1  'True
-      Caption         =   "Cancel"
-      CausesValidation=   0   'False
-      Height          =   372
-      Left            =   6960
-      TabIndex        =   5
-      Top             =   3900
-      Width           =   972
-   End
    Begin VB.Frame fraImages 
       Height          =   2712
       Index           =   0
@@ -205,81 +125,6 @@ Begin VB.Form frmImages
          Top             =   240
          Width           =   6552
       End
-      Begin MSComctlLib.Toolbar tbAction 
-         Height          =   288
-         Left            =   0
-         TabIndex        =   25
-         Top             =   0
-         Width           =   7524
-         _ExtentX        =   13272
-         _ExtentY        =   508
-         ButtonWidth     =   487
-         ButtonHeight    =   466
-         Appearance      =   1
-         Style           =   1
-         _Version        =   393216
-         BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-            NumButtons      =   13
-            BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Key             =   "Report"
-               Object.ToolTipText     =   "Report"
-               ImageKey        =   "Report"
-            EndProperty
-            BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Key             =   "SQL"
-               Object.ToolTipText     =   "SQL Window"
-               ImageKey        =   "SQL"
-            EndProperty
-            BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Style           =   3
-            EndProperty
-            BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Key             =   "New"
-               Object.ToolTipText     =   "New record"
-               ImageKey        =   "NewRecord"
-            EndProperty
-            BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Key             =   "Modify"
-               Object.ToolTipText     =   "Modify record"
-               ImageKey        =   "Modify"
-            EndProperty
-            BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Key             =   "Delete"
-               Object.ToolTipText     =   "Delete record"
-               ImageKey        =   "Delete"
-            EndProperty
-            BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Style           =   3
-            EndProperty
-            BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Key             =   "Refresh"
-               Object.ToolTipText     =   "Refresh data"
-               ImageKey        =   "Refresh"
-            EndProperty
-            BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Style           =   3
-            EndProperty
-            BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Key             =   "Filter"
-               Object.ToolTipText     =   "Filter"
-               ImageKey        =   "Filter"
-            EndProperty
-            BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Key             =   "Search"
-               Object.ToolTipText     =   "Search"
-               ImageKey        =   "Search"
-            EndProperty
-            BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Style           =   3
-            EndProperty
-            BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-               Key             =   "List"
-               Object.ToolTipText     =   "List all records"
-               ImageKey        =   "List"
-            EndProperty
-         EndProperty
-         BorderStyle     =   1
-      End
       Begin VB.Label lblURL 
          Alignment       =   1  'Right Justify
          AutoSize        =   -1  'True
@@ -300,6 +145,86 @@ Begin VB.Form frmImages
          Top             =   288
          Width           =   480
       End
+   End
+   Begin MSComDlg.CommonDialog dlgImages 
+      Left            =   2040
+      Top             =   3840
+      _ExtentX        =   677
+      _ExtentY        =   677
+      _Version        =   393216
+   End
+   Begin VB.Frame fraImages 
+      Height          =   2712
+      Index           =   2
+      Left            =   180
+      TabIndex        =   21
+      Top             =   660
+      Width           =   7692
+      Begin VB.CommandButton cmdLoad 
+         Caption         =   "&Load Image"
+         Height          =   252
+         Left            =   4800
+         TabIndex        =   24
+         Top             =   2400
+         Width           =   1392
+      End
+      Begin VB.CommandButton cmdView 
+         Caption         =   "&View Full Picture"
+         Height          =   252
+         Left            =   6240
+         TabIndex        =   23
+         Top             =   2400
+         Width           =   1392
+      End
+      Begin VB.PictureBox picImage 
+         DataField       =   "Image"
+         DataSource      =   "dtaData"
+         Height          =   2232
+         Left            =   60
+         ScaleHeight     =   2184
+         ScaleWidth      =   7524
+         TabIndex        =   22
+         Top             =   180
+         Width           =   7572
+      End
+   End
+   Begin VB.Frame fraImages 
+      Height          =   2712
+      Index           =   1
+      Left            =   180
+      TabIndex        =   2
+      Top             =   660
+      Width           =   7692
+      Begin RichTextLib.RichTextBox rtxtCaption 
+         Height          =   2472
+         Left            =   60
+         TabIndex        =   3
+         Top             =   180
+         Width           =   7572
+         _ExtentX        =   13356
+         _ExtentY        =   4360
+         _Version        =   393217
+         TextRTF         =   $"frmImages.frx":0000
+      End
+   End
+   Begin VB.CommandButton cmdOK 
+      Caption         =   "OK"
+      Default         =   -1  'True
+      Height          =   372
+      Left            =   5940
+      TabIndex        =   6
+      Top             =   3900
+      Width           =   972
+   End
+   Begin VB.CommandButton cmdCancel 
+      Cancel          =   -1  'True
+      Caption         =   "Cancel"
+      CausesValidation=   0   'False
+      Height          =   372
+      Left            =   6960
+      TabIndex        =   5
+      Top             =   3900
+      Width           =   972
    End
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
@@ -334,7 +259,7 @@ Begin VB.Form frmImages
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "4:56 PM"
+            TextSave        =   "9:30 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -419,9 +344,86 @@ Begin VB.Form frmImages
          EndProperty
       EndProperty
    End
+   Begin MSComctlLib.Toolbar tbMain 
+      Align           =   1  'Align Top
+      Height          =   288
+      Left            =   0
+      TabIndex        =   25
+      Top             =   0
+      Width           =   8088
+      _ExtentX        =   14266
+      _ExtentY        =   508
+      ButtonWidth     =   487
+      ButtonHeight    =   466
+      Appearance      =   1
+      Style           =   1
+      ImageList       =   "imlSmall"
+      _Version        =   393216
+      BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
+         NumButtons      =   13
+         BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Report"
+            Object.ToolTipText     =   "Report"
+            ImageKey        =   "Report"
+         EndProperty
+         BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "SQL"
+            Object.ToolTipText     =   "SQL Window"
+            ImageKey        =   "SQL"
+         EndProperty
+         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "New"
+            Object.ToolTipText     =   "New record"
+            ImageKey        =   "NewRecord"
+         EndProperty
+         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Modify"
+            Object.ToolTipText     =   "Modify record"
+            ImageKey        =   "Modify"
+         EndProperty
+         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Delete"
+            Object.ToolTipText     =   "Delete record"
+            ImageKey        =   "Delete"
+         EndProperty
+         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Refresh"
+            Object.ToolTipText     =   "Refresh data"
+            ImageKey        =   "Refresh"
+         EndProperty
+         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Filter"
+            Object.ToolTipText     =   "Filter"
+            ImageKey        =   "Filter"
+         EndProperty
+         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Search"
+            Object.ToolTipText     =   "Search"
+            ImageKey        =   "Search"
+         EndProperty
+         BeginProperty Button12 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button13 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "List"
+            Object.ToolTipText     =   "List all records"
+            ImageKey        =   "List"
+         EndProperty
+      EndProperty
+      BorderStyle     =   1
+   End
    Begin MSComctlLib.ImageList imlSmall 
-      Left            =   480
-      Top             =   2760
+      Left            =   240
+      Top             =   60
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -481,15 +483,15 @@ Begin VB.Form frmImages
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmImages.frx":59EC
-            Key             =   "Blank"
+            Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":5E44
-            Key             =   "NewRecord"
+            Picture         =   "frmImages.frx":5B48
+            Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":6C58
-            Key             =   "Delete"
+            Picture         =   "frmImages.frx":5CA4
+            Key             =   "NewRecord"
          EndProperty
       EndProperty
    End
@@ -512,6 +514,21 @@ Begin VB.Form frmImages
       Top             =   4020
       Width           =   324
    End
+   Begin VB.Menu mnuFile 
+      Caption         =   "&File"
+      Begin VB.Menu mnuFileReport 
+         Caption         =   "&Report"
+      End
+      Begin VB.Menu mnuFileSQL 
+         Caption         =   "&SQL"
+      End
+      Begin VB.Menu mnuFileSep0 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuFileExit 
+         Caption         =   "E&xit"
+      End
+   End
    Begin VB.Menu mnuRecords 
       Caption         =   "&Records"
       Begin VB.Menu mnuRecordsNew 
@@ -523,13 +540,13 @@ Begin VB.Form frmImages
       Begin VB.Menu mnuRecordsDelete 
          Caption         =   "&Delete"
       End
-      Begin VB.Menu mnuActionSep1 
+      Begin VB.Menu mnuRecordsSep1 
          Caption         =   "-"
       End
       Begin VB.Menu mnuRecordsRefresh 
          Caption         =   "&Refresh"
       End
-      Begin VB.Menu mnuActionSep2 
+      Begin VB.Menu mnuRecordsSep2 
          Caption         =   "-"
       End
       Begin VB.Menu mnuRecordsFilter 
@@ -617,6 +634,9 @@ End Sub
 Private Sub mnuRecordsRefresh_Click()
     RefreshCommand rsMain, SQLkey
 End Sub
+Private Sub mnuFileExit_Click()
+    Unload Me
+End Sub
 Private Sub mnuFileReport_Click()
     ReportCommand Me, rsMain, App.Path & "\Reports\Images.rpt"
 End Sub
@@ -641,7 +661,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     End If
     UpdatePosition Me, Caption, pRecordset
 End Sub
-Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
         Case "List"
             mnuRecordsList_Click

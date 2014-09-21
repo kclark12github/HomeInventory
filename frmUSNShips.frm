@@ -828,7 +828,7 @@ Begin VB.Form frmUSNShips
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:03 PM"
+            TextSave        =   "9:30 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -879,81 +879,7 @@ Begin VB.Form frmUSNShips
       EndProperty
       _Version        =   393216
    End
-   Begin MSComctlLib.ImageList imlSmall 
-      Left            =   480
-      Top             =   2760
-      _ExtentX        =   804
-      _ExtentY        =   804
-      BackColor       =   -2147483643
-      ImageWidth      =   16
-      ImageHeight     =   16
-      MaskColor       =   12632256
-      _Version        =   393216
-      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   15
-         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":0EAA
-            Key             =   "Find"
-         EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":11C6
-            Key             =   "Warning"
-         EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":14EE
-            Key             =   "List"
-         EndProperty
-         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":1816
-            Key             =   "xNew"
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":3FCA
-            Key             =   "Stop"
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":441E
-            Key             =   "Report"
-         EndProperty
-         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":4872
-            Key             =   "Modify"
-         EndProperty
-         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":533E
-            Key             =   "Refresh"
-         EndProperty
-         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":5666
-            Key             =   "Sort"
-         EndProperty
-         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":5ABA
-            Key             =   "SQL"
-         EndProperty
-         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":5F0E
-            Key             =   "Search"
-         EndProperty
-         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":6362
-            Key             =   "Filter"
-         EndProperty
-         BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":67BA
-            Key             =   "Blank"
-         EndProperty
-         BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":6C12
-            Key             =   "NewRecord"
-         EndProperty
-         BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":7A26
-            Key             =   "Delete"
-         EndProperty
-      EndProperty
-   End
-   Begin MSComctlLib.Toolbar tbAction 
+   Begin MSComctlLib.Toolbar tbMain 
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
@@ -1030,13 +956,87 @@ Begin VB.Form frmUSNShips
       EndProperty
       BorderStyle     =   1
    End
+   Begin MSComctlLib.ImageList imlSmall 
+      Left            =   240
+      Top             =   60
+      _ExtentX        =   804
+      _ExtentY        =   804
+      BackColor       =   -2147483643
+      ImageWidth      =   16
+      ImageHeight     =   16
+      MaskColor       =   12632256
+      _Version        =   393216
+      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+         NumListImages   =   15
+         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNShips.frx":0EAA
+            Key             =   "Find"
+         EndProperty
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNShips.frx":11C6
+            Key             =   "Warning"
+         EndProperty
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNShips.frx":14EE
+            Key             =   "List"
+         EndProperty
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNShips.frx":1816
+            Key             =   "xNew"
+         EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNShips.frx":3FCA
+            Key             =   "Stop"
+         EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNShips.frx":441E
+            Key             =   "Report"
+         EndProperty
+         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNShips.frx":4872
+            Key             =   "Modify"
+         EndProperty
+         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNShips.frx":533E
+            Key             =   "Refresh"
+         EndProperty
+         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNShips.frx":5666
+            Key             =   "Sort"
+         EndProperty
+         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNShips.frx":5ABA
+            Key             =   "SQL"
+         EndProperty
+         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNShips.frx":5F0E
+            Key             =   "Search"
+         EndProperty
+         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNShips.frx":6362
+            Key             =   "Filter"
+         EndProperty
+         BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNShips.frx":67BA
+            Key             =   "Delete"
+         EndProperty
+         BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNShips.frx":6916
+            Key             =   "Blank"
+         EndProperty
+         BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmUSNShips.frx":6A72
+            Key             =   "NewRecord"
+         EndProperty
+      EndProperty
+   End
    Begin VB.Label lblA 
       AutoSize        =   -1  'True
       Caption         =   "A"
       Height          =   192
-      Left            =   0
+      Left            =   1260
       TabIndex        =   66
-      Top             =   0
+      Top             =   4620
       Visible         =   0   'False
       Width           =   108
    End
@@ -1058,6 +1058,21 @@ Begin VB.Form frmUSNShips
       Top             =   4596
       Width           =   192
    End
+   Begin VB.Menu mnuFile 
+      Caption         =   "&File"
+      Begin VB.Menu mnuFileReport 
+         Caption         =   "&Report"
+      End
+      Begin VB.Menu mnuFileSQL 
+         Caption         =   "&SQL"
+      End
+      Begin VB.Menu mnuFileSep0 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuFileExit 
+         Caption         =   "E&xit"
+      End
+   End
    Begin VB.Menu mnuRecords 
       Caption         =   "&Records"
       Begin VB.Menu mnuRecordsNew 
@@ -1069,13 +1084,13 @@ Begin VB.Form frmUSNShips
       Begin VB.Menu mnuRecordsDelete 
          Caption         =   "&Delete"
       End
-      Begin VB.Menu mnuActionSep1 
+      Begin VB.Menu mnuRecordsSep1 
          Caption         =   "-"
       End
       Begin VB.Menu mnuRecordsRefresh 
          Caption         =   "&Refresh"
       End
-      Begin VB.Menu mnuActionSep2 
+      Begin VB.Menu mnuRecordsSep2 
          Caption         =   "-"
       End
       Begin VB.Menu mnuRecordsFilter 
@@ -1187,6 +1202,9 @@ End Sub
 Private Sub mnuRecordsRefresh_Click()
     RefreshCommand rsMain, SQLkey
 End Sub
+Private Sub mnuFileExit_Click()
+    Unload Me
+End Sub
 Private Sub mnuFileReport_Click()
     ReportCommand Me, rsMain, App.Path & "\Reports\USN Ships.rpt"
 End Sub
@@ -1202,7 +1220,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     DefaultClassDetails
     ResetImageGrid
 End Sub
-Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
         Case "List"
             mnuRecordsList_Click
