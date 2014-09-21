@@ -917,7 +917,7 @@ Public Sub PopulateMenu()
     lblLoad.Visible = True
     
     SQLstatement = "SELECT Distinct ButtonLabel FROM MenuEntries order by ButtonLabel"
-SQLstatement = "SELECT Distinct ButtonLabel FROM MenuEntries where buttonlabel = 'Books' order by ButtonLabel"
+'SQLstatement = "SELECT Distinct ButtonLabel FROM MenuEntries where buttonlabel = 'Books' order by ButtonLabel"
     Trace trcBody, "rsButtons.Open """ & SQLstatement & """, cnKFC, adOpenKeyset, adLockReadOnly"
     rsButtons.Open SQLstatement, cnKFC, adOpenKeyset, adLockReadOnly
     
