@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:53 PM"
+            TextSave        =   "1:42 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -317,6 +317,7 @@ Private Sub Form_Activate()
     
     For Each fld In rsList.Fields
         Set col = dgdList.Columns(fld.Name)
+        col.Visible = True
         Select Case fld.Type
             Case adCurrency
                 Set col.DataFormat = CurrencyFormat
@@ -327,6 +328,8 @@ Private Sub Form_Activate()
             Case adDate, adDBDate
                 Set col.DataFormat = DateFormat
                 col.Alignment = dbgCenter
+            Case adBinary, adLongVarBinary, adLongVarChar
+                col.Visible = False
             Case Else
                 col.Alignment = dbgGeneral
         End Select
