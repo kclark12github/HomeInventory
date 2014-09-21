@@ -36,8 +36,8 @@ Begin VB.Form frmBooks
    End
    Begin MSAdodcLib.Adodc adodcBooks 
       Height          =   312
-      Left            =   198
-      Top             =   2700
+      Left            =   204
+      Top             =   2760
       Width           =   7152
       _ExtentX        =   12615
       _ExtentY        =   550
@@ -98,7 +98,7 @@ Begin VB.Form frmBooks
    End
    Begin MSDataListLib.DataCombo dbcSubject 
       Height          =   288
-      Left            =   1458
+      Left            =   1464
       TabIndex        =   4
       Top             =   1272
       Width           =   5892
@@ -142,7 +142,7 @@ Begin VB.Form frmBooks
       Height          =   288
       Left            =   1458
       TabIndex        =   3
-      Top             =   996
+      Top             =   972
       Width           =   972
    End
    Begin VB.TextBox txtISBN 
@@ -174,7 +174,7 @@ Begin VB.Form frmBooks
       AutoSize        =   -1  'True
       Caption         =   "ID:"
       Height          =   192
-      Left            =   6738
+      Left            =   6744
       TabIndex        =   18
       Top             =   2340
       Width           =   192
@@ -183,7 +183,7 @@ Begin VB.Form frmBooks
       AutoSize        =   -1  'True
       Caption         =   "Date Inventoried:"
       Height          =   192
-      Left            =   138
+      Left            =   144
       TabIndex        =   17
       Top             =   2340
       Width           =   1212
@@ -192,7 +192,7 @@ Begin VB.Form frmBooks
       AutoSize        =   -1  'True
       Caption         =   "AlphaSort:"
       Height          =   192
-      Left            =   606
+      Left            =   612
       TabIndex        =   16
       Top             =   1980
       Width           =   744
@@ -201,7 +201,7 @@ Begin VB.Form frmBooks
       AutoSize        =   -1  'True
       Caption         =   "Miscellaneous:"
       Height          =   192
-      Left            =   270
+      Left            =   276
       TabIndex        =   15
       Top             =   1620
       Width           =   1080
@@ -210,7 +210,7 @@ Begin VB.Form frmBooks
       AutoSize        =   -1  'True
       Caption         =   "Subject:"
       Height          =   192
-      Left            =   774
+      Left            =   780
       TabIndex        =   14
       Top             =   1320
       Width           =   576
@@ -264,13 +264,19 @@ Begin VB.Form frmBooks
       AutoSize        =   -1  'True
       Caption         =   "lblID"
       Height          =   192
-      Left            =   7026
+      Left            =   7032
       TabIndex        =   9
       Top             =   2340
       Width           =   324
    End
    Begin VB.Menu mnuAction 
       Caption         =   "&Action"
+      Begin VB.Menu mnuActionList 
+         Caption         =   "&List"
+      End
+      Begin VB.Menu mnuActionSep1 
+         Caption         =   "-"
+      End
       Begin VB.Menu mnuActionNew 
          Caption         =   "&New"
       End
@@ -279,6 +285,12 @@ Begin VB.Form frmBooks
       End
       Begin VB.Menu mnuActionDelete 
          Caption         =   "&Delete"
+      End
+      Begin VB.Menu mnuActionSep2 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuActionReport 
+         Caption         =   "&Report"
       End
    End
 End
@@ -461,6 +473,39 @@ Private Sub Form_Unload(Cancel As Integer)
     End If
     Set adoConn = Nothing
 End Sub
+Private Sub mnuActionList_Click()
+    Dim frm As Form
+    Dim CurrencyFormat As New StdDataFormat
+    Dim Col As Column
+    
+    CurrencyFormat.Format = "Currency"
+    
+    Load frmList
+    frmList.Caption = Me.Caption & " List"
+    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
+        Set frm = frmMain
+    Else
+        Set frm = Me
+    End If
+    frmList.Top = frm.Top
+    frmList.Left = frm.Left
+    frmList.Width = frm.Width
+    frmList.Height = frm.Height
+    
+    Set frmList.rsList = rsBooks
+    Set frmList.mnuList = mnuAction
+    Set frmList.dgdList.DataSource = frmList.rsList
+    Set frmList.dgdList.Columns("Price").DataFormat = CurrencyFormat
+    For Each Col In frmList.dgdList.Columns
+        Col.Alignment = dbgGeneral
+    Next Col
+    
+    adoConn.BeginTrans
+    fTransaction = True
+    frmList.Show vbModal
+    adoConn.CommitTrans
+    fTransaction = False
+End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
@@ -492,10 +537,29 @@ Private Sub mnuActionModify_Click()
     
     dbcAuthor.SetFocus
 End Sub
+Private Sub mnuActionReport_Click()
+    Dim Report As New scrBooksReport
+    
+    Report.Database.SetDataSource rsBooks, 3, 1
+    Set frmMain.rdcReport = Report
+    Set frmMain.frmReport = Me
+    
+    frmViewReport.Show vbModal
+    
+    Set Report = Nothing
+End Sub
 Private Sub rsBooks_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+    On Error GoTo ErrorHandler
     If rsBooks.EOF Then rsBooks.MoveLast
+    If rsBooks.BOF Then rsBooks.MoveFirst
     If rsBooks.BOF And rsBooks.EOF Then adodcBooks.Caption = "No Records"
-    adodcBooks.Caption = "Books Record #" & rsBooks("ID")
+    'adodcBooks.Caption = "Books ID #" & rsBooks("ID")
+    adodcBooks.Caption = "Books #" & rsBooks.Bookmark & ": " & rsBooks("ALPHASORT")
+    Exit Sub
+    
+ErrorHandler:
+    MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
+    Resume Next
 End Sub
 Private Sub txtAlphaSort_GotFocus()
     TextSelected

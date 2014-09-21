@@ -46,4 +46,16 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
+Private Sub Form_Load()
+    Screen.MousePointer = vbHourglass
+    scrViewer.ReportSource = frmMain.rdcReport
+    scrViewer.ViewReport
+    Screen.MousePointer = vbDefault
+End Sub
+Private Sub Form_Resize()
+    scrViewer.Top = 0
+    scrViewer.Left = 0
+    scrViewer.Height = ScaleHeight
+    scrViewer.Width = ScaleWidth
+End Sub
 

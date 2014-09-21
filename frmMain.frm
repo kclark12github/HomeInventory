@@ -94,6 +94,11 @@ Const gstrDefaultImagePath = "E:\WebShare\wwwroot\Aircraft\Fighter Aircraft\F-14
 Const iMinWidth = 2184
 Const iMinHeight = 1440
 
+Public frmReport As Form
+Public rdcReport As Object
+Public MinWidth As Integer
+Public MinHeight As Integer
+
 Public gstrImagePath As String
 Public DBcollection As New DataBaseCollection
 Public Enum ActionMode
@@ -156,6 +161,9 @@ Private Sub LoadDBcoll(DBname As String)
     DBcollection.Add DBname, DBname, gstrDBlocation & DBname & ".mdb", gstrProvider, gstrRunTimeUserName, gstrRunTimePassword, DBname
 End Sub
 Private Sub Form_Load()
+    MinWidth = iMinWidth
+    MinHeight = iMinHeight
+    
     LoadDBcoll "Books"
     LoadDBcoll "Hobby"
     LoadDBcoll "KFC"
@@ -197,4 +205,7 @@ Private Sub mnuFileExit_Click()
 End Sub
 Private Sub mnuHelpAbout_Click()
     frmAbout.Show vbModal
+End Sub
+Private Sub picBackground_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    If Button = vbKeyRButton Then PopupMenu mnuFile
 End Sub

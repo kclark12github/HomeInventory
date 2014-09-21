@@ -10,7 +10,7 @@ Begin VB.Form frmList
    ScaleHeight     =   2556
    ScaleWidth      =   3744
    StartUpPosition =   1  'CenterOwner
-   Begin MSDataGridLib.DataGrid DataGrid1 
+   Begin MSDataGridLib.DataGrid dgdList 
       Height          =   612
       Left            =   1260
       TabIndex        =   0
@@ -81,4 +81,26 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-
+Public mnuList As Menu
+Public rsList As ADODB.Recordset
+Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
+    rsList.Sort = dgdList.Columns(ColIndex).Caption
+End Sub
+Private Sub dgdList_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    If Button = vbKeyRButton Then PopupMenu mnuList
+End Sub
+Private Sub Form_Load()
+    dgdList.Top = 0
+    dgdList.Left = 0
+    dgdList.Width = Me.ScaleWidth
+    dgdList.Height = Me.ScaleHeight
+End Sub
+Private Sub Form_Resize()
+    If Me.Width < frmMain.MinWidth Then Me.Width = frmMain.MinWidth
+    If Me.Height < frmMain.MinHeight Then Me.Height = frmMain.MinHeight
+    dgdList.Width = Me.ScaleWidth
+    dgdList.Height = Me.ScaleHeight
+End Sub
+Private Sub Form_Unload(Cancel As Integer)
+    rsList.UpdateBatch
+End Sub
