@@ -22,7 +22,7 @@ Begin VB.Form frmSoftware
       Caption         =   "Cataloged"
       Height          =   192
       Left            =   4515
-      TabIndex        =   29
+      TabIndex        =   12
       Top             =   3414
       Width           =   1155
    End
@@ -30,7 +30,7 @@ Begin VB.Form frmSoftware
       Align           =   2  'Align Bottom
       Height          =   255
       Left            =   0
-      TabIndex        =   25
+      TabIndex        =   27
       Top             =   4605
       Width           =   7530
       _ExtentX        =   13282
@@ -50,16 +50,16 @@ Begin VB.Form frmSoftware
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   7964
+            Object.Width           =   8070
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1376
+            Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:15 PM"
+            TextSave        =   "3:17 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -95,7 +95,7 @@ Begin VB.Form frmSoftware
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6353
-      TabIndex        =   12
+      TabIndex        =   14
       Top             =   4140
       Width           =   972
    End
@@ -104,7 +104,7 @@ Begin VB.Form frmSoftware
       Default         =   -1  'True
       Height          =   372
       Left            =   5333
-      TabIndex        =   11
+      TabIndex        =   13
       Top             =   4140
       Width           =   972
    End
@@ -157,7 +157,7 @@ Begin VB.Form frmSoftware
    Begin VB.TextBox txtInventoried 
       Height          =   300
       Left            =   1440
-      TabIndex        =   10
+      TabIndex        =   11
       Text            =   "Inventoried"
       Top             =   3360
       Width           =   2535
@@ -329,7 +329,7 @@ Begin VB.Form frmSoftware
       Align           =   1  'Align Top
       Height          =   360
       Left            =   0
-      TabIndex        =   28
+      TabIndex        =   30
       Top             =   0
       Width           =   7530
       _ExtentX        =   13282
@@ -405,7 +405,7 @@ Begin VB.Form frmSoftware
    Begin MSDataListLib.DataCombo dbcLocation 
       Height          =   315
       Left            =   1440
-      TabIndex        =   30
+      TabIndex        =   10
       Top             =   2940
       Width           =   2535
       _ExtentX        =   4471
@@ -420,7 +420,7 @@ Begin VB.Form frmSoftware
       Caption         =   "Location:"
       Height          =   195
       Left            =   705
-      TabIndex        =   27
+      TabIndex        =   29
       Top             =   3000
       Width           =   645
    End
@@ -429,7 +429,7 @@ Begin VB.Form frmSoftware
       Caption         =   "Media:"
       Height          =   195
       Left            =   4275
-      TabIndex        =   26
+      TabIndex        =   28
       Top             =   2160
       Width           =   495
    End
@@ -438,7 +438,7 @@ Begin VB.Form frmSoftware
       Caption         =   "Platform:"
       Height          =   195
       Left            =   735
-      TabIndex        =   24
+      TabIndex        =   26
       Top             =   2160
       Width           =   630
    End
@@ -447,7 +447,7 @@ Begin VB.Form frmSoftware
       Caption         =   "ISBN:"
       Height          =   195
       Left            =   4320
-      TabIndex        =   23
+      TabIndex        =   25
       Top             =   1313
       Width           =   405
    End
@@ -465,7 +465,7 @@ Begin VB.Form frmSoftware
       EndProperty
       Height          =   195
       Left            =   4410
-      TabIndex        =   22
+      TabIndex        =   24
       Top             =   1733
       Width           =   360
    End
@@ -474,7 +474,7 @@ Begin VB.Form frmSoftware
       Caption         =   "ID:"
       Height          =   195
       Left            =   6750
-      TabIndex        =   21
+      TabIndex        =   23
       Top             =   3413
       Width           =   195
    End
@@ -483,7 +483,7 @@ Begin VB.Form frmSoftware
       Caption         =   "Date Inventoried:"
       Height          =   195
       Left            =   150
-      TabIndex        =   20
+      TabIndex        =   22
       Top             =   3413
       Width           =   1215
    End
@@ -492,7 +492,7 @@ Begin VB.Form frmSoftware
       Caption         =   "CD Key:"
       Height          =   195
       Left            =   4185
-      TabIndex        =   19
+      TabIndex        =   21
       Top             =   2580
       Width           =   570
    End
@@ -501,7 +501,7 @@ Begin VB.Form frmSoftware
       Caption         =   "Type:"
       Height          =   195
       Left            =   930
-      TabIndex        =   18
+      TabIndex        =   20
       Top             =   2580
       Width           =   420
    End
@@ -519,7 +519,7 @@ Begin VB.Form frmSoftware
       EndProperty
       Height          =   195
       Left            =   900
-      TabIndex        =   17
+      TabIndex        =   19
       Top             =   1733
       Width           =   450
    End
@@ -528,7 +528,7 @@ Begin VB.Form frmSoftware
       Caption         =   "Version:"
       Height          =   195
       Left            =   765
-      TabIndex        =   16
+      TabIndex        =   18
       Top             =   1313
       Width           =   585
    End
@@ -537,7 +537,7 @@ Begin VB.Form frmSoftware
       Caption         =   "Title:"
       Height          =   195
       Left            =   1005
-      TabIndex        =   15
+      TabIndex        =   17
       Top             =   480
       Width           =   345
    End
@@ -546,7 +546,7 @@ Begin VB.Form frmSoftware
       Caption         =   "Publisher:"
       Height          =   195
       Left            =   645
-      TabIndex        =   14
+      TabIndex        =   16
       Top             =   900
       Width           =   705
    End
@@ -555,7 +555,7 @@ Begin VB.Form frmSoftware
       Caption         =   "ID"
       Height          =   195
       Left            =   7035
-      TabIndex        =   13
+      TabIndex        =   15
       Top             =   3413
       Width           =   150
    End

@@ -3,14 +3,14 @@ Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Begin VB.Form frmSearch 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Search"
-   ClientHeight    =   2556
-   ClientLeft      =   36
-   ClientTop       =   264
+   ClientHeight    =   2550
+   ClientLeft      =   30
+   ClientTop       =   270
    ClientWidth     =   6180
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   2556
+   ScaleHeight     =   2550
    ScaleWidth      =   6180
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
@@ -39,8 +39,8 @@ Begin VB.Form frmSearch
       TabIndex        =   66
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -52,8 +52,8 @@ Begin VB.Form frmSearch
       TabIndex        =   67
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -65,8 +65,8 @@ Begin VB.Form frmSearch
       TabIndex        =   68
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -78,8 +78,8 @@ Begin VB.Form frmSearch
       TabIndex        =   69
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -91,8 +91,8 @@ Begin VB.Form frmSearch
       TabIndex        =   70
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -104,8 +104,8 @@ Begin VB.Form frmSearch
       TabIndex        =   71
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -117,8 +117,8 @@ Begin VB.Form frmSearch
       TabIndex        =   72
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -130,8 +130,8 @@ Begin VB.Form frmSearch
       TabIndex        =   73
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -143,8 +143,8 @@ Begin VB.Form frmSearch
       TabIndex        =   74
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -156,8 +156,8 @@ Begin VB.Form frmSearch
       TabIndex        =   75
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -169,8 +169,8 @@ Begin VB.Form frmSearch
       TabIndex        =   76
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -182,8 +182,8 @@ Begin VB.Form frmSearch
       TabIndex        =   77
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -195,8 +195,8 @@ Begin VB.Form frmSearch
       TabIndex        =   78
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -208,8 +208,8 @@ Begin VB.Form frmSearch
       TabIndex        =   79
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -221,8 +221,8 @@ Begin VB.Form frmSearch
       TabIndex        =   80
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -234,8 +234,8 @@ Begin VB.Form frmSearch
       TabIndex        =   81
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -247,8 +247,8 @@ Begin VB.Form frmSearch
       TabIndex        =   82
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -260,8 +260,8 @@ Begin VB.Form frmSearch
       TabIndex        =   83
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -273,8 +273,8 @@ Begin VB.Form frmSearch
       TabIndex        =   84
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -286,8 +286,8 @@ Begin VB.Form frmSearch
       TabIndex        =   85
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -299,8 +299,8 @@ Begin VB.Form frmSearch
       TabIndex        =   86
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -312,8 +312,8 @@ Begin VB.Form frmSearch
       TabIndex        =   87
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -325,8 +325,8 @@ Begin VB.Form frmSearch
       TabIndex        =   88
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -338,8 +338,8 @@ Begin VB.Form frmSearch
       TabIndex        =   89
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -351,8 +351,8 @@ Begin VB.Form frmSearch
       TabIndex        =   90
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -364,8 +364,8 @@ Begin VB.Form frmSearch
       TabIndex        =   91
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -377,8 +377,8 @@ Begin VB.Form frmSearch
       TabIndex        =   92
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -390,8 +390,8 @@ Begin VB.Form frmSearch
       TabIndex        =   93
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -403,8 +403,8 @@ Begin VB.Form frmSearch
       TabIndex        =   94
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -416,8 +416,8 @@ Begin VB.Form frmSearch
       TabIndex        =   95
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -429,8 +429,8 @@ Begin VB.Form frmSearch
       TabIndex        =   96
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -442,8 +442,8 @@ Begin VB.Form frmSearch
       TabIndex        =   97
       Top             =   120
       Width           =   4212
-      _ExtentX        =   7430
-      _ExtentY        =   508
+      _ExtentX        =   7435
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   ""
@@ -1014,35 +1014,7 @@ Private Sub cmdApply_Click()
     strSearch = vbNullString
     For i = 0 To RS.Fields.Count - 1
         If txtFields(i).Enabled Then Set ctl = txtFields(i) Else Set ctl = dbcFields(i)
-        If Len(ctl.Text) > 0 Then
-            If Mid(ctl.Text, 1, 1) = "=" Or _
-                Mid(ctl.Text, 1, 2) = "<=" Or _
-                Mid(ctl.Text, 1, 2) = ">=" Or _
-                Mid(ctl.Text, 1, 1) = "<" Or _
-                Mid(ctl.Text, 1, 1) = ">" Or _
-                UCase(Mid(ctl.Text, 1, 5)) = "NOT " Then
-                'Take what the user said literally...
-                strSearch = strSearch & RS.Fields(i).Name & " " & ctl.Text & " and "
-            ElseIf UCase(Mid(ctl.Text, 1, 4)) = "LIKE" Then
-                'Force the "like" to uppercase for parsing later...
-                strSearch = strSearch & RS.Fields(i).Name & " LIKE" & Mid(ctl.Text, 5) & " and "
-            ElseIf UCase(Mid(ctl.Text, 1, 7)) = "BETWEEN" Then
-                'Force the "between" to uppercase for parsing later...
-                strSearch = strSearch & RS.Fields(i).Name & " BETWEEN" & Mid(ctl.Text, 8) & " and "
-            ElseIf UCase(Mid(ctl.Text, 1, 2)) = "IN" Then
-                'Force the "in" to uppercase for parsing later...
-                strSearch = strSearch & RS.Fields(i).Name & " IN" & Mid(ctl.Text, 3) & " and "
-            Else
-                Select Case RS.Fields(i).Type
-                    Case adChar, adVarChar, adLongVarChar, adWChar, adVarWChar, adLongVarWChar
-                        strSearch = strSearch & RS.Fields(i).Name & " = '" & SQLQuote(ctl.Text) & "' and "
-                    Case adDate, adDBDate, adDBTime, adDBTimeStamp
-                        strSearch = strSearch & RS.Fields(i).Name & " = #" & ctl.Text & "# and "
-                    Case Else
-                        strSearch = strSearch & RS.Fields(i).Name & " = " & SQLQuote(ctl.Text) & " and "
-                End Select
-            End If
-        End If
+        If Trim(ctl.Text) <> vbNullString Then strSearch = strSearch & RS.Fields(i).Name & " " & ctl.Text & " And "
     Next i
     If Len(strSearch) > 0 Then strSearch = Left(strSearch, Len(strSearch) - 5)  'Get rid of the final " and "...
     On Error Resume Next
@@ -1195,8 +1167,59 @@ End Sub
 Private Sub txtFields_GotFocus(Index As Integer)
     TextSelected
 End Sub
+Private Sub txtFields_KeyPress(Index As Integer, KeyAscii As Integer)
+    If UCase(Right(RS.Fields(Index).Name, 4)) = "SORT" Then KeyPressUcase KeyAscii
+End Sub
 Private Sub txtFields_Validate(Index As Integer, Cancel As Boolean)
-    txtFields(Index).Text = Trim(txtFields(Index).Text)
+    Dim strField As String
+    Dim Operator As String
+    Dim Operand As String
+    
+    strField = Trim(txtFields(Index).Text)
+    txtFields(Index).Text = strField
+    If strField = vbNullString Then Exit Sub
+    
+    Operator = vbNullString
+    Operand = strField
+    If Left(strField, 1) = "=" Then
+        Operator = "="
+        Operand = Trim(Mid(strField, 2))
+    ElseIf Left(strField, 2) = "<=" Then
+        Operator = "<="
+        Operand = Trim(Mid(strField, 3))
+    ElseIf Left(strField, 2) = ">=" Then
+        Operator = ">="
+        Operand = Trim(Mid(strField, 3))
+    ElseIf Left(strField, 1) = "<" Then
+        Operator = "<"
+        Operand = Trim(Mid(strField, 2))
+    ElseIf Left(strField, 1) = ">" Then
+        Operator = ">"
+        Operand = Trim(Mid(strField, 2))
+    ElseIf UCase(Left(strField, 4)) = "NOT " Then
+        Operator = "NOT"
+        Operand = Trim(Mid(strField, 5))
+    ElseIf UCase(Left(strField, 5)) = "LIKE " Then
+        Operator = "LIKE"
+        Operand = Trim(Mid(strField, 6))
+    End If
+    
+    If Operand <> vbNullString Then
+        If Left(Operand, 1) = "'" Or Left(Operand, 1) = "#" Then Operand = Mid(Operand, 2)
+        If Right(Operand, 1) = "'" Or Right(Operand, 1) = "#" Then Operand = Left(Operand, Len(Operand) - 1)
+        Select Case RS.Fields(Index).Type
+            Case adChar, adVarChar, adLongVarChar, adWChar, adVarWChar, adLongVarWChar
+                If Operator = vbNullString And Right(Operand, 1) <> "%" Then Operand = Operand & "%"
+                If Right(Operand, 1) = "%" Then Operator = "LIKE"
+                Operand = "'" & SQLQuote(Operand) & "'"
+            Case adDate, adDBDate, adDBTime, adDBTimeStamp
+                Operand = "#" & Operand & "#"
+            Case Else
+                Operand = SQLQuote(Operand)
+        End Select
+    End If
+    If Operator = vbNullString Then Operator = "="
+    txtFields(Index).Text = Operator & " " & Operand
 End Sub
 
 

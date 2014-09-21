@@ -1015,37 +1015,9 @@ Private Sub cmdApply_Click()
     SQLsource = vbNullString
     For i = 0 To RS.Fields.Count - 1
         If txtFields(i).Enabled Then Set ctl = txtFields(i) Else Set ctl = dbcFields(i)
-        If Len(ctl.Text) > 0 Then
-            If Mid(ctl.Text, 1, 1) = "=" Or _
-                Mid(ctl.Text, 1, 2) = "<=" Or _
-                Mid(ctl.Text, 1, 2) = ">=" Or _
-                Mid(ctl.Text, 1, 1) = "<" Or _
-                Mid(ctl.Text, 1, 1) = ">" Or _
-                UCase(Mid(ctl.Text, 1, 5)) = "NOT " Then
-                'Take what the user said literally...
-                SQLsource = SQLsource & RS.Fields(i).Name & " " & ctl.Text & " and "
-            ElseIf UCase(Mid(ctl.Text, 1, 4)) = "LIKE" Then
-                'Force the "like" to uppercase for parsing later...
-                SQLsource = SQLsource & RS.Fields(i).Name & " LIKE" & Mid(ctl.Text, 5) & " and "
-            ElseIf UCase(Mid(ctl.Text, 1, 7)) = "BETWEEN" Then
-                'Force the "between" to uppercase for parsing later...
-                SQLsource = SQLsource & RS.Fields(i).Name & " BETWEEN" & Mid(ctl.Text, 8) & " and "
-            ElseIf UCase(Mid(ctl.Text, 1, 2)) = "IN" Then
-                'Force the "in" to uppercase for parsing later...
-                SQLsource = SQLsource & RS.Fields(i).Name & " IN" & Mid(ctl.Text, 3) & " and "
-            Else
-                Select Case RS.Fields(i).Type
-                    Case adChar, adVarChar, adLongVarChar, adWChar, adVarWChar, adLongVarWChar
-                        SQLsource = SQLsource & RS.Fields(i).Name & " = '" & SQLQuote(ctl.Text) & "' and "
-                    Case adDate, adDBDate, adDBTime, adDBTimeStamp
-                        SQLsource = SQLsource & RS.Fields(i).Name & " = #" & ctl.Text & "# and "
-                    Case Else
-                        SQLsource = SQLsource & RS.Fields(i).Name & " = " & SQLQuote(ctl.Text) & " and "
-                End Select
-            End If
-        End If
+        If Trim(ctl.Text) <> vbNullString Then SQLsource = SQLsource & RS.Fields(i).Name & " " & ctl.Text & " And "
     Next i
-    If Len(SQLsource) > 0 Then SQLsource = Left(SQLsource, Len(SQLsource) - 5)  'Get rid of the final " and "...
+    If Len(SQLsource) > 0 Then SQLsource = Left(SQLsource, Len(SQLsource) - 5)  'Get rid of the final " And "...
     On Error Resume Next
     If gfUseFilterMethod Then RS.Filter = SQLsource
     strFilter = SQLsource
@@ -1235,6 +1207,56 @@ End Function
 Private Sub txtFields_GotFocus(Index As Integer)
     TextSelected
 End Sub
+Private Sub txtFields_KeyPress(Index As Integer, KeyAscii As Integer)
+    If UCase(Right(RS.Fields(Index).Name, 4)) = "SORT" Then KeyPressUcase KeyAscii
+End Sub
 Private Sub txtFields_Validate(Index As Integer, Cancel As Boolean)
-    txtFields(Index).Text = Trim(txtFields(Index).Text)
+    Dim strField As String
+    Dim Operator As String
+    Dim Operand As String
+    
+    strField = Trim(txtFields(Index).Text)
+    txtFields(Index).Text = strField
+    If strField = vbNullString Then Exit Sub
+    
+    Operator = "="
+    Operand = strField
+    If Left(strField, 1) = "=" Then
+        Operator = "="
+        Operand = Trim(Mid(strField, 2))
+    ElseIf Left(strField, 2) = "<=" Then
+        Operator = "<="
+        Operand = Trim(Mid(strField, 3))
+    ElseIf Left(strField, 2) = ">=" Then
+        Operator = ">="
+        Operand = Trim(Mid(strField, 3))
+    ElseIf Left(strField, 1) = "<" Then
+        Operator = "<"
+        Operand = Trim(Mid(strField, 2))
+    ElseIf Left(strField, 1) = ">" Then
+        Operator = ">"
+        Operand = Trim(Mid(strField, 2))
+    ElseIf UCase(Left(strField, 4)) = "NOT " Then
+        Operator = "NOT"
+        Operand = Trim(Mid(strField, 5))
+    ElseIf UCase(Left(strField, 5)) = "LIKE " Then
+        Operator = "LIKE"
+        Operand = Trim(Mid(strField, 6))
+    End If
+    
+    If Operand <> vbNullString Then
+        If Left(Operand, 1) = "'" Or Left(Operand, 1) = "#" Then Operand = Mid(Operand, 2)
+        If Right(Operand, 1) = "'" Or Right(Operand, 1) = "#" Then Operand = Left(Operand, Len(Operand) - 1)
+        Select Case RS.Fields(Index).Type
+            Case adChar, adVarChar, adLongVarChar, adWChar, adVarWChar, adLongVarWChar
+                If Operator = vbNullString And Right(Operand, 1) <> "%" Then Operand = Operand & "%"
+                If Right(Operand, 1) = "%" Then Operator = "LIKE"
+                Operand = "'" & SQLQuote(Operand) & "'"
+            Case adDate, adDBDate, adDBTime, adDBTimeStamp
+                Operand = "#" & Operand & "#"
+            Case Else
+                Operand = SQLQuote(Operand)
+        End Select
+    End If
+    txtFields(Index).Text = Operator & " " & Operand
 End Sub
