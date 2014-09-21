@@ -48,10 +48,36 @@ Public gstrODBCFileDSNDir As String
 Public MinHeight As Integer
 Public MinWidth As Integer
 Public mode As ActionMode
+Private origValues() As Variant
 'Public rdcReport As CRAXDRT.Report
 Public SQLmain As String
 Public SQLfilter As String
 Public SQLkey As String
+Private Function AnythingHasChanged(frm As Form) As Boolean
+    Dim fld As Object
+    Dim iLoop As Integer
+    Dim tempfldvalue As Variant
+    Dim locfldName As String
+    
+    Call Trace(trcEnter, frm.Name & ".AnythingHasChanged()")
+    AnythingHasChanged = False
+    
+    With frm
+        For iLoop = 0 To .Controls.Count - 1
+            Set fld = .Controls(iLoop)
+            If HandleThisDataType(TypeName(fld), fld.Name, frm.Name) Then
+                tempfldvalue = fld
+                If Trim(origValues(iLoop)) <> Trim(tempfldvalue) Then
+                    AnythingHasChanged = True
+                    GoTo ExitSub
+                End If
+            End If
+        Next iLoop
+    End With
+
+ExitSub:
+    Call Trace(trcExit, frm.Name & ".AnythingHasChanged()")
+End Function
 Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Recordset, Caption As String, Optional RowSource As ADODB.Recordset, Optional BoundColumn As String, Optional ListField As String)
     Dim DateTimeFormat As StdDataFormat
     
@@ -105,6 +131,13 @@ Public Sub CancelCommand(frm As Form, RS As ADODB.Recordset)
         Case modeDisplay
             Unload frm
         Case modeAdd, modeModify
+            If AnythingHasChanged(frm) Then
+                If MsgBox("All entries will be discarded; are you sure you want to Cancel?", _
+                    vbYesNo, "Cancel Confirmation") = vbNo Then
+                    GoTo ExitSub
+                End If
+                Call RestoreOriginalValues(frm)
+            End If
             Call Trace(trcBody, "RS.CancelUpdate")
             RS.CancelUpdate
             If mode = modeAdd And Not RS.EOF Then
@@ -122,7 +155,10 @@ Public Sub CancelCommand(frm As Form, RS As ADODB.Recordset)
             frm.mnuRecords.Enabled = True
             frm.tbMain.Enabled = True
     End Select
+    
+ExitSub:
     Call Trace(trcExit, "CancelCommand")
+    Exit Sub
 End Sub
 Public Function CloseConnection(frm As Form) As Integer
     Dim DBinfo As DataBaseInfo
@@ -152,6 +188,143 @@ Public Function CloseConnection(frm As Form) As Integer
     Set adoConn = Nothing
     CloseConnection = 0
     Call Trace(trcExit, "CloseConnection")
+End Function
+Public Sub CopyCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String)
+    Dim Table As String
+    Dim FieldList As String
+    Dim Values As String
+    Dim fld As ADODB.Field
+    Dim RecordsAffected As Long
+    Dim saveID As Variant
+    Dim rsTemp As ADODB.Recordset
+    
+    On Error GoTo ErrorHandler
+        
+    Table = RS.Fields(0).Properties("BASETABLENAME")
+    For Each fld In RS.Fields
+        If (RS(fld.Name).Attributes And adFldUpdatable) = adFldUpdatable Then
+            FieldList = FieldList & "[" & fld.Name & "],"
+            If IsNull(fld.Value) Then
+                Values = Values & "Null,"
+            Else
+                Select Case fld.Type
+                    Case adCurrency
+                        Values = Values & fld.Value & ","
+                    Case adBoolean
+                        Values = Values & fld.Value & ","
+                    Case adDate, adDBDate, adDBTimeStamp
+                        Values = Values & "#" & fld.Value & "#,"
+                    Case adBinary, adLongVarBinary, adLongVarChar, adChar, adVarChar
+                        Values = Values & "'" & SQLQuote(fld.Value) & "',"
+                    Case Else
+                        Values = Values & "'" & SQLQuote(fld.Value) & "',"
+                End Select
+            End If
+        End If
+    Next fld
+    FieldList = Mid(FieldList, 1, Len(FieldList) - 1)
+    Values = Mid(Values, 1, Len(Values) - 1)
+    saveID = RS.Fields("ID")
+    adoConn.Execute "Insert Into [" & Table & "] (" & FieldList & ") Values (" & Values & ")", RecordsAffected
+    
+    RefreshCommand RS, Key
+    Set rsTemp = New ADODB.Recordset
+    rsTemp.Open "Select Max(ID) From " & Table, adoConn, adOpenStatic, adLockReadOnly
+    RS.MoveFirst
+    Call RS.Find("ID=" & rsTemp(0))
+    
+ExitSub:
+    Call CloseRecordset(rsTemp, True)
+    Exit Sub
+    
+ErrorHandler:
+    Dim errorCode As Long
+    MsgBox BuildADOerror(adoConn, errorCode), vbCritical, "CopyCommand"
+    GoTo ExitSub
+    Resume Next
+End Sub
+Public Sub dbcKeyPress(fld As ADODB.Field, ctl As DataCombo, KeyAscii As Integer)
+    Dim adoRS As ADODB.Recordset
+    Dim pDataSource As ADODB.Recordset
+    Dim RecordsAffected As Long
+    Dim SQLstring As String
+    Dim FieldList As String
+    Dim TableList As String
+    Dim WhereClause As String
+    Dim OrderByClause As String
+    
+    Call Trace(trcEnter, "dbcKeyPress(""" & fld.Name & """, """ & ctl.Name & """, """ & KeyAscii & """)")
+    Set pDataSource = ctl.DataSource
+    If IsNull(ctl.SelectedItem) Then
+        Call ParseSQLSelect(pDataSource.Source, FieldList, TableList, WhereClause, OrderByClause)
+        If WhereClause <> vbNullString Then WhereClause = WhereClause & " And "
+        WhereClause = WhereClause & " " & fld.Name & " like '" & ctl.Text & "%'"
+        SQLstring = "select " & FieldList & " from " & TableList & " where " & WhereClause
+        If OrderByClause <> vbNullString Then SQLstring = SQLstring & " order by " & OrderByClause
+        
+        Set adoRS = New ADODB.Recordset
+        adoRS.Open SQLstring, adoConn, adOpenKeyset, adLockReadOnly
+        If Not adoRS.EOF Then ctl.BoundText = adoRS(fld.Name)
+        CloseRecordset adoRS, True
+    End If
+    If Len(ctl.BoundText) > fld.DefinedSize Then ctl.BoundText = Mid(ctl.BoundText, 1, fld.DefinedSize)
+    If Len(ctl.Text) > fld.DefinedSize Then ctl.Text = Mid(ctl.Text, 1, fld.DefinedSize)
+    
+    'Sometimes the data binding doesn't get the recordset updated...
+    'Why? I don't know...
+    If ctl.BoundText <> pDataSource(fld.Name) Then
+        pDataSource(fld.Name) = ctl.BoundText
+    End If
+    Call Trace(trcExit, "dbcKeyPress")
+End Sub
+
+Public Function dbcValidate(fld As ADODB.Field, ctl As DataCombo) As Integer
+    Dim adoRS As ADODB.Recordset
+    Dim pDataSource As ADODB.Recordset
+    Dim RecordsAffected As Long
+    Dim SQLstring As String
+    Dim FieldList As String
+    Dim TableList As String
+    Dim WhereClause As String
+    Dim OrderByClause As String
+    
+    Call Trace(trcEnter, "dbcValidate(""" & fld.Name & """, """ & ctl.Name & """)")
+    dbcValidate = 1
+    Set pDataSource = ctl.DataSource
+    If IsNull(ctl.SelectedItem) Then
+        Call ParseSQLSelect(pDataSource.Source, FieldList, TableList, WhereClause, OrderByClause)
+        If WhereClause <> vbNullString Then WhereClause = WhereClause & " And "
+        WhereClause = WhereClause & " " & fld.Name & " like '" & SQLQuote(ctl.Text) & "%'"
+        SQLstring = "select " & FieldList & " from " & TableList & " where " & WhereClause
+        If OrderByClause <> vbNullString Then SQLstring = SQLstring & " order by " & OrderByClause
+        
+        Set adoRS = New ADODB.Recordset
+        adoRS.Open SQLstring, adoConn, adOpenKeyset, adLockReadOnly
+        dbcValidate = adoRS.RecordCount
+        If Not adoRS.EOF Then
+            ctl.BoundText = adoRS(fld.Name)
+            If adoRS.RecordCount > 1 Then
+                'Raise it's click event to give the user the list...
+            End If
+        Else
+            If MsgBox("""" & ctl.Text & """ isn't in the list... Do you want it added...?", vbYesNo) = vbNo Then
+                ctl.BoundText = vbNullString
+                Exit Function
+            Else
+                dbcValidate = 1 '...to denote that it will be added...
+            End If
+        End If
+        CloseRecordset adoRS, True
+    End If
+    If Len(ctl.BoundText) > fld.DefinedSize Then ctl.BoundText = Mid(ctl.BoundText, 1, fld.DefinedSize)
+    If Len(ctl.Text) > fld.DefinedSize Then ctl.Text = Mid(ctl.Text, 1, fld.DefinedSize)
+    
+    'Sometimes the data binding doesn't get the recordset updated...
+    'Why? I don't know...
+    If ctl.BoundText <> pDataSource(fld.Name) Then
+        pDataSource(fld.Name) = ctl.BoundText
+    End If
+    Call Trace(trcExit, "dbcValidate")
 End Function
 Public Sub DeleteCommand(frm As Form, RS As ADODB.Recordset)
     Call Trace(trcEnter, "DeleteCommand(""" & frm.Name & """, RS)")
@@ -261,6 +434,24 @@ Public Function GetRegionalShortDateFormat() As String
     GetRegionalShortDateFormat = Left$(Buffer, dataLen - 1)
     Call Trace(trcExit, "GetRegionalShortDateFormat = """ & GetRegionalShortDateFormat & """")
 End Function
+Private Function HandleThisDataType(DataType As String, ControlName As String, FormName As String) As Boolean
+    HandleThisDataType = False
+    Select Case DataType
+        Case "TextBox", "ComboBox", "CheckBox", "FileListBox", "RichTextBox"
+            HandleThisDataType = True
+        Case "DTPicker", "DataCombo", "DataList"
+            HandleThisDataType = True
+        Case "DataGrid"
+        Case "PVCurrency"
+            HandleThisDataType = True
+        Case "CommandButton", "Frame", "ImageList", "Label", "Line", "Menu", "StatusBar", "TabStrip", "Toolbar"
+        Case "CommonDialog", "PictureBox", "HScrollBar", "VScrollBar"
+        Case "Adodc"
+        Case Else
+            Debug.Print "Unaccounted for " & DataType & " control """ & ControlName & """ found on " & FormName
+            Call MsgBox("Unaccounted for " & DataType & " control """ & ControlName & """ found on " & FormName, vbExclamation + vbOKOnly)
+    End Select
+End Function
 Public Sub ListCommand(frm As Form, RS As ADODB.Recordset, Optional AllowUpdate As Boolean = True)
     Dim vRS As ADODB.Recordset
     
@@ -315,8 +506,11 @@ Public Sub ListCommand(frm As Form, RS As ADODB.Recordset, Optional AllowUpdate 
     Call Trace(trcExit, "ListCommand")
 End Sub
 Public Sub ModifyCommand(frm As Form)
+    Dim ctl As Control
+    
     Call Trace(trcEnter, "ModifyCommand(""" & frm.Name & """)")
     mode = modeModify
+    Call SaveOriginalValues(frm)
     OpenFields frm
     frm.mnuFile.Enabled = False
     frm.mnuRecords.Enabled = False
@@ -343,6 +537,8 @@ Public Sub NewCommand(frm As Form, RS As ADODB.Recordset)
     Call Trace(trcExit, "NewCommand")
 End Sub
 Public Sub OKCommand(frm As Form, RS As ADODB.Recordset)
+    Dim ctl As Control
+    
     Call Trace(trcEnter, "OKCommand(""" & frm.Name & """, RS)")
     Select Case mode
         Case modeDisplay
@@ -351,6 +547,16 @@ Public Sub OKCommand(frm As Form, RS As ADODB.Recordset)
             'Why we need to do this is buggy...
             'rsMain("Manufacturer") = dbcManufacturer.BoundText
             'rsMain("Catalog") = dbcCatalog.BoundText
+            
+            'There seems to be a binding problem with CheckBox controls... so double check the
+            'control value against that of the bound field to be sure they're in sync...
+            For Each ctl In frm.Controls
+                If TypeName(ctl) = "CheckBox" Then
+                    If Not ctl.DataSource Is Nothing And (ctl = vbChecked) <> RS.Fields(ctl.DataField) Then
+                       RS.Fields(ctl.DataField) = (ctl = vbChecked)
+                    End If
+                End If
+            Next ctl
             
             'Ignore errors because more than likely they're caused by exceeding
             'a field length. This is handled for TextBoxes, but cannot be easily
@@ -490,6 +696,39 @@ ErrorHandler:
     GoTo ExitSub
     Resume Next
 End Sub
+Public Sub RestoreOriginalValues(frm As Form)
+    Dim iLoop As Integer
+    Dim fld As Object
+    
+    Call Trace(trcEnter, frm.Name & ".RestoreOriginalValues()")
+    With frm
+        For iLoop = 0 To .Controls.Count - 1
+            Set fld = .Controls(iLoop)
+            If HandleThisDataType(TypeName(fld), fld.Name, frm.Name) Then fld = origValues(iLoop)
+        Next iLoop
+    End With
+
+ExitSub:
+    Call Trace(trcExit, frm.Name & ".RestoreOriginalValues()")
+    Exit Sub
+End Sub
+Public Sub SaveOriginalValues(frm As Form)
+    Dim iLoop As Integer
+    Dim fld As Object
+    
+    Call Trace(trcEnter, frm.Name & ".SaveOriginalValues()")
+    With frm
+        ReDim origValues(0 To .Controls.Count - 1) As Variant
+        For iLoop = 0 To .Controls.Count - 1
+            Set fld = .Controls(iLoop)
+            If HandleThisDataType(TypeName(fld), fld.Name, frm.Name) Then origValues(iLoop) = fld
+        Next iLoop
+    End With
+
+ExitSub:
+    Call Trace(trcExit, frm.Name & ".SaveOriginalValues()")
+    Exit Sub
+End Sub
 Public Sub SearchCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String)
     Dim FieldList As String
     Dim TableList As String
@@ -571,86 +810,3 @@ ErrorHandler:
     MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, frm.Caption
     Resume Next
 End Sub
-Public Function dbcValidate(fld As ADODB.Field, ctl As DataCombo) As Integer
-    Dim adoRS As ADODB.Recordset
-    Dim pDataSource As ADODB.Recordset
-    Dim RecordsAffected As Long
-    Dim SQLstring As String
-    Dim FieldList As String
-    Dim TableList As String
-    Dim WhereClause As String
-    Dim OrderByClause As String
-    
-    Call Trace(trcEnter, "dbcValidate(""" & fld.Name & """, """ & ctl.Name & """)")
-    dbcValidate = 1
-    Set pDataSource = ctl.DataSource
-    If IsNull(ctl.SelectedItem) Then
-        Call ParseSQLSelect(pDataSource.Source, FieldList, TableList, WhereClause, OrderByClause)
-        If WhereClause <> vbNullString Then WhereClause = WhereClause & " And "
-        WhereClause = WhereClause & " " & fld.Name & " like '" & SQLQuote(ctl.Text) & "%'"
-        SQLstring = "select " & FieldList & " from " & TableList & " where " & WhereClause
-        If OrderByClause <> vbNullString Then SQLstring = SQLstring & " order by " & OrderByClause
-        
-        Set adoRS = New ADODB.Recordset
-        adoRS.Open SQLstring, adoConn, adOpenKeyset, adLockReadOnly
-        dbcValidate = adoRS.RecordCount
-        If Not adoRS.EOF Then
-            ctl.BoundText = adoRS(fld.Name)
-            If adoRS.RecordCount > 1 Then
-                'Raise it's click event to give the user the list...
-            End If
-        Else
-            If MsgBox("""" & ctl.Text & """ isn't in the list... Do you want it added...?", vbYesNo) = vbNo Then
-                ctl.BoundText = vbNullString
-                Exit Function
-            Else
-                dbcValidate = 1 '...to denote that it will be added...
-            End If
-        End If
-        CloseRecordset adoRS, True
-    End If
-    If Len(ctl.BoundText) > fld.DefinedSize Then ctl.BoundText = Mid(ctl.BoundText, 1, fld.DefinedSize)
-    If Len(ctl.Text) > fld.DefinedSize Then ctl.Text = Mid(ctl.Text, 1, fld.DefinedSize)
-    
-    'Sometimes the data binding doesn't get the recordset updated...
-    'Why? I don't know...
-    If ctl.BoundText <> pDataSource(fld.Name) Then
-        pDataSource(fld.Name) = ctl.BoundText
-    End If
-    Call Trace(trcExit, "dbcValidate")
-End Function
-Public Sub dbcKeyPress(fld As ADODB.Field, ctl As DataCombo, KeyAscii As Integer)
-    Dim adoRS As ADODB.Recordset
-    Dim pDataSource As ADODB.Recordset
-    Dim RecordsAffected As Long
-    Dim SQLstring As String
-    Dim FieldList As String
-    Dim TableList As String
-    Dim WhereClause As String
-    Dim OrderByClause As String
-    
-    Call Trace(trcEnter, "dbcKeyPress(""" & fld.Name & """, """ & ctl.Name & """, """ & KeyAscii & """)")
-    Set pDataSource = ctl.DataSource
-    If IsNull(ctl.SelectedItem) Then
-        Call ParseSQLSelect(pDataSource.Source, FieldList, TableList, WhereClause, OrderByClause)
-        If WhereClause <> vbNullString Then WhereClause = WhereClause & " And "
-        WhereClause = WhereClause & " " & fld.Name & " like '" & ctl.Text & "%'"
-        SQLstring = "select " & FieldList & " from " & TableList & " where " & WhereClause
-        If OrderByClause <> vbNullString Then SQLstring = SQLstring & " order by " & OrderByClause
-        
-        Set adoRS = New ADODB.Recordset
-        adoRS.Open SQLstring, adoConn, adOpenKeyset, adLockReadOnly
-        If Not adoRS.EOF Then ctl.BoundText = adoRS(fld.Name)
-        CloseRecordset adoRS, True
-    End If
-    If Len(ctl.BoundText) > fld.DefinedSize Then ctl.BoundText = Mid(ctl.BoundText, 1, fld.DefinedSize)
-    If Len(ctl.Text) > fld.DefinedSize Then ctl.Text = Mid(ctl.Text, 1, fld.DefinedSize)
-    
-    'Sometimes the data binding doesn't get the recordset updated...
-    'Why? I don't know...
-    If ctl.BoundText <> pDataSource(fld.Name) Then
-        pDataSource(fld.Name) = ctl.BoundText
-    End If
-    Call Trace(trcExit, "dbcKeyPress")
-End Sub
-
