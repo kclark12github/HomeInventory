@@ -17,11 +17,20 @@ Begin VB.Form frmMusic
    ScaleWidth      =   7530
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
+   Begin VB.CheckBox chkMP3 
+      Alignment       =   1  'Right Justify
+      Caption         =   "MP3:"
+      Height          =   192
+      Left            =   5220
+      TabIndex        =   5
+      Top             =   1320
+      Width           =   855
+   End
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
       Height          =   255
       Left            =   0
-      TabIndex        =   22
+      TabIndex        =   23
       Top             =   3855
       Width           =   7530
       _ExtentX        =   13282
@@ -50,7 +59,7 @@ Begin VB.Form frmMusic
             AutoSize        =   2
             Object.Width           =   1376
             MinWidth        =   1270
-            TextSave        =   "12:26 PM"
+            TextSave        =   "10:42 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -60,7 +69,7 @@ Begin VB.Form frmMusic
       Caption         =   "LP:"
       Height          =   192
       Left            =   6420
-      TabIndex        =   7
+      TabIndex        =   8
       Top             =   1741
       Width           =   615
    End
@@ -69,7 +78,7 @@ Begin VB.Form frmMusic
       Caption         =   "Cassette:"
       Height          =   192
       Left            =   4980
-      TabIndex        =   6
+      TabIndex        =   7
       Top             =   1741
       Width           =   1095
    End
@@ -77,10 +86,10 @@ Begin VB.Form frmMusic
       Alignment       =   1  'Right Justify
       Caption         =   "CD:"
       Height          =   192
-      Left            =   3840
-      TabIndex        =   5
-      Top             =   1741
-      Width           =   855
+      Left            =   6420
+      TabIndex        =   6
+      Top             =   1320
+      Width           =   615
    End
    Begin VB.CommandButton cmdCancel 
       Cancel          =   -1  'True
@@ -88,7 +97,7 @@ Begin VB.Form frmMusic
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6384
-      TabIndex        =   12
+      TabIndex        =   13
       Top             =   3420
       Width           =   972
    End
@@ -97,7 +106,7 @@ Begin VB.Form frmMusic
       Default         =   -1  'True
       Height          =   372
       Left            =   5364
-      TabIndex        =   11
+      TabIndex        =   12
       Top             =   3420
       Width           =   972
    End
@@ -150,7 +159,7 @@ Begin VB.Form frmMusic
    Begin VB.TextBox txtAlphaSort 
       Height          =   300
       Left            =   1530
-      TabIndex        =   8
+      TabIndex        =   9
       Text            =   "AlphaSort"
       Top             =   2100
       Width           =   5832
@@ -158,7 +167,7 @@ Begin VB.Form frmMusic
    Begin VB.TextBox txtInventoried 
       Height          =   300
       Left            =   1530
-      TabIndex        =   9
+      TabIndex        =   10
       Text            =   "Inventoried"
       Top             =   2520
       Width           =   2835
@@ -199,10 +208,10 @@ Begin VB.Form frmMusic
          SubFormatType   =   2
       EndProperty
       Height          =   300
-      Left            =   5250
+      Left            =   3150
       TabIndex        =   3
       Top             =   1260
-      Width           =   1815
+      Width           =   1095
    End
    Begin VB.TextBox txtYear 
       Height          =   300
@@ -217,7 +226,7 @@ Begin VB.Form frmMusic
       Caption         =   "Inventoried"
       Height          =   192
       Left            =   5010
-      TabIndex        =   10
+      TabIndex        =   11
       Top             =   2574
       Width           =   1395
    End
@@ -233,7 +242,7 @@ Begin VB.Form frmMusic
       Align           =   1  'Align Top
       Height          =   360
       Left            =   0
-      TabIndex        =   23
+      TabIndex        =   24
       Top             =   0
       Width           =   7530
       _ExtentX        =   13282
@@ -385,7 +394,7 @@ Begin VB.Form frmMusic
       Caption         =   "ID:"
       Height          =   195
       Left            =   6750
-      TabIndex        =   21
+      TabIndex        =   22
       Top             =   2573
       Width           =   195
    End
@@ -394,7 +403,7 @@ Begin VB.Form frmMusic
       Caption         =   "Date Inventoried:"
       Height          =   195
       Left            =   201
-      TabIndex        =   20
+      TabIndex        =   21
       Top             =   2573
       Width           =   1215
    End
@@ -403,7 +412,7 @@ Begin VB.Form frmMusic
       Caption         =   "AlphaSort:"
       Height          =   195
       Left            =   666
-      TabIndex        =   19
+      TabIndex        =   20
       Top             =   2153
       Width           =   750
    End
@@ -412,7 +421,7 @@ Begin VB.Form frmMusic
       Caption         =   "Type:"
       Height          =   195
       Left            =   996
-      TabIndex        =   18
+      TabIndex        =   19
       Top             =   1740
       Width           =   420
    End
@@ -429,9 +438,9 @@ Begin VB.Form frmMusic
          SubFormatType   =   0
       EndProperty
       Height          =   195
-      Left            =   4725
-      TabIndex        =   17
-      Top             =   1313
+      Left            =   2625
+      TabIndex        =   18
+      Top             =   1320
       Width           =   405
    End
    Begin VB.Label lblYear 
@@ -439,7 +448,7 @@ Begin VB.Form frmMusic
       Caption         =   "Year:"
       Height          =   195
       Left            =   1026
-      TabIndex        =   16
+      TabIndex        =   17
       Top             =   1313
       Width           =   390
    End
@@ -448,7 +457,7 @@ Begin VB.Form frmMusic
       Caption         =   "Title:"
       Height          =   195
       Left            =   1071
-      TabIndex        =   15
+      TabIndex        =   16
       Top             =   893
       Width           =   345
    End
@@ -457,7 +466,7 @@ Begin VB.Form frmMusic
       Caption         =   "Artist:"
       Height          =   192
       Left            =   1032
-      TabIndex        =   14
+      TabIndex        =   15
       Top             =   481
       Width           =   384
    End
@@ -466,7 +475,7 @@ Begin VB.Form frmMusic
       Caption         =   "lblID"
       Height          =   195
       Left            =   7035
-      TabIndex        =   13
+      TabIndex        =   14
       Top             =   2573
       Width           =   330
    End
@@ -565,6 +574,7 @@ Private Sub Form_Load()
     BindField txtTitle, "Title", rsMain, "Title"
     BindField txtYear, "Year", rsMain, "Year"
     BindField txtPrice, "Price", rsMain, "Price"
+    BindField chkMP3, "MP3", rsMain, "MP3"
     BindField chkCD, "CD", rsMain, "CD"
     BindField chkCS, "CS", rsMain, "CS"
     BindField chkLP, "LP", rsMain, "LP"
@@ -599,6 +609,7 @@ Private Sub mnuRecordsNew_Click()
     
     txtInventoried.Text = Format(Now(), fmtDate)
     chkInventoried.Value = vbChecked
+    chkMP3.Value = vbUnchecked
     chkCD.Value = vbUnchecked
     chkCS.Value = vbUnchecked
     chkLP.Value = vbUnchecked
