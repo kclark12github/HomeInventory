@@ -9,6 +9,7 @@ Begin VB.Form frmWebLinks
    LinkTopic       =   "Form1"
    ScaleHeight     =   4155
    ScaleWidth      =   7905
+   ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin HomeInventory.kfcWebLinks wlWebLinks 
       Height          =   4152
@@ -28,6 +29,8 @@ Attribute VB_Exposed = False
 Option Explicit
 Dim fActivated As Boolean
 Private Sub Form_Activate()
+    Me.Top = frmMain.saveTop + ((frmMain.Height - Me.Height) / 2)
+    Me.Left = frmMain.saveLeft + ((frmMain.Width - Me.Width) / 2)
     DoEvents
     If Not fActivated Then
         fActivated = True

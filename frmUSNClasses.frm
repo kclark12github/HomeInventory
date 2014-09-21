@@ -6,16 +6,16 @@ Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form frmUSNClasses 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "US Navy Ship Classes"
-   ClientHeight    =   5172
+   ClientHeight    =   5175
    ClientLeft      =   120
-   ClientTop       =   348
-   ClientWidth     =   7788
+   ClientTop       =   345
+   ClientWidth     =   7785
    Icon            =   "frmUSNClasses.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5172
-   ScaleWidth      =   7788
+   ScaleHeight     =   5175
+   ScaleWidth      =   7785
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.Frame fraShips 
@@ -66,8 +66,8 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   3
          Top             =   852
          Width           =   1452
-         _ExtentX        =   2561
-         _ExtentY        =   508
+         _ExtentX        =   2566
+         _ExtentY        =   556
          _Version        =   393216
          MatchEntry      =   -1  'True
          Style           =   2
@@ -125,10 +125,9 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   5
          Top             =   240
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmUSNClasses.frx":0682
       End
@@ -138,10 +137,9 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   6
          Top             =   600
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0757
       End
@@ -151,10 +149,9 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   7
          Top             =   960
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0826
       End
@@ -164,10 +161,9 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   8
          Top             =   1320
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":08F3
       End
@@ -177,10 +173,9 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   9
          Top             =   1680
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":09C1
       End
@@ -190,10 +185,9 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   10
          Top             =   2040
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0A94
       End
@@ -203,10 +197,9 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   11
          Top             =   2400
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0B64
       End
@@ -304,10 +297,9 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   13
          Top             =   240
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmUSNClasses.frx":0C34
       End
@@ -317,10 +309,9 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   14
          Top             =   600
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0D05
       End
@@ -330,10 +321,9 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   15
          Top             =   960
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0DD6
       End
@@ -343,10 +333,9 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   16
          Top             =   1320
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0EA3
       End
@@ -356,10 +345,9 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   17
          Top             =   1680
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0F77
       End
@@ -369,10 +357,9 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   18
          Top             =   2040
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":1046
       End
@@ -382,10 +369,9 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   19
          Top             =   2400
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":1115
       End
@@ -395,10 +381,9 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   20
          Top             =   2760
          Width           =   5592
-         _ExtentX        =   9864
-         _ExtentY        =   550
+         _ExtentX        =   9869
+         _ExtentY        =   556
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":11EA
       End
@@ -496,9 +481,10 @@ Begin VB.Form frmUSNClasses
          TabIndex        =   21
          Top             =   180
          Width           =   7332
-         _ExtentX        =   12933
-         _ExtentY        =   5101
+         _ExtentX        =   12938
+         _ExtentY        =   5106
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmUSNClasses.frx":12B5
       End
    End
@@ -527,8 +513,8 @@ Begin VB.Form frmUSNClasses
       TabIndex        =   0
       Top             =   360
       Width           =   7572
-      _ExtentX        =   13356
-      _ExtentY        =   6371
+      _ExtentX        =   13361
+      _ExtentY        =   6376
       _Version        =   393216
       BeginProperty Tabs {1EFB6598-857C-11D1-B16A-00C0F0283628} 
          NumTabs         =   4
@@ -561,8 +547,8 @@ Begin VB.Form frmUSNClasses
       TabIndex        =   47
       Top             =   4920
       Width           =   7788
-      _ExtentX        =   13737
-      _ExtentY        =   445
+      _ExtentX        =   13732
+      _ExtentY        =   450
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
          NumPanels       =   4
@@ -578,16 +564,16 @@ Begin VB.Form frmUSNClasses
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8551
+            Object.Width           =   8414
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1270
+            Object.Width           =   1376
             MinWidth        =   1270
-            TextSave        =   "3:25 PM"
+            TextSave        =   "12:15 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -597,8 +583,8 @@ Begin VB.Form frmUSNClasses
       Left            =   96
       Top             =   4020
       Width           =   7572
-      _ExtentX        =   13356
-      _ExtentY        =   550
+      _ExtentX        =   13361
+      _ExtentY        =   556
       ConnectMode     =   0
       CursorLocation  =   3
       IsolationLevel  =   -1
@@ -629,7 +615,7 @@ Begin VB.Form frmUSNClasses
       Caption         =   ""
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
-         Size            =   7.8
+         Size            =   8.25
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -640,13 +626,13 @@ Begin VB.Form frmUSNClasses
    End
    Begin MSComctlLib.Toolbar tbMain 
       Align           =   1  'Align Top
-      Height          =   288
+      Height          =   615
       Left            =   0
       TabIndex        =   51
       Top             =   0
-      Width           =   7788
-      _ExtentX        =   13737
-      _ExtentY        =   508
+      Width           =   7785
+      _ExtentX        =   13732
+      _ExtentY        =   1085
       ButtonWidth     =   487
       ButtonHeight    =   466
       Appearance      =   1
@@ -718,8 +704,8 @@ Begin VB.Form frmUSNClasses
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   240
       Top             =   60
-      _ExtentX        =   804
-      _ExtentY        =   804
+      _ExtentX        =   794
+      _ExtentY        =   794
       BackColor       =   -2147483643
       ImageWidth      =   16
       ImageHeight     =   16
@@ -880,6 +866,10 @@ Private Sub cmdCancel_Click()
 End Sub
 Private Sub cmdOK_Click()
     OKCommand Me, rsMain
+End Sub
+Private Sub Form_Activate()
+    Me.Top = frmMain.saveTop + ((frmMain.Height - Me.Height) / 2)
+    Me.Left = frmMain.saveLeft + ((frmMain.Width - Me.Width) / 2)
 End Sub
 Private Sub Form_Load()
     EstablishConnection adoConn

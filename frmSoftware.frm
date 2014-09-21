@@ -34,7 +34,7 @@ Begin VB.Form frmSoftware
       Top             =   4605
       Width           =   7530
       _ExtentX        =   13282
-      _ExtentY        =   423
+      _ExtentY        =   450
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
          NumPanels       =   4
@@ -50,16 +50,16 @@ Begin VB.Form frmSoftware
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8070
+            Object.Width           =   7964
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1270
+            Object.Width           =   1376
             MinWidth        =   1270
-            TextSave        =   "8:50 PM"
+            TextSave        =   "12:15 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -626,6 +626,10 @@ Private Sub cmdCancel_Click()
 End Sub
 Private Sub cmdOK_Click()
     OKCommand Me, rsMain
+End Sub
+Private Sub Form_Activate()
+    Me.Top = frmMain.saveTop + ((frmMain.Height - Me.Height) / 2)
+    Me.Left = frmMain.saveLeft + ((frmMain.Width - Me.Width) / 2)
 End Sub
 Private Sub Form_Load()
     EstablishConnection adoConn

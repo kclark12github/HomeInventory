@@ -4,21 +4,21 @@ Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Ken's Stuff..."
-   ClientHeight    =   4236
-   ClientLeft      =   36
-   ClientTop       =   492
-   ClientWidth     =   5916
+   ClientHeight    =   4230
+   ClientLeft      =   30
+   ClientTop       =   495
+   ClientWidth     =   5925
    Icon            =   "frmMain.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   4236
-   ScaleWidth      =   5916
+   ScaleHeight     =   4230
+   ScaleWidth      =   5925
    StartUpPosition =   1  'CenterOwner
    Begin VB.PictureBox picWindow 
       Height          =   3792
       Left            =   0
-      ScaleHeight     =   3744
-      ScaleWidth      =   5664
+      ScaleHeight     =   3735
+      ScaleWidth      =   5655
       TabIndex        =   3
       Top             =   0
       Width           =   5712
@@ -28,40 +28,40 @@ Begin VB.Form frmMain
          AutoSize        =   -1  'True
          BackColor       =   &H80000005&
          ForeColor       =   &H80000008&
-         Height          =   8340
+         Height          =   10425
          Left            =   0
          Picture         =   "frmMain.frx":2CFA
-         ScaleHeight     =   8316
-         ScaleWidth      =   10800
+         ScaleHeight     =   10395
+         ScaleWidth      =   13500
          TabIndex        =   4
          Top             =   0
-         Width           =   10824
+         Width           =   13530
       End
    End
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
-      Height          =   252
+      Height          =   255
       Left            =   0
       TabIndex        =   2
-      Top             =   3984
-      Width           =   5916
-      _ExtentX        =   10435
-      _ExtentY        =   445
+      Top             =   3975
+      Width           =   5925
+      _ExtentX        =   10451
+      _ExtentY        =   450
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
          NumPanels       =   2
          BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   9102
+            Object.Width           =   8996
             Key             =   "DatabasePath"
          EndProperty
          BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1270
+            Object.Width           =   1376
             MinWidth        =   1270
-            TextSave        =   "1:25 AM"
+            TextSave        =   "12:36 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -87,8 +87,8 @@ Begin VB.Form frmMain
    Begin MSComDlg.CommonDialog dlgMain 
       Left            =   120
       Top             =   60
-      _ExtentX        =   677
-      _ExtentY        =   677
+      _ExtentX        =   688
+      _ExtentY        =   688
       _Version        =   393216
    End
    Begin VB.Menu mnuFile 
@@ -209,7 +209,34 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
+Public saveTop As Single
+Public saveLeft As Single
+Public saveCaption As String
+Public saveIcon As Variant
 Private fActivated As Boolean
+Private Sub DoMenu(frm As Form, Optional Modal = vbModal)
+    Me.MousePointer = vbHourglass
+    saveTop = Me.Top
+    saveLeft = Me.Left
+    saveCaption = Me.Caption
+    Set saveIcon = Me.Icon
+    Me.Top = -Me.Height
+    Me.Left = -Me.Width
+    'Me.ShowInTaskbar = False
+    
+    Load frm
+    'Me.ShowInTaskbar = True
+    Me.Caption = saveCaption & " - " & frm.Caption
+    Set Me.Icon = frm.Icon
+    Me.MousePointer = vbDefault
+    frm.Show Modal
+End Sub
+Private Sub ShowMain()
+    Me.Top = saveTop
+    Me.Left = saveLeft
+    Me.Caption = saveCaption
+    Set Me.Icon = saveIcon
+End Sub
 Private Sub LoadBackground()
     Dim iWidth As Integer
     Dim iHeight As Integer
@@ -253,19 +280,19 @@ Private Sub LoadBackground()
         scrollH.Value = 0
     End If
     
-    scrollV.Visible = False
+    ScrollV.Visible = False
     If iHeight < iMinHeight Then
         iHeight = iMinHeight
     ElseIf iHeight > Screen.Height Then
         iHeight = Screen.Height
-        scrollV.Visible = True
-        scrollV.Value = 0
+        ScrollV.Visible = True
+        ScrollV.Value = 0
     End If
     Me.Width = iWidth
     Me.Height = iHeight
     
     iWidth = iWidth - borderWidth
-    If scrollV.Visible Then iWidth = scrollV.Left
+    If ScrollV.Visible Then iWidth = ScrollV.Left
     iHeight = iHeight - borderHeight
     If scrollH.Visible Then iHeight = scrollH.Top
     picWindow.Move 0, 0, iWidth, iHeight
@@ -274,6 +301,7 @@ Private Sub LoadBackground()
     Me.Move (Screen.Width - Me.Width) / 2, (Screen.Height - Me.Height) / 2
 End Sub
 Private Sub Form_Activate()
+    ShowMain
     If fActivated Then Exit Sub
     fActivated = True
     
@@ -304,6 +332,17 @@ Private Sub Form_Load()
     LoadBackground
     gfUseFilterMethod = GetSetting(App.FileDescription, "Environment", "UseFilterMethod", False)
     
+    If GetSetting(App.FileDescription, "Environment", "DimensionsSaved", False) Then
+        Me.Top = GetSetting(App.FileDescription, "Environment", "Top")
+        Me.Left = GetSetting(App.FileDescription, "Environment", "Left")
+        Me.Height = GetSetting(App.FileDescription, "Environment", "Height")
+        Me.Width = GetSetting(App.FileDescription, "Environment", "Width")
+    End If
+    saveTop = Me.Top
+    saveLeft = Me.Left
+    saveCaption = Me.Caption
+    Set saveIcon = Me.Icon
+    
     gfTraceMode = GetSetting(App.FileDescription, "Environment", "TraceMode", False)
     gstrTraceFile = GetSetting(App.FileDescription, "Environment", "TraceFile", ParsePath(App.Path, DrvDir) & "Trace.log")
     If gfTraceMode Then
@@ -322,22 +361,22 @@ Private Sub Form_Resize()
             scrollH.Top = Me.ScaleHeight - scrollH.Height - sbStatus.Height
             scrollH.Left = 0
             scrollH.Width = Me.ScaleWidth
-            If scrollV.Visible Then scrollH.Width = scrollH.Width - scrollV.Width
+            If ScrollV.Visible Then scrollH.Width = scrollH.Width - ScrollV.Width
             scrollH.Max = picImage.Width - Me.ScaleWidth
             scrollH.SmallChange = picImage.Width / 100
             scrollH.LargeChange = picImage.Width / 20
             picWindow.Height = scrollH.Top
         End If
         
-        If scrollV.Visible Then
-            scrollV.Top = 0
-            scrollV.Left = Me.ScaleWidth - scrollV.Width
-            scrollV.Height = Me.ScaleHeight - sbStatus.Height
-            If scrollH.Visible Then scrollV.Height = scrollV.Height - scrollH.Height
-            scrollV.Max = picImage.Height - Me.ScaleHeight
-            scrollV.SmallChange = picImage.Height / 100
-            scrollV.LargeChange = picImage.Height / 20
-            picWindow.Width = scrollV.Left
+        If ScrollV.Visible Then
+            ScrollV.Top = 0
+            ScrollV.Left = Me.ScaleWidth - ScrollV.Width
+            ScrollV.Height = Me.ScaleHeight - sbStatus.Height
+            If scrollH.Visible Then ScrollV.Height = ScrollV.Height - scrollH.Height
+            ScrollV.Max = picImage.Height - Me.ScaleHeight
+            ScrollV.SmallChange = picImage.Height / 100
+            ScrollV.LargeChange = picImage.Height / 20
+            picWindow.Width = ScrollV.Left
         End If
     End If
 End Sub
@@ -345,140 +384,82 @@ Private Sub Form_Unload(Cancel As Integer)
     Set DBcollection = Nothing
     Call Trace(trcBody, App.FileDescription & " Exit.")
     Call Trace(trcBody, String(132, "="))
+    Call SaveSetting(App.FileDescription, "Environment", "DimensionsSaved", True)
+    Call SaveSetting(App.FileDescription, "Environment", "Top", Me.Top)
+    Call SaveSetting(App.FileDescription, "Environment", "Left", Me.Left)
+    Call SaveSetting(App.FileDescription, "Environment", "Height", Me.Height)
+    Call SaveSetting(App.FileDescription, "Environment", "Width", Me.Width)
 End Sub
 Private Sub mnuDataBaseBooks_Click()
-    Me.MousePointer = vbHourglass
-    Load frmBooks
-    Me.MousePointer = vbDefault
-    frmBooks.Show vbModal
+    Call DoMenu(frmBooks)
 End Sub
 Private Sub mnuDataBaseHobbyAircraftDesignations_Click()
-    Me.MousePointer = vbHourglass
-    Load frmAircraftDesignations
-    Me.MousePointer = vbDefault
-    frmAircraftDesignations.Show vbModal
+    Call DoMenu(frmAircraftDesignations)
 End Sub
 Private Sub mnuDataBaseHobbyBlueAngelsHistory_Click()
-    Me.MousePointer = vbHourglass
-    Load frmBlueAngelsHistory
-    Me.MousePointer = vbDefault
-    frmBlueAngelsHistory.Show vbModal
+    Call DoMenu(frmBlueAngelsHistory)
 End Sub
 Private Sub mnuDataBaseHobbyCompanies_Click()
-    Me.MousePointer = vbHourglass
-    Load frmCompanies
-    Me.MousePointer = vbDefault
-    frmCompanies.Show vbModal
+    Call DoMenu(frmCompanies)
 End Sub
 Private Sub mnuDataBaseHobbyDecals_Click()
-    Me.MousePointer = vbHourglass
-    Load frmDecals
-    Me.MousePointer = vbDefault
-    frmDecals.Show vbModal
+    Call DoMenu(frmDecals)
 End Sub
 Private Sub mnuDataBaseHobbyDetailSets_Click()
-    Me.MousePointer = vbHourglass
-    Load frmDetailSets
-    Me.MousePointer = vbDefault
-    frmDetailSets.Show vbModal
+    Call DoMenu(frmDetailSets)
 End Sub
 Private Sub mnuDataBaseHobbyKits_Click()
-    Me.MousePointer = vbHourglass
-    Load frmKits
-    Me.MousePointer = vbDefault
-    frmKits.Show vbModal
+    Call DoMenu(frmKits)
 End Sub
 Private Sub mnuDataBaseHobbyFinishingProducts_Click()
-    Me.MousePointer = vbHourglass
-    Load frmFinishingProducts
-    Me.MousePointer = vbDefault
-    frmFinishingProducts.Show vbModal
+    Call DoMenu(frmFinishingProducts)
 End Sub
 Private Sub mnuDataBaseHobbyRockets_Click()
-    Me.MousePointer = vbHourglass
-    Load frmRockets
-    Me.MousePointer = vbDefault
-    frmRockets.Show vbModal
+    Call DoMenu(frmRockets)
 End Sub
 Private Sub mnuDataBaseHobbyTools_Click()
-    Me.MousePointer = vbHourglass
-    Load frmTools
-    Me.MousePointer = vbDefault
-    frmTools.Show vbModal
+    Call DoMenu(frmTools)
 End Sub
 Private Sub mnuDataBaseHobbyTrains_Click()
-    Me.MousePointer = vbHourglass
-    Load frmTrains
-    Me.MousePointer = vbDefault
-    frmTrains.Show vbModal
+    Call DoMenu(frmTrains)
 End Sub
 Private Sub mnuDataBaseHobbyVideoResearch_Click()
-    Me.MousePointer = vbHourglass
-    Load frmVideoResearch
-    Me.MousePointer = vbDefault
-    frmVideoResearch.Show vbModal
+    Call DoMenu(frmVideoResearch)
 End Sub
 Private Sub mnuDataBaseImages_Click()
-    Me.MousePointer = vbHourglass
-    Load frmImages
-    Me.MousePointer = vbDefault
-    frmImages.Show vbModal
+    Call DoMenu(frmImages)
 End Sub
 Private Sub mnuDataBaseKFC_Click()
-    frmWebLinks.Show vbModeless
+    Call DoMenu(frmWebLinks) ', vbModeless)
 End Sub
 Private Sub mnuDataBaseMusic_Click()
-    Me.MousePointer = vbHourglass
-    Load frmMusic
-    Me.MousePointer = vbDefault
-    frmMusic.Show vbModal
+    Call DoMenu(frmMusic)
 End Sub
 Private Sub mnuDataBaseSoftware_Click()
-    Me.MousePointer = vbHourglass
-    Load frmSoftware
-    Me.MousePointer = vbDefault
-    frmSoftware.Show vbModal
+    Call DoMenu(frmSoftware)
 End Sub
 Private Sub mnuDataBaseUSNavyShipsClasses_Click()
-    Me.MousePointer = vbHourglass
-    Load frmUSNClasses
-    Me.MousePointer = vbDefault
-    frmUSNClasses.Show vbModal
+    Call DoMenu(frmUSNClasses)
 End Sub
 Private Sub mnuDataBaseUSNavyShipsClassifications_Click()
-    Me.MousePointer = vbHourglass
-    Load frmUSNClassifications
-    Me.MousePointer = vbDefault
-    frmUSNClassifications.Show vbModal
+    Call DoMenu(frmUSNClassifications)
 End Sub
 Private Sub mnuDataBaseUSNavyShipsShips_Click()
-    Me.MousePointer = vbHourglass
-    Load frmUSNShips
-    Me.MousePointer = vbDefault
-    frmUSNShips.Show vbModal
+    Call DoMenu(frmUSNShips)
 End Sub
 Private Sub mnuDataBaseVideoLibraryMovies_Click()
-    Me.MousePointer = vbHourglass
-    Load frmMovies
-    Me.MousePointer = vbDefault
-    frmMovies.Show vbModal
+    Call DoMenu(frmMovies)
 End Sub
 Private Sub mnuDataBaseVideoLibrarySpecials_Click()
-    Me.MousePointer = vbHourglass
-    Load frmSpecials
-    Me.MousePointer = vbDefault
-    frmSpecials.Show vbModal
+    Call DoMenu(frmSpecials)
 End Sub
 Private Sub mnuDataBaseVideoLibraryTVEpisodes_Click()
-    Me.MousePointer = vbHourglass
-    Load frmTVEpisodes
-    Me.MousePointer = vbDefault
-    frmTVEpisodes.Show vbModal
+    Call DoMenu(frmTVEpisodes)
 End Sub
 Private Sub mnuFileOptions_Click()
-    Me.MousePointer = vbHourglass
-    Load frmOptions
-    Me.MousePointer = vbDefault
+'    Me.MousePointer = vbHourglass
+'    Load frmOptions
+'    Me.MousePointer = vbDefault
     frmOptions.Show vbModal
     LoadBackground
 End Sub
@@ -496,5 +477,5 @@ Private Sub scrollH_Change()
     picImage.Left = -scrollH.Value
 End Sub
 Private Sub scrollV_Change()
-    picImage.Top = -scrollV.Value
+    picImage.Top = -ScrollV.Value
 End Sub

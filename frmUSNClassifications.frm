@@ -6,14 +6,14 @@ Begin VB.Form frmUSNClassifications
    Caption         =   "US Navy Ship Classifications"
    ClientHeight    =   2160
    ClientLeft      =   120
-   ClientTop       =   348
-   ClientWidth     =   6984
+   ClientTop       =   345
+   ClientWidth     =   6990
    Icon            =   "frmUSNClassifications.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   2160
-   ScaleWidth      =   6984
+   ScaleWidth      =   6990
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin VB.CommandButton cmdOK 
@@ -60,8 +60,8 @@ Begin VB.Form frmUSNClassifications
       TabIndex        =   6
       Top             =   1908
       Width           =   6984
-      _ExtentX        =   12319
-      _ExtentY        =   445
+      _ExtentX        =   12330
+      _ExtentY        =   450
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
          NumPanels       =   4
@@ -77,16 +77,16 @@ Begin VB.Form frmUSNClassifications
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   7133
+            Object.Width           =   7011
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1270
+            Object.Width           =   1376
             MinWidth        =   1270
-            TextSave        =   "2:04 PM"
+            TextSave        =   "12:15 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -96,8 +96,8 @@ Begin VB.Form frmUSNClassifications
       Left            =   120
       Top             =   1140
       Width           =   6732
-      _ExtentX        =   11875
-      _ExtentY        =   550
+      _ExtentX        =   11880
+      _ExtentY        =   556
       ConnectMode     =   0
       CursorLocation  =   3
       IsolationLevel  =   -1
@@ -128,7 +128,7 @@ Begin VB.Form frmUSNClassifications
       Caption         =   ""
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
-         Size            =   7.8
+         Size            =   8.25
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -139,13 +139,13 @@ Begin VB.Form frmUSNClassifications
    End
    Begin MSComctlLib.Toolbar tbMain 
       Align           =   1  'Align Top
-      Height          =   288
+      Height          =   615
       Left            =   0
       TabIndex        =   9
       Top             =   0
-      Width           =   6984
-      _ExtentX        =   12319
-      _ExtentY        =   508
+      Width           =   6990
+      _ExtentX        =   12330
+      _ExtentY        =   1085
       ButtonWidth     =   487
       ButtonHeight    =   466
       Appearance      =   1
@@ -217,8 +217,8 @@ Begin VB.Form frmUSNClassifications
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   240
       Top             =   60
-      _ExtentX        =   804
-      _ExtentY        =   804
+      _ExtentX        =   794
+      _ExtentY        =   794
       BackColor       =   -2147483643
       ImageWidth      =   16
       ImageHeight     =   16
@@ -395,6 +395,10 @@ Private Sub cmdCancel_Click()
 End Sub
 Private Sub cmdOK_Click()
     OKCommand Me, rsMain
+End Sub
+Private Sub Form_Activate()
+    Me.Top = frmMain.saveTop + ((frmMain.Height - Me.Height) / 2)
+    Me.Left = frmMain.saveLeft + ((frmMain.Width - Me.Width) / 2)
 End Sub
 Private Sub Form_Load()
     EstablishConnection adoConn

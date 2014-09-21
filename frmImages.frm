@@ -6,16 +6,16 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form frmImages 
    Caption         =   "Image Display"
-   ClientHeight    =   6624
-   ClientLeft      =   132
+   ClientHeight    =   6630
+   ClientLeft      =   135
    ClientTop       =   360
-   ClientWidth     =   8088
+   ClientWidth     =   8085
    Icon            =   "frmImages.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   6624
-   ScaleWidth      =   8088
+   ScaleHeight     =   6630
+   ScaleWidth      =   8085
    StartUpPosition =   1  'CenterOwner
    Begin VB.Frame fraImages 
       Height          =   4752
@@ -30,8 +30,8 @@ Begin VB.Form frmImages
          TabIndex        =   4
          Top             =   1260
          Width           =   3792
-         _ExtentX        =   6689
-         _ExtentY        =   508
+         _ExtentX        =   6694
+         _ExtentY        =   556
          _Version        =   393216
          Text            =   "Category"
       End
@@ -57,10 +57,9 @@ Begin VB.Form frmImages
             TabIndex        =   10
             Top             =   180
             Width           =   7452
-            _ExtentX        =   13145
-            _ExtentY        =   2773
+            _ExtentX        =   13150
+            _ExtentY        =   2778
             _Version        =   393217
-            Enabled         =   -1  'True
             TextRTF         =   $"frmImages.frx":2CFA
          End
       End
@@ -98,8 +97,8 @@ Begin VB.Form frmImages
             TabIndex        =   7
             Top             =   180
             Width           =   1752
-            _ExtentX        =   3090
-            _ExtentY        =   508
+            _ExtentX        =   3096
+            _ExtentY        =   556
             _Version        =   393216
             Style           =   2
             Text            =   "Table"
@@ -110,8 +109,8 @@ Begin VB.Form frmImages
             TabIndex        =   8
             Top             =   180
             Width           =   2772
-            _ExtentX        =   4890
-            _ExtentY        =   508
+            _ExtentX        =   4895
+            _ExtentY        =   556
             _Version        =   393216
             Style           =   2
             Text            =   "Record"
@@ -122,8 +121,8 @@ Begin VB.Form frmImages
             TabIndex        =   9
             Top             =   540
             Width           =   4932
-            _ExtentX        =   8700
-            _ExtentY        =   508
+            _ExtentX        =   8705
+            _ExtentY        =   556
             _Version        =   393216
             Style           =   2
             Text            =   "Thumbnail"
@@ -313,8 +312,8 @@ Begin VB.Form frmImages
          DataSource      =   "dtaData"
          Height          =   4212
          Left            =   60
-         ScaleHeight     =   4164
-         ScaleWidth      =   7524
+         ScaleHeight     =   4155
+         ScaleWidth      =   7515
          TabIndex        =   29
          Top             =   180
          Width           =   7572
@@ -327,8 +326,8 @@ Begin VB.Form frmImages
             ForeColor       =   &H80000008&
             Height          =   4212
             Left            =   0
-            ScaleHeight     =   4188
-            ScaleWidth      =   7548
+            ScaleHeight     =   4185
+            ScaleWidth      =   7545
             TabIndex        =   30
             Top             =   0
             Width           =   7572
@@ -345,8 +344,8 @@ Begin VB.Form frmImages
    Begin MSComDlg.CommonDialog dlgImages 
       Left            =   1980
       Top             =   5940
-      _ExtentX        =   677
-      _ExtentY        =   677
+      _ExtentX        =   688
+      _ExtentY        =   688
       _Version        =   393216
    End
    Begin VB.CommandButton cmdOK 
@@ -375,8 +374,8 @@ Begin VB.Form frmImages
       TabIndex        =   15
       Top             =   6372
       Width           =   8088
-      _ExtentX        =   14266
-      _ExtentY        =   445
+      _ExtentX        =   14261
+      _ExtentY        =   450
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
          NumPanels       =   4
@@ -392,16 +391,16 @@ Begin VB.Form frmImages
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8636
+            Object.Width           =   8493
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1270
+            Object.Width           =   1376
             MinWidth        =   1270
-            TextSave        =   "1:40 PM"
+            TextSave        =   "12:14 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -411,8 +410,8 @@ Begin VB.Form frmImages
       Left            =   408
       Top             =   5580
       Width           =   7152
-      _ExtentX        =   12615
-      _ExtentY        =   550
+      _ExtentX        =   12621
+      _ExtentY        =   556
       ConnectMode     =   0
       CursorLocation  =   3
       IsolationLevel  =   -1
@@ -443,7 +442,7 @@ Begin VB.Form frmImages
       Caption         =   ""
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
-         Size            =   7.8
+         Size            =   8.25
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -458,8 +457,8 @@ Begin VB.Form frmImages
       TabIndex        =   13
       Top             =   360
       Width           =   7812
-      _ExtentX        =   13780
-      _ExtentY        =   9017
+      _ExtentX        =   13785
+      _ExtentY        =   9022
       _Version        =   393216
       BeginProperty Tabs {1EFB6598-857C-11D1-B16A-00C0F0283628} 
          NumTabs         =   2
@@ -481,13 +480,13 @@ Begin VB.Form frmImages
    End
    Begin MSComctlLib.Toolbar tbMain 
       Align           =   1  'Align Top
-      Height          =   288
+      Height          =   615
       Left            =   0
       TabIndex        =   25
       Top             =   0
-      Width           =   8088
-      _ExtentX        =   14266
-      _ExtentY        =   508
+      Width           =   8085
+      _ExtentX        =   14261
+      _ExtentY        =   1085
       ButtonWidth     =   487
       ButtonHeight    =   466
       Appearance      =   1
@@ -559,8 +558,8 @@ Begin VB.Form frmImages
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   240
       Top             =   60
-      _ExtentX        =   804
-      _ExtentY        =   804
+      _ExtentX        =   794
+      _ExtentY        =   794
       BackColor       =   -2147483643
       ImageWidth      =   16
       ImageHeight     =   16
@@ -727,6 +726,8 @@ Private Sub Form_Activate()
     'If rsMain Is Nothing Then Exit Sub
     'If IsNull(rsMain("Image")) Then Exit Sub
     'DisplayPicture
+    Me.Top = frmMain.saveTop + ((frmMain.Height - Me.Height) / 2)
+    Me.Left = frmMain.saveLeft + ((frmMain.Width - Me.Width) / 2)
 End Sub
 Private Sub Form_Load()
     EstablishConnection adoConn

@@ -40,16 +40,16 @@ Begin VB.Form frmBlueAngelsHistory
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8811
+            Object.Width           =   8705
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1270
+            Object.Width           =   1376
             MinWidth        =   1270
-            TextSave        =   "8:19 PM"
+            TextSave        =   "12:13 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -420,6 +420,10 @@ Private Sub cmdCancel_Click()
 End Sub
 Private Sub cmdOK_Click()
     OKCommand Me, rsMain
+End Sub
+Private Sub Form_Activate()
+    Me.Top = frmMain.saveTop + ((frmMain.Height - Me.Height) / 2)
+    Me.Left = frmMain.saveLeft + ((frmMain.Width - Me.Width) / 2)
 End Sub
 Private Sub Form_Load()
     EstablishConnection adoConn

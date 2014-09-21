@@ -8,15 +8,15 @@ Begin VB.Form frmUSNShips
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "US Navy Ships"
    ClientHeight    =   5160
-   ClientLeft      =   36
-   ClientTop       =   264
-   ClientWidth     =   7764
+   ClientLeft      =   30
+   ClientTop       =   270
+   ClientWidth     =   7770
    Icon            =   "frmUSNShips.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   5160
-   ScaleWidth      =   7764
+   ScaleWidth      =   7770
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin VB.Frame fraShips 
@@ -108,8 +108,8 @@ Begin VB.Form frmUSNShips
          TabIndex        =   4
          Top             =   1152
          Width           =   1452
-         _ExtentX        =   2561
-         _ExtentY        =   508
+         _ExtentX        =   2566
+         _ExtentY        =   556
          _Version        =   393216
          MatchEntry      =   -1  'True
          Style           =   2
@@ -121,8 +121,8 @@ Begin VB.Form frmUSNShips
          TabIndex        =   5
          Top             =   1440
          Width           =   3252
-         _ExtentX        =   5736
-         _ExtentY        =   508
+         _ExtentX        =   5741
+         _ExtentY        =   556
          _Version        =   393216
          MatchEntry      =   -1  'True
          Text            =   "Command"
@@ -133,8 +133,8 @@ Begin VB.Form frmUSNShips
          TabIndex        =   3
          Top             =   840
          Width           =   5892
-         _ExtentX        =   10393
-         _ExtentY        =   508
+         _ExtentX        =   10398
+         _ExtentY        =   556
          _Version        =   393216
          MatchEntry      =   -1  'True
          Style           =   2
@@ -146,8 +146,8 @@ Begin VB.Form frmUSNShips
          TabIndex        =   6
          Top             =   1740
          Width           =   3252
-         _ExtentX        =   5736
-         _ExtentY        =   508
+         _ExtentX        =   5741
+         _ExtentY        =   556
          _Version        =   393216
          MatchEntry      =   -1  'True
          Text            =   "HomePort"
@@ -279,9 +279,10 @@ Begin VB.Form frmUSNShips
          TabIndex        =   34
          Top             =   240
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmUSNShips.frx":0682
       End
@@ -291,9 +292,10 @@ Begin VB.Form frmUSNShips
          TabIndex        =   36
          Top             =   600
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0757
       End
@@ -303,9 +305,10 @@ Begin VB.Form frmUSNShips
          TabIndex        =   38
          Top             =   960
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0826
       End
@@ -315,9 +318,10 @@ Begin VB.Form frmUSNShips
          TabIndex        =   40
          Top             =   1320
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":08F3
       End
@@ -327,9 +331,10 @@ Begin VB.Form frmUSNShips
          TabIndex        =   42
          Top             =   1680
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":09C1
       End
@@ -339,9 +344,10 @@ Begin VB.Form frmUSNShips
          TabIndex        =   44
          Top             =   2040
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0A94
       End
@@ -351,9 +357,10 @@ Begin VB.Form frmUSNShips
          TabIndex        =   45
          Top             =   2400
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0B64
       End
@@ -451,14 +458,14 @@ Begin VB.Form frmUSNShips
          TabIndex        =   65
          Top             =   180
          Width           =   7212
-         _ExtentX        =   12721
-         _ExtentY        =   4995
+         _ExtentX        =   12726
+         _ExtentY        =   5001
          _Version        =   393216
          HeadLines       =   1
          RowHeight       =   15
          BeginProperty HeadFont {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
             Name            =   "MS Sans Serif"
-            Size            =   7.8
+            Size            =   8.25
             Charset         =   0
             Weight          =   400
             Underline       =   0   'False
@@ -467,7 +474,7 @@ Begin VB.Form frmUSNShips
          EndProperty
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
             Name            =   "MS Sans Serif"
-            Size            =   7.8
+            Size            =   8.25
             Charset         =   0
             Weight          =   400
             Underline       =   0   'False
@@ -523,10 +530,9 @@ Begin VB.Form frmUSNShips
          TabIndex        =   30
          Top             =   180
          Width           =   7332
-         _ExtentX        =   12933
-         _ExtentY        =   5101
+         _ExtentX        =   12938
+         _ExtentY        =   5106
          _Version        =   393217
-         Enabled         =   -1  'True
          TextRTF         =   $"frmUSNShips.frx":0C34
       End
    End
@@ -543,10 +549,9 @@ Begin VB.Form frmUSNShips
          TabIndex        =   28
          Top             =   180
          Width           =   7332
-         _ExtentX        =   12933
-         _ExtentY        =   5101
+         _ExtentX        =   12938
+         _ExtentY        =   5106
          _Version        =   393217
-         Enabled         =   -1  'True
          TextRTF         =   $"frmUSNShips.frx":0D0C
       End
    End
@@ -563,9 +568,10 @@ Begin VB.Form frmUSNShips
          TabIndex        =   50
          Top             =   240
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmUSNShips.frx":0DDF
       End
@@ -575,9 +581,10 @@ Begin VB.Form frmUSNShips
          TabIndex        =   52
          Top             =   600
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0EB0
       End
@@ -587,9 +594,10 @@ Begin VB.Form frmUSNShips
          TabIndex        =   54
          Top             =   960
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":0F81
       End
@@ -599,9 +607,10 @@ Begin VB.Form frmUSNShips
          TabIndex        =   56
          Top             =   1320
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":104E
       End
@@ -611,9 +620,10 @@ Begin VB.Form frmUSNShips
          TabIndex        =   58
          Top             =   1680
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":1122
       End
@@ -623,9 +633,10 @@ Begin VB.Form frmUSNShips
          TabIndex        =   60
          Top             =   2040
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":11F1
       End
@@ -635,9 +646,10 @@ Begin VB.Form frmUSNShips
          TabIndex        =   62
          Top             =   2400
          Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+         _ExtentX        =   10716
+         _ExtentY        =   556
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":12C0
       End
@@ -647,9 +659,10 @@ Begin VB.Form frmUSNShips
          TabIndex        =   64
          Top             =   2760
          Width           =   5592
-         _ExtentX        =   9864
-         _ExtentY        =   550
+         _ExtentX        =   9869
+         _ExtentY        =   556
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNShips.frx":1395
       End
@@ -740,8 +753,8 @@ Begin VB.Form frmUSNShips
       TabIndex        =   0
       Top             =   360
       Width           =   7572
-      _ExtentX        =   13356
-      _ExtentY        =   6371
+      _ExtentX        =   13361
+      _ExtentY        =   6376
       _Version        =   393216
       BeginProperty Tabs {1EFB6598-857C-11D1-B16A-00C0F0283628} 
          NumTabs         =   6
@@ -803,8 +816,8 @@ Begin VB.Form frmUSNShips
       TabIndex        =   11
       Top             =   4908
       Width           =   7764
-      _ExtentX        =   13695
-      _ExtentY        =   445
+      _ExtentX        =   13705
+      _ExtentY        =   450
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
          NumPanels       =   4
@@ -820,16 +833,16 @@ Begin VB.Form frmUSNShips
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8509
+            Object.Width           =   8387
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1270
+            Object.Width           =   1376
             MinWidth        =   1270
-            TextSave        =   "2:06 PM"
+            TextSave        =   "12:15 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -839,8 +852,8 @@ Begin VB.Form frmUSNShips
       Left            =   96
       Top             =   4020
       Width           =   7572
-      _ExtentX        =   13356
-      _ExtentY        =   550
+      _ExtentX        =   13361
+      _ExtentY        =   556
       ConnectMode     =   0
       CursorLocation  =   3
       IsolationLevel  =   -1
@@ -871,7 +884,7 @@ Begin VB.Form frmUSNShips
       Caption         =   ""
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
-         Size            =   7.8
+         Size            =   8.25
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -882,13 +895,13 @@ Begin VB.Form frmUSNShips
    End
    Begin MSComctlLib.Toolbar tbMain 
       Align           =   1  'Align Top
-      Height          =   288
+      Height          =   615
       Left            =   0
       TabIndex        =   69
       Top             =   0
-      Width           =   7764
-      _ExtentX        =   13695
-      _ExtentY        =   508
+      Width           =   7770
+      _ExtentX        =   13705
+      _ExtentY        =   1085
       ButtonWidth     =   487
       ButtonHeight    =   466
       Appearance      =   1
@@ -960,8 +973,8 @@ Begin VB.Form frmUSNShips
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   240
       Top             =   60
-      _ExtentX        =   804
-      _ExtentY        =   804
+      _ExtentX        =   794
+      _ExtentY        =   794
       BackColor       =   -2147483643
       ImageWidth      =   16
       ImageHeight     =   16
@@ -1135,6 +1148,10 @@ Private Sub cmdOK_Click()
         End If
     End If
     OKCommand Me, rsMain
+End Sub
+Private Sub Form_Activate()
+    Me.Top = frmMain.saveTop + ((frmMain.Height - Me.Height) / 2)
+    Me.Left = frmMain.saveLeft + ((frmMain.Width - Me.Width) / 2)
 End Sub
 Private Sub Form_Load()
     EstablishConnection adoConn
