@@ -64,6 +64,9 @@ Begin VB.Form frmMain
          Begin VB.Menu mnuDataBaseHobbyBlueAngelsHistory 
             Caption         =   "&Blue Angels History"
          End
+         Begin VB.Menu mnuDataBaseHobbyCompanies 
+            Caption         =   "&Companies"
+         End
          Begin VB.Menu mnuDataBaseHobbyDecals 
             Caption         =   "&Decals"
          End
@@ -233,6 +236,12 @@ Private Sub mnuDataBaseBooks_Click()
 End Sub
 Private Sub mnuDataBaseHobbyAircraftDesignations_Click()
     frmAircraftDesignations.Show vbModal
+End Sub
+Private Sub mnuDataBaseHobbyAircraftModels_Click()
+    frmAircraftModels.Show vbModal
+End Sub
+Private Sub mnuDataBaseHobbyCompanies_Click()
+    frmCompanies.Show vbModal
 End Sub
 Private Sub mnuDataBaseMusic_Click()
     frmMusic.Show vbModal
