@@ -46,7 +46,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Public rdcReport As CRAXDRT.Report
+'Public rdcReport As CRAXDRT.Report
 Private fActivated As Boolean
 Private Sub DisplayViewer()
     Screen.MousePointer = vbHourglass

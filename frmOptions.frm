@@ -2,22 +2,30 @@ VERSION 5.00
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.Form frmOptions 
    Caption         =   "Options"
-   ClientHeight    =   1404
+   ClientHeight    =   1884
    ClientLeft      =   48
    ClientTop       =   276
    ClientWidth     =   5820
    Icon            =   "frmOptions.frx":0000
    LinkTopic       =   "Form1"
-   ScaleHeight     =   1404
+   ScaleHeight     =   1884
    ScaleWidth      =   5820
    StartUpPosition =   1  'CenterOwner
+   Begin VB.CheckBox chkUseFilterMethod 
+      Caption         =   "Use Filter Method"
+      Height          =   252
+      Left            =   1740
+      TabIndex        =   8
+      Top             =   840
+      Width           =   2172
+   End
    Begin VB.CommandButton cmdCancel 
       Cancel          =   -1  'True
       Caption         =   "Cancel"
       Height          =   372
       Left            =   2964
       TabIndex        =   7
-      Top             =   900
+      Top             =   1320
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
@@ -26,7 +34,7 @@ Begin VB.Form frmOptions
       Height          =   372
       Left            =   1884
       TabIndex        =   6
-      Top             =   900
+      Top             =   1320
       Width           =   972
    End
    Begin VB.CommandButton cmdBrowseDSN 
@@ -139,6 +147,7 @@ Private Sub cmdOK_Click()
     SaveSetting App.FileDescription, "Environment", "FileDSN", strFileDSN
     gstrImagePath = strImagePath
     SaveSetting App.FileDescription, "Environment", "ImagePath", strImagePath
+    gfUseFilterMethod = (chkUseFilterMethod.Value = vbChecked)
     Unload Me
 End Sub
 Private Sub Form_Activate()
@@ -149,4 +158,9 @@ Private Sub Form_Load()
     txtDSN.Text = ParsePath(strFileDSN, FileNameBaseExt)
     strImagePath = GetSetting(App.FileDescription, "Environment", "ImagePath", gstrImagePath)
     txtBackground.Text = ParsePath(strImagePath, FileNameBaseExt)
+    If gfUseFilterMethod Then
+        chkUseFilterMethod.Value = vbChecked
+    Else
+        chkUseFilterMethod.Value = vbUnchecked
+    End If
 End Sub

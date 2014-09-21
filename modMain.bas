@@ -12,7 +12,6 @@ Global Const gstrDefaultImage As String = "F14_102.jpg"
 Global Const iMinWidth As Single = 2184
 Global Const iMinHeight As Single = 1440
 Global Const ResizeWindow As Single = 36
-Global Const gfUseFilterMethod As Boolean = True
 
 Private Const LOCALE_SSHORTDATE = &H1F
 Private Const WM_SETTINGCHANGE = &H1A
@@ -41,6 +40,7 @@ Public adoConn As ADODB.Connection
 Public DBcollection As New DataBaseCollection
 Public frmReport As Form
 Public fTransaction As Boolean
+Public gfUseFilterMethod As Boolean
 Public gstrFileDSN As String
 Public gstrDefaultImagePath As String
 Public gstrImagePath As String
@@ -48,7 +48,7 @@ Public gstrODBCFileDSNDir As String
 Public MinHeight As Integer
 Public MinWidth As Integer
 Public mode As ActionMode
-Public rdcReport As CRAXDRT.Report
+'Public rdcReport As CRAXDRT.Report
 Public SQLmain As String
 Public SQLfilter As String
 Public SQLkey As String
@@ -80,6 +80,7 @@ Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Re
         Case "TextBox"
             Select Case DataSource(DataField).Type
                 Case adDate, adDBDate, adDBTime, adDBTimeStamp
+                Case adLongVarChar
                 Case Else
                     ctl.MaxLength = DataSource(DataField).DefinedSize
             End Select
@@ -389,6 +390,8 @@ Public Sub ReportCommand(frm As Form, RS As ADODB.Recordset, ByVal ReportPath As
     Dim scrApplication As New CRAXDRT.Application
     Dim Report As New CRAXDRT.Report
     Dim vRS As ADODB.Recordset
+'    Dim scrApplication As New CRPEAuto.Application
+'    Dim Report As New CRPEAuto.Report
     
     MakeVirtualRecordset adoConn, RS, vRS
     
