@@ -123,6 +123,7 @@ Begin VB.Form frmImages
       Begin VB.CheckBox chkThumbnail 
          Alignment       =   1  'Right Justify
          Caption         =   "Is this Image considered a Thumbnail (as opposed to a full image)?"
+         DataSource      =   "dtaData"
          Height          =   252
          Left            =   300
          TabIndex        =   19
@@ -204,6 +205,7 @@ Begin VB.Form frmImages
          End
       End
       Begin VB.TextBox txtURL 
+         DataSource      =   "dtaData"
          Height          =   288
          Left            =   720
          TabIndex        =   12
@@ -212,6 +214,7 @@ Begin VB.Form frmImages
          Width           =   6552
       End
       Begin VB.TextBox txtName 
+         DataSource      =   "dtaData"
          Height          =   288
          Left            =   720
          TabIndex        =   1
@@ -273,7 +276,7 @@ Begin VB.Form frmImages
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:02 PM"
+            TextSave        =   "5:07 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -561,6 +564,7 @@ Begin VB.Form frmImages
    Begin VB.Label lblID 
       AutoSize        =   -1  'True
       Caption         =   "lblID"
+      DataSource      =   "dtaData"
       Height          =   192
       Left            =   408
       TabIndex        =   9
@@ -617,8 +621,7 @@ Dim mode As ActionMode
 Dim fTransaction As Boolean
 'Dim DBinfo As DataBaseInfo
 Dim DAOdatabase As DAO.Database
-Dim rsMain As DAO.Recordset
-Dim Junk As Long
+Public rsMain As DAO.Recordset
 Private Sub cmdCancel_Click()
     Select Case mode
         Case modeDisplay
@@ -833,7 +836,8 @@ Private Sub Form_Unload(Cancel As Integer)
     CloseRecordset rsMain, True
     
     On Error Resume Next
-    adoConn.Close
+    'adoConn.Close
+    Workspaces(0).Close
     If Err.Number = 3246 Then
         'adoConn.RollbackTrans
         Workspaces(0).Rollback
