@@ -555,6 +555,12 @@ Public Sub OKCommand(frm As Form, RS As ADODB.Recordset)
                     If Not ctl.DataSource Is Nothing And (ctl = vbChecked) <> RS.Fields(ctl.DataField) Then
                        RS.Fields(ctl.DataField) = (ctl = vbChecked)
                     End If
+                ElseIf TypeName(ctl) = "TextBox" Then
+                    If Not ctl.DataSource Is Nothing Then
+                        If ctl.Text = vbNullString And Not IsNull(RS.Fields(ctl.DataField)) Then
+                            If RS.Fields(ctl.DataField).Type = adDBTimeStamp Then RS.Fields(ctl.DataField) = Null
+                        End If
+                    End If
                 End If
             Next ctl
             

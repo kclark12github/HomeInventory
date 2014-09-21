@@ -43,7 +43,7 @@ Begin VB.Form frmBooks
       Align           =   2  'Align Bottom
       Height          =   255
       Left            =   0
-      TabIndex        =   22
+      TabIndex        =   21
       Top             =   4125
       Width           =   7530
       _ExtentX        =   13282
@@ -72,7 +72,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:23 PM"
+            TextSave        =   "7:20 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -83,7 +83,7 @@ Begin VB.Form frmBooks
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6360
-      TabIndex        =   11
+      TabIndex        =   10
       Top             =   3660
       Width           =   972
    End
@@ -92,7 +92,7 @@ Begin VB.Form frmBooks
       Default         =   -1  'True
       Height          =   372
       Left            =   5340
-      TabIndex        =   10
+      TabIndex        =   9
       Top             =   3660
       Width           =   972
    End
@@ -145,7 +145,7 @@ Begin VB.Form frmBooks
    Begin VB.TextBox txtAlphaSort 
       Height          =   288
       Left            =   1464
-      TabIndex        =   7
+      TabIndex        =   6
       Text            =   "AlphaSort"
       Top             =   2520
       Width           =   5832
@@ -153,7 +153,7 @@ Begin VB.Form frmBooks
    Begin VB.TextBox txtInventoried 
       Height          =   288
       Left            =   3330
-      TabIndex        =   9
+      TabIndex        =   8
       Text            =   "Inventoried"
       Top             =   2880
       Width           =   3195
@@ -161,7 +161,7 @@ Begin VB.Form frmBooks
    Begin MSDataListLib.DataCombo dbcSubject 
       Height          =   315
       Left            =   1470
-      TabIndex        =   5
+      TabIndex        =   4
       Top             =   1800
       Width           =   5895
       _ExtentX        =   10398
@@ -185,27 +185,10 @@ Begin VB.Form frmBooks
    Begin VB.TextBox txtMisc 
       Height          =   288
       Left            =   1464
-      TabIndex        =   6
+      TabIndex        =   5
       Text            =   "Misc"
       Top             =   2160
       Width           =   5895
-   End
-   Begin VB.TextBox txtPrice 
-      Alignment       =   1  'Right Justify
-      BeginProperty DataFormat 
-         Type            =   1
-         Format          =   """$""#,##0.00"
-         HaveTrueFalseNull=   0
-         FirstDayOfWeek  =   0
-         FirstWeekOfYear =   0
-         LCID            =   1033
-         SubFormatType   =   2
-      EndProperty
-      Height          =   288
-      Left            =   1464
-      TabIndex        =   4
-      Top             =   1440
-      Width           =   972
    End
    Begin VB.TextBox txtISBN 
       Height          =   300
@@ -220,7 +203,7 @@ Begin VB.Form frmBooks
       Caption         =   "Cataloged"
       Height          =   192
       Left            =   480
-      TabIndex        =   8
+      TabIndex        =   7
       Top             =   2940
       Width           =   1152
    End
@@ -236,7 +219,7 @@ Begin VB.Form frmBooks
       Align           =   1  'Align Top
       Height          =   360
       Left            =   0
-      TabIndex        =   23
+      TabIndex        =   22
       Top             =   0
       Width           =   7530
       _ExtentX        =   13282
@@ -388,7 +371,7 @@ Begin VB.Form frmBooks
       Caption         =   "ID:"
       Height          =   195
       Left            =   6750
-      TabIndex        =   21
+      TabIndex        =   20
       Top             =   2927
       Width           =   195
    End
@@ -397,7 +380,7 @@ Begin VB.Form frmBooks
       Caption         =   "Date Inventoried:"
       Height          =   195
       Left            =   1995
-      TabIndex        =   20
+      TabIndex        =   19
       Top             =   2925
       Width           =   1215
    End
@@ -406,7 +389,7 @@ Begin VB.Form frmBooks
       Caption         =   "AlphaSort:"
       Height          =   195
       Left            =   606
-      TabIndex        =   19
+      TabIndex        =   18
       Top             =   2567
       Width           =   750
    End
@@ -415,7 +398,7 @@ Begin VB.Form frmBooks
       Caption         =   "Miscellaneous:"
       Height          =   195
       Left            =   276
-      TabIndex        =   18
+      TabIndex        =   17
       Top             =   2207
       Width           =   1080
    End
@@ -424,7 +407,7 @@ Begin VB.Form frmBooks
       Caption         =   "Subject:"
       Height          =   195
       Left            =   786
-      TabIndex        =   17
+      TabIndex        =   16
       Top             =   1845
       Width           =   570
    End
@@ -442,7 +425,7 @@ Begin VB.Form frmBooks
       EndProperty
       Height          =   195
       Left            =   951
-      TabIndex        =   16
+      TabIndex        =   15
       Top             =   1487
       Width           =   405
    End
@@ -451,7 +434,7 @@ Begin VB.Form frmBooks
       Caption         =   "ISBN:"
       Height          =   192
       Left            =   948
-      TabIndex        =   15
+      TabIndex        =   14
       Top             =   1134
       Width           =   408
    End
@@ -460,7 +443,7 @@ Begin VB.Form frmBooks
       Caption         =   "Title:"
       Height          =   192
       Left            =   1008
-      TabIndex        =   14
+      TabIndex        =   13
       Top             =   426
       Width           =   348
    End
@@ -469,7 +452,7 @@ Begin VB.Form frmBooks
       Caption         =   "Author:"
       Height          =   192
       Left            =   864
-      TabIndex        =   13
+      TabIndex        =   12
       Top             =   766
       Width           =   492
    End
@@ -478,7 +461,7 @@ Begin VB.Form frmBooks
       Caption         =   "lblID"
       Height          =   195
       Left            =   7035
-      TabIndex        =   12
+      TabIndex        =   11
       Top             =   2927
       Width           =   330
    End
@@ -598,7 +581,6 @@ Private Sub Form_Load()
     BindField dbcAuthor, "Author", rsMain, "Author", rsAuthors, "Author", "Author"
     BindField txtTitle, "Title", rsMain, "Title"
     BindField txtISBN, "ISBN", rsMain, "ISBN"
-    'BindField txtPrice, "Price", rsMain, "Price"
     BindField pvcPrice, "Price", rsMain, "Price"
     BindField txtAlphaSort, "AlphaSort", rsMain, "AlphaSort"
     BindField dbcSubject, "Subject", rsMain, "Subject", rsSubjects, "Subject", "Subject"
@@ -889,12 +871,6 @@ Private Sub txtISBN_Validate(Cancel As Boolean)
 End Sub
 Private Sub txtMisc_GotFocus()
     TextSelected
-End Sub
-Private Sub txtPrice_GotFocus()
-    TextSelected
-End Sub
-Private Sub txtPrice_Validate(Cancel As Boolean)
-    ValidateCurrency txtPrice.Text, Cancel
 End Sub
 Private Sub txtTitle_GotFocus()
     TextSelected
