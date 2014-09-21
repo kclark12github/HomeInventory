@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:41 PM"
+            TextSave        =   "5:32 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -194,7 +194,7 @@ Private fEditMode As Boolean
 Private EditRow As Long
 Private fDebug As Boolean
 Private Sub dgdList_AfterColEdit(ByVal ColIndex As Integer)
-    sbStatus.Panels("Status").Text = ""
+    If fDebug Then sbStatus.Panels("Message").Text = "AfterColEdit"
 End Sub
 Private Sub dgdList_AfterColUpdate(ByVal ColIndex As Integer)
     If fDebug Then sbStatus.Panels("Message").Text = "AfterColUpdate"
@@ -269,6 +269,7 @@ Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
 End Sub
 Private Sub dgdList_KeyUp(KeyCode As Integer, Shift As Integer)
     Dim col As Column
+    Dim sCol As Column
     Dim i As Integer
     
     On Error Resume Next
@@ -280,28 +281,60 @@ Private Sub dgdList_KeyUp(KeyCode As Integer, Shift As Integer)
             EditRow = -1
             
             If Not dgdList.EditActive Then dgdList.EditActive = False
+            For Each col In dgdList.Columns
+                If Not col.Locked Then col.Locked = True
+            Next col
             dgdList.AllowUpdate = False
             sbStatus.Panels("Status").Text = vbNullString
         Case vbKeyF2
-            fEditMode = True
-            EditRow = dgdList.Row
-            dgdList.AllowUpdate = True
-            
-            'Position to the first non-hidden column...
-            For Each col In dgdList.Columns
-                If col.Visible Then
-                    dgdList.col = col.ColIndex
-                    Exit For
-                End If
-            Next col
-    
-            dgdList.EditActive = True
-            sbStatus.Panels("Status").Text = "Edit Mode"
-            For i = 0 To dgdList.SelBookmarks.Count - 1
-                dgdList.SelBookmarks.Remove 0
-            Next i
-            dgdList.SelBookmarks.Add dgdList.Bookmark
+            If Not fEditMode Then
+                fEditMode = True
+                EditRow = dgdList.Row
+                dgdList.AllowUpdate = True
+                
+                'Position to the first non-hidden column...
+                Set sCol = Nothing
+                For Each col In dgdList.Columns
+                    col.Locked = False
+                    If sCol Is Nothing And col.Visible Then Set sCol = col
+                Next col
+                dgdList.col = sCol.ColIndex
+        
+                dgdList.EditActive = True
+                sbStatus.Panels("Status").Text = "Edit Mode"
+                For i = 0 To dgdList.SelBookmarks.Count - 1
+                    dgdList.SelBookmarks.Remove 0
+                Next i
+                dgdList.SelBookmarks.Add dgdList.BookMark
+            ElseIf Not dgdList.EditActive Then
+                dgdList.EditActive = True
+                UpdatePosition
+            End If
+        Case vbKeyUp
+            If dgdList.EditActive Then
+                'Leave the current cell...
+                dgdList.EditActive = False
+                'Reposition to the previous row...
+                dgdList.Row = dgdList.Row - 1
+                'Force edit mode on that cell without requiring the user to type a key...
+                dgdList.EditActive = True
+                dgdList.SelStart = Len(dgdList.Columns(dgdList.col).Text)
+                UpdatePosition
+            End If
+        Case vbKeyDown
+            If dgdList.EditActive Then
+                'Leave the current cell...
+                dgdList.EditActive = False
+                'Reposition to the next row...
+                dgdList.Row = dgdList.Row + 1
+                'Force edit mode on that cell without requiring the user to type a key...
+                dgdList.EditActive = True
+                dgdList.SelStart = Len(dgdList.Columns(dgdList.col).Text)
+                UpdatePosition
+            End If
     End Select
+    Set col = Nothing
+    Set sCol = Nothing
 End Sub
 Private Sub dgdList_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     MouseX = X
@@ -317,14 +350,15 @@ Private Sub dgdList_RowColChange(LastRow As Variant, ByVal LastCol As Integer)
     Dim i As Long
     
     If Not IsEmpty(LastRow) And Not IsNull(LastRow) Then
-        dgdList_KeyUp vbKeyEscape, 0
+        'dgdList_KeyUp vbKeyEscape, 0
+        If RS.EditMode = adEditInProgress Then RS.Update
     End If
     
     If Not fEditMode Then
         For i = 0 To dgdList.SelBookmarks.Count - 1
             dgdList.SelBookmarks.Remove 0
         Next i
-        If Not IsNull(dgdList.Bookmark) Then dgdList.SelBookmarks.Add dgdList.Bookmark
+        If Not IsNull(dgdList.BookMark) Then dgdList.SelBookmarks.Add dgdList.BookMark
     
         'Find a hidden column and use it to select the whole row...
         For Each col In dgdList.Columns
@@ -369,6 +403,7 @@ Private Sub Form_Activate()
     For Each fld In RS.Fields
         Set col = dgdList.Columns(fld.Name)
         col.Visible = True
+        col.Locked = True
         Select Case fld.Type
             Case adCurrency
                 Set col.DataFormat = CurrencyFormat
@@ -498,7 +533,7 @@ Private Sub mnuListDelete_Click()
     
     On Error GoTo ErrorHandler
         
-    If MsgBox("Are you sure you want to delete record #" & RS.Bookmark & "...?", vbYesNo, Me.Caption) = vbYes Then
+    If MsgBox("Are you sure you want to delete record #" & RS.BookMark & "...?", vbYesNo, Me.Caption) = vbYes Then
         'RS.Delete adAffectCurrent
         'RS.Update
         Table = RS.Fields("ID").Properties("BASETABLENAME")
@@ -574,5 +609,11 @@ Private Sub sbStatus_PanelClick(ByVal Panel As MSComctlLib.Panel)
     End Select
 End Sub
 Private Sub UpdatePosition()
-    sbStatus.Panels("Position").Text = "Record " & dgdList.Bookmark & " of " & RS.RecordCount
+    sbStatus.Panels("Position").Text = "Record " & dgdList.BookMark & " of " & RS.RecordCount
+    If fEditMode Then
+        sbStatus.Panels("Status").Text = "Edit Mode (" & dgdList.col & ")"
+    Else
+        sbStatus.Panels("Status").Text = vbNullString
+    End If
+    If dgdList.EditActive Then sbStatus.Panels("Status").Text = sbStatus.Panels("Status").Text & " *"
 End Sub

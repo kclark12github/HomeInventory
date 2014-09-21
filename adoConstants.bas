@@ -1,11 +1,12 @@
 Attribute VB_Name = "libADOconstants"
 'adoConstants - adoConstants.bas
 '   ADO Conversion Module...
-'   Copyright © 1999, SunGard Shareholder Systems Inc.
+'   Copyright © 2000, SunGard Shareholder Systems Inc.
 '*********************************************************************************************************************************
 '
 '   Modification History:
 '   Date:       Problem:    Programmer:     Description:
+'   02/12/00    None        Ken Clark       Added adoDumpRecords() to display records in a recordset (a-la SQLTalk);
 '   03/11/99    None        Ken Clark       Added additional command line arguments to suppress detail;
 '   03/10/99    None        Ken Clark       Cleaned-up collection outputs;
 '   03/04/99    None        Ken Clark       Completed (almost) all ADO objects with their related Enums;
@@ -479,32 +480,46 @@ Public Function adoPropertyAttribute(Code As ADODB.PropertyAttributesEnum) As St
     End If
 End Function
 Public Function adoRecordStatus(Code As ADODB.RecordStatusEnum) As String
-    adoRecordStatus = ""
-    If CBool(Code And adRecCanceled) Then adoRecordStatus = adoRecordStatus & " + adRecCanceled"
-    If CBool(Code And adRecCantRelease) Then adoRecordStatus = adoRecordStatus & " + adRecCantRelease"
-    If CBool(Code And adRecConcurrencyViolation) Then adoRecordStatus = adoRecordStatus & " + adRecConcurrencyViolation"
-    If CBool(Code And adRecDBDeleted) Then adoRecordStatus = adoRecordStatus & " + adRecDBDeleted"
-    If CBool(Code And adRecDeleted) Then adoRecordStatus = adoRecordStatus & " + adRecDeleted"
-    If CBool(Code And adRecIntegrityViolation) Then adoRecordStatus = adoRecordStatus & " + adRecIntegrityViolation"
-    If CBool(Code And adRecInvalid) Then adoRecordStatus = adoRecordStatus & " + adRecInvalid"
-    If CBool(Code And adRecMaxChangesExceeded) Then adoRecordStatus = adoRecordStatus & " + adRecMaxChangesExceeded"
-    If CBool(Code And adRecModified) Then adoRecordStatus = adoRecordStatus & " + adRecModified"
-    If CBool(Code And adRecMultipleChanges) Then adoRecordStatus = adoRecordStatus & " + adRecMultipleChanges"
-    If CBool(Code And adRecNew) Then adoRecordStatus = adoRecordStatus & " + adRecNew"
-    If CBool(Code And adRecObjectOpen) Then adoRecordStatus = adoRecordStatus & " + adRecObjectOpen"
-    If CBool(Code And adRecOK) Then adoRecordStatus = adoRecordStatus & " + adRecOK"
-    If CBool(Code And adRecOutOfMemory) Then adoRecordStatus = adoRecordStatus & " + adRecOutOfMemory"
-    If CBool(Code And adRecPendingChanges) Then adoRecordStatus = adoRecordStatus & " + adRecPendingChanges"
-    If CBool(Code And adRecPermissionDenied) Then adoRecordStatus = adoRecordStatus & " + adRecPermissionDenied"
-    If CBool(Code And adRecSchemaViolation) Then adoRecordStatus = adoRecordStatus & " + adRecSchemaViolation"
-    If CBool(Code And adRecUnmodified) Then adoRecordStatus = adoRecordStatus & " + adRecUnmodified"
-        
-    If Left(adoRecordStatus, 3) = " + " Then
-        adoRecordStatus = Mid(adoRecordStatus, 4)
-    Else
-        adoRecordStatus = "Unknown code specified: " & Code
-    End If
-    
+    Select Case Code
+        Case adRecCanceled
+            adoRecordStatus = "adRecCanceled"
+        Case adRecCantRelease
+            adoRecordStatus = "adRecCantRelease"
+        Case adRecConcurrencyViolation
+            adoRecordStatus = "adRecConcurrencyViolation"
+        Case adRecDBDeleted
+            adoRecordStatus = "adRecDBDeleted"
+        Case adRecDeleted
+            adoRecordStatus = "adRecDeleted"
+        Case adRecIntegrityViolation
+            adoRecordStatus = "adRecIntegrityViolation"
+        Case adRecInvalid
+            adoRecordStatus = "adRecInvalid"
+        Case adRecMaxChangesExceeded
+            adoRecordStatus = "adRecMaxChangesExceeded"
+        Case adRecModified
+            adoRecordStatus = "adRecModified"
+        Case adRecMultipleChanges
+            adoRecordStatus = "adRecMultipleChanges"
+        Case adRecNew
+            adoRecordStatus = "adRecNew"
+        Case adRecObjectOpen
+            adoRecordStatus = "adRecObjectOpen"
+        Case adRecOK
+            adoRecordStatus = "adRecOK"
+        Case adRecOutOfMemory
+            adoRecordStatus = "adRecOutOfMemory"
+        Case adRecPendingChanges
+            adoRecordStatus = "adRecPendingChanges"
+        Case adRecPermissionDenied
+            adoRecordStatus = "adRecPermissionDenied"
+        Case adRecSchemaViolation
+            adoRecordStatus = "adRecSchemaViolation"
+        Case adRecUnmodified
+            adoRecordStatus = "adRecUnmodified"
+        Case Else
+            adoRecordStatus = "Unknown code specified: " & Code
+    End Select
 End Function
 Public Function adoResync(Code As ADODB.ResyncEnum) As String
     Select Case Code
@@ -576,7 +591,7 @@ Public Sub adoDumpErrors(ByVal pErrors As ADODB.Errors, indent As Integer)
         PrintOut Tabs & vbTab & ".SQLState:    " & e.SQLState
     Next
 End Sub
-Public Sub adoDumpRSField(ByVal fld As ADODB.Field, indent As Integer, Optional strArgs As String)
+Public Sub adoDumpRSField(ByVal fld As ADODB.Field, indent As Integer, Optional strArgs As String, Optional ByVal pRS As ADODB.Recordset)
     Dim i As Integer
     Dim Tabs As String
     Dim Args As String
@@ -589,8 +604,14 @@ Public Sub adoDumpRSField(ByVal fld As ADODB.Field, indent As Integer, Optional 
     For i = 1 To indent
         Tabs = Tabs & vbTab
     Next
-    
-    PrintOut Tabs & ".Fields(" & i & ").Name:" & vbTab & fld.Name
+    If Not IsMissing(pRS) Then
+        For i = 0 To pRS.Fields.Count - 1
+            If fld.Name = pRS.Fields(i).Name Then Exit For
+        Next i
+        PrintOut Tabs & ".Fields(" & i & ").Name:" & vbTab & fld.Name
+    Else
+        PrintOut Tabs & ".Field.Name:" & vbTab & fld.Name
+    End If
     PrintOut Tabs & vbTab & ".ActualSize:      " & fld.ActualSize
     PrintOut Tabs & vbTab & ".Attributes:      " & adoFieldAttribute(fld.Attributes) & " (" & fld.Attributes & ")"
     PrintOut Tabs & vbTab & ".DefinedSize:     " & fld.DefinedSize
@@ -605,7 +626,7 @@ Public Sub adoDumpRSField(ByVal fld As ADODB.Field, indent As Integer, Optional 
     PrintOut Tabs & vbTab & ".UnderlyingValue: " & fld.UnderlyingValue
     PrintOut Tabs & vbTab & ".Value:           " & fld.Value
 End Sub
-Public Sub adoDumpFields(ByVal pFields As ADODB.Fields, indent As Integer)
+Public Sub adoDumpFields(ByVal pFields As ADODB.Fields, indent As Integer, Optional ByVal pRS As ADODB.Recordset)
     Dim i As Integer
     Dim fld As ADODB.Field
     Dim Tabs As String
@@ -617,7 +638,11 @@ Public Sub adoDumpFields(ByVal pFields As ADODB.Fields, indent As Integer)
     
     For i = 0 To pFields.Count - 1
         Set fld = pFields(i)
-        adoDumpRSField fld, indent
+        If IsMissing(pRS) Then
+            adoDumpRSField fld, indent
+        Else
+            adoDumpRSField fld, indent, "", pRS
+        End If
     Next
 End Sub
 Public Sub adoDumpParameters(ByVal pParam As ADODB.Parameters, indent As Integer)
@@ -716,6 +741,263 @@ Public Sub adoDumpConnection(ByVal pConnection As ADODB.Connection, Optional Fil
     PrintOut "Connection.Version:           " & pConnection.Version
     If fUnit <> 0 Then Close #fUnit
 End Sub
+Private Sub CloseRS(adoRS As ADODB.Recordset, Destroy As Boolean)
+    On Error Resume Next
+    If Not adoRS Is Nothing Then
+        If (adoRS.State And adStateOpen) = adStateOpen Then
+            adoRS.CancelUpdate
+            adoRS.Close
+        End If
+        If Destroy Then Set adoRS = Nothing
+    End If
+End Sub
+Private Function FormatField(fld As ADODB.Field, fDelimitted As Boolean) As String
+    Dim strVal As String
+    If IsNull(fld.Value) Then
+        strVal = "Null"
+    Else
+        Select Case fld.Type
+            Case adBigInt
+                strVal = fld.Value
+            Case adBinary
+                strVal = "Binary Data"
+            Case adBoolean
+                strVal = fld.Value
+            Case adBSTR
+                strVal = fld.Value
+            Case adChapter
+                strVal = "Chapter"
+            Case adChar
+                If fDelimitted Then
+                    strVal = """" & fld.Value & """"
+                Else
+                    strVal = fld.Value
+                End If
+            Case adCurrency
+                strVal = Format(fld.Value, "Currency")
+            Case adDate
+                strVal = fld.Value
+            Case adDBDate
+                strVal = fld.Value
+            Case adDBFileTime
+                strVal = fld.Value
+            Case adDBTime
+                strVal = fld.Value
+            Case adDBTimeStamp
+                strVal = fld.Value
+            Case adDecimal
+                strVal = fld.Value
+            Case adDouble
+                strVal = fld.Value
+            Case adEmpty
+                strVal = "Empty"
+            Case adError
+                strVal = "Error"
+            Case adFileTime
+                strVal = fld.Value
+            Case adGUID
+                strVal = "GUID"
+            Case adIDispatch
+                strVal = "IDispatch"
+            Case adInteger
+                strVal = fld.Value
+            Case adIUnknown
+                strVal = "IUnknown"
+            Case adLongVarBinary
+                strVal = fld.Value
+            Case adLongVarChar
+                If fDelimitted Then
+                    strVal = """" & fld.Value & """"
+                Else
+                    strVal = fld.Value
+                End If
+            Case adLongVarWChar
+                If fDelimitted Then
+                    strVal = """" & fld.Value & """"
+                Else
+                    strVal = fld.Value
+                End If
+            Case adNumeric
+                strVal = fld.Value
+            Case adPropVariant
+                strVal = fld.Value
+            Case adSingle
+                strVal = fld.Value
+            Case adSmallInt
+                strVal = fld.Value
+            Case adTinyInt
+                strVal = fld.Value
+            Case adUnsignedBigInt
+                strVal = fld.Value
+            Case adUnsignedInt
+                strVal = fld.Value
+            Case adUnsignedSmallInt
+                strVal = fld.Value
+            Case adUnsignedTinyInt
+                strVal = fld.Value
+            Case adUserDefined
+                strVal = fld.Value
+            Case adVarBinary
+                strVal = "Binary Data"
+            Case adVarChar
+                If fDelimitted Then
+                    strVal = """" & fld.Value & """"
+                Else
+                    strVal = fld.Value
+                End If
+            Case adVariant
+                strVal = fld.Value
+            Case adVarWChar
+                If fDelimitted Then
+                    strVal = """" & fld.Value & """"
+                Else
+                    strVal = fld.Value
+                End If
+            Case adWChar
+                If fDelimitted Then
+                    strVal = """" & fld.Value & """"
+                Else
+                    strVal = fld.Value
+                End If
+            Case Else
+                strVal = fld.Value
+        End Select
+    End If
+    FormatField = strVal
+End Function
+Public Sub adoDumpRecord(ByVal pRS As ADODB.Recordset, Optional FileName As String)
+    Dim MaxLen As Integer
+    Dim fld As ADODB.Field
+    Dim i As Integer
+    Dim strOut As String
+    
+    If Not IsMissing(FileName) And FileName <> "" Then
+        fUnit = FreeFile
+        Open FileName For Append As #fUnit
+    End If
+    
+    On Error Resume Next
+    
+    For Each fld In pRS.Fields
+        If Len(fld.Name) > MaxLen Then MaxLen = Len(fld.Name)
+    Next fld
+    If pRS.BOF And pRS.EOF Then
+        PrintOut "Recordset is Empty..."
+        GoTo ExitSub
+    ElseIf pRS.BOF Then
+        PrintOut "BOF"
+        GoTo ExitSub
+    ElseIf pRS.EOF Then
+        PrintOut "EOF"
+        GoTo ExitSub
+    End If
+
+    PrintOut String(132, "=")
+    PrintOut "Record #" & pRS.BookMark & " (bookmark) of " & pRS.RecordCount & " records..."
+    PrintOut "Field: Name:" & String(MaxLen - Len("Field Name:"), " ") & "Value:"
+    PrintOut String(132, "-")
+    For i = 0 To pRS.Fields.Count - 1
+        Set fld = pRS.Fields(i)
+        strOut = "[" & Format(i + 1, "0000") & "] " & fld.Name & String(MaxLen - Len(fld.Name), " ") & vbTab & FormatField(fld, True)
+        PrintOut strOut
+    Next i
+    
+ExitSub:
+    If fUnit <> 0 Then Close #fUnit
+    fUnit = 0
+End Sub
+Public Sub adoDumpRecords(pRS As ADODB.Recordset, Optional Caption As String, Optional FileName As String)
+    Dim BookMark As Variant
+    Dim MaxLen As Integer
+    Dim ColLen() As Integer
+    Dim TotalLen As Integer
+    Dim fld As ADODB.Field
+    Dim i As Integer
+    Dim strOut As String
+    Dim strVal As String
+    Dim vRS As ADODB.Recordset
+    
+    If Not IsMissing(FileName) And FileName <> "" Then
+        fUnit = FreeFile
+        Open FileName For Output As #fUnit
+    End If
+    
+    If pRS Is Nothing Then
+        PrintOut "Recordset is Nothing..."
+        GoTo ExitSub
+    ElseIf (pRS.State And adStateOpen) <> adStateOpen Then
+        PrintOut "Recordset is Closed..."
+        GoTo ExitSub
+    ElseIf pRS.BOF And pRS.EOF Then
+        If pRS.Filter <> 0 Then PrintOut "Filter: " & pRS.Filter
+        PrintOut "Recordset is Empty..."
+        GoTo ExitSub
+    End If
+    
+    'On Error Resume Next
+    If pRS.EOF Then
+        BookMark = "EOF"
+    ElseIf pRS.BOF Then
+        BookMark = "BOF"
+    Else
+        BookMark = pRS.BookMark
+    End If
+    Set vRS = pRS.Clone
+    vRS.Filter = pRS.Filter
+    
+    ReDim ColLen(vRS.Fields.Count)
+    For i = 0 To vRS.Fields.Count - 1
+        Set fld = vRS.Fields(i)
+        ColLen(i) = Len(fld.Name) + 1
+    Next i
+    
+    vRS.MoveFirst
+    While Not vRS.EOF
+        For i = 0 To vRS.Fields.Count - 1
+            Set fld = vRS.Fields(i)
+            strVal = FormatField(fld, False)
+            If Len(strVal) > ColLen(i) Then ColLen(i) = Len(strVal) + 1
+        Next i
+        vRS.MoveNext
+    Wend
+    TotalLen = 0
+    For i = 0 To vRS.Fields.Count - 1
+        TotalLen = TotalLen + ColLen(i) + 1
+    Next i
+    
+    strOut = "Record   "
+    TotalLen = TotalLen + Len(strOut)
+    PrintOut String(TotalLen, "=")
+    If Not IsMissing(Caption) Then PrintOut Caption
+    If vRS.Filter <> 0 Then PrintOut "Filter: " & vRS.Filter
+    PrintOut "Record #" & BookMark & " (bookmark) of " & vRS.RecordCount & " records..."
+    For i = 0 To vRS.Fields.Count - 1
+        Set fld = vRS.Fields(i)
+        strOut = strOut & fld.Name & String(ColLen(i) - Len(fld.Name), " ") & " "
+    Next i
+    PrintOut strOut
+    PrintOut String(TotalLen, "-")
+    vRS.MoveFirst
+    While Not vRS.EOF
+        If vRS.BookMark = BookMark Then
+            strOut = "[->" & Format(vRS.BookMark, "0000") & "] "
+        Else
+            strOut = "[" & Format(vRS.BookMark, "000000") & "] "
+        End If
+        For i = 0 To vRS.Fields.Count - 1
+            strVal = FormatField(vRS.Fields(i), False)
+            strOut = strOut & strVal & String(ColLen(i) - Len(strVal), " ") & " "
+        Next i
+        PrintOut strOut
+        vRS.MoveNext
+    Wend
+    PrintOut vbCr & vRS.RecordCount & " Records"
+
+ExitSub:
+    Call CloseRS(vRS, True)
+    If fUnit <> 0 Then Close #fUnit
+    fUnit = 0
+End Sub
 Public Sub adoDumpRecordset(ByVal pRS As ADODB.Recordset, Optional FileName As String, Optional strArgs As String)
     Dim Args As String
     
@@ -735,7 +1017,7 @@ Public Sub adoDumpRecordset(ByVal pRS As ADODB.Recordset, Optional FileName As S
     PrintOut "Recordset.ActiveCommand:    " & pRS.ActiveCommand.CommandText
     PrintOut "Recordset.ActiveConnection: " & pRS.ActiveConnection.ConnectionString
     PrintOut "Recordset.BOF:              " & pRS.BOF
-    PrintOut "Recordset.Bookmark:         " & pRS.Bookmark
+    PrintOut "Recordset.Bookmark:         " & pRS.BookMark
     PrintOut "Recordset.CacheSize:        " & pRS.CacheSize
     PrintOut "Recordset.CursorLocation:   " & adoCursorLocation(pRS.CursorLocation)
     PrintOut "Recordset.CursorType:       " & adoCursorType(pRS.CursorType)
@@ -749,7 +1031,7 @@ Public Sub adoDumpRecordset(ByVal pRS As ADODB.Recordset, Optional FileName As S
     PrintOut "Recordset.EOF:              " & pRS.EOF
     PrintOut "Recordset.Fields:           "
     PrintOut vbTab & ".Fields.Count:     " & pRS.Fields.Count
-    If InStr(UCase(Args), "NOFIELD") = 0 Then adoDumpFields pRS.Fields, 1
+    If InStr(UCase(Args), "NOFIELD") = 0 Then adoDumpFields pRS.Fields, 1, pRS
     PrintOut "Recordset.Filter:           " & pRS.Filter
     PrintOut "Recordset.LockType:         " & adoLockType(pRS.LockType)
     PrintOut "Recordset.MarshalOptions:   " & adoMarshalOptions(pRS.MarshalOptions)
@@ -783,5 +1065,6 @@ Public Sub adoDumpField(ByVal pField As ADODB.Field, Optional FileName As String
     adoDumpRSField pField, 1, Args
     If fUnit <> 0 Then Close #fUnit
 End Sub
+
 
 
