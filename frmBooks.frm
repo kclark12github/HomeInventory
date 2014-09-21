@@ -49,7 +49,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:15 AM"
+            TextSave        =   "10:58 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
