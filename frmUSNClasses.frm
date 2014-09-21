@@ -127,7 +127,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmUSNClasses.frx":0000
       End
@@ -140,7 +139,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":00E1
       End
@@ -153,7 +151,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":01BC
       End
@@ -166,7 +163,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0295
       End
@@ -179,7 +175,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":036F
       End
@@ -192,7 +187,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":044E
       End
@@ -205,7 +199,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":052A
       End
@@ -306,7 +299,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmUSNClasses.frx":0606
       End
@@ -319,7 +311,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":06E3
       End
@@ -332,7 +323,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":07C0
       End
@@ -345,7 +335,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0899
       End
@@ -358,7 +347,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0979
       End
@@ -371,7 +359,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0A54
       End
@@ -384,7 +371,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0B2F
       End
@@ -397,7 +383,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   9864
          _ExtentY        =   550
          _Version        =   393217
-         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0C10
       End
@@ -498,6 +483,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   12933
          _ExtentY        =   5101
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmUSNClasses.frx":0CE7
       End
    End
@@ -586,7 +572,7 @@ Begin VB.Form frmUSNClasses
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "9:13 PM"
+            TextSave        =   "10:20 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -958,7 +944,7 @@ Private Sub mnuActionNew_Click()
     Set tsClasses.SelectedItem = tsClasses.Tabs(1)
 End Sub
 Private Sub mnuActionRefresh_Click()
-    RefreshCommand SQLkey
+    RefreshCommand rsMain, SQLkey
 End Sub
 Private Sub mnuActionReport_Click()
     ReportCommand Me, rsMain, App.Path & "\Reports\USN Ship Classes.rpt"

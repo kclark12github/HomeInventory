@@ -318,7 +318,6 @@ Begin VB.Form frmKits
          _ExtentX        =   13356
          _ExtentY        =   4360
          _Version        =   393217
-         Enabled         =   -1  'True
          TextRTF         =   $"frmKits.frx":0000
       End
    End
@@ -355,7 +354,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "8:19 PM"
+            TextSave        =   "10:20 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -809,7 +808,7 @@ Private Sub mnuActionNew_Click()
     txtDesignation.SetFocus
 End Sub
 Private Sub mnuActionRefresh_Click()
-    RefreshCommand SQLkey
+    RefreshCommand rsMain, SQLkey
 End Sub
 Private Sub mnuActionReport_Click()
     ReportCommand Me, rsMain, App.Path & "\Reports\Kits.rpt"

@@ -355,7 +355,6 @@ Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
-Private adoConn As ADODB.Connection
 Private RootIndex As Integer
 Private gfDragMode As Boolean
 Private DragNode As ComctlLib.Node
@@ -897,13 +896,7 @@ Public Sub PopulateMenu()
     Trace trcEnter, "PopulateMenu()"
     
     Set adoConn = New ADODB.Connection
-    Set DBinfo = frmMain.DBcollection("KFC")
-    With DBinfo
-        adoConn.Provider = .Provider
-        adoConn.CommandTimeout = 60
-        adoConn.ConnectionTimeout = 60
-        adoConn.Open .PathName, .UserName, .Password
-    End With
+    adoConn.Open "FileDSN=" & gstrFileDSN
     
     SQLstatement = "SELECT * FROM MenuEntries"
     rsTable.CacheSize = 2000

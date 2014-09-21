@@ -57,7 +57,7 @@ Begin VB.Form frmSpecials
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "8:35 PM"
+            TextSave        =   "10:20 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -574,7 +574,7 @@ Private Sub mnuActionNew_Click()
     strDefaultSort = vbNullString
 End Sub
 Private Sub mnuActionRefresh_Click()
-    RefreshCommand SQLkey
+    RefreshCommand rsMain, SQLkey
 End Sub
 Private Sub mnuActionReport_Click()
     ReportCommand Me, rsMain, App.Path & "\Reports\Specials.rpt"

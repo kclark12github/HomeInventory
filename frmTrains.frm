@@ -49,7 +49,7 @@ Begin VB.Form frmTrains
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "8:41 PM"
+            TextSave        =   "10:20 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -617,7 +617,7 @@ Private Sub mnuActionNew_Click()
     txtInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
 End Sub
 Private Sub mnuActionRefresh_Click()
-    RefreshCommand SQLkey
+    RefreshCommand rsMain, SQLkey
 End Sub
 Private Sub mnuActionReport_Click()
     ReportCommand Me, rsMain, App.Path & "\Reports\Trains.rpt"

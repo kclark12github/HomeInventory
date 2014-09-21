@@ -49,7 +49,7 @@ Begin VB.Form frmVideoResearch
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "9:24 PM"
+            TextSave        =   "10:19 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -565,7 +565,7 @@ Private Sub mnuActionNew_Click()
     strDefaultSort = vbNullString
 End Sub
 Private Sub mnuActionRefresh_Click()
-    RefreshCommand SQLkey
+    RefreshCommand rsMain, SQLkey
 End Sub
 Private Sub mnuActionReport_Click()
     ReportCommand Me, rsMain, App.Path & "\Reports\VideoResearch.rpt"

@@ -49,7 +49,7 @@ Begin VB.Form frmMusic
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "8:23 PM"
+            TextSave        =   "10:21 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -615,8 +615,6 @@ Private Sub mnuActionList_Click()
 End Sub
 Private Sub mnuActionModify_Click()
     ModifyCommand Me
-    
-    'dbcArtist.SetFocus
 End Sub
 Private Sub mnuActionNew_Click()
     NewCommand Me, rsMain
@@ -626,11 +624,10 @@ Private Sub mnuActionNew_Click()
     chkCD.Value = vbUnchecked
     chkCS.Value = vbUnchecked
     chkLP.Value = vbUnchecked
-    strDefaultAlphaSort = ""
-    dbcArtist.SetFocus
+    strDefaultAlphaSort = vbNullString
 End Sub
 Private Sub mnuActionRefresh_Click()
-    RefreshCommand SQLkey
+    RefreshCommand rsMain, SQLkey
 End Sub
 Private Sub mnuActionReport_Click()
     ReportCommand Me, rsMain, App.Path & "\Reports\Music.rpt"

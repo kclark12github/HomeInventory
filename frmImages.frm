@@ -16,23 +16,6 @@ Begin VB.Form frmImages
    ScaleHeight     =   4536
    ScaleWidth      =   8088
    StartUpPosition =   1  'CenterOwner
-   Begin VB.Data dtaData 
-      Caption         =   "dtaData"
-      Connect         =   "Access"
-      DatabaseName    =   ""
-      DefaultCursorType=   0  'DefaultCursor
-      DefaultType     =   2  'UseODBC
-      Exclusive       =   0   'False
-      Height          =   345
-      Left            =   2880
-      Options         =   0
-      ReadOnly        =   0   'False
-      RecordsetType   =   1  'Dynaset
-      RecordSource    =   "Publishers"
-      Top             =   3840
-      Visible         =   0   'False
-      Width           =   2232
-   End
    Begin MSComDlg.CommonDialog dlgImages 
       Left            =   2040
       Top             =   3840
@@ -91,6 +74,7 @@ Begin VB.Form frmImages
          _ExtentX        =   13356
          _ExtentY        =   4360
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmImages.frx":0000
       End
    End
@@ -276,7 +260,7 @@ Begin VB.Form frmImages
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:07 PM"
+            TextSave        =   "10:16 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -614,30 +598,114 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-'Const ChunkSize As Long = 4096
-'Dim adoConn As ADODB.Connection
-'Public WithEvents rsMain As ADODB.Recordset
-Dim mode As ActionMode
-Dim fTransaction As Boolean
-'Dim DBinfo As DataBaseInfo
-Dim DAOdatabase As DAO.Database
-Public rsMain As DAO.Recordset
+Const ChunkSize As Long = 4096
+Public WithEvents rsMain As ADODB.Recordset
+Attribute rsMain.VB_VarHelpID = -1
 Private Sub cmdCancel_Click()
-    Select Case mode
-        Case modeDisplay
-            Unload Me
-        Case modeAdd, modeModify
-            rsMain.CancelUpdate
-            If mode = modeAdd And Not rsMain.EOF Then rsMain.MoveLast
-            'adoConn.RollbackTrans
-            Workspaces(0).Rollback
-            fTransaction = False
-            frmMain.ProtectFields Me
-            mode = modeDisplay
-            'adodcMain.Enabled = True
-            dtaData.Enabled = True
+    CancelCommand Me, rsMain
+End Sub
+Private Sub cmdOK_Click()
+    OKCommand Me, rsMain
+End Sub
+Private Sub Form_Load()
+    Set adoConn = New ADODB.Connection
+    adoConn.Open "FileDSN=" & gstrFileDSN
+    
+    Set rsMain = New ADODB.Recordset
+    rsMain.CursorLocation = adUseClient
+    SQLmain = "select * from [Images]"
+    SQLfilter = vbNullString
+    SQLkey = "ID"
+    rsMain.Open SQLmain, adoConn, adOpenKeyset, adLockBatchOptimistic
+    DBcollection.Add "rsMain", rsMain
+    
+    Set adodcMain.Recordset = rsMain
+    BindField lblID, "ID", rsMain
+    BindField txtName, "Name", rsMain
+    BindField txtURL, "URL", rsMain
+    'BindField picImage, "Image", rsMain
+    BindField chkThumbnail, "Thumbnail", rsMain
+    BindField rtxtCaption, "Caption", rsMain
+
+    dbcTable.Enabled = False
+    dbcRecord.Enabled = False
+    dbcThumbnail.Enabled = False
+    
+    Set tsImages.SelectedItem = tsImages.Tabs(1)
+    ProtectFields Me
+    mode = modeDisplay
+    fTransaction = False
+End Sub
+Private Sub Form_Unload(Cancel As Integer)
+    Cancel = CloseConnection(Me)
+End Sub
+Private Sub mnuActionFilter_Click()
+    FilterCommand Me, rsMain, SQLkey
+End Sub
+Private Sub mnuActionDelete_Click()
+    DeleteCommand Me, rsMain
+End Sub
+Private Sub mnuActionList_Click()
+    ListCommand Me, rsMain
+End Sub
+Private Sub mnuActionModify_Click()
+    ModifyCommand Me
+    
+    Set tsImages.SelectedItem = tsImages.Tabs(1)
+End Sub
+Private Sub mnuActionNew_Click()
+    NewCommand Me, rsMain
+    
+    Set tsImages.SelectedItem = tsImages.Tabs(1)
+End Sub
+Private Sub mnuActionRefresh_Click()
+    RefreshCommand rsMain, SQLkey
+End Sub
+Private Sub mnuActionReport_Click()
+    ReportCommand Me, rsMain, App.Path & "\Reports\Images.rpt"
+End Sub
+Private Sub mnuActionSQL_Click()
+    SQLCommand "Images"
+End Sub
+Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+    Dim Caption As String
+    Dim strTempFile As String
+    
+    If Not pRecordset.BOF And Not pRecordset.EOF Then
+        Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset("ID") & ": " & pRecordset("Name")
+        
+        strTempFile = App.Path & "\Images\temp.dat"
+        If DecodeImage(strTempFile) Then
+            picImage.Picture = LoadPicture(strTempFile)
+            Kill strTempFile
+        End If
+        If Not rsMain Is Nothing Then
+            picImage.PaintPicture picImage.Picture, 0, 0, picImage.Width, picImage.Height
+        End If
+    End If
+    UpdatePosition Me, Caption, pRecordset
+End Sub
+Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
+    Select Case Button.Key
+        Case "List"
+            mnuActionList_Click
+        Case "Refresh"
+            mnuActionRefresh_Click
+        Case "Filter"
+            mnuActionFilter_Click
+        Case "New"
+            mnuActionNew_Click
+        Case "Modify"
+            mnuActionModify_Click
+        Case "Delete"
+            mnuActionDelete_Click
+        Case "Report"
+            mnuActionReport_Click
+        Case "SQL"
+            mnuActionSQL_Click
     End Select
 End Sub
+'=================================================================================
 Private Sub cmdLoad_Click()
     Dim strImagePath As String
     
@@ -656,37 +724,18 @@ Private Sub cmdLoad_Click()
         strImagePath = .FileName
     End With
     picImage.Picture = LoadPicture(strImagePath)
-    'kfc - No ADO
-    'If Not EncodeImage(strImagePath) Then MsgBox "Unable to encode image", vbExclamation, Me.Caption
-End Sub
-Private Sub cmdOK_Click()
-    Select Case mode
-        Case modeDisplay
-            Unload Me
-        Case modeAdd, modeModify
-            rsMain.UpdateBatch
-            'adoConn.CommitTrans
-            Workspaces(0).CommitTrans
-            fTransaction = False
-            frmMain.ProtectFields Me
-            mode = modeDisplay
-            'adodcMain.Enabled = True
-            dtaData.Enabled = True
-            
-            mnuActionRefresh_Click
-    End Select
+    If Not EncodeImage(strImagePath) Then MsgBox "Unable to encode image", vbExclamation, Me.Caption
 End Sub
 Private Sub cmdView_Click()
-    Dim strTemp As String
-    If rsMain.BOF Or rsMain.EOF Then Exit Sub
-    'kfc - No ADO
-    'strTemp = ParsePath(frmMain.gstrDBPath, DrvDir) & "temp.jpg"
-    'If DecodeImage(strTemp) Then
-    '    Load frmPicture
-    '    frmPicture.strPictureFile = strTemp
-    '    frmPicture.Show vbModal
-    'End If
-    'Load frmPicture
+'    Dim strTemp As String
+'    If rsMain.BOF Or rsMain.EOF Then Exit Sub
+'    strTemp = ParsePath(gstrFileDSN, DrvDir) & "temp.jpg"
+'    If DecodeImage(strTemp) Then
+'        Load frmPicture
+'        frmPicture.strPictureFile = strTemp
+'        frmPicture.Show vbModal
+'    End If
+'    Load frmPicture
     frmPicture.Show vbModal
 End Sub
 Private Function DecodeImage(ByVal strTempFile As String) As Boolean
@@ -747,258 +796,6 @@ Private Function EncodeImage(ByVal strImageFile As String) As Boolean
 ExitSub:
     Close #FileUnit
 End Function
-Private Sub dtaData_Reposition()
-    Dim Caption As String
-    Dim i As Integer
-    Dim strTempFile As String
-    
-    On Error GoTo ErrorHandler
-    If rsMain.BOF And rsMain.EOF Then
-        Caption = "No Records"
-    ElseIf rsMain.EOF Then
-        Caption = "EOF"
-    ElseIf rsMain.BOF Then
-        Caption = "BOF"
-    Else
-        Caption = "Reference #" & rsMain("ID") & ": " & rsMain("Name")
-        i = InStr(Caption, "&")
-        If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-            sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-        End If
-        sbStatus.Panels("Position").Text = "Record " & rsMain("ID") & " of " & rsMain.RecordCount
-    
-        'kfc - No ADO
-        'strTempFile = ParsePath(frmMain.gstrDBPath, DrvDir) & "temp.dat"
-        'If DecodeImage(strTempFile) Then
-        '    picImage.Picture = LoadPicture(strTempFile)
-        '    Kill strTempFile
-        'End If
-        If Not rsMain Is Nothing Then
-            picImage.PaintPicture picImage.Picture, 0, 0, picImage.Width, picImage.Height
-        End If
-    End If
-    
-    adodcMain.Caption = Caption
-    Exit Sub
-
-ErrorHandler:
-    MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
-    Resume Next
-End Sub
-Private Sub Form_Load()
-    'Set adoConn = New ADODB.Connection
-    'Set rsMain = New ADODB.Recordset
-    'Set DBinfo = frmMain.DBcollection("US Navy Ships")
-    'With DBinfo
-    '    adoConn.Provider = .Provider
-    '    adoConn.CommandTimeout = 60
-    '    adoConn.ConnectionTimeout = 60
-    '    adoConn.Open .PathName, .UserName, .Password
-    'End With
-    'rsMain.CursorLocation = adUseClient
-    'rsMain.Open "select * from [Images]", adoConn, adOpenKeyset, adLockBatchOptimistic
-    
-    'Have to use DAO for the image stuff, since I can't figure out the
-    'ADO mechanism with Access...
-    Set DAOdatabase = Workspaces(0).OpenDatabase(frmMain.gstrDBPath)
-    Set rsMain = DAOdatabase.OpenRecordset("select * from Images", dbOpenDynaset, dbOptimistic)
-    
-    'Set adodcMain.Recordset = rsMain
-    dtaData.DataBaseName = frmMain.gstrDBPath
-    Set dtaData.Recordset = rsMain
-    dtaData.RecordSource = "Images"
-    frmMain.BindFieldDAO lblID, "ID", rsMain
-    frmMain.BindFieldDAO txtName, "Name", rsMain
-    frmMain.BindFieldDAO txtURL, "URL", rsMain
-    'kfc - No ADO
-    'frmMain.BindField picImage, "Image", rsMain
-    frmMain.BindFieldDAO chkThumbnail, "Thumbnail", rsMain
-    frmMain.BindFieldDAO rtxtCaption, "Caption", rsMain
-
-    dbcTable.Enabled = False
-    dbcRecord.Enabled = False
-    dbcThumbnail.Enabled = False
-    
-    Set tsImages.SelectedItem = tsImages.Tabs(1)
-    frmMain.ProtectFields Me
-    cmdLoad.Enabled = False
-    mode = modeDisplay
-    fTransaction = False
-End Sub
-Private Sub Form_Unload(Cancel As Integer)
-    If fTransaction Then
-        MsgBox "Please complete the current operation before closing the window.", vbExclamation, Me.Caption
-        Cancel = 1
-        Exit Sub
-    End If
-    
-    CloseRecordset rsMain, True
-    
-    On Error Resume Next
-    'adoConn.Close
-    Workspaces(0).Close
-    If Err.Number = 3246 Then
-        'adoConn.RollbackTrans
-        Workspaces(0).Rollback
-        fTransaction = False
-        adoConn.Close
-    End If
-    Set adoConn = Nothing
-End Sub
-Private Sub mnuActionList_Click()
-    Dim frm As Form
-    
-    Load frmList
-    frmList.Caption = Me.Caption & " List"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmList.Top = frm.Top
-    frmList.Left = frm.Left
-    frmList.Width = frm.Width
-    frmList.Height = frm.Height
-    
-    Set frmList.rsList = rsMain
-    
-    'adoConn.BeginTrans
-    Workspaces(0).BeginTrans
-    fTransaction = True
-    frmList.Show vbModal
-    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-    End If
-    'adoConn.CommitTrans
-    Workspaces(0).CommitTrans
-    fTransaction = False
-End Sub
-Private Sub mnuActionRefresh_Click()
-    Dim SaveBookmark As String
-    
-    On Error Resume Next
-    SaveBookmark = rsMain("ID")
-    rsMain.Requery
-    rsMain.Find "ID='" & SQLQuote(SaveBookmark) & "'"
-End Sub
-Private Sub mnuActionFilter_Click()
-    Dim frm As Form
-    
-    Load frmFilter
-    frmFilter.Caption = Me.Caption & " Filter"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmFilter.Top = frm.Top
-    frmFilter.Left = frm.Left
-    frmFilter.Width = frm.Width
-    frmFilter.Height = frm.Height
-    
-    Set frmFilter.RS = rsMain
-    frmFilter.Show vbModal
-    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-    End If
-End Sub
-Private Sub mnuActionNew_Click()
-    mode = modeAdd
-    frmMain.OpenFields Me
-    cmdLoad.Enabled = True
-    'adodcMain.Enabled = False
-    dtaData.Enabled = False
-    rsMain.AddNew
-    'adoConn.BeginTrans
-    Workspaces(0).BeginTrans
-    fTransaction = True
-    
-    Set tsImages.SelectedItem = tsImages.Tabs(1)
-    txtName.SetFocus
-End Sub
-Private Sub mnuActionDelete_Click()
-    mode = modeDelete
-    If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsMain.Delete
-        rsMain.MoveNext
-        If rsMain.EOF Then rsMain.MoveLast
-    End If
-    mode = modeDisplay
-End Sub
-Private Sub mnuActionModify_Click()
-    mode = modeModify
-    frmMain.OpenFields Me
-    cmdLoad.Enabled = True
-    'adodcMain.Enabled = False
-    'adoConn.BeginTrans
-    Workspaces(0).BeginTrans
-    dtaData.Enabled = False
-    fTransaction = True
-    
-    Set tsImages.SelectedItem = tsImages.Tabs(1)
-    txtName.SetFocus
-End Sub
-Private Sub mnuActionReport_Click()
-    Dim frm As Form
-    Dim scrApplication As New CRAXDRT.Application
-    Dim Report As New CRAXDRT.Report
-    Dim vRS As ADODB.Recordset
-    
-    MakeVirtualRecordset adoConn, rsMain, vRS
-    
-    Load frmViewReport
-    frmViewReport.Caption = Me.Caption & " Report"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmViewReport.Top = frm.Top
-    frmViewReport.Left = frm.Left
-    frmViewReport.Width = frm.Width
-    frmViewReport.Height = frm.Height
-    frmViewReport.WindowState = vbMaximized
-    
-    Set Report = scrApplication.OpenReport(App.Path & "\Reports\Images.rpt", crOpenReportByTempCopy)
-    Report.Database.SetDataSource vRS, 3, 1
-    Report.ReadRecords
-    
-    frmViewReport.scrViewer.ReportSource = Report
-    frmViewReport.Show vbModal
-    
-    Set scrApplication = Nothing
-    Set Report = Nothing
-    vRS.Close
-    Set vRS = Nothing
-End Sub
-Private Sub mnuActionSQL_Click()
-    Load frmSQL
-    Set frmSQL.cnSQL = adoConn
-    frmSQL.txtDatabase.Text = DBinfo.PathName
-    frmSQL.dbcTables.BoundText = "Images"
-    frmSQL.Show vbModal
-End Sub
-Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
-    Select Case Button.Key
-        Case "List"
-            mnuActionList_Click
-        Case "Refresh"
-            mnuActionRefresh_Click
-        Case "Filter"
-            mnuActionFilter_Click
-        Case "New"
-            mnuActionNew_Click
-        Case "Modify"
-            mnuActionModify_Click
-        Case "Delete"
-            mnuActionDelete_Click
-        Case "Report"
-            mnuActionReport_Click
-        Case "SQL"
-            mnuActionSQL_Click
-    End Select
-End Sub
 Private Sub tsImages_Click()
     Dim i As Integer
     Dim strTempFile As String
@@ -1010,12 +807,11 @@ Private Sub tsImages_Click()
                 fraImages(i).ZOrder
                 If i = .Tabs.Count - 1 And Not rsMain.EOF Then
                     If IsNull(rsMain("Image")) Then Exit Sub
-                    'kfc - No ADO
-                    'strTempFile = ParsePath(frmMain.gstrDBPath, DrvDir) & "temp.dat"
-                    'If DecodeImage(strTempFile) Then
-                    '    picImage.Picture = LoadPicture(strTempFile)
-                    '    Kill strTempFile
-                    'End If
+                    strTempFile = ParsePath(gstrFileDSN, DrvDir) & "temp.dat"
+                    If DecodeImage(strTempFile) Then
+                        picImage.Picture = LoadPicture(strTempFile)
+                        Kill strTempFile
+                    End If
                     If Not rsMain Is Nothing Then
                         picImage.PaintPicture picImage.Picture, 0, 0, picImage.Width, picImage.Height
                     End If
