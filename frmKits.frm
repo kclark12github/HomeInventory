@@ -318,6 +318,7 @@ Begin VB.Form frmKits
          _ExtentX        =   13356
          _ExtentY        =   4360
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmKits.frx":0000
       End
    End
@@ -354,7 +355,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:28 PM"
+            TextSave        =   "2:09 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -978,6 +979,7 @@ Private Sub mnuActionNew_Click()
     
     txtDateInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
     txtDateVerified.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
+    Set tsKits.SelectedItem = tsKits.Tabs(1)
     txtDesignation.SetFocus
 End Sub
 Private Sub mnuActionDelete_Click()
@@ -996,6 +998,7 @@ Private Sub mnuActionModify_Click()
     adoConn.BeginTrans
     fTransaction = True
     
+    Set tsKits.SelectedItem = tsKits.Tabs(1)
     txtDesignation.SetFocus
 End Sub
 Private Sub mnuActionReport_Click()

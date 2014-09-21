@@ -85,7 +85,7 @@ Begin VB.Form frmUSNClassifications
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:45 PM"
+            TextSave        =   "12:59 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -570,7 +570,7 @@ Private Sub mnuActionModify_Click()
     adoConn.BeginTrans
     fTransaction = True
     
-    txtDesignation.SetFocus
+    txtType.SetFocus
 End Sub
 Private Sub mnuActionReport_Click()
     Dim frm As Form

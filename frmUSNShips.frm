@@ -828,7 +828,7 @@ Begin VB.Form frmUSNShips
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:40 AM"
+            TextSave        =   "2:08 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -1518,6 +1518,7 @@ Private Sub mnuActionNew_Click()
     fTransaction = True
     
     txtCommissioned.Text = Format(Now(), "dddd, MMMM dd, yyyy")
+    Set tsShips.SelectedItem = tsShips.Tabs(1)
     txtDesignation.SetFocus
 End Sub
 Private Sub mnuActionDelete_Click()
@@ -1538,6 +1539,7 @@ Private Sub mnuActionModify_Click()
     adoConn.BeginTrans
     fTransaction = True
     
+    Set tsShips.SelectedItem = tsShips.Tabs(1)
     txtDesignation.SetFocus
 End Sub
 Private Sub mnuActionReport_Click()
