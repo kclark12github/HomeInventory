@@ -63,16 +63,16 @@ Begin VB.Form frmBooks
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8070
+            Object.Width           =   7964
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1270
+            Object.Width           =   1376
             MinWidth        =   1270
-            TextSave        =   "3:11 PM"
+            TextSave        =   "12:28 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -551,7 +551,24 @@ Private Sub cmdCancel_Click()
     CancelCommand Me, rsMain
 End Sub
 Private Sub cmdOK_Click()
+    Dim fCancel As Boolean
+    Select Case mode
+        Case modeAdd, modeModify
+            If chkCataloged.Value = vbChecked Then
+                fCancel = False
+                Call dbcAuthor_Validate(fCancel)
+                If fCancel Then GoTo ExitSub
+                Call txtInventoried_Validate(fCancel)
+                If fCancel Then GoTo ExitSub
+                Call txtISBN_Validate(fCancel)
+                If fCancel Then GoTo ExitSub
+            End If
+    End Select
+    
     OKCommand Me, rsMain
+
+ExitSub:
+    Exit Sub
 End Sub
 Private Sub Form_Activate()
     Me.Top = frmMain.saveTop + ((frmMain.Height - Me.Height) / 2)
@@ -676,7 +693,7 @@ Private Sub dbcAuthor_GotFocus()
 End Sub
 Private Sub dbcAuthor_Validate(Cancel As Boolean)
     If Not dbcAuthor.Enabled Then Exit Sub
-    If dbcAuthor.Text = "" Then
+    If dbcAuthor.Text = vbNullString And chkCataloged.Value = vbChecked Then
         MsgBox "Author must be specified!", vbExclamation, Me.Caption
         dbcAuthor.SetFocus
         Cancel = True
@@ -689,7 +706,7 @@ Private Sub dbcSubject_GotFocus()
 End Sub
 Private Sub dbcSubject_Validate(Cancel As Boolean)
     If Not dbcSubject.Enabled Then Exit Sub
-    'If dbcSubject.Text = "" Then
+    'If dbcSubject.Text = vbnullstring Then
     '    MsgBox "Subject must be specified!", vbExclamation, Me.Caption
     '    dbcSubject.SetFocus
     '    Cancel = True
@@ -760,7 +777,7 @@ Private Sub txtAlphaSort_KeyPress(KeyAscii As Integer)
 End Sub
 Private Sub txtAlphaSort_Validate(Cancel As Boolean)
     If Not txtAlphaSort.Enabled Then Exit Sub
-    If txtAlphaSort.Text = "" Then
+    If txtAlphaSort.Text = vbNullString Then
         txtAlphaSort.Text = DefaultAlphaSort
         'MsgBox "AlphaSort must be specified!", vbExclamation, Me.Caption
         'txtAlphaSort.SetFocus
@@ -773,7 +790,9 @@ End Sub
 Private Sub txtInventoried_Validate(Cancel As Boolean)
     On Error Resume Next
     txtInventoried.Text = Format(txtInventoried.Text, "mm/dd/yyyy hh:mm AMPM")
-    If txtInventoried.Text = vbNullString Then txtInventoried.Text = Format(Now(), fmtDate)
+    If txtInventoried.Text = vbNullString Then
+        If chkCataloged.Value = vbChecked Then txtInventoried.Text = Format(Now(), fmtDate) Else Exit Sub
+    End If
     If Not IsDate(txtInventoried.Text) Then
         MsgBox "Invalid date format", vbExclamation
         Cancel = True
@@ -788,7 +807,7 @@ Private Sub txtISBN_KeyPress(KeyAscii As Integer)
 End Sub
 Private Sub txtISBN_Validate(Cancel As Boolean)
     If Not txtISBN.Enabled Then Exit Sub
-    If txtISBN.Text = "" Then
+    If txtISBN.Text = vbNullString And chkCataloged.Value = vbChecked Then
         MsgBox "ISBN should be specified!", vbExclamation, Me.Caption
     End If
 End Sub
@@ -806,7 +825,7 @@ Private Sub txtTitle_GotFocus()
 End Sub
 Private Sub txtTitle_Validate(Cancel As Boolean)
     If Not txtTitle.Enabled Then Exit Sub
-    If txtTitle.Text = "" Then
+    If txtTitle.Text = vbNullString Then
         MsgBox "Title must be specified!", vbExclamation, Me.Caption
         txtTitle.SetFocus
         Cancel = True
