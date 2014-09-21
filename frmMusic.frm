@@ -508,6 +508,7 @@ Private Sub cmdCancel_Click()
             Unload Me
         Case modeAdd, modeModify
             rsMusic.CancelUpdate
+            If mode = modeAdd Then rsMusic.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -702,6 +703,9 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
+    If rsMusic.Filter <> vbNullString Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsMusic.Filter
+    End If
     adoConn.CommitTrans
     fTransaction = False
 End Sub
@@ -713,7 +717,25 @@ Private Sub mnuActionRefresh_Click()
     rsMusic.Find "AlphaSort='" & SQLQuote(SaveBookmark) & "'"
 End Sub
 Private Sub mnuActionFilter_Click()
-    Debug.Print "mnuActionFilter_Click()"
+    Dim frm As Form
+    
+    Load frmFilter
+    frmFilter.Caption = Me.Caption & " Filter"
+    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
+        Set frm = frmMain
+    Else
+        Set frm = Me
+    End If
+    frmFilter.Top = frm.Top
+    frmFilter.Left = frm.Left
+    frmFilter.Width = frm.Width
+    frmFilter.Height = frm.Height
+    
+    Set frmFilter.RS = rsMusic
+    frmFilter.Show vbModal
+    If rsMusic.Filter <> vbNullString Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsMusic.Filter
+    End If
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
@@ -750,15 +772,34 @@ Private Sub mnuActionModify_Click()
     dbcArtist.SetFocus
 End Sub
 Private Sub mnuActionReport_Click()
-    'Dim Report As New scrMusicReport
+    Dim frm As Form
+    Dim Report As New scrMusicReport
+    Dim vRS As ADODB.Recordset
     
-    'Report.Database.SetDataSource rsMusic, 3, 1
-    'Set frmMain.rdcReport = Report
-    'Set frmMain.frmReport = Me
+    MakeVirtualRecordset adoConn, rsMusic.Source, vRS
     
-    'frmViewReport.Show vbModal
+    Load frmViewReport
+    frmViewReport.Caption = Me.Caption & " Report"
+    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
+        Set frm = frmMain
+    Else
+        Set frm = Me
+    End If
+    frmViewReport.Top = frm.Top
+    frmViewReport.Left = frm.Left
+    frmViewReport.Width = frm.Width
+    frmViewReport.Height = frm.Height
+    frmViewReport.WindowState = vbMaximized
     
-    'Set Report = Nothing
+    Report.Database.SetDataSource vRS, 3, 1
+    Report.ReadRecords
+    
+    frmViewReport.scrViewer.ReportSource = Report
+    frmViewReport.Show vbModal
+    
+    Set Report = Nothing
+    vRS.Close
+    Set vRS = Nothing
 End Sub
 Private Sub rsMusic_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
@@ -776,6 +817,7 @@ Private Sub rsMusic_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal 
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
+        sbStatus.Panels("Position").Text = "Record " & rsMusic.Bookmark & " of " & rsMusic.RecordCount
     End If
     
     adodcMusic.Caption = Caption
