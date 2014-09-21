@@ -210,7 +210,7 @@ Begin VB.Form frmSQL
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:35 AM"
+            TextSave        =   "6:25 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -303,6 +303,9 @@ Private Sub ExecuteSQL()
                 End Select
             Next
             dgdList.Visible = True
+            For Each col In dgdList.Columns
+                ResizeColumn col
+            Next
             txtResults.Visible = False
     End Select
     
@@ -371,6 +374,43 @@ ErrorHandler:
     Resume Next
     Exit Sub
 End Sub
+Private Sub ResizeColumn(col As Column)
+    Dim ColumnFormat As New StdDataFormat
+    Dim DataWidth As Long
+    Dim rsTemp As ADODB.Recordset
+    Dim WidestData As Long
+    
+    Me.MousePointer = vbHourglass
+    
+    dgdList.ClearSelCols
+    lblA.Caption = col.Caption
+    WidestData = lblA.Width
+    Set ColumnFormat = col.DataFormat
+    If Not rsList.BOF And Not rsList.EOF Then
+        Set rsTemp = rsList.Clone(adLockReadOnly)
+        rsTemp.MoveFirst
+        While Not rsTemp.EOF
+            If Not IsNull(rsTemp(col.Caption).Value) Then
+                If Not ColumnFormat Is Nothing Then
+                    lblA.Caption = Format(rsTemp(col.Caption).Value, col.DataFormat.Format)
+                Else
+                    lblA.Caption = CStr(rsTemp(col.Caption).Value)
+                End If
+                DataWidth = lblA.Width
+                If DataWidth > WidestData Then WidestData = DataWidth
+            End If
+            rsTemp.MoveNext
+        Wend
+        CloseRecordset rsTemp, True
+    End If
+    Set ColumnFormat = Nothing
+    col.Width = WidestData + (4 * ResizeWindow)
+    If col.Width > dgdList.Width Then col.Width = col.Width - ResizeWindow
+    GoTo ExitSub
+    
+ExitSub:
+    Me.MousePointer = vbDefault
+End Sub
 Private Sub cbToolBar_HeightChanged(ByVal NewHeight As Single)
     Form_Resize
 End Sub
@@ -393,46 +433,16 @@ End Sub
 Private Sub dgdList_DblClick()
     Dim col As Column
     Dim ColRight As Single
-    Dim ColumnFormat As New StdDataFormat
-    Dim DataWidth As Long
     Dim iCol As Integer
-    Dim ResizeWindow As Single
-    Dim rsTemp As ADODB.Recordset
-    Dim WidestData As Long
     
     Me.MousePointer = vbHourglass
     
-    ResizeWindow = 36
     For iCol = dgdList.LeftCol To dgdList.Columns.Count - 1
         Set col = dgdList.Columns(iCol)
         If col.Visible And col.Width > 0 Then
             ColRight = col.Left + col.Width
             If MouseY <= col.Top And MouseX >= (ColRight - ResizeWindow) And MouseX <= (ColRight + ResizeWindow) Then
-                dgdList.ClearSelCols
-                lblA.Caption = col.Caption
-                WidestData = lblA.Width
-                Set ColumnFormat = col.DataFormat
-                If Not rsList.BOF And Not rsList.EOF Then
-                    Set rsTemp = rsList.Clone(adLockReadOnly)
-                    rsTemp.MoveFirst
-                    While Not rsTemp.EOF
-                        If Not IsNull(rsTemp(col.Caption).Value) Then
-                            If Not ColumnFormat Is Nothing Then
-                                lblA.Caption = Format(rsTemp(col.Caption).Value, col.DataFormat.Format)
-                            Else
-                                lblA.Caption = CStr(rsTemp(col.Caption).Value)
-                            End If
-                            DataWidth = lblA.Width
-                            If DataWidth > WidestData Then WidestData = DataWidth
-                        End If
-                        rsTemp.MoveNext
-                    Wend
-                    CloseRecordset rsTemp, True
-                End If
-                Set ColumnFormat = Nothing
-                col.Width = WidestData + (4 * ResizeWindow)
-                If col.Width > dgdList.Width Then col.Width = col.Width - ResizeWindow
-                GoTo ExitSub
+                ResizeColumn col
             End If
         End If
     Next iCol
