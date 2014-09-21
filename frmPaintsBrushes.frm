@@ -49,7 +49,7 @@ Begin VB.Form frmPaintsBrushes
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:07 AM"
+            TextSave        =   "5:50 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -517,8 +517,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 Dim adoConn As ADODB.Connection
-Dim WithEvents rsPaintsBrushes As ADODB.Recordset
-Attribute rsPaintsBrushes.VB_VarHelpID = -1
+Dim WithEvents rsFinishingProducts As ADODB.Recordset
+Attribute rsFinishingProducts.VB_VarHelpID = -1
 Dim rsManufacturers As New ADODB.Recordset
 Dim rsCatalogs As New ADODB.Recordset
 Dim rsTypes As New ADODB.Recordset
@@ -530,8 +530,8 @@ Private Sub cmdCancel_Click()
         Case modeDisplay
             Unload Me
         Case modeAdd, modeModify
-            rsPaintsBrushes.CancelUpdate
-            If mode = modeAdd Then rsPaintsBrushes.MoveLast
+            rsFinishingProducts.CancelUpdate
+            If mode = modeAdd Then rsFinishingProducts.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -547,9 +547,9 @@ Private Sub cmdOK_Click()
             Unload Me
         Case modeAdd, modeModify
             'Why we need to do this is buggy...
-            rsPaintsBrushes("Manufacturer") = dbcManufacturer.BoundText
-            rsPaintsBrushes("Catalog") = dbcCatalog.BoundText
-            rsPaintsBrushes.UpdateBatch
+            rsFinishingProducts("Manufacturer") = dbcManufacturer.BoundText
+            rsFinishingProducts("Catalog") = dbcCatalog.BoundText
+            rsFinishingProducts.UpdateBatch
             adoConn.CommitTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -591,7 +591,7 @@ Private Sub dbcType_Validate(Cancel As Boolean)
 End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
-    Set rsPaintsBrushes = New ADODB.Recordset
+    Set rsFinishingProducts = New ADODB.Recordset
     Set DBinfo = frmMain.DBcollection("Hobby")
     With DBinfo
         adoConn.Provider = .Provider
@@ -599,8 +599,8 @@ Private Sub Form_Load()
         adoConn.ConnectionTimeout = 60
         adoConn.Open .PathName, .UserName, .Password
     End With
-    rsPaintsBrushes.CursorLocation = adUseClient
-    rsPaintsBrushes.Open "select * from [Paints & Brushes] order by Type,Name", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsFinishingProducts.CursorLocation = adUseClient
+    rsFinishingProducts.Open "select * from [Paints & Brushes] order by Type,Name", adoConn, adOpenKeyset, adLockBatchOptimistic
     
     rsManufacturers.CursorLocation = adUseClient
     rsManufacturers.Open "select distinct Manufacturer from [Paints & Brushes] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
@@ -611,16 +611,16 @@ Private Sub Form_Load()
     rsTypes.CursorLocation = adUseClient
     rsTypes.Open "select distinct Type from [Paints & Brushes] order by Type", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcHobby.Recordset = rsPaintsBrushes
-    frmMain.BindField lblID, "ID", rsPaintsBrushes
-    frmMain.BindField dbcManufacturer, "Manufacturer", rsPaintsBrushes, rsManufacturers, "Manufacturer", "Manufacturer"
-    frmMain.BindField txtName, "Name", rsPaintsBrushes
-    frmMain.BindField txtPrice, "Price", rsPaintsBrushes
-    frmMain.BindField txtReference, "Reference", rsPaintsBrushes
-    frmMain.BindField dbcCatalog, "Catalog", rsPaintsBrushes, rsCatalogs, "Catalog", "Catalog"
-    frmMain.BindField dbcType, "Type", rsPaintsBrushes, rsTypes, "Type", "Type"
-    frmMain.BindField txtCount, "Count", rsPaintsBrushes
-    frmMain.BindField txtInventoried, "DateInventoried", rsPaintsBrushes
+    Set adodcHobby.Recordset = rsFinishingProducts
+    frmMain.BindField lblID, "ID", rsFinishingProducts
+    frmMain.BindField dbcManufacturer, "Manufacturer", rsFinishingProducts, rsManufacturers, "Manufacturer", "Manufacturer"
+    frmMain.BindField txtName, "Name", rsFinishingProducts
+    frmMain.BindField txtPrice, "Price", rsFinishingProducts
+    frmMain.BindField txtReference, "Reference", rsFinishingProducts
+    frmMain.BindField dbcCatalog, "Catalog", rsFinishingProducts, rsCatalogs, "Catalog", "Catalog"
+    frmMain.BindField dbcType, "Type", rsFinishingProducts, rsTypes, "Type", "Type"
+    frmMain.BindField txtCount, "Count", rsFinishingProducts
+    frmMain.BindField txtInventoried, "DateInventoried", rsFinishingProducts
 
     frmMain.ProtectFields Me
     mode = modeDisplay
@@ -633,11 +633,11 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If Not rsPaintsBrushes.EOF Then
-        If rsPaintsBrushes.EditMode <> adEditNone Then rsPaintsBrushes.CancelUpdate
+    If Not rsFinishingProducts.EOF Then
+        If rsFinishingProducts.EditMode <> adEditNone Then rsFinishingProducts.CancelUpdate
     End If
-    If (rsPaintsBrushes.State And adStateOpen) = adStateOpen Then rsPaintsBrushes.Close
-    Set rsPaintsBrushes = Nothing
+    If (rsFinishingProducts.State And adStateOpen) = adStateOpen Then rsFinishingProducts.Close
+    Set rsFinishingProducts = Nothing
     rsManufacturers.Close
     Set rsManufacturers = Nothing
     rsCatalogs.Close
@@ -673,7 +673,7 @@ Private Sub mnuActionList_Click()
     frmList.Width = frm.Width
     frmList.Height = frm.Height
     
-    Set frmList.rsList = rsPaintsBrushes
+    Set frmList.rsList = rsFinishingProducts
     Set frmList.dgdList.DataSource = frmList.rsList
     Set frmList.dgdList.Columns("Price").DataFormat = CurrencyFormat
     For Each Col In frmList.dgdList.Columns
@@ -683,8 +683,8 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
-    If rsPaintsBrushes.Filter <> vbNullString Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsPaintsBrushes.Filter
+    If rsFinishingProducts.Filter <> vbNullString Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsFinishingProducts.Filter
     End If
     adoConn.CommitTrans
     fTransaction = False
@@ -692,9 +692,9 @@ End Sub
 Private Sub mnuActionRefresh_Click()
     Dim SaveBookmark As String
     
-    SaveBookmark = rsPaintsBrushes("Reference")
-    rsPaintsBrushes.Requery
-    rsPaintsBrushes.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
+    SaveBookmark = rsFinishingProducts("Reference")
+    rsFinishingProducts.Requery
+    rsFinishingProducts.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form
@@ -711,17 +711,17 @@ Private Sub mnuActionFilter_Click()
     frmFilter.Width = frm.Width
     frmFilter.Height = frm.Height
     
-    Set frmFilter.RS = rsPaintsBrushes
+    Set frmFilter.RS = rsFinishingProducts
     frmFilter.Show vbModal
-    If rsPaintsBrushes.Filter <> vbNullString Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsPaintsBrushes.Filter
+    If rsFinishingProducts.Filter <> vbNullString Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsFinishingProducts.Filter
     End If
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
     adodcHobby.Enabled = False
-    rsPaintsBrushes.AddNew
+    rsFinishingProducts.AddNew
     adoConn.BeginTrans
     fTransaction = True
     
@@ -731,9 +731,9 @@ End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete
     If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsPaintsBrushes.Delete
-        rsPaintsBrushes.MoveNext
-        If rsPaintsBrushes.EOF Then rsPaintsBrushes.MoveLast
+        rsFinishingProducts.Delete
+        rsFinishingProducts.MoveNext
+        If rsFinishingProducts.EOF Then rsFinishingProducts.MoveLast
     End If
     mode = modeDisplay
 End Sub
@@ -748,10 +748,10 @@ Private Sub mnuActionModify_Click()
 End Sub
 Private Sub mnuActionReport_Click()
     Dim frm As Form
-    'Dim Report As New scrPaintsBrushesReport
+    Dim Report As New scrFinishingProductsReport
     Dim vRS As ADODB.Recordset
     
-    MakeVirtualRecordset adoConn, rsPaintsBrushes, vRS
+    MakeVirtualRecordset adoConn, rsFinishingProducts, vRS
     
     Load frmViewReport
     frmViewReport.Caption = Me.Caption & " Report"
@@ -766,33 +766,33 @@ Private Sub mnuActionReport_Click()
     frmViewReport.Height = frm.Height
     frmViewReport.WindowState = vbMaximized
     
-    'Report.Database.SetDataSource vRS, 3, 1
-    'Report.ReadRecords
+    Report.Database.SetDataSource vRS, 3, 1
+    Report.ReadRecords
     
-    'frmViewReport.scrViewer.ReportSource = Report
+    frmViewReport.scrViewer.ReportSource = Report
     frmViewReport.Show vbModal
     
-    'Set Report = Nothing
+    Set Report = Nothing
     vRS.Close
     Set vRS = Nothing
 End Sub
-Private Sub rsPaintsBrushes_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+Private Sub rsFinishingProducts_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsPaintsBrushes.BOF And rsPaintsBrushes.EOF Then
+    If rsFinishingProducts.BOF And rsFinishingProducts.EOF Then
         Caption = "No Records"
-    ElseIf rsPaintsBrushes.EOF Then
+    ElseIf rsFinishingProducts.EOF Then
         Caption = "EOF"
-    ElseIf rsPaintsBrushes.BOF Then
+    ElseIf rsFinishingProducts.BOF Then
         Caption = "BOF"
     Else
-        Caption = "Reference #" & rsPaintsBrushes.Bookmark & ": " & rsPaintsBrushes("Type") & ": " & rsPaintsBrushes("Name")
+        Caption = "Reference #" & rsFinishingProducts.Bookmark & ": " & rsFinishingProducts("Type") & ": " & rsFinishingProducts("Name")
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        sbStatus.Panels("Message").Text = "Filter: " & rsPaintsBrushes.Filter
+        sbStatus.Panels("Message").Text = "Filter: " & rsFinishingProducts.Filter
     End If
     
     adodcHobby.Caption = Caption

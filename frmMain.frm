@@ -97,13 +97,13 @@ Begin VB.Form frmMain
          Begin VB.Menu mnuDataBaseHobbyDetailSets 
             Caption         =   "Detai&l Sets"
          End
+         Begin VB.Menu mnuDataBaseHobbyFinishingProducts 
+            Caption         =   "&Finishing Products"
+         End
          Begin VB.Menu mnuDataBaseHobbyNavalModels 
             Caption         =   "&Naval Models"
             Enabled         =   0   'False
             Visible         =   0   'False
-         End
-         Begin VB.Menu mnuDataBaseHobbyPaintsBrushes 
-            Caption         =   "&Paints && Brushes"
          End
          Begin VB.Menu mnuDataBaseHobbyRockets 
             Caption         =   "&Rockets"
@@ -358,7 +358,7 @@ End Sub
 Private Sub mnuDataBaseHobbyKits_Click()
     frmKits.Show vbModal
 End Sub
-Private Sub mnuDataBaseHobbyPaintsBrushes_Click()
+Private Sub mnuDataBaseHobbyFinishingProducts_Click()
     frmPaintsBrushes.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyRockets_Click()

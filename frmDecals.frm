@@ -49,7 +49,7 @@ Begin VB.Form frmDecals
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:52 AM"
+            TextSave        =   "5:48 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -825,7 +825,7 @@ Private Sub mnuActionModify_Click()
 End Sub
 Private Sub mnuActionReport_Click()
     Dim frm As Form
-    'Dim Report As New scrDecalsReport
+    Dim Report As New scrDecalsReport
     Dim vRS As ADODB.Recordset
     
     MakeVirtualRecordset adoConn, rsDecals, vRS
@@ -843,13 +843,13 @@ Private Sub mnuActionReport_Click()
     frmViewReport.Height = frm.Height
     frmViewReport.WindowState = vbMaximized
     
-    'Report.Database.SetDataSource vRS, 3, 1
-    'Report.ReadRecords
+    Report.Database.SetDataSource vRS, 3, 1
+    Report.ReadRecords
     
-    'frmViewReport.scrViewer.ReportSource = Report
+    frmViewReport.scrViewer.ReportSource = Report
     frmViewReport.Show vbModal
     
-    'Set Report = Nothing
+    Set Report = Nothing
     vRS.Close
     Set vRS = Nothing
 End Sub
