@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:49 PM"
+            TextSave        =   "5:31 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -472,7 +472,7 @@ Private Sub mnuListCopy_Click()
     Table = RS.Fields(0).Properties("BASETABLENAME")
     For Each fld In RS.Fields
         If (RS(fld.Name).Attributes And adFldUpdatable) = adFldUpdatable Then
-            FieldList = FieldList & fld.Name & ","
+            FieldList = FieldList & "[" & fld.Name & "],"
             If IsNull(fld.Value) Then
                 Values = Values & "Null,"
             Else
