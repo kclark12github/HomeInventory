@@ -201,7 +201,7 @@ Begin VB.Form frmSQL
          EndProperty
          BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   10478
+            Object.Width           =   10414
             Key             =   "Message"
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
@@ -210,7 +210,7 @@ Begin VB.Form frmSQL
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:10 PM"
+            TextSave        =   "5:39 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -236,6 +236,7 @@ Const MarginTwips As Integer = 60
 Const KB As Double = 1024
 Const MB As Double = (1024 * KB)
 Dim BufferLimit As Double
+Dim fActiveTrans As Boolean
 Dim InitialWidth As Double
 Dim InitialHeight As Double
 Dim RecordsAffected As Long
@@ -246,9 +247,36 @@ Dim rsFields As New ADODB.Recordset
 Dim MouseY As Single
 Dim MouseX As Single
 Private SortDESC() As Boolean
+Private Sub BeginTrans(cnSQL As ADODB.Connection)
+    On Error GoTo ErrorHandler
+    cnSQL.BeginTrans
+    fActiveTrans = True
+    Exit Sub
+    
+ErrorHandler:
+    fActiveTrans = False
+    Exit Sub
+End Sub
+Private Sub CommitTrans(cnSQL As ADODB.Connection)
+    On Error GoTo ErrorHandler
+    cnSQL.CommitTrans
+    fActiveTrans = False
+    Exit Sub
+    
+ErrorHandler:
+    Exit Sub
+End Sub
+Private Sub RollbackTrans(cnSQL As ADODB.Connection)
+    On Error GoTo ErrorHandler
+    cnSQL.RollbackTrans
+    fActiveTrans = False
+    Exit Sub
+    
+ErrorHandler:
+    Exit Sub
+End Sub
 Private Sub ExecuteSQL()
     Dim adoError As ADODB.Error
-    Dim fActiveTrans As Boolean
     Dim fld As ADODB.Field
     Dim fResponse As Boolean
     Dim ErrorCount As Long
@@ -273,8 +301,7 @@ Private Sub ExecuteSQL()
     fActiveTrans = False
     Select Case UCase(Mid(txtSQL.Text, 1, 6))
         Case "UPDATE", "DELETE"
-            cnSQL.BeginTrans
-            fActiveTrans = True
+            Call BeginTrans(cnSQL)
             Set rsList = cnSQL.Execute(txtSQL.Text, RecordsAffected)
             dgdList.Visible = False
             txtResults.Visible = True
@@ -344,9 +371,9 @@ Private Sub ExecuteSQL()
     
     If fActiveTrans Then
         If fResponse Then
-            cnSQL.CommitTrans
+            Call CommitTrans(cnSQL)
         Else
-            cnSQL.RollbackTrans
+            Call RollbackTrans(cnSQL)
         End If
     End If
     
@@ -370,7 +397,7 @@ ErrorHandler:
             MsgBox Err.Description & " (" & Err.Number & ")", vbExclamation, Me.Caption
     End Select
     'BufferLimit = Len(txtResults.Text)
-    If fActiveTrans Then cnSQL.RollbackTrans
+    If fActiveTrans Then Call RollbackTrans(cnSQL)
     Resume Next
     Exit Sub
 End Sub

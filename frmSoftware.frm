@@ -5,14 +5,14 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmSoftware 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Software Inventory"
-   ClientHeight    =   3828
+   ClientHeight    =   3720
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3828
+   ScaleHeight     =   3720
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
@@ -20,8 +20,8 @@ Begin VB.Form frmSoftware
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   25
-      Top             =   3576
+      TabIndex        =   26
+      Top             =   3468
       Width           =   7524
       _ExtentX        =   13272
       _ExtentY        =   445
@@ -49,7 +49,7 @@ Begin VB.Form frmSoftware
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:45 PM"
+            TextSave        =   "5:39 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -59,7 +59,7 @@ Begin VB.Form frmSoftware
       Left            =   4800
       TabIndex        =   3
       Text            =   "ISBN"
-      Top             =   960
+      Top             =   988
       Width           =   1512
    End
    Begin VB.TextBox txtCost 
@@ -76,7 +76,7 @@ Begin VB.Form frmSoftware
       Height          =   288
       Left            =   4800
       TabIndex        =   5
-      Top             =   1260
+      Top             =   1320
       Width           =   972
    End
    Begin VB.CommandButton cmdCancel 
@@ -84,23 +84,23 @@ Begin VB.Form frmSoftware
       Caption         =   "Cancel"
       CausesValidation=   0   'False
       Height          =   372
-      Left            =   6420
-      TabIndex        =   12
-      Top             =   3180
+      Left            =   6360
+      TabIndex        =   13
+      Top             =   3060
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
       Caption         =   "OK"
       Default         =   -1  'True
       Height          =   372
-      Left            =   5400
-      TabIndex        =   11
-      Top             =   3180
+      Left            =   5340
+      TabIndex        =   12
+      Top             =   3060
       Width           =   972
    End
    Begin MSAdodcLib.Adodc adodcMain 
       Height          =   312
-      Left            =   204
+      Left            =   186
       Top             =   2700
       Width           =   7152
       _ExtentX        =   12615
@@ -146,17 +146,17 @@ Begin VB.Form frmSoftware
    End
    Begin VB.TextBox txtInventoried 
       Height          =   288
-      Left            =   1458
-      TabIndex        =   9
+      Left            =   1440
+      TabIndex        =   10
       Text            =   "Inventoried"
-      Top             =   2232
+      Top             =   2340
       Width           =   1812
    End
    Begin MSDataListLib.DataCombo dbcType 
       Height          =   288
-      Left            =   1464
-      TabIndex        =   6
-      Top             =   1572
+      Left            =   1440
+      TabIndex        =   8
+      Top             =   2002
       Width           =   2292
       _ExtentX        =   4043
       _ExtentY        =   508
@@ -166,9 +166,9 @@ Begin VB.Form frmSoftware
    End
    Begin MSDataListLib.DataCombo dbcPublisher 
       Height          =   288
-      Left            =   1464
-      TabIndex        =   0
-      Top             =   372
+      Left            =   1440
+      TabIndex        =   1
+      Top             =   650
       Width           =   5892
       _ExtentX        =   10393
       _ExtentY        =   508
@@ -178,11 +178,11 @@ Begin VB.Form frmSoftware
    End
    Begin VB.TextBox txtCDkey 
       Height          =   288
-      Left            =   1458
-      TabIndex        =   8
+      Left            =   4800
+      TabIndex        =   9
       Text            =   "CDkey"
-      Top             =   1896
-      Width           =   3792
+      Top             =   2002
+      Width           =   2472
    End
    Begin VB.TextBox txtValue 
       Alignment       =   1  'Right Justify
@@ -196,17 +196,17 @@ Begin VB.Form frmSoftware
          SubFormatType   =   2
       EndProperty
       Height          =   288
-      Left            =   1458
+      Left            =   1440
       TabIndex        =   4
-      Top             =   1272
+      Top             =   1326
       Width           =   972
    End
    Begin VB.TextBox txtVersion 
       Height          =   288
-      Left            =   1458
+      Left            =   1440
       TabIndex        =   2
       Text            =   "Version"
-      Top             =   960
+      Top             =   988
       Width           =   1512
    End
    Begin VB.CheckBox chkCataloged 
@@ -214,23 +214,23 @@ Begin VB.Form frmSoftware
       Caption         =   "Cataloged"
       Height          =   192
       Left            =   3558
-      TabIndex        =   10
-      Top             =   2280
+      TabIndex        =   11
+      Top             =   2388
       Width           =   1152
    End
    Begin VB.TextBox txtTitle 
       Height          =   288
-      Left            =   1458
-      TabIndex        =   1
+      Left            =   1440
+      TabIndex        =   0
       Text            =   "Title"
-      Top             =   672
+      Top             =   300
       Width           =   5892
    End
    Begin MSDataListLib.DataCombo dbcPlatform 
       Height          =   288
-      Left            =   4800
-      TabIndex        =   7
-      Top             =   1560
+      Left            =   1440
+      TabIndex        =   6
+      Top             =   1664
       Width           =   2292
       _ExtentX        =   4043
       _ExtentY        =   508
@@ -238,11 +238,97 @@ Begin VB.Form frmSoftware
       MatchEntry      =   -1  'True
       Text            =   "Platform"
    End
+   Begin MSComctlLib.ImageList imlSmall 
+      Left            =   60
+      Top             =   480
+      _ExtentX        =   804
+      _ExtentY        =   804
+      BackColor       =   -2147483643
+      ImageWidth      =   16
+      ImageHeight     =   16
+      MaskColor       =   12632256
+      _Version        =   393216
+      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+         NumListImages   =   15
+         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSoftware.frx":0000
+            Key             =   "Find"
+         EndProperty
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSoftware.frx":031C
+            Key             =   "Warning"
+         EndProperty
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSoftware.frx":0644
+            Key             =   "List"
+         EndProperty
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSoftware.frx":096C
+            Key             =   "xNew"
+         EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSoftware.frx":3120
+            Key             =   "Stop"
+         EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSoftware.frx":3574
+            Key             =   "Report"
+         EndProperty
+         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSoftware.frx":39C8
+            Key             =   "Modify"
+         EndProperty
+         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSoftware.frx":4494
+            Key             =   "Refresh"
+         EndProperty
+         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSoftware.frx":47BC
+            Key             =   "Sort"
+         EndProperty
+         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSoftware.frx":4C10
+            Key             =   "SQL"
+         EndProperty
+         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSoftware.frx":5064
+            Key             =   "Search"
+         EndProperty
+         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSoftware.frx":54B8
+            Key             =   "Filter"
+         EndProperty
+         BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSoftware.frx":5910
+            Key             =   "Delete"
+         EndProperty
+         BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSoftware.frx":5A6C
+            Key             =   "Blank"
+         EndProperty
+         BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmSoftware.frx":5BC8
+            Key             =   "NewRecord"
+         EndProperty
+      EndProperty
+   End
+   Begin MSDataListLib.DataCombo dbcMedia 
+      Height          =   288
+      Left            =   4800
+      TabIndex        =   7
+      Top             =   1661
+      Width           =   2292
+      _ExtentX        =   4043
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   "Media"
+   End
    Begin MSComctlLib.Toolbar tbMain 
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   26
+      TabIndex        =   28
       Top             =   0
       Width           =   7524
       _ExtentX        =   13272
@@ -315,87 +401,22 @@ Begin VB.Form frmSoftware
       EndProperty
       BorderStyle     =   1
    End
-   Begin MSComctlLib.ImageList imlSmall 
-      Left            =   240
-      Top             =   60
-      _ExtentX        =   804
-      _ExtentY        =   804
-      BackColor       =   -2147483643
-      ImageWidth      =   16
-      ImageHeight     =   16
-      MaskColor       =   12632256
-      _Version        =   393216
-      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   15
-         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":0000
-            Key             =   "Find"
-         EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":031C
-            Key             =   "Warning"
-         EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":0644
-            Key             =   "List"
-         EndProperty
-         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":096C
-            Key             =   "xNew"
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":3120
-            Key             =   "Stop"
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":3574
-            Key             =   "Report"
-         EndProperty
-         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":39C8
-            Key             =   "Modify"
-         EndProperty
-         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":4494
-            Key             =   "Refresh"
-         EndProperty
-         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":47BC
-            Key             =   "Sort"
-         EndProperty
-         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":4C10
-            Key             =   "SQL"
-         EndProperty
-         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":5064
-            Key             =   "Search"
-         EndProperty
-         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":54B8
-            Key             =   "Filter"
-         EndProperty
-         BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":5910
-            Key             =   "Delete"
-         EndProperty
-         BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":5A6C
-            Key             =   "Blank"
-         EndProperty
-         BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmSoftware.frx":5BC8
-            Key             =   "NewRecord"
-         EndProperty
-      EndProperty
+   Begin VB.Label lblMedia 
+      AutoSize        =   -1  'True
+      Caption         =   "Media:"
+      Height          =   192
+      Left            =   4272
+      TabIndex        =   27
+      Top             =   1709
+      Width           =   492
    End
    Begin VB.Label lblPlatform 
       AutoSize        =   -1  'True
       Caption         =   "Platform:"
       Height          =   192
-      Left            =   4104
-      TabIndex        =   24
-      Top             =   1608
+      Left            =   732
+      TabIndex        =   25
+      Top             =   1712
       Width           =   624
    End
    Begin VB.Label lblISBN 
@@ -403,8 +424,8 @@ Begin VB.Form frmSoftware
       Caption         =   "ISBN:"
       Height          =   192
       Left            =   4320
-      TabIndex        =   23
-      Top             =   1008
+      TabIndex        =   24
+      Top             =   1036
       Width           =   408
    End
    Begin VB.Label lblCost 
@@ -420,9 +441,9 @@ Begin VB.Form frmSoftware
          SubFormatType   =   0
       EndProperty
       Height          =   192
-      Left            =   4368
-      TabIndex        =   22
-      Top             =   1308
+      Left            =   4404
+      TabIndex        =   23
+      Top             =   1374
       Width           =   360
    End
    Begin VB.Label lblIDlabel 
@@ -430,8 +451,8 @@ Begin VB.Form frmSoftware
       Caption         =   "ID:"
       Height          =   192
       Left            =   6744
-      TabIndex        =   21
-      Top             =   2280
+      TabIndex        =   22
+      Top             =   2388
       Width           =   192
    End
    Begin VB.Label lblDateInventoried 
@@ -439,26 +460,26 @@ Begin VB.Form frmSoftware
       Caption         =   "Date Inventoried:"
       Height          =   192
       Left            =   144
-      TabIndex        =   20
-      Top             =   2280
+      TabIndex        =   21
+      Top             =   2388
       Width           =   1212
    End
    Begin VB.Label lblCDkey 
       AutoSize        =   -1  'True
       Caption         =   "CD Key:"
       Height          =   192
-      Left            =   828
-      TabIndex        =   19
-      Top             =   1920
+      Left            =   4188
+      TabIndex        =   20
+      Top             =   2050
       Width           =   576
    End
    Begin VB.Label lblType 
       AutoSize        =   -1  'True
       Caption         =   "Type:"
       Height          =   192
-      Left            =   984
-      TabIndex        =   18
-      Top             =   1620
+      Left            =   936
+      TabIndex        =   19
+      Top             =   2050
       Width           =   420
    End
    Begin VB.Label lblValue 
@@ -474,9 +495,9 @@ Begin VB.Form frmSoftware
          SubFormatType   =   0
       EndProperty
       Height          =   192
-      Left            =   948
-      TabIndex        =   17
-      Top             =   1320
+      Left            =   900
+      TabIndex        =   18
+      Top             =   1374
       Width           =   456
    End
    Begin VB.Label lblVersion 
@@ -484,8 +505,8 @@ Begin VB.Form frmSoftware
       Caption         =   "Version:"
       Height          =   192
       Left            =   768
-      TabIndex        =   16
-      Top             =   1020
+      TabIndex        =   17
+      Top             =   1036
       Width           =   588
    End
    Begin VB.Label lblTitle 
@@ -493,8 +514,8 @@ Begin VB.Form frmSoftware
       Caption         =   "Title:"
       Height          =   192
       Left            =   1008
-      TabIndex        =   15
-      Top             =   720
+      TabIndex        =   16
+      Top             =   360
       Width           =   348
    End
    Begin VB.Label lblPublisher 
@@ -502,18 +523,18 @@ Begin VB.Form frmSoftware
       Caption         =   "Publisher:"
       Height          =   192
       Left            =   648
-      TabIndex        =   14
-      Top             =   420
+      TabIndex        =   15
+      Top             =   698
       Width           =   708
    End
    Begin VB.Label lblID 
       AutoSize        =   -1  'True
-      Caption         =   "lblID"
+      Caption         =   "ID"
       Height          =   192
       Left            =   7032
-      TabIndex        =   13
-      Top             =   2280
-      Width           =   324
+      TabIndex        =   14
+      Top             =   2388
+      Width           =   156
    End
    Begin VB.Menu mnuFile 
       Caption         =   "&File"
@@ -575,6 +596,7 @@ Attribute rsMain.VB_VarHelpID = -1
 Dim rsPublishers As New ADODB.Recordset
 Dim rsTypes As New ADODB.Recordset
 Dim rsPlatforms As New ADODB.Recordset
+Dim rsMedias As New ADODB.Recordset
 Private Sub cmdCancel_Click()
     CancelCommand Me, rsMain
 End Sub
@@ -600,6 +622,10 @@ Private Sub Form_Load()
     rsPlatforms.Open "select distinct Platform from [Software] order by Platform", adoConn, adOpenStatic, adLockReadOnly
     DBcollection.Add "rsPlatforms", rsPlatforms
     
+    rsMedias.CursorLocation = adUseClient
+    rsMedias.Open "select distinct Media from [Software] order by Media", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsMedias", rsMedias
+    
     rsTypes.CursorLocation = adUseClient
     rsTypes.Open "select distinct Type from [Software] order by Type", adoConn, adOpenStatic, adLockReadOnly
     DBcollection.Add "rsTypes", rsTypes
@@ -614,6 +640,7 @@ Private Sub Form_Load()
     BindField txtCost, "Cost", rsMain
     BindField dbcType, "Type", rsMain, rsTypes, "Type", "Type"
     BindField dbcPlatform, "Platform", rsMain, rsPlatforms, "Platform", "Platform"
+    BindField dbcMedia, "Media", rsMain, rsMedias, "Media", "Media"
     BindField txtCDkey, "CDkey", rsMain
     BindField chkCataloged, "Cataloged", rsMain
     BindField txtInventoried, "DateInventoried", rsMain
@@ -637,14 +664,14 @@ End Sub
 Private Sub mnuRecordsModify_Click()
     ModifyCommand Me
     
-    dbcPublisher.SetFocus
+    txtTitle.SetFocus
 End Sub
 Private Sub mnuRecordsNew_Click()
     NewCommand Me, rsMain
     
     txtInventoried.Text = Format(Now(), fmtDate)
     chkCataloged.Value = vbChecked
-    dbcPublisher.SetFocus
+    txtTitle.SetFocus
 End Sub
 Private Sub mnuRecordsRefresh_Click()
     RefreshCommand rsMain, "ID"
@@ -690,6 +717,19 @@ Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
     End Select
 End Sub
 '=================================================================================
+Private Sub dbcMedia_GotFocus()
+    TextSelected
+End Sub
+Private Sub dbcMedia_Validate(Cancel As Boolean)
+    If Not dbcMedia.Enabled Then Exit Sub
+    If dbcMedia.Text = "" Then
+        MsgBox "Media must be specified!", vbExclamation, Me.Caption
+        dbcMedia.SetFocus
+        Cancel = True
+    End If
+    If dbcValidate(rsMain("Media"), dbcMedia) = 0 Then Cancel = True
+    If rsMedias.Bookmark <> dbcMedia.SelectedItem Then rsMedias.Bookmark = dbcMedia.SelectedItem
+End Sub
 Private Sub dbcPublisher_GotFocus()
     TextSelected
 End Sub
@@ -744,7 +784,7 @@ End Sub
 Private Sub txtInventoried_Validate(Cancel As Boolean)
     On Error Resume Next
     txtInventoried.Text = Format(txtInventoried.Text, "mm/dd/yyyy hh:mm AMPM")
-    If txtInventoried.Text = vbNullString Then txtInventoried.Text = Format(Now(), fmtDate)
+    If txtInventoried.Text = vbNullString Or Format(txtInventoried.Text, "mm/dd/yyyy") = "07/31/1963" Then txtInventoried.Text = Format(Now(), fmtDate)
     If Not IsDate(txtInventoried.Text) Then
         MsgBox "Invalid date format", vbExclamation
         Cancel = True
@@ -756,6 +796,15 @@ Private Sub txtISBN_GotFocus()
 End Sub
 Private Sub txtISBN_KeyPress(KeyAscii As Integer)
     KeyPressUcase KeyAscii
+End Sub
+Private Sub txtISBN_Validate(Cancel As Boolean)
+    If Not txtISBN.Enabled Then Exit Sub
+    If txtISBN.Text = vbNullString Then
+        txtISBN.Text = "Unknown"
+        'MsgBox "ISBN must be specified!", vbExclamation, Me.Caption
+        'txtISBN.SetFocus
+        'Cancel = True
+    End If
 End Sub
 Private Sub txtTitle_GotFocus()
     TextSelected
@@ -776,5 +825,14 @@ Private Sub txtValue_Validate(Cancel As Boolean)
 End Sub
 Private Sub txtVersion_GotFocus()
     TextSelected
+End Sub
+Private Sub txtVersion_Validate(Cancel As Boolean)
+    If Not txtVersion.Enabled Then Exit Sub
+    If txtVersion.Text = vbNullString Then
+        txtVersion.Text = "Unknown"
+        'MsgBox "Version must be specified!", vbExclamation, Me.Caption
+        'txtVersion.SetFocus
+        'Cancel = True
+    End If
 End Sub
 
