@@ -738,13 +738,18 @@ Private Sub rsMusic_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal 
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsMusic.EOF Then rsMusic.MoveLast
-    If rsMusic.BOF Then rsMusic.MoveFirst
-    If rsMusic.BOF And rsMusic.EOF Then adodcMusic.Caption = "No Records"
-    Caption = "Reference #" & rsMusic.Bookmark & ": " & rsMusic("ALPHASORT")
-    
-    i = InStr(Caption, "&")
-    If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
+    If rsMusic.BOF And rsMusic.EOF Then
+        adodcMusic.Caption = "No Records"
+    ElseIf rsMusic.EOF Then
+        Caption = "EOF"
+    ElseIf rsMusic.BOF Then
+        Caption = "BOF"
+    Else
+        Caption = "Reference #" & rsMusic.Bookmark & ": " & rsMusic("ALPHASORT")
+        
+        i = InStr(Caption, "&")
+        If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
+    End If
     
     adodcMusic.Caption = Caption
     Exit Sub

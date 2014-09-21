@@ -752,13 +752,18 @@ Private Sub rsAircraftModels_MoveComplete(ByVal adReason As ADODB.EventReasonEnu
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsAircraftModels.EOF Then rsAircraftModels.MoveLast
-    If rsAircraftModels.BOF Then rsAircraftModels.MoveFirst
-    If rsAircraftModels.BOF And rsAircraftModels.EOF Then adodcHobby.Caption = "No Records"
-    Caption = "Reference #" & rsAircraftModels.Bookmark & ": 1/" & rsAircraftModels("Scale") & " Scale; " & rsAircraftModels("Designation") & " " & rsAircraftModels("Name")
-    
-    i = InStr(Caption, "&")
-    If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
+    If rsAircraftModels.BOF And rsAircraftModels.EOF Then
+        adodcAircraftModels.Caption = "No Records"
+    ElseIf rsAircraftModels.EOF Then
+        Caption = "EOF"
+    ElseIf rsAircraftModels.BOF Then
+        Caption = "BOF"
+    Else
+        Caption = "Reference #" & rsAircraftModels.Bookmark & ": 1/" & rsAircraftModels("Scale") & " Scale; " & rsAircraftModels("Designation") & " " & rsAircraftModels("Name")
+        
+        i = InStr(Caption, "&")
+        If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
+    End If
     
     adodcHobby.Caption = Caption
     Exit Sub

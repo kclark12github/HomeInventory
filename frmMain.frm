@@ -137,7 +137,7 @@ Const iMinWidth = 2184
 Const iMinHeight = 1440
 
 Public frmReport As Form
-Public rdcReport As Object
+Public rdcReport As CRAXDRT.Report
 Public MinWidth As Integer
 Public MinHeight As Integer
 

@@ -744,13 +744,18 @@ Private Sub rsSoftware_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByV
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsSoftware.EOF Then rsSoftware.MoveLast
-    If rsSoftware.BOF Then rsSoftware.MoveFirst
-    If rsSoftware.BOF And rsSoftware.EOF Then adodcSoftware.Caption = "No Records"
-    Caption = "Reference #" & rsSoftware.Bookmark & ": " & rsSoftware("Type") & "; " & rsSoftware("Title")
-
-    i = InStr(Caption, "&")
-    If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
+    If rsSoftware.BOF And rsSoftware.EOF Then
+        adodcSoftware.Caption = "No Records"
+    ElseIf rsSoftware.EOF Then
+        Caption = "EOF"
+    ElseIf rsSoftware.BOF Then
+        Caption = "BOF"
+    Else
+        Caption = "Reference #" & rsSoftware.Bookmark & ": " & rsSoftware("Type") & "; " & rsSoftware("Title")
+    
+        i = InStr(Caption, "&")
+        If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
+    End If
     
     adodcSoftware.Caption = Caption
     Exit Sub

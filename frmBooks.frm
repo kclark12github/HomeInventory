@@ -697,28 +697,51 @@ Private Sub mnuActionModify_Click()
     dbcAuthor.SetFocus
 End Sub
 Private Sub mnuActionReport_Click()
+    Dim frm As Form
     Dim Report As New scrBooksReport
+    Dim vRS As ADODB.Recordset
     
-    Report.Database.SetDataSource rsBooks, 3, 1
-    Set frmMain.rdcReport = Report
-    Set frmMain.frmReport = Me
+    MakeVirtualRecordset adoConn, rsBooks.Source, vRS
     
+    Load frmViewReport
+    frmViewReport.Caption = Me.Caption & " Report"
+    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
+        Set frm = frmMain
+    Else
+        Set frm = Me
+    End If
+    frmViewReport.Top = frm.Top
+    frmViewReport.Left = frm.Left
+    frmViewReport.Width = frm.Width
+    frmViewReport.Height = frm.Height
+    
+    Report.Database.SetDataSource vRS, 3, 1
+    Report.ReadRecords
+    
+    frmViewReport.scrViewer.ReportSource = Report
     frmViewReport.Show vbModal
     
     Set Report = Nothing
+    vRS.Close
+    Set vRS = Nothing
 End Sub
 Private Sub rsBooks_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsBooks.EOF Then rsBooks.MoveLast
-    If rsBooks.BOF Then rsBooks.MoveFirst
-    If rsBooks.BOF And rsBooks.EOF Then adodcBooks.Caption = "No Records"
-    Caption = "Reference #" & rsBooks.Bookmark & ": " & rsBooks("ALPHASORT")
-    
-    i = InStr(Caption, "&")
-    If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
+    If rsBooks.BOF And rsBooks.EOF Then
+        adodcBooks.Caption = "No Records"
+    ElseIf rsBooks.EOF Then
+        Caption = "EOF"
+    ElseIf rsBooks.BOF Then
+        Caption = "BOF"
+    Else
+        Caption = "Reference #" & rsBooks.Bookmark & ": " & rsBooks("ALPHASORT")
+        
+        i = InStr(Caption, "&")
+        If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
+    End If
     
     adodcBooks.Caption = Caption
     Exit Sub

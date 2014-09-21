@@ -36,7 +36,7 @@ Begin VB.Form frmViewReport
       DisplayBackgroundEdge=   -1  'True
       SelectionFormula=   ""
       EnablePopupMenu =   -1  'True
-      EnableExportButton=   0   'False
+      EnableExportButton=   -1  'True
       EnableSearchExpertButton=   0   'False
    End
 End
@@ -46,11 +46,29 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Private Sub Form_Load()
+Public rdcReport As CRAXDRT.Report
+Private fActivated As Boolean
+Private Sub DisplayViewer()
     Screen.MousePointer = vbHourglass
-    scrViewer.ReportSource = frmMain.rdcReport
+    'scrViewer.ReportSource = rdcReport
+    'frmMain.rdcReport.ReadRecords
     scrViewer.ViewReport
     Screen.MousePointer = vbDefault
+End Sub
+Private Sub Form_Activate()
+    If Not fActivated Then
+        fActivated = True
+        DisplayViewer
+    End If
+End Sub
+Private Sub Form_Load()
+    fActivated = False
+End Sub
+Private Sub Form_Paint()
+    If Not fActivated Then
+        fActivated = True
+        DisplayViewer
+    End If
 End Sub
 Private Sub Form_Resize()
     scrViewer.Top = 0
@@ -58,4 +76,3 @@ Private Sub Form_Resize()
     scrViewer.Height = ScaleHeight
     scrViewer.Width = ScaleWidth
 End Sub
-

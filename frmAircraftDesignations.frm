@@ -631,13 +631,18 @@ Private Sub rsDesignations_MoveComplete(ByVal adReason As ADODB.EventReasonEnum,
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsDesignations.EOF Then rsDesignations.MoveLast
-    If rsDesignations.BOF Then rsDesignations.MoveFirst
-    If rsDesignations.BOF And rsDesignations.EOF Then adodcDesignations.Caption = "No Records"
-    Caption = "Reference #" & rsDesignations.Bookmark & ": " & rsDesignations("Designation") & " " & rsDesignations("Name")
+    If rsDesignations.BOF And rsDesignations.EOF Then
+        adodcDesignations.Caption = "No Records"
+    ElseIf rsDesignations.EOF Then
+        Caption = "EOF"
+    ElseIf rsDesignations.BOF Then
+        Caption = "BOF"
+    Else
+        Caption = "Reference #" & rsDesignations.Bookmark & ": " & rsDesignations("Designation") & " " & rsDesignations("Name")
     
-    i = InStr(Caption, "&")
-    If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
+        i = InStr(Caption, "&")
+        If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
+    End If
     
     adodcDesignations.Caption = Caption
     Exit Sub

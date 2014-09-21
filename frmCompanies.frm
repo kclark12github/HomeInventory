@@ -631,13 +631,18 @@ Private Sub rsCompanies_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, By
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsCompanies.EOF Then rsCompanies.MoveLast
-    If rsCompanies.BOF Then rsCompanies.MoveFirst
-    If rsCompanies.BOF And rsCompanies.EOF Then adodcCompanies.Caption = "No Records"
-    Caption = "Reference #" & rsCompanies.Bookmark & ": " & rsCompanies("Code")
-    
-    i = InStr(Caption, "&")
-    If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
+    If rsCompanies.BOF And rsCompanies.EOF Then
+        adodcCompanies.Caption = "No Records"
+    ElseIf rsCompanies.EOF Then
+        Caption = "EOF"
+    ElseIf rsCompanies.BOF Then
+        Caption = "BOF"
+    Else
+        Caption = "Reference #" & rsCompanies.Bookmark & ": " & rsCompanies("Code")
+        
+        i = InStr(Caption, "&")
+        If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
+    End If
     
     adodcCompanies.Caption = Caption
     Exit Sub
