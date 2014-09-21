@@ -355,7 +355,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "9:30 PM"
+            TextSave        =   "12:09 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -541,63 +541,63 @@ Begin VB.Form frmKits
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":00BA
+            Picture         =   "frmKits.frx":00D5
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":03D6
+            Picture         =   "frmKits.frx":03F1
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":06FE
+            Picture         =   "frmKits.frx":0719
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":0A26
+            Picture         =   "frmKits.frx":0A41
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":31DA
+            Picture         =   "frmKits.frx":31F5
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":362E
+            Picture         =   "frmKits.frx":3649
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":3A82
+            Picture         =   "frmKits.frx":3A9D
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":454E
+            Picture         =   "frmKits.frx":4569
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":4876
+            Picture         =   "frmKits.frx":4891
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":4CCA
+            Picture         =   "frmKits.frx":4CE5
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":511E
+            Picture         =   "frmKits.frx":5139
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":5572
+            Picture         =   "frmKits.frx":558D
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":59CA
+            Picture         =   "frmKits.frx":59E5
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":5B26
+            Picture         =   "frmKits.frx":5B41
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":5C82
+            Picture         =   "frmKits.frx":5C9D
             Key             =   "NewRecord"
          EndProperty
       EndProperty
@@ -783,6 +783,9 @@ End Sub
 Private Sub mnuRecordsRefresh_Click()
     RefreshCommand rsMain, SQLkey
 End Sub
+Private Sub mnuRecordsSearch_Click()
+    SearchCommand Me, rsMain, SQLkey
+End Sub
 Private Sub mnuFileExit_Click()
     Unload Me
 End Sub
@@ -804,22 +807,24 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
 End Sub
 Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
-        Case "List"
-            mnuRecordsList_Click
-        Case "Refresh"
-            mnuRecordsRefresh_Click
-        Case "Filter"
-            mnuRecordsFilter_Click
+        Case "Report"
+            mnuFileReport_Click
+        Case "SQL"
+            mnuFileSQL_Click
         Case "New"
             mnuRecordsNew_Click
         Case "Modify"
             mnuRecordsModify_Click
         Case "Delete"
             mnuRecordsDelete_Click
-        Case "Report"
-            mnuFileReport_Click
-        Case "SQL"
-            mnuFileSQL_Click
+        Case "Refresh"
+            mnuRecordsRefresh_Click
+        Case "Filter"
+            mnuRecordsFilter_Click
+        Case "Search"
+            mnuRecordsSearch_Click
+        Case "List"
+            mnuRecordsList_Click
     End Select
 End Sub
 Private Sub tsKits_Click()

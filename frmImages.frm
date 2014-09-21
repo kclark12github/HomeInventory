@@ -204,6 +204,7 @@ Begin VB.Form frmImages
          _ExtentX        =   13356
          _ExtentY        =   4360
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmImages.frx":0000
       End
    End
@@ -259,7 +260,7 @@ Begin VB.Form frmImages
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "9:30 PM"
+            TextSave        =   "12:09 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -634,6 +635,9 @@ End Sub
 Private Sub mnuRecordsRefresh_Click()
     RefreshCommand rsMain, SQLkey
 End Sub
+Private Sub mnuRecordsSearch_Click()
+    SearchCommand Me, rsMain, SQLkey
+End Sub
 Private Sub mnuFileExit_Click()
     Unload Me
 End Sub
@@ -663,22 +667,24 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
 End Sub
 Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
-        Case "List"
-            mnuRecordsList_Click
-        Case "Refresh"
-            mnuRecordsRefresh_Click
-        Case "Filter"
-            mnuRecordsFilter_Click
+        Case "Report"
+            mnuFileReport_Click
+        Case "SQL"
+            mnuFileSQL_Click
         Case "New"
             mnuRecordsNew_Click
         Case "Modify"
             mnuRecordsModify_Click
         Case "Delete"
             mnuRecordsDelete_Click
-        Case "Report"
-            mnuFileReport_Click
-        Case "SQL"
-            mnuFileSQL_Click
+        Case "Refresh"
+            mnuRecordsRefresh_Click
+        Case "Filter"
+            mnuRecordsFilter_Click
+        Case "Search"
+            mnuRecordsSearch_Click
+        Case "List"
+            mnuRecordsList_Click
     End Select
 End Sub
 '=================================================================================
