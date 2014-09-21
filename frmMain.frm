@@ -293,19 +293,25 @@ Private Sub Form_Load()
     LoadBackground
 End Sub
 Private Sub Form_Resize()
-    scrollH.Top = Me.ScaleHeight - scrollH.Height
-    scrollH.Left = 0
-    scrollH.Width = Me.ScaleWidth - scrollV.Width
-    scrollH.Max = picBackground.Width - Me.ScaleWidth
-    scrollH.SmallChange = picBackground.Width / 1000
-    scrollH.LargeChange = picBackground.Width / 50
-    
-    scrollV.Top = 0
-    scrollV.Left = Me.ScaleWidth - scrollV.Width
-    scrollV.Height = Me.ScaleHeight - scrollH.Height
-    scrollV.Max = picBackground.Height - Me.ScaleHeight
-    scrollV.SmallChange = picBackground.Height / 1000
-    scrollV.LargeChange = picBackground.Height / 50
+    If Me.WindowState <> vbMinimized Then
+        If scrollH.Visible Then
+            scrollH.Top = Me.ScaleHeight - scrollH.Height
+            scrollH.Left = 0
+            scrollH.Width = Me.ScaleWidth - scrollV.Width
+            scrollH.Max = picBackground.Width - Me.ScaleWidth
+            scrollH.SmallChange = picBackground.Width / 1000
+            scrollH.LargeChange = picBackground.Width / 50
+        End If
+        
+        If scrollV.Visible Then
+            scrollV.Top = 0
+            scrollV.Left = Me.ScaleWidth - scrollV.Width
+            scrollV.Height = Me.ScaleHeight - scrollH.Height
+            scrollV.Max = picBackground.Height - Me.ScaleHeight
+            scrollV.SmallChange = picBackground.Height / 1000
+            scrollV.LargeChange = picBackground.Height / 50
+        End If
+    End If
 End Sub
 Private Sub mnuDataBaseBooks_Click()
     frmBooks.Show vbModal
@@ -353,7 +359,7 @@ Private Sub mnuDataBaseHobbyVideoResearch_Click()
     frmVideoResearch.Show vbModal
 End Sub
 Private Sub mnuDataBaseKFC_Click()
-    frmWebLinks.Show vbModal
+    frmWebLinks.Show vbModeless
 End Sub
 Private Sub mnuDataBaseMusic_Click()
     frmMusic.Show vbModal
@@ -391,7 +397,7 @@ End Sub
 Private Sub mnuHelpAbout_Click()
     frmAbout.Show vbModal
 End Sub
-Private Sub picBackground_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub picBackground_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     If Button = vbKeyRButton Then PopupMenu mnuFile
 End Sub
 Private Sub scrollH_Change()

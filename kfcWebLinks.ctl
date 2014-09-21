@@ -14,13 +14,13 @@ Begin VB.UserControl kfcWebLinks
       Caption         =   "Button Layout"
       Height          =   3372
       Left            =   180
-      TabIndex        =   20
+      TabIndex        =   22
       Top             =   420
       Width           =   3252
       Begin ComctlLib.TreeView tvwDB 
          Height          =   3072
          Left            =   60
-         TabIndex        =   21
+         TabIndex        =   0
          Top             =   240
          Width           =   3132
          _ExtentX        =   5525
@@ -40,14 +40,14 @@ Begin VB.UserControl kfcWebLinks
       Caption         =   "Detail"
       Height          =   3372
       Left            =   3480
-      TabIndex        =   1
+      TabIndex        =   10
       Top             =   420
       Width           =   4092
       Begin VB.CommandButton cmdHyperlink 
          Caption         =   "&Hyperlink"
          Height          =   372
          Left            =   1560
-         TabIndex        =   22
+         TabIndex        =   7
          Top             =   2760
          Visible         =   0   'False
          Width           =   1152
@@ -57,7 +57,7 @@ Begin VB.UserControl kfcWebLinks
          Enabled         =   0   'False
          Height          =   288
          Left            =   1080
-         TabIndex        =   12
+         TabIndex        =   1
          Top             =   264
          Width           =   2892
       End
@@ -66,7 +66,7 @@ Begin VB.UserControl kfcWebLinks
          Enabled         =   0   'False
          Height          =   264
          Left            =   1080
-         TabIndex        =   11
+         TabIndex        =   2
          Top             =   600
          Width           =   2892
       End
@@ -75,7 +75,7 @@ Begin VB.UserControl kfcWebLinks
          Enabled         =   0   'False
          Height          =   264
          Left            =   1080
-         TabIndex        =   10
+         TabIndex        =   14
          Top             =   1860
          Visible         =   0   'False
          Width           =   2892
@@ -85,7 +85,7 @@ Begin VB.UserControl kfcWebLinks
          Enabled         =   0   'False
          Height          =   264
          Left            =   1080
-         TabIndex        =   9
+         TabIndex        =   13
          Top             =   1560
          Visible         =   0   'False
          Width           =   2892
@@ -96,7 +96,7 @@ Begin VB.UserControl kfcWebLinks
          Enabled         =   0   'False
          Height          =   192
          Left            =   1080
-         TabIndex        =   8
+         TabIndex        =   4
          Top             =   1260
          Width           =   1452
       End
@@ -105,7 +105,7 @@ Begin VB.UserControl kfcWebLinks
          Enabled         =   0   'False
          Height          =   264
          Left            =   1320
-         TabIndex        =   7
+         TabIndex        =   3
          Top             =   900
          Width           =   2652
       End
@@ -124,7 +124,7 @@ Begin VB.UserControl kfcWebLinks
          Picture         =   "kfcWebLinks.ctx":0312
          ScaleHeight     =   384
          ScaleWidth      =   384
-         TabIndex        =   4
+         TabIndex        =   11
          Top             =   2760
          Visible         =   0   'False
          Width           =   432
@@ -134,7 +134,7 @@ Begin VB.UserControl kfcWebLinks
          Default         =   -1  'True
          Height          =   372
          Left            =   2820
-         TabIndex        =   3
+         TabIndex        =   8
          Top             =   2760
          Visible         =   0   'False
          Width           =   1152
@@ -144,7 +144,7 @@ Begin VB.UserControl kfcWebLinks
          Caption         =   "&Cancel"
          Height          =   372
          Left            =   2820
-         TabIndex        =   2
+         TabIndex        =   6
          Top             =   2760
          Visible         =   0   'False
          Width           =   1152
@@ -152,7 +152,7 @@ Begin VB.UserControl kfcWebLinks
       Begin ComctlLib.ProgressBar prgLoad 
          Height          =   132
          Left            =   120
-         TabIndex        =   6
+         TabIndex        =   12
          Top             =   2880
          Width           =   3852
          _ExtentX        =   6795
@@ -166,7 +166,7 @@ Begin VB.UserControl kfcWebLinks
          Caption         =   "ID"
          Height          =   192
          Left            =   3816
-         TabIndex        =   19
+         TabIndex        =   21
          Top             =   1260
          Width           =   156
       End
@@ -176,7 +176,7 @@ Begin VB.UserControl kfcWebLinks
          Enabled         =   0   'False
          Height          =   192
          Left            =   600
-         TabIndex        =   18
+         TabIndex        =   20
          Top             =   300
          Width           =   444
       End
@@ -186,7 +186,7 @@ Begin VB.UserControl kfcWebLinks
          Enabled         =   0   'False
          Height          =   192
          Left            =   660
-         TabIndex        =   17
+         TabIndex        =   19
          Top             =   636
          Width           =   360
       End
@@ -196,7 +196,7 @@ Begin VB.UserControl kfcWebLinks
          Enabled         =   0   'False
          Height          =   192
          Left            =   324
-         TabIndex        =   16
+         TabIndex        =   18
          Top             =   1896
          Visible         =   0   'False
          Width           =   696
@@ -207,7 +207,7 @@ Begin VB.UserControl kfcWebLinks
          Enabled         =   0   'False
          Height          =   192
          Left            =   540
-         TabIndex        =   15
+         TabIndex        =   17
          Top             =   1596
          Visible         =   0   'False
          Width           =   480
@@ -218,7 +218,7 @@ Begin VB.UserControl kfcWebLinks
          Enabled         =   0   'False
          Height          =   192
          Left            =   240
-         TabIndex        =   14
+         TabIndex        =   16
          Top             =   936
          Width           =   1020
       End
@@ -285,7 +285,7 @@ Begin VB.UserControl kfcWebLinks
          Caption         =   "lblLoad"
          Height          =   192
          Left            =   120
-         TabIndex        =   13
+         TabIndex        =   15
          Top             =   2640
          Width           =   540
       End
@@ -293,7 +293,7 @@ Begin VB.UserControl kfcWebLinks
    Begin ComctlLib.TabStrip tsUpdate 
       Height          =   3792
       Left            =   60
-      TabIndex        =   0
+      TabIndex        =   9
       TabStop         =   0   'False
       Top             =   60
       Width           =   7572
@@ -347,7 +347,7 @@ Attribute VB_Name = "kfcWebLinks"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = True
+Attribute VB_Exposed = False
 Option Explicit
 Private cnKFC As New ADODB.Connection
 Private cmdKFC As New ADODB.Command
@@ -499,7 +499,6 @@ Private Sub cmdHyperlink_Click()
 End Sub
 Private Sub cmdOK_Click()
     Dim mNode As ComctlLib.Node
-    Dim xNode As ComctlLib.Node
     Dim rsEntry As New ADODB.Recordset
     Dim intID As Integer
     Dim fHasMembers As Boolean
@@ -517,6 +516,7 @@ Private Sub cmdOK_Click()
         AddNode tvwDB.SelectedItem.Index, strID, txtLabel.Text, txtButtonLabel.Text, txtParentID.Text, fHasMembers, True
         fAdding = False
     Else
+        Set mNode = tvwDB.SelectedItem
         intID = Mid(lblID.Caption, 5)
         rsEntry.Open "SELECT * from MenuEntries where ID=" & intID, cnKFC, adOpenForwardOnly, adLockOptimistic
         rsEntry("Label") = VBencode(txtLabel.Text)
@@ -531,8 +531,8 @@ Private Sub cmdOK_Click()
         End If
         rsEntry.Update
         rsEntry.Close
-        
-        ForceNodeSort tvwDB.SelectedItem.Index
+        mNode.Text = txtLabel.Text
+        ForceNodeSort mNode.Index
     End If
     Set rsEntry = Nothing
     
@@ -917,7 +917,7 @@ Public Sub PopulateMenu()
     lblLoad.Visible = True
     
     SQLstatement = "SELECT Distinct ButtonLabel FROM MenuEntries order by ButtonLabel"
-'SQLstatement = "SELECT Distinct ButtonLabel FROM MenuEntries where buttonlabel = 'Books' order by ButtonLabel"
+SQLstatement = "SELECT Distinct ButtonLabel FROM MenuEntries where buttonlabel = 'Books' order by ButtonLabel"
     Trace trcBody, "rsButtons.Open """ & SQLstatement & """, cnKFC, adOpenKeyset, adLockReadOnly"
     rsButtons.Open SQLstatement, cnKFC, adOpenKeyset, adLockReadOnly
     
@@ -949,6 +949,8 @@ Private Sub IEhyperlink(strURL, strFrame)
     Dim TwipTop As Integer
     Dim TargetURL As String
     Dim TargetFrame As String
+    
+    On Error Resume Next
     
     If IE Is Nothing Then
         Set IE = New InternetExplorer

@@ -1,24 +1,23 @@
 VERSION 5.00
-Object = "{AFB5A97B-6C4F-11D2-BDFF-98840BC10000}#7.0#0"; "WEBLINKS.OCX"
 Begin VB.Form frmWebLinks 
    Caption         =   "Web Shortcuts"
-   ClientHeight    =   4716
+   ClientHeight    =   4152
    ClientLeft      =   48
    ClientTop       =   276
    ClientWidth     =   7896
    Icon            =   "frmWebLinks.frx":0000
    LinkTopic       =   "Form1"
-   ScaleHeight     =   4716
+   ScaleHeight     =   4152
    ScaleWidth      =   7896
    StartUpPosition =   1  'CenterOwner
-   Begin WebLinks.kfcWebLinks wlWebLinks 
-      Height          =   4032
-      Left            =   60
+   Begin HomeInventory.kfcWebLinks wlWebLinks 
+      Height          =   4152
+      Left            =   120
       TabIndex        =   0
-      Top             =   60
-      Width           =   7752
-      _ExtentX        =   13674
-      _ExtentY        =   7112
+      Top             =   0
+      Width           =   7692
+      _ExtentX        =   13568
+      _ExtentY        =   7324
    End
 End
 Attribute VB_Name = "frmWebLinks"
