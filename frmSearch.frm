@@ -1015,10 +1015,10 @@ Private Sub cmdApply_Click()
     For i = 0 To RS.Fields.Count - 1
         If txtFields(i).Enabled Then
             Set ctl = txtFields(i)
-            If Trim(ctl.Text) <> vbNullString Then SQLsource = SQLsource & RS.Fields(i).Name & " " & ctl.Text & " And "
+            If Trim(ctl.Text) <> vbNullString Then strSearch = strSearch & RS.Fields(i).Name & " " & ctl.Text & " And "
         Else
             Set ctl = dbcFields(i)
-            If Trim(ctl.Text) <> vbNullString Then SQLsource = SQLsource & RS.Fields(i).Name & "='" & ctl.Text & "' And "
+            If Trim(ctl.Text) <> vbNullString Then strSearch = strSearch & RS.Fields(i).Name & "='" & ctl.Text & "' And "
         End If
     Next i
     If Len(strSearch) > 0 Then strSearch = Left(strSearch, Len(strSearch) - 5)  'Get rid of the final " and "...

@@ -2,6 +2,7 @@ VERSION 5.00
 Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
+Object = "{C2000000-FFFF-1100-8100-000000000001}#8.0#0"; "PVCURR.OCX"
 Begin VB.Form frmBooks 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Book Inventory"
@@ -17,11 +18,32 @@ Begin VB.Form frmBooks
    ScaleWidth      =   7530
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
+   Begin PVCurrencyLib.PVCurrency pvcPrice 
+      Bindings        =   "frmBooks.frx":0442
+      Height          =   285
+      Left            =   1464
+      TabIndex        =   3
+      Top             =   1440
+      Width           =   975
+      _Version        =   524288
+      _ExtentX        =   1720
+      _ExtentY        =   503
+      _StockProps     =   253
+      Text            =   "$0.00"
+      ForeColor       =   -2147483640
+      BackColor       =   -2147483643
+      Appearance      =   1
+      Alignment       =   2
+      EditMode        =   0
+      EditModeChange  =   0   'False
+      Value           =   0
+      ChangeColor     =   -1  'True
+   End
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
       Height          =   255
       Left            =   0
-      TabIndex        =   21
+      TabIndex        =   22
       Top             =   4125
       Width           =   7530
       _ExtentX        =   13282
@@ -41,16 +63,16 @@ Begin VB.Form frmBooks
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   7964
+            Object.Width           =   8070
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1376
+            Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:13 PM"
+            TextSave        =   "6:21 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -61,7 +83,7 @@ Begin VB.Form frmBooks
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6360
-      TabIndex        =   10
+      TabIndex        =   11
       Top             =   3660
       Width           =   972
    End
@@ -70,7 +92,7 @@ Begin VB.Form frmBooks
       Default         =   -1  'True
       Height          =   372
       Left            =   5340
-      TabIndex        =   9
+      TabIndex        =   10
       Top             =   3660
       Width           =   972
    End
@@ -123,7 +145,7 @@ Begin VB.Form frmBooks
    Begin VB.TextBox txtAlphaSort 
       Height          =   288
       Left            =   1464
-      TabIndex        =   6
+      TabIndex        =   7
       Text            =   "AlphaSort"
       Top             =   2520
       Width           =   5832
@@ -131,7 +153,7 @@ Begin VB.Form frmBooks
    Begin VB.TextBox txtInventoried 
       Height          =   288
       Left            =   1464
-      TabIndex        =   7
+      TabIndex        =   8
       Text            =   "Inventoried"
       Top             =   2880
       Width           =   3195
@@ -139,7 +161,7 @@ Begin VB.Form frmBooks
    Begin MSDataListLib.DataCombo dbcSubject 
       Height          =   315
       Left            =   1470
-      TabIndex        =   4
+      TabIndex        =   5
       Top             =   1800
       Width           =   5895
       _ExtentX        =   10398
@@ -163,7 +185,7 @@ Begin VB.Form frmBooks
    Begin VB.TextBox txtMisc 
       Height          =   288
       Left            =   1464
-      TabIndex        =   5
+      TabIndex        =   6
       Text            =   "Misc"
       Top             =   2160
       Width           =   5895
@@ -181,7 +203,7 @@ Begin VB.Form frmBooks
       EndProperty
       Height          =   288
       Left            =   1464
-      TabIndex        =   3
+      TabIndex        =   4
       Top             =   1440
       Width           =   972
    End
@@ -198,7 +220,7 @@ Begin VB.Form frmBooks
       Caption         =   "Cataloged"
       Height          =   192
       Left            =   5280
-      TabIndex        =   8
+      TabIndex        =   9
       Top             =   2928
       Width           =   1152
    End
@@ -214,7 +236,7 @@ Begin VB.Form frmBooks
       Align           =   1  'Align Top
       Height          =   360
       Left            =   0
-      TabIndex        =   22
+      TabIndex        =   23
       Top             =   0
       Width           =   7530
       _ExtentX        =   13282
@@ -300,63 +322,63 @@ Begin VB.Form frmBooks
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":0442
+            Picture         =   "frmBooks.frx":044D
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":075E
+            Picture         =   "frmBooks.frx":0769
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":0A86
+            Picture         =   "frmBooks.frx":0A91
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":0DAE
+            Picture         =   "frmBooks.frx":0DB9
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":3562
+            Picture         =   "frmBooks.frx":356D
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":39B6
+            Picture         =   "frmBooks.frx":39C1
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":3E0A
+            Picture         =   "frmBooks.frx":3E15
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":48D6
+            Picture         =   "frmBooks.frx":48E1
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":4BFE
+            Picture         =   "frmBooks.frx":4C09
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":5052
+            Picture         =   "frmBooks.frx":505D
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":54A6
+            Picture         =   "frmBooks.frx":54B1
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":58FA
+            Picture         =   "frmBooks.frx":5905
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":5D52
+            Picture         =   "frmBooks.frx":5D5D
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":5EAE
+            Picture         =   "frmBooks.frx":5EB9
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBooks.frx":600A
+            Picture         =   "frmBooks.frx":6015
             Key             =   "NewRecord"
          EndProperty
       EndProperty
@@ -366,7 +388,7 @@ Begin VB.Form frmBooks
       Caption         =   "ID:"
       Height          =   195
       Left            =   6750
-      TabIndex        =   20
+      TabIndex        =   21
       Top             =   2927
       Width           =   195
    End
@@ -375,7 +397,7 @@ Begin VB.Form frmBooks
       Caption         =   "Date Inventoried:"
       Height          =   195
       Left            =   141
-      TabIndex        =   19
+      TabIndex        =   20
       Top             =   2927
       Width           =   1215
    End
@@ -384,7 +406,7 @@ Begin VB.Form frmBooks
       Caption         =   "AlphaSort:"
       Height          =   195
       Left            =   606
-      TabIndex        =   18
+      TabIndex        =   19
       Top             =   2567
       Width           =   750
    End
@@ -393,7 +415,7 @@ Begin VB.Form frmBooks
       Caption         =   "Miscellaneous:"
       Height          =   195
       Left            =   276
-      TabIndex        =   17
+      TabIndex        =   18
       Top             =   2207
       Width           =   1080
    End
@@ -402,7 +424,7 @@ Begin VB.Form frmBooks
       Caption         =   "Subject:"
       Height          =   195
       Left            =   786
-      TabIndex        =   16
+      TabIndex        =   17
       Top             =   1845
       Width           =   570
    End
@@ -420,7 +442,7 @@ Begin VB.Form frmBooks
       EndProperty
       Height          =   195
       Left            =   951
-      TabIndex        =   15
+      TabIndex        =   16
       Top             =   1487
       Width           =   405
    End
@@ -429,7 +451,7 @@ Begin VB.Form frmBooks
       Caption         =   "ISBN:"
       Height          =   192
       Left            =   948
-      TabIndex        =   14
+      TabIndex        =   15
       Top             =   1134
       Width           =   408
    End
@@ -438,7 +460,7 @@ Begin VB.Form frmBooks
       Caption         =   "Title:"
       Height          =   192
       Left            =   1008
-      TabIndex        =   13
+      TabIndex        =   14
       Top             =   426
       Width           =   348
    End
@@ -447,7 +469,7 @@ Begin VB.Form frmBooks
       Caption         =   "Author:"
       Height          =   192
       Left            =   864
-      TabIndex        =   12
+      TabIndex        =   13
       Top             =   766
       Width           =   492
    End
@@ -456,7 +478,7 @@ Begin VB.Form frmBooks
       Caption         =   "lblID"
       Height          =   195
       Left            =   7035
-      TabIndex        =   11
+      TabIndex        =   12
       Top             =   2927
       Width           =   330
    End
@@ -556,7 +578,8 @@ Private Sub Form_Load()
     BindField dbcAuthor, "Author", rsMain, "Author", rsAuthors, "Author", "Author"
     BindField txtTitle, "Title", rsMain, "Title"
     BindField txtISBN, "ISBN", rsMain, "ISBN"
-    BindField txtPrice, "Price", rsMain, "Price"
+    'BindField txtPrice, "Price", rsMain, "Price"
+    BindField pvcPrice, "Price", rsMain, "Price"
     BindField txtAlphaSort, "AlphaSort", rsMain, "AlphaSort"
     BindField dbcSubject, "Subject", rsMain, "Subject", rsSubjects, "Subject", "Subject"
     BindField txtMisc, "Misc", rsMain, "Misc"
@@ -606,6 +629,12 @@ Private Sub mnuFileReport_Click()
 End Sub
 Private Sub mnuFileSQL_Click()
     SQLCommand "Books"
+End Sub
+Private Sub pvcPrice_GotFocus()
+    TextSelected
+End Sub
+Private Sub pvcPrice_GotFocusEvent()
+    TextSelected
 End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String

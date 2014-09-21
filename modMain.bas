@@ -79,6 +79,12 @@ Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Re
             ctl.BoundColumn = BoundColumn
             ctl.ListField = ListField
             Set ctl.RowSource = RowSource
+        Case "PVCurrency"
+            ctl.Tag = Caption
+            Set ctl.DataSource = Nothing
+            ctl.DataField = DataField
+            ctl.VariantData = DataField
+            Set ctl.DataSource = DataSource
     End Select
 
     Select Case TypeName(ctl)
@@ -373,7 +379,7 @@ Public Sub OpenFields(pForm As Form)
     Call Trace(trcEnter, "OpenFields(""" & pForm.Name & """)")
     For Each ctl In pForm.Controls
         Select Case TypeName(ctl)
-            Case "ComboBox", "DataCombo", "DataGrid", "RichTextBox", "TextBox"
+            Case "ComboBox", "DataCombo", "DataGrid", "RichTextBox", "TextBox", "PVCurrency"
                 'ctl.Locked = False
                 ctl.Enabled = True
                 ctl.BackColor = vbWindowBackground
@@ -392,7 +398,7 @@ Public Sub ProtectFields(pForm As Form)
     Call Trace(trcEnter, "ProtectFields(""" & pForm.Name & """)")
     For Each ctl In pForm.Controls
         Select Case TypeName(ctl)
-            Case "ComboBox", "DataCombo", "DataGrid", "RichTextBox", "TextBox"
+            Case "ComboBox", "DataCombo", "DataGrid", "RichTextBox", "TextBox", "PVCurrency"
                 'ctl.Locked = True
                 ctl.Enabled = False
                 ctl.BackColor = vbButtonFace
