@@ -5,27 +5,27 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmRockets 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Rockets"
-   ClientHeight    =   3768
-   ClientLeft      =   36
-   ClientTop       =   492
-   ClientWidth     =   7524
+   ClientHeight    =   4455
+   ClientLeft      =   30
+   ClientTop       =   495
+   ClientWidth     =   7530
    Icon            =   "frmRockets.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3768
-   ScaleWidth      =   7524
+   ScaleHeight     =   4455
+   ScaleWidth      =   7530
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
-      Height          =   252
+      Height          =   255
       Left            =   0
       TabIndex        =   26
-      Top             =   3516
-      Width           =   7524
-      _ExtentX        =   13272
-      _ExtentY        =   445
+      Top             =   4200
+      Width           =   7530
+      _ExtentX        =   13282
+      _ExtentY        =   450
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
          NumPanels       =   4
@@ -41,7 +41,7 @@ Begin VB.Form frmRockets
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8086
+            Object.Width           =   8070
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
@@ -50,25 +50,25 @@ Begin VB.Form frmRockets
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:46 PM"
+            TextSave        =   "8:46 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
    End
    Begin VB.TextBox txtCount 
-      Height          =   288
-      Left            =   5928
+      Height          =   300
+      Left            =   5745
       TabIndex        =   9
       Text            =   "Count"
-      Top             =   1860
-      Width           =   972
+      Top             =   2407
+      Width           =   1455
    End
    Begin VB.TextBox txtReference 
-      Height          =   288
-      Left            =   5928
+      Height          =   300
+      Left            =   5745
       TabIndex        =   7
       Text            =   "Reference"
-      Top             =   1560
+      Top             =   1987
       Width           =   1452
    End
    Begin VB.CommandButton cmdCancel 
@@ -76,27 +76,27 @@ Begin VB.Form frmRockets
       Caption         =   "Cancel"
       CausesValidation=   0   'False
       Height          =   372
-      Left            =   6480
+      Left            =   6384
       TabIndex        =   12
-      Top             =   3120
+      Top             =   3720
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
       Caption         =   "OK"
       Default         =   -1  'True
       Height          =   372
-      Left            =   5460
+      Left            =   5364
       TabIndex        =   11
-      Top             =   3120
+      Top             =   3720
       Width           =   972
    End
    Begin MSAdodcLib.Adodc adodcMain 
-      Height          =   312
-      Left            =   264
-      Top             =   2640
-      Width           =   7152
-      _ExtentX        =   12615
-      _ExtentY        =   550
+      Height          =   330
+      Left            =   180
+      Top             =   3240
+      Width           =   7155
+      _ExtentX        =   12621
+      _ExtentY        =   582
       ConnectMode     =   0
       CursorLocation  =   3
       IsolationLevel  =   -1
@@ -127,7 +127,7 @@ Begin VB.Form frmRockets
       Caption         =   ""
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
-         Size            =   7.8
+         Size            =   8.25
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -137,21 +137,21 @@ Begin VB.Form frmRockets
       _Version        =   393216
    End
    Begin VB.TextBox txtInventoried 
-      Height          =   288
+      Height          =   300
       Left            =   1524
       TabIndex        =   10
       Text            =   "Inventoried"
-      Top             =   2172
-      Width           =   1812
+      Top             =   2820
+      Width           =   3255
    End
    Begin MSDataListLib.DataCombo dbcManufacturer 
-      Height          =   288
+      Height          =   315
       Left            =   1524
       TabIndex        =   5
-      Top             =   1272
-      Width           =   5892
-      _ExtentX        =   10393
-      _ExtentY        =   508
+      Top             =   1560
+      Width           =   5895
+      _ExtentX        =   10398
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   "Manufacturer"
@@ -167,14 +167,14 @@ Begin VB.Form frmRockets
          LCID            =   1033
          SubFormatType   =   2
       EndProperty
-      Height          =   288
-      Left            =   4944
+      Height          =   300
+      Left            =   4950
       TabIndex        =   4
-      Top             =   960
-      Width           =   972
+      Top             =   1147
+      Width           =   1455
    End
    Begin VB.TextBox txtDesignation 
-      Height          =   288
+      Height          =   300
       Left            =   1524
       TabIndex        =   0
       Text            =   "Designation"
@@ -182,72 +182,72 @@ Begin VB.Form frmRockets
       Width           =   1872
    End
    Begin VB.TextBox txtName 
-      Height          =   288
+      Height          =   300
       Left            =   1524
       TabIndex        =   2
       Text            =   "Name"
-      Top             =   672
+      Top             =   780
       Width           =   5892
    End
    Begin MSDataListLib.DataCombo dbcCatalog 
-      Height          =   288
+      Height          =   315
       Left            =   1524
       TabIndex        =   6
-      Top             =   1560
-      Width           =   3252
-      _ExtentX        =   5736
-      _ExtentY        =   508
+      Top             =   1980
+      Width           =   3255
+      _ExtentX        =   5741
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   "Catalog"
    End
    Begin MSDataListLib.DataCombo dbcNation 
-      Height          =   288
+      Height          =   315
       Left            =   1524
       TabIndex        =   8
-      Top             =   1860
-      Width           =   3252
-      _ExtentX        =   5736
-      _ExtentY        =   508
+      Top             =   2400
+      Width           =   3255
+      _ExtentX        =   5741
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   "Nation"
    End
    Begin MSDataListLib.DataCombo dbcScale 
-      Height          =   288
+      Height          =   315
       Left            =   1524
       TabIndex        =   3
-      Top             =   972
-      Width           =   1092
-      _ExtentX        =   1926
-      _ExtentY        =   508
+      Top             =   1140
+      Width           =   1095
+      _ExtentX        =   1931
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   "Scale"
    End
    Begin MSDataListLib.DataCombo dbcType 
-      Height          =   288
-      Left            =   4944
+      Height          =   315
+      Left            =   4950
       TabIndex        =   1
-      Top             =   360
-      Width           =   1512
-      _ExtentX        =   2667
-      _ExtentY        =   508
+      Top             =   365
+      Width           =   1515
+      _ExtentX        =   2672
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   "Type"
    End
    Begin MSComctlLib.Toolbar tbMain 
       Align           =   1  'Align Top
-      Height          =   288
+      Height          =   360
       Left            =   0
       TabIndex        =   27
       Top             =   0
-      Width           =   7524
-      _ExtentX        =   13272
-      _ExtentY        =   508
-      ButtonWidth     =   487
-      ButtonHeight    =   466
+      Width           =   7530
+      _ExtentX        =   13282
+      _ExtentY        =   635
+      ButtonWidth     =   609
+      ButtonHeight    =   582
       Appearance      =   1
       Style           =   1
       ImageList       =   "imlSmall"
@@ -317,8 +317,8 @@ Begin VB.Form frmRockets
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   240
       Top             =   60
-      _ExtentX        =   804
-      _ExtentY        =   804
+      _ExtentX        =   794
+      _ExtentY        =   794
       BackColor       =   -2147483643
       ImageWidth      =   16
       ImageHeight     =   16
@@ -394,71 +394,71 @@ Begin VB.Form frmRockets
       Height          =   192
       Left            =   4440
       TabIndex        =   25
-      Top             =   420
+      Top             =   426
       Width           =   420
    End
    Begin VB.Label lblCount 
       AutoSize        =   -1  'True
       Caption         =   "Count:"
-      Height          =   192
-      Left            =   5340
+      Height          =   195
+      Left            =   5160
       TabIndex        =   24
-      Top             =   1908
-      Width           =   444
+      Top             =   2460
+      Width           =   450
    End
    Begin VB.Label lblCatalog 
       AutoSize        =   -1  'True
       Caption         =   "Catalog:"
-      Height          =   192
+      Height          =   195
       Left            =   816
       TabIndex        =   23
-      Top             =   1608
+      Top             =   2040
       Width           =   600
    End
    Begin VB.Label lblReference 
       AutoSize        =   -1  'True
       Caption         =   "Reference:"
-      Height          =   192
-      Left            =   5040
+      Height          =   195
+      Left            =   4860
       TabIndex        =   22
-      Top             =   1608
-      Width           =   792
+      Top             =   2040
+      Width           =   795
    End
    Begin VB.Label lblScale 
       AutoSize        =   -1  'True
       Caption         =   "Scale:"
-      Height          =   192
-      Left            =   960
+      Height          =   195
+      Left            =   966
       TabIndex        =   21
-      Top             =   1020
-      Width           =   456
+      Top             =   1200
+      Width           =   450
    End
    Begin VB.Label lblIDlabel 
       AutoSize        =   -1  'True
       Caption         =   "ID:"
-      Height          =   192
-      Left            =   6804
+      Height          =   195
+      Left            =   6630
       TabIndex        =   20
-      Top             =   2220
-      Width           =   192
+      Top             =   2873
+      Width           =   195
    End
    Begin VB.Label lblDateInventoried 
       AutoSize        =   -1  'True
       Caption         =   "Date Inventoried:"
-      Height          =   192
-      Left            =   204
+      Height          =   195
+      Left            =   201
       TabIndex        =   19
-      Top             =   2220
-      Width           =   1212
+      Top             =   2873
+      Width           =   1215
    End
    Begin VB.Label lblNation 
       AutoSize        =   -1  'True
       Caption         =   "Nation:"
-      Height          =   192
-      Left            =   912
+      Height          =   195
+      Left            =   906
       TabIndex        =   18
-      Top             =   1908
-      Width           =   504
+      Top             =   2460
+      Width           =   510
    End
    Begin VB.Label lblPrice 
       AutoSize        =   -1  'True
@@ -472,11 +472,11 @@ Begin VB.Form frmRockets
          LCID            =   1033
          SubFormatType   =   0
       EndProperty
-      Height          =   192
-      Left            =   4428
+      Height          =   195
+      Left            =   4425
       TabIndex        =   17
-      Top             =   1020
-      Width           =   408
+      Top             =   1200
+      Width           =   405
    End
    Begin VB.Label lblDesignation 
       AutoSize        =   -1  'True
@@ -484,35 +484,35 @@ Begin VB.Form frmRockets
       Height          =   192
       Left            =   516
       TabIndex        =   16
-      Top             =   420
+      Top             =   426
       Width           =   900
    End
    Begin VB.Label lblName 
       AutoSize        =   -1  'True
       Caption         =   "Name:"
-      Height          =   192
+      Height          =   195
       Left            =   936
       TabIndex        =   15
-      Top             =   720
+      Top             =   833
       Width           =   480
    End
    Begin VB.Label lblManufacturer 
       AutoSize        =   -1  'True
       Caption         =   "Manufacturer:"
-      Height          =   192
+      Height          =   195
       Left            =   456
       TabIndex        =   14
-      Top             =   1320
+      Top             =   1620
       Width           =   960
    End
    Begin VB.Label lblID 
       AutoSize        =   -1  'True
       Caption         =   "lblID"
-      Height          =   192
-      Left            =   7092
+      Height          =   195
+      Left            =   6915
       TabIndex        =   13
-      Top             =   2220
-      Width           =   324
+      Top             =   2873
+      Width           =   330
    End
    Begin VB.Menu mnuFile 
       Caption         =   "&File"

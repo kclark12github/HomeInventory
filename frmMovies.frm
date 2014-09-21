@@ -5,35 +5,35 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmMovies 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Movies"
-   ClientHeight    =   3480
-   ClientLeft      =   36
-   ClientTop       =   492
-   ClientWidth     =   7524
+   ClientHeight    =   3930
+   ClientLeft      =   30
+   ClientTop       =   495
+   ClientWidth     =   7530
    Icon            =   "frmMovies.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3480
-   ScaleWidth      =   7524
+   ScaleHeight     =   3930
+   ScaleWidth      =   7530
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin VB.CheckBox chkStoreBought 
       Caption         =   "Store Bought"
       Height          =   192
-      Left            =   3720
+      Left            =   5100
       TabIndex        =   7
-      Top             =   1920
-      Width           =   1212
+      Top             =   2454
+      Width           =   1395
    End
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
-      Height          =   252
+      Height          =   255
       Left            =   0
       TabIndex        =   18
-      Top             =   3228
-      Width           =   7524
-      _ExtentX        =   13272
-      _ExtentY        =   445
+      Top             =   3675
+      Width           =   7530
+      _ExtentX        =   13282
+      _ExtentY        =   450
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
          NumPanels       =   4
@@ -49,7 +49,7 @@ Begin VB.Form frmMovies
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8086
+            Object.Width           =   8070
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
@@ -58,17 +58,17 @@ Begin VB.Form frmMovies
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:43 PM"
+            TextSave        =   "8:43 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
    End
    Begin VB.TextBox txtSort 
-      Height          =   288
+      Height          =   300
       Left            =   1530
       TabIndex        =   5
       Text            =   "Sort"
-      Top             =   1560
+      Top             =   2040
       Width           =   5892
    End
    Begin VB.CommandButton cmdCancel 
@@ -76,27 +76,27 @@ Begin VB.Form frmMovies
       Caption         =   "Cancel"
       CausesValidation=   0   'False
       Height          =   372
-      Left            =   6486
+      Left            =   6384
       TabIndex        =   9
-      Top             =   2820
+      Top             =   3240
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
       Caption         =   "OK"
       Default         =   -1  'True
       Height          =   372
-      Left            =   5466
+      Left            =   5364
       TabIndex        =   8
-      Top             =   2820
+      Top             =   3240
       Width           =   972
    End
    Begin MSAdodcLib.Adodc adodcMain 
-      Height          =   312
-      Left            =   276
-      Top             =   2340
-      Width           =   7152
-      _ExtentX        =   12615
-      _ExtentY        =   550
+      Height          =   330
+      Left            =   174
+      Top             =   2760
+      Width           =   7155
+      _ExtentX        =   12621
+      _ExtentY        =   582
       ConnectMode     =   0
       CursorLocation  =   3
       IsolationLevel  =   -1
@@ -127,7 +127,7 @@ Begin VB.Form frmMovies
       Caption         =   ""
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
-         Size            =   7.8
+         Size            =   8.25
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -137,21 +137,21 @@ Begin VB.Form frmMovies
       _Version        =   393216
    End
    Begin VB.TextBox txtInventoried 
-      Height          =   288
+      Height          =   300
       Left            =   1530
       TabIndex        =   6
       Text            =   "Inventoried"
-      Top             =   1860
-      Width           =   1812
+      Top             =   2400
+      Width           =   3435
    End
    Begin MSDataListLib.DataCombo dbcDistributor 
-      Height          =   288
+      Height          =   315
       Left            =   1530
       TabIndex        =   4
-      Top             =   1260
-      Width           =   5892
-      _ExtentX        =   10393
-      _ExtentY        =   508
+      Top             =   1620
+      Width           =   5895
+      _ExtentX        =   10398
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   "Distributor"
@@ -167,14 +167,14 @@ Begin VB.Form frmMovies
          LCID            =   1033
          SubFormatType   =   2
       EndProperty
-      Height          =   288
-      Left            =   5934
+      Height          =   300
+      Left            =   5880
       TabIndex        =   2
-      Top             =   660
+      Top             =   787
       Width           =   972
    End
    Begin VB.TextBox txtTitle 
-      Height          =   288
+      Height          =   300
       Left            =   1530
       TabIndex        =   0
       Text            =   "Title"
@@ -182,13 +182,13 @@ Begin VB.Form frmMovies
       Width           =   5892
    End
    Begin MSDataListLib.DataCombo dbcSubject 
-      Height          =   288
+      Height          =   315
       Left            =   1530
       TabIndex        =   1
-      Top             =   672
-      Width           =   3252
-      _ExtentX        =   5736
-      _ExtentY        =   508
+      Top             =   780
+      Width           =   3255
+      _ExtentX        =   5741
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   "Subject"
@@ -196,8 +196,8 @@ Begin VB.Form frmMovies
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   240
       Top             =   60
-      _ExtentX        =   804
-      _ExtentY        =   804
+      _ExtentX        =   794
+      _ExtentY        =   794
       BackColor       =   -2147483643
       ImageWidth      =   16
       ImageHeight     =   16
@@ -268,28 +268,28 @@ Begin VB.Form frmMovies
       EndProperty
    End
    Begin MSDataListLib.DataCombo dbcFormat 
-      Height          =   288
+      Height          =   315
       Left            =   1530
       TabIndex        =   3
-      Top             =   972
-      Width           =   3252
-      _ExtentX        =   5736
-      _ExtentY        =   508
+      Top             =   1200
+      Width           =   3255
+      _ExtentX        =   5741
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   "Format"
    End
    Begin MSComctlLib.Toolbar tbMain 
       Align           =   1  'Align Top
-      Height          =   288
+      Height          =   360
       Left            =   0
       TabIndex        =   20
       Top             =   0
-      Width           =   7524
-      _ExtentX        =   13272
-      _ExtentY        =   508
-      ButtonWidth     =   487
-      ButtonHeight    =   466
+      Width           =   7530
+      _ExtentX        =   13282
+      _ExtentY        =   635
+      ButtonWidth     =   609
+      ButtonHeight    =   582
       Appearance      =   1
       Style           =   1
       ImageList       =   "imlSmall"
@@ -359,47 +359,47 @@ Begin VB.Form frmMovies
    Begin VB.Label lblFormat 
       AutoSize        =   -1  'True
       Caption         =   "Format:"
-      Height          =   192
+      Height          =   195
       Left            =   888
       TabIndex        =   19
-      Top             =   1020
+      Top             =   1260
       Width           =   540
    End
    Begin VB.Label lblSort 
       AutoSize        =   -1  'True
       Caption         =   "Sort:"
-      Height          =   192
-      Left            =   1104
+      Height          =   195
+      Left            =   1098
       TabIndex        =   17
-      Top             =   1608
-      Width           =   324
+      Top             =   2093
+      Width           =   330
    End
    Begin VB.Label lblSubject 
       AutoSize        =   -1  'True
       Caption         =   "Subject:"
-      Height          =   192
-      Left            =   852
+      Height          =   195
+      Left            =   858
       TabIndex        =   16
-      Top             =   720
-      Width           =   576
+      Top             =   840
+      Width           =   570
    End
    Begin VB.Label lblIDlabel 
       AutoSize        =   -1  'True
       Caption         =   "ID:"
-      Height          =   192
-      Left            =   6816
+      Height          =   195
+      Left            =   6750
       TabIndex        =   15
-      Top             =   1920
-      Width           =   192
+      Top             =   2453
+      Width           =   195
    End
    Begin VB.Label lblDateInventoried 
       AutoSize        =   -1  'True
       Caption         =   "Date Inventoried:"
-      Height          =   192
-      Left            =   216
+      Height          =   195
+      Left            =   213
       TabIndex        =   14
-      Top             =   1908
-      Width           =   1212
+      Top             =   2453
+      Width           =   1215
    End
    Begin VB.Label lblCost 
       AutoSize        =   -1  'True
@@ -413,10 +413,10 @@ Begin VB.Form frmMovies
          LCID            =   1033
          SubFormatType   =   0
       EndProperty
-      Height          =   192
-      Left            =   5400
+      Height          =   195
+      Left            =   5340
       TabIndex        =   13
-      Top             =   720
+      Top             =   840
       Width           =   360
    End
    Begin VB.Label lblTitle 
@@ -431,20 +431,20 @@ Begin VB.Form frmMovies
    Begin VB.Label lblDistributor 
       AutoSize        =   -1  'True
       Caption         =   "Distributor:"
-      Height          =   192
-      Left            =   672
+      Height          =   195
+      Left            =   678
       TabIndex        =   11
-      Top             =   1320
-      Width           =   756
+      Top             =   1680
+      Width           =   750
    End
    Begin VB.Label lblID 
       AutoSize        =   -1  'True
       Caption         =   "lblID"
-      Height          =   192
-      Left            =   7104
+      Height          =   195
+      Left            =   7050
       TabIndex        =   10
-      Top             =   1920
-      Width           =   324
+      Top             =   2453
+      Width           =   330
    End
    Begin VB.Menu mnuFile 
       Caption         =   "&File"

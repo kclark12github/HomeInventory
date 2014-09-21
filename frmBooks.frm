@@ -5,27 +5,27 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmBooks 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Book Inventory"
-   ClientHeight    =   4056
-   ClientLeft      =   36
-   ClientTop       =   492
-   ClientWidth     =   7524
+   ClientHeight    =   4380
+   ClientLeft      =   30
+   ClientTop       =   495
+   ClientWidth     =   7530
    Icon            =   "frmBooks.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4056
-   ScaleWidth      =   7524
+   ScaleHeight     =   4380
+   ScaleWidth      =   7530
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
-      Height          =   252
+      Height          =   255
       Left            =   0
       TabIndex        =   21
-      Top             =   3804
-      Width           =   7524
-      _ExtentX        =   13272
-      _ExtentY        =   445
+      Top             =   4125
+      Width           =   7530
+      _ExtentX        =   13282
+      _ExtentY        =   423
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
          NumPanels       =   4
@@ -41,7 +41,7 @@ Begin VB.Form frmBooks
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8086
+            Object.Width           =   8070
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
@@ -50,7 +50,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:34 PM"
+            TextSave        =   "8:23 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -60,27 +60,27 @@ Begin VB.Form frmBooks
       Caption         =   "Cancel"
       CausesValidation=   0   'False
       Height          =   372
-      Left            =   6420
+      Left            =   6360
       TabIndex        =   10
-      Top             =   3420
+      Top             =   3660
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
       Caption         =   "OK"
       Default         =   -1  'True
       Height          =   372
-      Left            =   5400
+      Left            =   5340
       TabIndex        =   9
-      Top             =   3420
+      Top             =   3660
       Width           =   972
    End
    Begin MSAdodcLib.Adodc adodcMain 
-      Height          =   312
-      Left            =   204
-      Top             =   3060
-      Width           =   7152
-      _ExtentX        =   12615
-      _ExtentY        =   550
+      Height          =   315
+      Left            =   150
+      Top             =   3300
+      Width           =   7155
+      _ExtentX        =   12621
+      _ExtentY        =   556
       ConnectMode     =   0
       CursorLocation  =   3
       IsolationLevel  =   -1
@@ -111,7 +111,7 @@ Begin VB.Form frmBooks
       Caption         =   ""
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
-         Size            =   7.8
+         Size            =   8.25
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -122,51 +122,51 @@ Begin VB.Form frmBooks
    End
    Begin VB.TextBox txtAlphaSort 
       Height          =   288
-      Left            =   1458
+      Left            =   1464
       TabIndex        =   6
       Text            =   "AlphaSort"
-      Top             =   2256
+      Top             =   2520
       Width           =   5832
    End
    Begin VB.TextBox txtInventoried 
       Height          =   288
-      Left            =   1458
+      Left            =   1464
       TabIndex        =   7
       Text            =   "Inventoried"
-      Top             =   2592
-      Width           =   1812
+      Top             =   2880
+      Width           =   3195
    End
    Begin MSDataListLib.DataCombo dbcSubject 
-      Height          =   288
-      Left            =   1464
+      Height          =   315
+      Left            =   1470
       TabIndex        =   4
-      Top             =   1572
-      Width           =   5892
-      _ExtentX        =   10393
-      _ExtentY        =   508
+      Top             =   1800
+      Width           =   5895
+      _ExtentX        =   10398
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   "Subject"
    End
    Begin MSDataListLib.DataCombo dbcAuthor 
-      Height          =   288
-      Left            =   1464
+      Height          =   315
+      Left            =   1470
       TabIndex        =   1
-      Top             =   672
-      Width           =   5892
-      _ExtentX        =   10393
-      _ExtentY        =   508
+      Top             =   720
+      Width           =   5895
+      _ExtentX        =   10398
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   "Author"
    End
    Begin VB.TextBox txtMisc 
       Height          =   288
-      Left            =   1458
+      Left            =   1464
       TabIndex        =   5
       Text            =   "Misc"
-      Top             =   1896
-      Width           =   3792
+      Top             =   2160
+      Width           =   5895
    End
    Begin VB.TextBox txtPrice 
       Alignment       =   1  'Right Justify
@@ -180,30 +180,30 @@ Begin VB.Form frmBooks
          SubFormatType   =   2
       EndProperty
       Height          =   288
-      Left            =   1458
+      Left            =   1464
       TabIndex        =   3
-      Top             =   1272
+      Top             =   1440
       Width           =   972
    End
    Begin VB.TextBox txtISBN 
-      Height          =   288
-      Left            =   1458
+      Height          =   300
+      Left            =   1464
       TabIndex        =   2
       Text            =   "ISBN"
-      Top             =   972
-      Width           =   1512
+      Top             =   1080
+      Width           =   1815
    End
    Begin VB.CheckBox chkCataloged 
       Alignment       =   1  'Right Justify
       Caption         =   "Cataloged"
       Height          =   192
-      Left            =   3558
+      Left            =   5280
       TabIndex        =   8
-      Top             =   2640
+      Top             =   2928
       Width           =   1152
    End
    Begin VB.TextBox txtTitle 
-      Height          =   288
+      Height          =   300
       Left            =   1464
       TabIndex        =   0
       Text            =   "Title"
@@ -212,15 +212,15 @@ Begin VB.Form frmBooks
    End
    Begin MSComctlLib.Toolbar tbMain 
       Align           =   1  'Align Top
-      Height          =   288
+      Height          =   360
       Left            =   0
       TabIndex        =   22
       Top             =   0
-      Width           =   7524
-      _ExtentX        =   13272
-      _ExtentY        =   508
-      ButtonWidth     =   487
-      ButtonHeight    =   466
+      Width           =   7530
+      _ExtentX        =   13282
+      _ExtentY        =   635
+      ButtonWidth     =   609
+      ButtonHeight    =   582
       Appearance      =   1
       Style           =   1
       ImageList       =   "imlSmall"
@@ -290,8 +290,8 @@ Begin VB.Form frmBooks
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   240
       Top             =   60
-      _ExtentX        =   804
-      _ExtentY        =   804
+      _ExtentX        =   794
+      _ExtentY        =   794
       BackColor       =   -2147483643
       ImageWidth      =   16
       ImageHeight     =   16
@@ -364,47 +364,47 @@ Begin VB.Form frmBooks
    Begin VB.Label lblIDlabel 
       AutoSize        =   -1  'True
       Caption         =   "ID:"
-      Height          =   192
-      Left            =   6744
+      Height          =   195
+      Left            =   6750
       TabIndex        =   20
-      Top             =   2640
-      Width           =   192
+      Top             =   2927
+      Width           =   195
    End
    Begin VB.Label lblDateInventoried 
       AutoSize        =   -1  'True
       Caption         =   "Date Inventoried:"
-      Height          =   192
-      Left            =   144
+      Height          =   195
+      Left            =   141
       TabIndex        =   19
-      Top             =   2640
-      Width           =   1212
+      Top             =   2927
+      Width           =   1215
    End
    Begin VB.Label lblAlphaSort 
       AutoSize        =   -1  'True
       Caption         =   "AlphaSort:"
-      Height          =   192
-      Left            =   612
+      Height          =   195
+      Left            =   606
       TabIndex        =   18
-      Top             =   2280
-      Width           =   744
+      Top             =   2567
+      Width           =   750
    End
    Begin VB.Label lblMisc 
       AutoSize        =   -1  'True
       Caption         =   "Miscellaneous:"
-      Height          =   192
+      Height          =   195
       Left            =   276
       TabIndex        =   17
-      Top             =   1920
+      Top             =   2207
       Width           =   1080
    End
    Begin VB.Label lblSubject 
       AutoSize        =   -1  'True
       Caption         =   "Subject:"
-      Height          =   192
-      Left            =   780
+      Height          =   195
+      Left            =   786
       TabIndex        =   16
-      Top             =   1620
-      Width           =   576
+      Top             =   1845
+      Width           =   570
    End
    Begin VB.Label lblPrice 
       AutoSize        =   -1  'True
@@ -418,11 +418,11 @@ Begin VB.Form frmBooks
          LCID            =   1033
          SubFormatType   =   0
       EndProperty
-      Height          =   192
-      Left            =   948
+      Height          =   195
+      Left            =   951
       TabIndex        =   15
-      Top             =   1320
-      Width           =   408
+      Top             =   1487
+      Width           =   405
    End
    Begin VB.Label lblISBN 
       AutoSize        =   -1  'True
@@ -430,7 +430,7 @@ Begin VB.Form frmBooks
       Height          =   192
       Left            =   948
       TabIndex        =   14
-      Top             =   1020
+      Top             =   1134
       Width           =   408
    End
    Begin VB.Label lblTitle 
@@ -439,7 +439,7 @@ Begin VB.Form frmBooks
       Height          =   192
       Left            =   1008
       TabIndex        =   13
-      Top             =   420
+      Top             =   426
       Width           =   348
    End
    Begin VB.Label lblAuthor 
@@ -448,17 +448,17 @@ Begin VB.Form frmBooks
       Height          =   192
       Left            =   864
       TabIndex        =   12
-      Top             =   720
+      Top             =   766
       Width           =   492
    End
    Begin VB.Label lblID 
       AutoSize        =   -1  'True
       Caption         =   "lblID"
-      Height          =   192
-      Left            =   7032
+      Height          =   195
+      Left            =   7035
       TabIndex        =   11
-      Top             =   2640
-      Width           =   324
+      Top             =   2927
+      Width           =   330
    End
    Begin VB.Menu mnuFile 
       Caption         =   "&File"

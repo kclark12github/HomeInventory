@@ -5,26 +5,26 @@ Begin VB.Form frmBlueAngelsHistory
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Blue Angels History"
    ClientHeight    =   3480
-   ClientLeft      =   36
-   ClientTop       =   492
-   ClientWidth     =   7524
+   ClientLeft      =   30
+   ClientTop       =   495
+   ClientWidth     =   7950
    Icon            =   "frmBlueAngelsHistory.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   3480
-   ScaleWidth      =   7524
+   ScaleWidth      =   7950
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
-      Height          =   252
+      Height          =   255
       Left            =   0
       TabIndex        =   12
-      Top             =   3228
-      Width           =   7524
-      _ExtentX        =   13272
-      _ExtentY        =   445
+      Top             =   3225
+      Width           =   7950
+      _ExtentX        =   14023
+      _ExtentY        =   450
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
          NumPanels       =   4
@@ -40,7 +40,7 @@ Begin VB.Form frmBlueAngelsHistory
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8086
+            Object.Width           =   8811
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
@@ -49,27 +49,27 @@ Begin VB.Form frmBlueAngelsHistory
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:32 PM"
+            TextSave        =   "8:19 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
    End
    Begin VB.TextBox txtDecalSets 
-      Height          =   888
+      Height          =   1005
       Left            =   5100
       MultiLine       =   -1  'True
       TabIndex        =   3
       Text            =   "frmBlueAngelsHistory.frx":0442
-      Top             =   960
-      Width           =   2292
+      Top             =   1080
+      Width           =   2592
    End
    Begin VB.TextBox txtKits 
-      Height          =   888
+      Height          =   1005
       Left            =   1530
       MultiLine       =   -1  'True
       TabIndex        =   2
       Text            =   "frmBlueAngelsHistory.frx":044D
-      Top             =   960
+      Top             =   1080
       Width           =   2592
    End
    Begin VB.CommandButton cmdCancel 
@@ -77,7 +77,7 @@ Begin VB.Form frmBlueAngelsHistory
       Caption         =   "Cancel"
       CausesValidation=   0   'False
       Height          =   372
-      Left            =   6486
+      Left            =   6720
       TabIndex        =   5
       Top             =   2820
       Width           =   972
@@ -86,18 +86,18 @@ Begin VB.Form frmBlueAngelsHistory
       Caption         =   "OK"
       Default         =   -1  'True
       Height          =   372
-      Left            =   5466
+      Left            =   5700
       TabIndex        =   4
       Top             =   2820
       Width           =   972
    End
    Begin MSAdodcLib.Adodc adodcMain 
-      Height          =   312
+      Height          =   330
       Left            =   270
       Top             =   2340
-      Width           =   7152
-      _ExtentX        =   12615
-      _ExtentY        =   550
+      Width           =   7395
+      _ExtentX        =   13044
+      _ExtentY        =   582
       ConnectMode     =   0
       CursorLocation  =   3
       IsolationLevel  =   -1
@@ -128,7 +128,7 @@ Begin VB.Form frmBlueAngelsHistory
       Caption         =   ""
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
-         Size            =   7.8
+         Size            =   8.25
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -138,15 +138,15 @@ Begin VB.Form frmBlueAngelsHistory
       _Version        =   393216
    End
    Begin VB.TextBox txtDates 
-      Height          =   288
+      Height          =   300
       Left            =   1530
       TabIndex        =   1
       Text            =   "Dates"
-      Top             =   672
+      Top             =   720
       Width           =   1812
    End
    Begin VB.TextBox txtAircraftType 
-      Height          =   288
+      Height          =   300
       Left            =   1530
       TabIndex        =   0
       Text            =   "Aircraft Type"
@@ -155,15 +155,15 @@ Begin VB.Form frmBlueAngelsHistory
    End
    Begin MSComctlLib.Toolbar tbMain 
       Align           =   1  'Align Top
-      Height          =   288
+      Height          =   360
       Left            =   0
       TabIndex        =   13
       Top             =   0
-      Width           =   7524
-      _ExtentX        =   13272
-      _ExtentY        =   508
-      ButtonWidth     =   487
-      ButtonHeight    =   466
+      Width           =   7950
+      _ExtentX        =   14023
+      _ExtentY        =   635
+      ButtonWidth     =   609
+      ButtonHeight    =   582
       Appearance      =   1
       Style           =   1
       ImageList       =   "imlSmall"
@@ -233,8 +233,8 @@ Begin VB.Form frmBlueAngelsHistory
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   240
       Top             =   60
-      _ExtentX        =   804
-      _ExtentY        =   804
+      _ExtentX        =   794
+      _ExtentY        =   794
       BackColor       =   -2147483643
       ImageWidth      =   16
       ImageHeight     =   16
@@ -310,7 +310,7 @@ Begin VB.Form frmBlueAngelsHistory
       Height          =   192
       Left            =   4260
       TabIndex        =   11
-      Top             =   1020
+      Top             =   1080
       Width           =   828
    End
    Begin VB.Label lblIDlabel 
@@ -328,7 +328,7 @@ Begin VB.Form frmBlueAngelsHistory
       Height          =   192
       Left            =   960
       TabIndex        =   9
-      Top             =   720
+      Top             =   774
       Width           =   468
    End
    Begin VB.Label lblAircraftType 
@@ -337,7 +337,7 @@ Begin VB.Form frmBlueAngelsHistory
       Height          =   192
       Left            =   474
       TabIndex        =   8
-      Top             =   420
+      Top             =   426
       Width           =   948
    End
    Begin VB.Label lblKits 
@@ -346,7 +346,7 @@ Begin VB.Form frmBlueAngelsHistory
       Height          =   192
       Left            =   1134
       TabIndex        =   7
-      Top             =   1020
+      Top             =   1080
       Width           =   288
    End
    Begin VB.Label lblID 

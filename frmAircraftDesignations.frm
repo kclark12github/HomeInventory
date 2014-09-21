@@ -5,27 +5,27 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmAircraftDesignations 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Aircraft Designations"
-   ClientHeight    =   5040
-   ClientLeft      =   36
-   ClientTop       =   492
-   ClientWidth     =   7524
+   ClientHeight    =   5160
+   ClientLeft      =   30
+   ClientTop       =   495
+   ClientWidth     =   7530
    Icon            =   "frmAircraftDesignations.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5040
-   ScaleWidth      =   7524
+   ScaleHeight     =   5160
+   ScaleWidth      =   7530
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
-      Height          =   252
+      Height          =   255
       Left            =   0
       TabIndex        =   20
-      Top             =   4788
-      Width           =   7524
-      _ExtentX        =   13272
-      _ExtentY        =   445
+      Top             =   4905
+      Width           =   7530
+      _ExtentX        =   13282
+      _ExtentY        =   450
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
          NumPanels       =   4
@@ -41,7 +41,7 @@ Begin VB.Form frmAircraftDesignations
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8086
+            Object.Width           =   8070
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
@@ -50,17 +50,17 @@ Begin VB.Form frmAircraftDesignations
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:32 PM"
+            TextSave        =   "8:20 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
    End
    Begin VB.TextBox txtNumber 
-      Height          =   288
-      Left            =   1458
+      Height          =   300
+      Left            =   1500
       TabIndex        =   18
       Text            =   "Number"
-      Top             =   1596
+      Top             =   1762
       Width           =   1872
    End
    Begin VB.CommandButton cmdCancel 
@@ -68,27 +68,27 @@ Begin VB.Form frmAircraftDesignations
       Caption         =   "Cancel"
       CausesValidation=   0   'False
       Height          =   372
-      Left            =   6420
+      Left            =   6360
       TabIndex        =   8
-      Top             =   4380
+      Top             =   4500
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
       Caption         =   "OK"
       Default         =   -1  'True
       Height          =   372
-      Left            =   5400
+      Left            =   5340
       TabIndex        =   7
-      Top             =   4380
+      Top             =   4500
       Width           =   972
    End
    Begin MSAdodcLib.Adodc adodcMain 
-      Height          =   312
-      Left            =   204
-      Top             =   3900
-      Width           =   7152
-      _ExtentX        =   12615
-      _ExtentY        =   550
+      Height          =   330
+      Left            =   195
+      Top             =   4020
+      Width           =   7155
+      _ExtentX        =   12621
+      _ExtentY        =   582
       ConnectMode     =   0
       CursorLocation  =   3
       IsolationLevel  =   -1
@@ -119,7 +119,7 @@ Begin VB.Form frmAircraftDesignations
       Caption         =   ""
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
-         Size            =   7.8
+         Size            =   8.25
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -130,64 +130,64 @@ Begin VB.Form frmAircraftDesignations
    End
    Begin VB.TextBox txtNotes 
       Height          =   1428
-      Left            =   1458
+      Left            =   1500
       MultiLine       =   -1  'True
       TabIndex        =   5
       Text            =   "frmAircraftDesignations.frx":0442
-      Top             =   1956
+      Top             =   2160
       Width           =   5832
    End
    Begin VB.TextBox txtServiceDate 
-      Height          =   288
-      Left            =   4284
+      Height          =   300
+      Left            =   4560
       TabIndex        =   6
       Text            =   "Service Date"
-      Top             =   972
+      Top             =   1067
       Width           =   1812
    End
    Begin MSDataListLib.DataCombo dbcType 
-      Height          =   288
-      Left            =   1458
+      Height          =   315
+      Left            =   1500
       TabIndex        =   3
-      Top             =   1272
-      Width           =   5892
-      _ExtentX        =   10393
-      _ExtentY        =   508
+      Top             =   1401
+      Width           =   5895
+      _ExtentX        =   10398
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   "Type"
    End
    Begin MSDataListLib.DataCombo dbcManufacturer 
-      Height          =   288
-      Left            =   1458
+      Height          =   315
+      Left            =   1500
       TabIndex        =   0
-      Top             =   672
-      Width           =   5892
-      _ExtentX        =   10393
-      _ExtentY        =   508
+      Top             =   705
+      Width           =   5895
+      _ExtentX        =   10398
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   "Manufacturer"
    End
    Begin VB.TextBox txtVersion 
-      Height          =   288
-      Left            =   5184
+      Height          =   300
+      Left            =   5430
       TabIndex        =   4
       Text            =   "Version"
-      Top             =   1596
+      Top             =   1762
       Width           =   1872
    End
    Begin VB.TextBox txtDesignation 
-      Height          =   288
-      Left            =   1458
+      Height          =   300
+      Left            =   1500
       TabIndex        =   2
       Text            =   "Designation"
-      Top             =   972
+      Top             =   1067
       Width           =   1512
    End
    Begin VB.TextBox txtName 
-      Height          =   288
-      Left            =   1458
+      Height          =   300
+      Left            =   1500
       TabIndex        =   1
       Text            =   "Name"
       Top             =   372
@@ -195,15 +195,15 @@ Begin VB.Form frmAircraftDesignations
    End
    Begin MSComctlLib.Toolbar tbMain 
       Align           =   1  'Align Top
-      Height          =   288
+      Height          =   360
       Left            =   0
       TabIndex        =   21
       Top             =   0
-      Width           =   7524
-      _ExtentX        =   13272
-      _ExtentY        =   508
-      ButtonWidth     =   487
-      ButtonHeight    =   466
+      Width           =   7530
+      _ExtentX        =   13282
+      _ExtentY        =   635
+      ButtonWidth     =   609
+      ButtonHeight    =   582
       Appearance      =   1
       Style           =   1
       ImageList       =   "imlSmall"
@@ -273,8 +273,8 @@ Begin VB.Form frmAircraftDesignations
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   240
       Top             =   60
-      _ExtentX        =   804
-      _ExtentY        =   804
+      _ExtentX        =   794
+      _ExtentY        =   794
       BackColor       =   -2147483643
       ImageWidth      =   16
       ImageHeight     =   16
@@ -347,73 +347,73 @@ Begin VB.Form frmAircraftDesignations
    Begin VB.Label lblNumber 
       AutoSize        =   -1  'True
       Caption         =   "Number:"
-      Height          =   192
-      Left            =   780
+      Height          =   195
+      Left            =   741
       TabIndex        =   19
-      Top             =   1644
-      Width           =   612
+      Top             =   1809
+      Width           =   615
    End
    Begin VB.Label lblIDlabel 
       AutoSize        =   -1  'True
       Caption         =   "ID:"
-      Height          =   192
-      Left            =   6744
+      Height          =   195
+      Left            =   6690
       TabIndex        =   17
-      Top             =   3480
-      Width           =   192
+      Top             =   3660
+      Width           =   195
    End
    Begin VB.Label lblServiceDate 
       AutoSize        =   -1  'True
       Caption         =   "Service Date:"
-      Height          =   192
-      Left            =   3204
+      Height          =   195
+      Left            =   3450
       TabIndex        =   16
-      Top             =   1020
-      Width           =   972
+      Top             =   1114
+      Width           =   975
    End
    Begin VB.Label lblNotes 
       AutoSize        =   -1  'True
       Caption         =   "Notes:"
-      Height          =   192
-      Left            =   924
+      Height          =   195
+      Left            =   891
       TabIndex        =   15
-      Top             =   1980
-      Width           =   468
+      Top             =   2100
+      Width           =   465
    End
    Begin VB.Label lblVersion 
       AutoSize        =   -1  'True
       Caption         =   "Version:"
-      Height          =   192
-      Left            =   4488
+      Height          =   195
+      Left            =   4725
       TabIndex        =   14
-      Top             =   1644
-      Width           =   588
+      Top             =   1809
+      Width           =   585
    End
    Begin VB.Label lblType 
       AutoSize        =   -1  'True
       Caption         =   "Type:"
-      Height          =   192
+      Height          =   195
       Left            =   936
       TabIndex        =   13
-      Top             =   1320
+      Top             =   1461
       Width           =   420
    End
    Begin VB.Label lblDesignation 
       AutoSize        =   -1  'True
       Caption         =   "Designation:"
-      Height          =   192
+      Height          =   195
       Left            =   456
       TabIndex        =   12
-      Top             =   1020
+      Top             =   1114
       Width           =   900
    End
    Begin VB.Label lblManufacturer 
       AutoSize        =   -1  'True
       Caption         =   "Manufacturer:"
-      Height          =   192
+      Height          =   195
       Left            =   396
       TabIndex        =   11
-      Top             =   720
+      Top             =   766
       Width           =   960
    End
    Begin VB.Label lblName 
@@ -428,11 +428,11 @@ Begin VB.Form frmAircraftDesignations
    Begin VB.Label lblID 
       AutoSize        =   -1  'True
       Caption         =   "lblID"
-      Height          =   192
-      Left            =   7032
+      Height          =   195
+      Left            =   6975
       TabIndex        =   9
-      Top             =   3480
-      Width           =   324
+      Top             =   3660
+      Width           =   330
    End
    Begin VB.Menu mnuFile 
       Caption         =   "&File"

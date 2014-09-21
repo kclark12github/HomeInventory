@@ -5,27 +5,27 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmCompanies 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Hobby Companies"
-   ClientHeight    =   4608
-   ClientLeft      =   36
-   ClientTop       =   492
-   ClientWidth     =   7524
+   ClientHeight    =   5115
+   ClientLeft      =   30
+   ClientTop       =   495
+   ClientWidth     =   7530
    Icon            =   "frmCompanies.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4608
-   ScaleWidth      =   7524
+   ScaleHeight     =   5115
+   ScaleWidth      =   7530
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
-      Height          =   252
+      Height          =   255
       Left            =   0
       TabIndex        =   20
-      Top             =   4356
-      Width           =   7524
-      _ExtentX        =   13272
-      _ExtentY        =   445
+      Top             =   4860
+      Width           =   7530
+      _ExtentX        =   13282
+      _ExtentY        =   450
       _Version        =   393216
       BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
          NumPanels       =   4
@@ -41,7 +41,7 @@ Begin VB.Form frmCompanies
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8086
+            Object.Width           =   8070
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
@@ -50,21 +50,21 @@ Begin VB.Form frmCompanies
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:35 PM"
+            TextSave        =   "8:25 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
    End
    Begin VB.TextBox txtWebSite 
-      Height          =   288
-      Left            =   1356
+      Height          =   300
+      Left            =   1374
       TabIndex        =   7
       Text            =   "WebSite"
-      Top             =   2940
+      Top             =   3300
       Width           =   5292
    End
    Begin VB.TextBox txtName 
-      Height          =   288
+      Height          =   300
       Left            =   1374
       TabIndex        =   0
       Text            =   "Name"
@@ -76,27 +76,27 @@ Begin VB.Form frmCompanies
       Caption         =   "Cancel"
       CausesValidation=   0   'False
       Height          =   372
-      Left            =   6480
+      Left            =   6420
       TabIndex        =   9
-      Top             =   3960
+      Top             =   4380
       Width           =   972
    End
    Begin VB.CommandButton cmdOK 
       Caption         =   "OK"
       Default         =   -1  'True
       Height          =   372
-      Left            =   5460
+      Left            =   5400
       TabIndex        =   8
-      Top             =   3960
+      Top             =   4380
       Width           =   972
    End
    Begin MSAdodcLib.Adodc adodcMain 
-      Height          =   312
-      Left            =   264
-      Top             =   3480
-      Width           =   7152
-      _ExtentX        =   12615
-      _ExtentY        =   550
+      Height          =   315
+      Left            =   210
+      Top             =   3900
+      Width           =   7155
+      _ExtentX        =   12621
+      _ExtentY        =   556
       ConnectMode     =   0
       CursorLocation  =   3
       IsolationLevel  =   -1
@@ -127,7 +127,7 @@ Begin VB.Form frmCompanies
       Caption         =   ""
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
-         Size            =   7.8
+         Size            =   8.25
          Charset         =   0
          Weight          =   400
          Underline       =   0   'False
@@ -142,25 +142,25 @@ Begin VB.Form frmCompanies
       MultiLine       =   -1  'True
       TabIndex        =   6
       Text            =   "frmCompanies.frx":0442
-      Top             =   1596
+      Top             =   1860
       Width           =   5832
    End
    Begin VB.TextBox txtPhone 
-      Height          =   288
+      Height          =   300
       Left            =   4314
       TabIndex        =   5
       Text            =   "Phone"
-      Top             =   1272
+      Top             =   1447
       Width           =   1812
    End
    Begin MSDataListLib.DataCombo dbcProductType 
-      Height          =   288
+      Height          =   315
       Left            =   1374
       TabIndex        =   4
-      Top             =   1260
-      Width           =   2052
-      _ExtentX        =   3620
-      _ExtentY        =   508
+      Top             =   1440
+      Width           =   2055
+      _ExtentX        =   3625
+      _ExtentY        =   556
       _Version        =   393216
       MatchEntry      =   -1  'True
       Text            =   "ProductType"
@@ -176,40 +176,40 @@ Begin VB.Form frmCompanies
          LCID            =   1033
          SubFormatType   =   0
       EndProperty
-      Height          =   288
+      Height          =   300
       Left            =   4314
       TabIndex        =   3
       Text            =   "Account"
-      Top             =   972
+      Top             =   1080
       Width           =   2352
    End
    Begin VB.TextBox txtCode 
-      Height          =   288
+      Height          =   300
       Left            =   1374
       TabIndex        =   2
       Text            =   "Code"
-      Top             =   972
+      Top             =   1080
       Width           =   1692
    End
    Begin VB.TextBox txtShortName 
-      Height          =   288
+      Height          =   300
       Left            =   1374
       TabIndex        =   1
       Text            =   "Short Name"
-      Top             =   672
+      Top             =   720
       Width           =   5892
    End
    Begin MSComctlLib.Toolbar tbMain 
       Align           =   1  'Align Top
-      Height          =   288
+      Height          =   360
       Left            =   0
       TabIndex        =   21
       Top             =   0
-      Width           =   7524
-      _ExtentX        =   13272
-      _ExtentY        =   508
-      ButtonWidth     =   487
-      ButtonHeight    =   466
+      Width           =   7530
+      _ExtentX        =   13282
+      _ExtentY        =   635
+      ButtonWidth     =   609
+      ButtonHeight    =   582
       Appearance      =   1
       Style           =   1
       ImageList       =   "imlSmall"
@@ -279,8 +279,8 @@ Begin VB.Form frmCompanies
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   240
       Top             =   60
-      _ExtentX        =   804
-      _ExtentY        =   804
+      _ExtentX        =   794
+      _ExtentY        =   794
       BackColor       =   -2147483643
       ImageWidth      =   16
       ImageHeight     =   16
@@ -353,47 +353,47 @@ Begin VB.Form frmCompanies
    Begin VB.Label lblWebSite 
       AutoSize        =   -1  'True
       Caption         =   "Web Site:"
-      Height          =   192
-      Left            =   360
+      Height          =   195
+      Left            =   576
       TabIndex        =   19
-      Top             =   2988
-      Width           =   696
+      Top             =   3353
+      Width           =   690
    End
    Begin VB.Label lblIDlabel 
       AutoSize        =   -1  'True
       Caption         =   "ID:"
-      Height          =   192
-      Left            =   6804
+      Height          =   195
+      Left            =   6810
       TabIndex        =   18
-      Top             =   3060
-      Width           =   192
+      Top             =   3353
+      Width           =   195
    End
    Begin VB.Label lblPhone 
       AutoSize        =   -1  'True
       Caption         =   "Phone:"
-      Height          =   192
-      Left            =   3702
+      Height          =   195
+      Left            =   3705
       TabIndex        =   17
-      Top             =   1320
-      Width           =   504
+      Top             =   1500
+      Width           =   510
    End
    Begin VB.Label lblAddress 
       AutoSize        =   -1  'True
       Caption         =   "Address"
-      Height          =   192
-      Left            =   522
+      Height          =   195
+      Left            =   651
       TabIndex        =   16
-      Top             =   1620
-      Width           =   612
+      Top             =   1860
+      Width           =   615
    End
    Begin VB.Label lblProductType 
       AutoSize        =   -1  'True
       Caption         =   "Product Type:"
-      Height          =   192
-      Left            =   258
+      Height          =   195
+      Left            =   261
       TabIndex        =   15
-      Top             =   1320
-      Width           =   1008
+      Top             =   1500
+      Width           =   1005
    End
    Begin VB.Label lblAccount 
       AutoSize        =   -1  'True
@@ -407,29 +407,29 @@ Begin VB.Form frmCompanies
          LCID            =   1033
          SubFormatType   =   0
       EndProperty
-      Height          =   192
+      Height          =   195
       Left            =   3570
       TabIndex        =   14
-      Top             =   1020
-      Width           =   612
+      Top             =   1133
+      Width           =   615
    End
    Begin VB.Label lblCode 
       AutoSize        =   -1  'True
       Caption         =   "Code:"
-      Height          =   192
-      Left            =   834
+      Height          =   195
+      Left            =   831
       TabIndex        =   13
-      Top             =   1020
-      Width           =   432
+      Top             =   1133
+      Width           =   435
    End
    Begin VB.Label lblShortName 
       AutoSize        =   -1  'True
       Caption         =   "Short Name:"
-      Height          =   192
-      Left            =   378
+      Height          =   195
+      Left            =   381
       TabIndex        =   12
-      Top             =   720
-      Width           =   888
+      Top             =   773
+      Width           =   885
    End
    Begin VB.Label lblName 
       AutoSize        =   -1  'True
@@ -443,11 +443,11 @@ Begin VB.Form frmCompanies
    Begin VB.Label lblID 
       AutoSize        =   -1  'True
       Caption         =   "lblID"
-      Height          =   192
-      Left            =   7092
+      Height          =   195
+      Left            =   7095
       TabIndex        =   10
-      Top             =   3060
-      Width           =   324
+      Top             =   3353
+      Width           =   330
    End
    Begin VB.Menu mnuFile 
       Caption         =   "&File"
