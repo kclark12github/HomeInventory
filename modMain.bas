@@ -229,7 +229,7 @@ Public Sub CopyCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String)
     
     RefreshCommand RS, Key
     Set rsTemp = New ADODB.Recordset
-    rsTemp.Open "Select Max(ID) From " & Table, adoConn, adOpenStatic, adLockReadOnly
+    rsTemp.Open "Select Max(ID) From [" & Table & "]", adoConn, adOpenStatic, adLockReadOnly
     RS.MoveFirst
     Call RS.Find("ID=" & rsTemp(0))
     

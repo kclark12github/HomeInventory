@@ -360,7 +360,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "6:51 PM"
+            TextSave        =   "7:40 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -981,12 +981,6 @@ Private Sub txtName_Validate(Cancel As Boolean)
         MsgBox "Name must be specified!", vbExclamation, Me.Caption
         Cancel = True
     End If
-End Sub
-Private Sub txtPrice_GotFocus()
-    TextSelected
-End Sub
-Private Sub txtPrice_Validate(Cancel As Boolean)
-    ValidateCurrency txtPrice.Text, Cancel
 End Sub
 Private Sub txtReference_GotFocus()
     TextSelected
