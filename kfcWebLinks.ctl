@@ -604,7 +604,7 @@ Private Sub CopyNode(TargetNode As ComctlLib.Node, SourceID As String)
             CopyNode mNode, rsSourceEntry("ID")
             rsSourceEntry.MoveNext
         Wend
-        rsSourceEntry.Update
+        'If Not rsSourceEntry.EOF Then rsSourceEntry.Update
         rsSourceEntry.Close
     End If
     Set rsSourceEntry = Nothing
@@ -834,13 +834,13 @@ Private Sub PopulateButton(ButtonLabel As String, ParentID As String, intTreeVie
         Trace trcBody, "Processing Entry: ButtonLabel: " & rsMenuEntries("ButtonLabel") & "; ID: " & rsMenuEntries("ID") & "; Label: " & rsMenuEntries("Label")
         NodeIndex = intTreeViewIndex
         NodeIndex = AddNode(NodeIndex, rsMenuEntries("ID"), VBdecode(rsMenuEntries("Label")), ButtonLabel, VBdecode(rsMenuEntries("ParentID")), rsMenuEntries("HasMembers"), False)
+        
         If rsMenuEntries("HasMembers") Then
             PopulateButton ButtonLabel, rsMenuEntries("ID"), NodeIndex
         End If
         
         Trace trcBody, "rsMenuEntries.MoveNext"
         rsMenuEntries.MoveNext
-        DoEvents
     Loop
     
     ForceNodeSort intTreeViewIndex
@@ -1386,6 +1386,9 @@ Private Sub UserControl_DragOver(Source As Control, X As Single, Y As Single, St
     If Source.Name = "tvwDB" Then
         timTimer.Enabled = False
     End If
+End Sub
+Private Sub UserControl_Initialize()
+    lblLoad.Caption = vbNullString
 End Sub
 Private Sub UserControl_Resize()
     tsUpdate.Width = UserControl.ScaleWidth - (2 * 60)

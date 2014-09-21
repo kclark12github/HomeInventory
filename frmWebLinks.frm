@@ -28,12 +28,14 @@ Attribute VB_Exposed = False
 Option Explicit
 Dim fActivated As Boolean
 Private Sub Form_Activate()
+    DoEvents
     If Not fActivated Then
         fActivated = True
         Me.MousePointer = vbHourglass
         wlWebLinks.PopulateMenu
         Me.MousePointer = vbNormal
     End If
+    DoEvents
 End Sub
 Private Sub Form_Load()
     fActivated = False
