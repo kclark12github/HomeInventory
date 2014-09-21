@@ -23,6 +23,8 @@ Public Function FormatISBN(sISBN As String) As String
                     FormatISBN = Format(s, "&-&&&&&&-&&-&")
                 Case "95" To "99"
                     FormatISBN = Format(s, "&-&&&&&&&-&-&")
+                Case Else
+                    FormatISBN = sISBN
             End Select
         Case "1"
             Select Case Mid(s, 2, 2)
@@ -40,6 +42,8 @@ Public Function FormatISBN(sISBN As String) As String
                             FormatISBN = Format(s, "&-&&&&&&-&&-&")
                         Case "9990" To "9999"
                             FormatISBN = Format(s, "&-&&&&&&&-&-&")
+                        Case Else
+                            FormatISBN = sISBN
                     End Select
             End Select
     End Select
