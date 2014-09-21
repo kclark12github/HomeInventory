@@ -1176,14 +1176,6 @@ SkipField:
     If txtFields(0).Enabled Then Set ctl = txtFields(0) Else Set ctl = dbcFields(0)
     ctl.SetFocus
 
-    'Now, take any existing filter, parse it, and populate the fields on this screen...
-    If strFilter <> vbNullString Then
-        ParseFilter strFilter
-    ElseIf SQLfilter <> vbNullString Then
-        ParseFilter SQLfilter
-    End If
-    'Now that we've populated the screen fields, start from scratch...
-    strFilter = vbNullString
     Set frm = Nothing
     Set ctl = Nothing
     Call Trace(trcExit, Me.Name & ".Form_Activate")
