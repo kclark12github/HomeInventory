@@ -49,7 +49,7 @@ Begin VB.Form frmVideoResearch
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:15 PM"
+            TextSave        =   "12:38 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -640,6 +640,7 @@ End Sub
 Private Sub mnuActionRefresh_Click()
     Dim SaveBookmark As String
     
+    On Error Resume Next
     SaveBookmark = rsMain("Sort")
     rsMain.Requery
     rsMain.Find "Sort='" & SQLQuote(SaveBookmark) & "'"

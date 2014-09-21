@@ -49,7 +49,7 @@ Begin VB.Form frmCompanies
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:12 PM"
+            TextSave        =   "12:37 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -648,6 +648,7 @@ End Sub
 Private Sub mnuActionRefresh_Click()
     Dim SaveBookmark As String
     
+    On Error Resume Next
     SaveBookmark = rsMain("Code")
     rsMain.Requery
     rsMain.Find "Code='" & SQLQuote(SaveBookmark) & "'"

@@ -48,7 +48,7 @@ Begin VB.Form frmBlueAngelsHistory
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:12 PM"
+            TextSave        =   "12:36 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -538,6 +538,7 @@ End Sub
 Private Sub mnuActionRefresh_Click()
     Dim SaveBookmark As String
     
+    On Error Resume Next
     SaveBookmark = rsMain("Aircraft Type")
     rsMain.Requery
     rsMain.Find "Aircraft Type='" & SQLQuote(SaveBookmark) & "'"

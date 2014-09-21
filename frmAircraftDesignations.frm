@@ -49,7 +49,7 @@ Begin VB.Form frmAircraftDesignations
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:12 PM"
+            TextSave        =   "12:36 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -652,6 +652,10 @@ End Sub
 Private Sub mnuActionRefresh_Click()
     Dim SaveBookmark As String
     
+    On Error Resume Next
+    SaveBookmark = rsMain("Name")
+    rsMain.Requery
+    rsMain.Find "Name='" & SQLQuote(SaveBookmark) & "'"
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form
