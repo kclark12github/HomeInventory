@@ -3,9 +3,10 @@ Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
+Object = "{C2000000-FFFF-1100-8100-000000000001}#8.0#0"; "PVCURR.OCX"
 Begin VB.Form frmStarWarsCollectables 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "Model Kits"
+   Caption         =   "Star Wars Collectables"
    ClientHeight    =   5625
    ClientLeft      =   30
    ClientTop       =   495
@@ -18,17 +19,59 @@ Begin VB.Form frmStarWarsCollectables
    ScaleWidth      =   8100
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
-   Begin VB.Frame fraKits 
+   Begin VB.Frame fraStarWarsCollectables 
       Height          =   3675
       Index           =   0
       Left            =   180
-      TabIndex        =   19
+      TabIndex        =   17
       Top             =   660
       Width           =   7692
+      Begin PVCurrencyLib.PVCurrency pvcPrice 
+         Bindings        =   "frmStarWarsCollectables.frx":113A
+         Height          =   285
+         Left            =   1530
+         TabIndex        =   4
+         Top             =   900
+         Width           =   1275
+         _Version        =   524288
+         _ExtentX        =   2249
+         _ExtentY        =   503
+         _StockProps     =   253
+         Text            =   "$0.00"
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         Appearance      =   1
+         Alignment       =   2
+         EditMode        =   0
+         EditModeChange  =   0   'False
+         Value           =   0
+         ChangeColor     =   -1  'True
+      End
+      Begin PVCurrencyLib.PVCurrency pvcValue 
+         Bindings        =   "frmStarWarsCollectables.frx":1145
+         Height          =   285
+         Left            =   3525
+         TabIndex        =   5
+         Top             =   900
+         Width           =   1275
+         _Version        =   524288
+         _ExtentX        =   2249
+         _ExtentY        =   503
+         _StockProps     =   253
+         Text            =   "$0.00"
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         Appearance      =   1
+         Alignment       =   2
+         EditMode        =   0
+         EditModeChange  =   0   'False
+         Value           =   0
+         ChangeColor     =   -1  'True
+      End
       Begin VB.TextBox txtDateVerified 
          Height          =   300
          Left            =   1530
-         TabIndex        =   15
+         TabIndex        =   13
          Text            =   "Date Verified"
          Top             =   3060
          Width           =   3135
@@ -36,40 +79,15 @@ Begin VB.Form frmStarWarsCollectables
       Begin VB.TextBox txtName 
          Height          =   300
          Left            =   1524
-         TabIndex        =   4
-         Text            =   "Name"
-         Top             =   540
-         Width           =   5892
-      End
-      Begin VB.TextBox txtDesignation 
-         Height          =   300
-         Left            =   1524
          TabIndex        =   2
-         Text            =   "Designation"
+         Text            =   "Name"
          Top             =   180
-         Width           =   2172
-      End
-      Begin VB.TextBox txtPrice 
-         Alignment       =   1  'Right Justify
-         BeginProperty DataFormat 
-            Type            =   1
-            Format          =   """$""#,##0.00"
-            HaveTrueFalseNull=   0
-            FirstDayOfWeek  =   0
-            FirstWeekOfYear =   0
-            LCID            =   1033
-            SubFormatType   =   2
-         EndProperty
-         Height          =   300
-         Left            =   3120
-         TabIndex        =   6
-         Top             =   907
-         Width           =   1332
+         Width           =   5892
       End
       Begin VB.TextBox txtDateInventoried 
          Height          =   300
          Left            =   1524
-         TabIndex        =   14
+         TabIndex        =   12
          Text            =   "Date Inventoried"
          Top             =   2700
          Width           =   3135
@@ -77,7 +95,7 @@ Begin VB.Form frmStarWarsCollectables
       Begin VB.TextBox txtReference 
          Height          =   300
          Left            =   5880
-         TabIndex        =   10
+         TabIndex        =   9
          Text            =   "Reference"
          Top             =   1627
          Width           =   1452
@@ -85,15 +103,15 @@ Begin VB.Form frmStarWarsCollectables
       Begin VB.CheckBox chkOutOfProduction 
          Caption         =   "Out of Production"
          Height          =   192
-         Left            =   4620
-         TabIndex        =   7
+         Left            =   5520
+         TabIndex        =   6
          Top             =   961
          Width           =   1932
       End
       Begin MSDataListLib.DataCombo dbcManufacturer 
          Height          =   315
          Left            =   1524
-         TabIndex        =   8
+         TabIndex        =   7
          Top             =   1260
          Width           =   5895
          _ExtentX        =   10398
@@ -102,49 +120,25 @@ Begin VB.Form frmStarWarsCollectables
          MatchEntry      =   -1  'True
          Text            =   "Manufacturer"
       End
-      Begin MSDataListLib.DataCombo dbcCatalog 
+      Begin MSDataListLib.DataCombo dbcSeries 
          Height          =   315
          Left            =   1524
-         TabIndex        =   9
+         TabIndex        =   8
          Top             =   1620
          Width           =   3255
          _ExtentX        =   5741
          _ExtentY        =   556
          _Version        =   393216
          MatchEntry      =   -1  'True
-         Text            =   "Catalog"
-      End
-      Begin MSDataListLib.DataCombo dbcNation 
-         Height          =   315
-         Left            =   1524
-         TabIndex        =   11
-         Top             =   1980
-         Width           =   3255
-         _ExtentX        =   5741
-         _ExtentY        =   556
-         _Version        =   393216
-         MatchEntry      =   -1  'True
-         Text            =   "Nation"
-      End
-      Begin MSDataListLib.DataCombo dbcScale 
-         Height          =   315
-         Left            =   1524
-         TabIndex        =   5
-         Top             =   900
-         Width           =   1095
-         _ExtentX        =   1931
-         _ExtentY        =   556
-         _Version        =   393216
-         MatchEntry      =   -1  'True
-         Text            =   "Scale"
+         Text            =   "Series"
       End
       Begin MSDataListLib.DataCombo dbcType 
          Height          =   315
-         Left            =   4410
+         Left            =   1530
          TabIndex        =   3
-         Top             =   180
-         Width           =   3015
-         _ExtentX        =   5318
+         Top             =   540
+         Width           =   5895
+         _ExtentX        =   10398
          _ExtentY        =   556
          _Version        =   393216
          MatchEntry      =   -1  'True
@@ -153,7 +147,7 @@ Begin VB.Form frmStarWarsCollectables
       Begin MSDataListLib.DataCombo dbcCondition 
          Height          =   315
          Left            =   1524
-         TabIndex        =   12
+         TabIndex        =   10
          Top             =   2340
          Width           =   1695
          _ExtentX        =   2990
@@ -165,7 +159,7 @@ Begin VB.Form frmStarWarsCollectables
       Begin MSDataListLib.DataCombo dbcLocation 
          Height          =   315
          Left            =   4095
-         TabIndex        =   13
+         TabIndex        =   11
          Top             =   2340
          Width           =   3255
          _ExtentX        =   5741
@@ -174,12 +168,31 @@ Begin VB.Form frmStarWarsCollectables
          MatchEntry      =   -1  'True
          Text            =   "Location"
       End
+      Begin VB.Label lblValue 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Value:"
+         BeginProperty DataFormat 
+            Type            =   0
+            Format          =   """$""#,##0.00"
+            HaveTrueFalseNull=   0
+            FirstDayOfWeek  =   0
+            FirstWeekOfYear =   0
+            LCID            =   1033
+            SubFormatType   =   0
+         EndProperty
+         Height          =   195
+         Left            =   2955
+         TabIndex        =   32
+         Top             =   960
+         Width           =   450
+      End
       Begin VB.Label lblManufacturer 
          AutoSize        =   -1  'True
          Caption         =   "Manufacturer:"
          Height          =   195
          Left            =   456
-         TabIndex        =   32
+         TabIndex        =   27
          Top             =   1320
          Width           =   960
       End
@@ -188,18 +201,9 @@ Begin VB.Form frmStarWarsCollectables
          Caption         =   "Name:"
          Height          =   195
          Left            =   936
-         TabIndex        =   31
-         Top             =   593
+         TabIndex        =   26
+         Top             =   240
          Width           =   480
-      End
-      Begin VB.Label lblDesignation 
-         AutoSize        =   -1  'True
-         Caption         =   "Designation:"
-         Height          =   192
-         Left            =   516
-         TabIndex        =   30
-         Top             =   234
-         Width           =   900
       End
       Begin VB.Label lblPrice 
          AutoSize        =   -1  'True
@@ -214,63 +218,45 @@ Begin VB.Form frmStarWarsCollectables
             SubFormatType   =   0
          EndProperty
          Height          =   195
-         Left            =   2745
-         TabIndex        =   29
+         Left            =   1011
+         TabIndex        =   25
          Top             =   960
          Width           =   405
-      End
-      Begin VB.Label lblNation 
-         AutoSize        =   -1  'True
-         Caption         =   "Nation:"
-         Height          =   195
-         Left            =   906
-         TabIndex        =   28
-         Top             =   2040
-         Width           =   510
       End
       Begin VB.Label lblDateInventoried 
          AutoSize        =   -1  'True
          Caption         =   "Date Inventoried:"
          Height          =   195
          Left            =   201
-         TabIndex        =   27
+         TabIndex        =   24
          Top             =   2753
          Width           =   1215
-      End
-      Begin VB.Label lblScale 
-         AutoSize        =   -1  'True
-         Caption         =   "Scale:"
-         Height          =   195
-         Left            =   966
-         TabIndex        =   26
-         Top             =   960
-         Width           =   450
       End
       Begin VB.Label lblReference 
          AutoSize        =   -1  'True
          Caption         =   "Reference:"
          Height          =   195
          Left            =   4980
-         TabIndex        =   25
+         TabIndex        =   23
          Top             =   1680
          Width           =   795
       End
-      Begin VB.Label lblCatalog 
+      Begin VB.Label lblSeries 
          AutoSize        =   -1  'True
-         Caption         =   "Catalog:"
+         Caption         =   "Series:"
          Height          =   195
-         Left            =   816
-         TabIndex        =   24
+         Left            =   936
+         TabIndex        =   22
          Top             =   1680
-         Width           =   600
+         Width           =   480
       End
       Begin VB.Label lblType 
          AutoSize        =   -1  'True
          Caption         =   "Type:"
-         Height          =   192
-         Left            =   3900
-         TabIndex        =   23
-         Top             =   241
+         Height          =   195
+         Left            =   996
+         TabIndex        =   21
+         Top             =   600
          Width           =   420
       End
       Begin VB.Label lblDateVerified 
@@ -278,7 +264,7 @@ Begin VB.Form frmStarWarsCollectables
          Caption         =   "Date Verified:"
          Height          =   195
          Left            =   420
-         TabIndex        =   22
+         TabIndex        =   20
          Top             =   3120
          Width           =   975
       End
@@ -288,7 +274,7 @@ Begin VB.Form frmStarWarsCollectables
          Caption         =   "Location:"
          Height          =   195
          Left            =   3360
-         TabIndex        =   21
+         TabIndex        =   19
          Top             =   2400
          Width           =   645
       End
@@ -298,16 +284,16 @@ Begin VB.Form frmStarWarsCollectables
          Caption         =   "Condition:"
          Height          =   195
          Left            =   711
-         TabIndex        =   20
+         TabIndex        =   18
          Top             =   2400
          Width           =   705
       End
    End
-   Begin VB.Frame fraKits 
+   Begin VB.Frame fraStarWarsCollectables 
       Height          =   3675
       Index           =   1
       Left            =   180
-      TabIndex        =   35
+      TabIndex        =   30
       Top             =   660
       Width           =   7692
       Begin RichTextLib.RichTextBox rtxtNotes 
@@ -320,14 +306,14 @@ Begin VB.Form frmStarWarsCollectables
          _ExtentY        =   6059
          _Version        =   393217
          Enabled         =   -1  'True
-         TextRTF         =   $"frmStarWarsCollectables.frx":0442
+         TextRTF         =   $"frmStarWarsCollectables.frx":1150
       End
    End
    Begin MSComctlLib.StatusBar sbStatus 
       Align           =   2  'Align Bottom
       Height          =   255
       Left            =   0
-      TabIndex        =   18
+      TabIndex        =   16
       Top             =   5370
       Width           =   8100
       _ExtentX        =   14288
@@ -356,7 +342,7 @@ Begin VB.Form frmStarWarsCollectables
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "3:21 PM"
+            TextSave        =   "7:33 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -367,7 +353,7 @@ Begin VB.Form frmStarWarsCollectables
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6984
-      TabIndex        =   17
+      TabIndex        =   15
       Top             =   4920
       Width           =   972
    End
@@ -376,7 +362,7 @@ Begin VB.Form frmStarWarsCollectables
       Default         =   -1  'True
       Height          =   372
       Left            =   5964
-      TabIndex        =   16
+      TabIndex        =   14
       Top             =   4920
       Width           =   972
    End
@@ -426,7 +412,7 @@ Begin VB.Form frmStarWarsCollectables
       EndProperty
       _Version        =   393216
    End
-   Begin MSComctlLib.TabStrip tsKits 
+   Begin MSComctlLib.TabStrip tsStarWarsCollectables 
       Height          =   4035
       Left            =   120
       TabIndex        =   0
@@ -456,7 +442,7 @@ Begin VB.Form frmStarWarsCollectables
       Align           =   1  'Align Top
       Height          =   360
       Left            =   0
-      TabIndex        =   36
+      TabIndex        =   31
       Top             =   0
       Width           =   8100
       _ExtentX        =   14288
@@ -542,63 +528,63 @@ Begin VB.Form frmStarWarsCollectables
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmStarWarsCollectables.frx":050B
+            Picture         =   "frmStarWarsCollectables.frx":1219
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmStarWarsCollectables.frx":0827
+            Picture         =   "frmStarWarsCollectables.frx":1535
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmStarWarsCollectables.frx":0B4F
+            Picture         =   "frmStarWarsCollectables.frx":185D
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmStarWarsCollectables.frx":0E77
+            Picture         =   "frmStarWarsCollectables.frx":1B85
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmStarWarsCollectables.frx":362B
+            Picture         =   "frmStarWarsCollectables.frx":4339
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmStarWarsCollectables.frx":3A7F
+            Picture         =   "frmStarWarsCollectables.frx":478D
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmStarWarsCollectables.frx":3ED3
+            Picture         =   "frmStarWarsCollectables.frx":4BE1
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmStarWarsCollectables.frx":499F
+            Picture         =   "frmStarWarsCollectables.frx":56AD
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmStarWarsCollectables.frx":4CC7
+            Picture         =   "frmStarWarsCollectables.frx":59D5
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmStarWarsCollectables.frx":511B
+            Picture         =   "frmStarWarsCollectables.frx":5E29
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmStarWarsCollectables.frx":556F
+            Picture         =   "frmStarWarsCollectables.frx":627D
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmStarWarsCollectables.frx":59C3
+            Picture         =   "frmStarWarsCollectables.frx":66D1
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmStarWarsCollectables.frx":5E1B
+            Picture         =   "frmStarWarsCollectables.frx":6B29
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmStarWarsCollectables.frx":5F77
+            Picture         =   "frmStarWarsCollectables.frx":6C85
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmStarWarsCollectables.frx":60D3
+            Picture         =   "frmStarWarsCollectables.frx":6DE1
             Key             =   "NewRecord"
          EndProperty
       EndProperty
@@ -608,7 +594,7 @@ Begin VB.Form frmStarWarsCollectables
       Caption         =   "lblID"
       Height          =   195
       Left            =   429
-      TabIndex        =   34
+      TabIndex        =   29
       Top             =   5040
       Width           =   330
    End
@@ -617,7 +603,7 @@ Begin VB.Form frmStarWarsCollectables
       Caption         =   "ID:"
       Height          =   195
       Left            =   144
-      TabIndex        =   33
+      TabIndex        =   28
       Top             =   5040
       Width           =   195
    End
@@ -682,7 +668,7 @@ Option Explicit
 Dim WithEvents rsMain As ADODB.Recordset
 Attribute rsMain.VB_VarHelpID = -1
 Dim rsManufacturers As New ADODB.Recordset
-Dim rsCatalogs As New ADODB.Recordset
+Dim rsSeries As New ADODB.Recordset
 Dim rsScales As New ADODB.Recordset
 Dim rsNations As New ADODB.Recordset
 Dim rsConditions As New ADODB.Recordset
@@ -704,51 +690,41 @@ Private Sub Form_Load()
     Set rsMain = New ADODB.Recordset
     'rsMain.CursorLocation = adUseServer
     rsMain.CursorLocation = adUseClient
-    SQLmain = "select * from [Kits] order by Manufacturer,Type,Reference,Scale"
+    SQLmain = "select * from [Star Wars Collectables] order by Manufacturer,Type,Series,Reference"
     SQLfilter = vbNullString
     SQLkey = "Reference"
     rsMain.Open SQLmain, adoConn, adOpenKeyset, adLockBatchOptimistic
     DBcollection.Add "rsMain", rsMain
     
     rsManufacturers.CursorLocation = adUseClient
-    rsManufacturers.Open "select distinct Manufacturer from [Kits] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
+    rsManufacturers.Open "select distinct Manufacturer from [Star Wars Collectables] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
     DBcollection.Add "rsManufacturers", rsManufacturers
     
-    rsCatalogs.CursorLocation = adUseClient
-    rsCatalogs.Open "select distinct Catalog from [Kits] order by Catalog", adoConn, adOpenStatic, adLockReadOnly
-    DBcollection.Add "rsCatalogs", rsCatalogs
-    
-    rsScales.CursorLocation = adUseClient
-    rsScales.Open "select distinct Scale from [Kits] order by Scale", adoConn, adOpenStatic, adLockReadOnly
-    DBcollection.Add "rsScales", rsScales
+    rsSeries.CursorLocation = adUseClient
+    rsSeries.Open "select distinct Series from [Star Wars Collectables] order by Series", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsSeries", rsSeries
     
     rsTypes.CursorLocation = adUseClient
-    rsTypes.Open "select distinct Type from [Kits] order by Type", adoConn, adOpenStatic, adLockReadOnly
+    rsTypes.Open "select distinct Type from [Star Wars Collectables] order by Type", adoConn, adOpenStatic, adLockReadOnly
     DBcollection.Add "rsTypes", rsTypes
     
-    rsNations.CursorLocation = adUseClient
-    rsNations.Open "select distinct Nation from [Kits] order by Nation", adoConn, adOpenStatic, adLockReadOnly
-    DBcollection.Add "rsNations", rsNations
-    
     rsConditions.CursorLocation = adUseClient
-    rsConditions.Open "select distinct Condition from [Kits] order by Condition", adoConn, adOpenStatic, adLockReadOnly
+    rsConditions.Open "select distinct Condition from [Star Wars Collectables] order by Condition", adoConn, adOpenStatic, adLockReadOnly
     DBcollection.Add "rsConditions", rsConditions
     
     rsLocations.CursorLocation = adUseClient
-    rsLocations.Open "select distinct Location from [Kits] order by Location", adoConn, adOpenStatic, adLockReadOnly
+    rsLocations.Open "select distinct Location from [Star Wars Collectables] order by Location", adoConn, adOpenStatic, adLockReadOnly
     DBcollection.Add "rsLocations", rsLocations
     
     Set adodcMain.Recordset = rsMain
     BindField lblID, "ID", rsMain, "ID"
     BindField dbcManufacturer, "Manufacturer", rsMain, "Manufacturer", rsManufacturers, "Manufacturer", "Manufacturer"
-    BindField txtDesignation, "Designation", rsMain, "Designation"
     BindField txtName, "Name", rsMain, "Name"
-    BindField txtPrice, "Price", rsMain, "Price"
-    BindField dbcScale, "Scale", rsMain, "Scale", rsScales, "Scale", "Scale"
+    BindField pvcPrice, "Price", rsMain, "Price"
+    BindField pvcValue, "Value", rsMain, "Value"
     BindField dbcType, "Type", rsMain, "Type", rsTypes, "Type", "Type"
     BindField txtReference, "Reference", rsMain, "Reference"
-    BindField dbcCatalog, "Catalog", rsMain, "Catalog", rsCatalogs, "Catalog", "Catalog"
-    BindField dbcNation, "Nation", rsMain, "Nation", rsNations, "Nation", "Nation"
+    BindField dbcSeries, "Series", rsMain, "Series", rsSeries, "Series", "Series"
     BindField dbcCondition, "Condition", rsMain, "Condition", rsConditions, "Condition", "Condition"
     BindField dbcLocation, "Location", rsMain, "Location", rsLocations, "Location", "Location"
     BindField chkOutOfProduction, "OutOfProduction", rsMain, "Out of Production"
@@ -757,7 +733,7 @@ Private Sub Form_Load()
     BindField txtDateVerified, "DateVerified", rsMain, "Date Verified"
     BindField rtxtNotes, "Notes", rsMain, vbNullString
 
-    Set tsKits.SelectedItem = tsKits.Tabs(1)
+    Set tsStarWarsCollectables.SelectedItem = tsStarWarsCollectables.Tabs(1)
     ProtectFields Me
     mode = modeDisplay
     fTransaction = False
@@ -780,13 +756,13 @@ End Sub
 Private Sub mnuRecordsModify_Click()
     ModifyCommand Me
     
-    Set tsKits.SelectedItem = tsKits.Tabs(1)
-    txtDesignation.SetFocus
+    Set tsStarWarsCollectables.SelectedItem = tsStarWarsCollectables.Tabs(1)
+    txtName.SetFocus
 End Sub
 Private Sub mnuRecordsNew_Click()
     NewCommand Me, rsMain
     
-    Set tsKits.SelectedItem = tsKits.Tabs(1)
+    Set tsStarWarsCollectables.SelectedItem = tsStarWarsCollectables.Tabs(1)
     
     'Defaults...
     dbcCondition.BoundText = "New (boxed)"
@@ -794,7 +770,7 @@ Private Sub mnuRecordsNew_Click()
     txtDateInventoried.Text = Format(Now(), fmtDate)
     txtDateVerified.Text = Format(Now(), fmtDate)
     
-    txtDesignation.SetFocus
+    txtName.SetFocus
 End Sub
 Private Sub mnuRecordsRefresh_Click()
     RefreshCommand rsMain, "ID"
@@ -806,10 +782,10 @@ Private Sub mnuFileExit_Click()
     Unload Me
 End Sub
 Private Sub mnuFileReport_Click()
-    ReportCommand Me, rsMain, App.Path & "\Reports\Kits.rpt"
+    ReportCommand Me, rsMain, App.Path & "\Reports\StarWarsCollectables.rpt"
 End Sub
 Private Sub mnuFileSQL_Click()
-    SQLCommand "Kits"
+    SQLCommand "Star Wars Collectables"
 End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
@@ -821,9 +797,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     End If
     
     If Not pRecordset.BOF And Not pRecordset.EOF Then
-        Caption = "Reference #" & pRecordset.BookMark & ": "
-        If IsNumeric(rsMain("Scale")) Then Caption = Caption & "1/"
-        Caption = Caption & pRecordset("Scale") & " Scale; " & pRecordset("Designation") & " " & pRecordset("Name")
+        Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("Type") & "; " & pRecordset("Series") & " " & pRecordset("Reference") & " - " & pRecordset("Name")
     End If
     UpdatePosition Me, Caption, pRecordset
     Call Trace(trcExit, "rsMain_MoveComplete")
@@ -850,35 +824,28 @@ Private Sub tbMain_ButtonClick(ByVal Button As MSComCtlLib.Button)
             mnuRecordsList_Click
     End Select
 End Sub
-Private Sub tsKits_Click()
+Private Sub tsStarWarsCollectables_Click()
     Dim i As Integer
     
-    With tsKits
+    With tsStarWarsCollectables
         For i = 0 To .Tabs.Count - 1
             If i = .SelectedItem.Index - 1 Then
-                fraKits(i).Enabled = True
-                fraKits(i).ZOrder
+                fraStarWarsCollectables(i).Enabled = True
+                fraStarWarsCollectables(i).ZOrder
             Else
-                fraKits(i).Enabled = False
+                fraStarWarsCollectables(i).Enabled = False
             End If
         Next
     End With
 End Sub
 '=================================================================================
-Private Sub dbcCatalog_GotFocus()
-    TextSelected
-End Sub
-Private Sub dbcCatalog_Validate(Cancel As Boolean)
-    If Trim(dbcCatalog.Text) = vbNullString Then dbcCatalog.Text = "Unknown"
-    If dbcValidate(rsMain("Catalog"), dbcCatalog) = 0 Then Cancel = True
-    If rsCatalogs.BookMark <> dbcCatalog.SelectedItem Then rsCatalogs.BookMark = dbcCatalog.SelectedItem
-End Sub
 Private Sub dbcCondition_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcCondition_Validate(Cancel As Boolean)
     If Trim(dbcCondition.Text) = vbNullString Then dbcCondition.Text = "Unknown"
     If dbcValidate(rsMain("Condition"), dbcCondition) = 0 Then Cancel = True
+    If IsNull(dbcCondition.SelectedItem) Then Exit Sub
     If rsConditions.BookMark <> dbcCondition.SelectedItem Then rsConditions.BookMark = dbcCondition.SelectedItem
 End Sub
 Private Sub dbcLocation_GotFocus()
@@ -887,6 +854,7 @@ End Sub
 Private Sub dbcLocation_Validate(Cancel As Boolean)
     If Trim(dbcLocation.Text) = vbNullString Then dbcLocation.Text = "Unknown"
     If dbcValidate(rsMain("Location"), dbcLocation) = 0 Then Cancel = True
+    If IsNull(dbcLocation.SelectedItem) Then Exit Sub
     If rsLocations.BookMark <> dbcLocation.SelectedItem Then rsLocations.BookMark = dbcLocation.SelectedItem
 End Sub
 Private Sub dbcManufacturer_GotFocus()
@@ -900,28 +868,17 @@ Private Sub dbcManufacturer_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Manufacturer"), dbcManufacturer) = 0 Then Cancel = True
+    If IsNull(dbcManufacturer.SelectedItem) Then Exit Sub
     If rsManufacturers.BookMark <> dbcManufacturer.SelectedItem Then rsManufacturers.BookMark = dbcManufacturer.SelectedItem
 End Sub
-Private Sub dbcNation_GotFocus()
+Private Sub dbcSeries_GotFocus()
     TextSelected
 End Sub
-Private Sub dbcNation_Validate(Cancel As Boolean)
-    If Not dbcNation.Enabled Then Exit Sub
-    If dbcNation.Text = vbNullString Then
-        MsgBox "Nation must be specified!", vbExclamation, Me.Caption
-        dbcNation.SetFocus
-        Cancel = True
-    End If
-    If dbcValidate(rsMain("Nation"), dbcNation) = 0 Then Cancel = True
-    If rsNations.BookMark <> dbcNation.SelectedItem Then rsNations.BookMark = dbcNation.SelectedItem
-End Sub
-Private Sub dbcScale_GotFocus()
-    TextSelected
-End Sub
-Private Sub dbcScale_Validate(Cancel As Boolean)
-    If dbcScale.Text = vbNullString Then dbcScale.Text = "Unknown"
-    If dbcValidate(rsMain("Scale"), dbcScale) = 0 Then Cancel = True
-    If rsScales.BookMark <> dbcScale.SelectedItem Then rsScales.BookMark = dbcScale.SelectedItem
+Private Sub dbcSeries_Validate(Cancel As Boolean)
+    If Trim(dbcSeries.Text) = vbNullString Then dbcSeries.Text = "Unknown"
+    If dbcValidate(rsMain("Series"), dbcSeries) = 0 Then Cancel = True
+    If IsNull(dbcSeries.SelectedItem) Then Exit Sub
+    If rsSeries.BookMark <> dbcSeries.SelectedItem Then rsSeries.BookMark = dbcSeries.SelectedItem
 End Sub
 Private Sub dbcType_GotFocus()
     TextSelected
@@ -934,7 +891,20 @@ Private Sub dbcType_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Type"), dbcType) = 0 Then Cancel = True
+    If IsNull(dbcType.SelectedItem) Then Exit Sub
     If rsTypes.BookMark <> dbcType.SelectedItem Then rsTypes.BookMark = dbcType.SelectedItem
+End Sub
+Private Sub pvcPrice_GotFocus()
+    TextSelected
+End Sub
+Private Sub pvcPrice_GotFocusEvent()
+    TextSelected
+End Sub
+Private Sub pvcValue_GotFocus()
+    TextSelected
+End Sub
+Private Sub pvcValue_GotFocusEvent()
+    TextSelected
 End Sub
 Private Sub txtDateVerified_GotFocus()
     TextSelected
@@ -948,12 +918,6 @@ Private Sub txtDateVerified_Validate(Cancel As Boolean)
         Cancel = True
         Exit Sub
     End If
-End Sub
-Private Sub txtDesignation_GotFocus()
-    TextSelected
-End Sub
-Private Sub txtDesignation_KeyPress(KeyAscii As Integer)
-    KeyPressUcase KeyAscii
 End Sub
 Private Sub txtDateInventoried_GotFocus()
     TextSelected
