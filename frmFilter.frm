@@ -1016,10 +1016,24 @@ Private Sub cmdApply_Click()
     For i = 0 To RS.Fields.Count - 1
         If txtFields(i).Enabled Then
             Set ctl = txtFields(i)
-            If Trim(ctl.Text) <> vbNullString Then SQLsource = SQLsource & RS.Fields(i).Name & " " & ctl.Text & " And "
+            If Trim(ctl.Text) <> vbNullString Then
+                'if the control already contains the field name, then assume it needs no formatting here...
+                If ParseStr(ctl.Text, 1, "=") <> RS.Fields(i).Name Then
+                    SQLsource = SQLsource & RS.Fields(i).Name & " " & ctl.Text & " And "
+                Else
+                    SQLsource = SQLsource & ctl.Text & " And "
+                End If
+            End If
         Else
             Set ctl = dbcFields(i)
-            If Trim(ctl.Text) <> vbNullString Then SQLsource = SQLsource & RS.Fields(i).Name & "='" & ctl.Text & "' And "
+            If Trim(ctl.Text) <> vbNullString Then
+                'if the control already contains the field name, then assume it needs no formatting here...
+                If ParseStr(ctl.Text, 1, "=") <> RS.Fields(i).Name Then
+                    SQLsource = SQLsource & RS.Fields(i).Name & "='" & SQLQuote(ctl.Text) & "' And "
+                Else
+                    SQLsource = SQLsource & ctl.Text & " And "
+                End If
+            End If
         End If
     Next i
     If Len(SQLsource) > 0 Then SQLsource = Left(SQLsource, Len(SQLsource) - 5)  'Get rid of the final " And "...
@@ -1190,8 +1204,8 @@ Private Function ParseFilter(strFilter As String) As String
     Dim Operand1 As String
     Dim FieldName As String
     
-    For i = 1 To TokenCount(strFilter, " and ")
-        Token = ParseStr(strFilter, i, " and ", """")
+    For i = 1 To TokenCount(UCase(strFilter), " AND ")
+        Token = ParseStr(strFilter, i, " And ", """")
         'Debug.Print "Token #" & i & ": """ & Token & """"
         If ParseStr(Token, 1, " ") <> Token Then
             FieldName = Trim(ParseStr(Token, 1, " "))

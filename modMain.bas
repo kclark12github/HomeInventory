@@ -284,14 +284,19 @@ Public Sub ListCommand(frm As Form, RS As ADODB.Recordset, Optional AllowUpdate 
         Call Trace(trcBody, "adoConn.BeginTrans")
         adoConn.BeginTrans
         fTransaction = True
-        frmList.dgdList.BackColor = vbWindowBackground
+        'frmList.dgdList.BackColor = vbWindowBackground
+        frmList.ssugList.Override.AllowUpdate = ssAllowUpdateYes
     Else
-        If Not MakeVirtualRecordset(adoConn, RS, vRS, "Junk") Then
+        If Not MakeVirtualRecordset(adoConn, RS, vRS) Then
             MsgBox "MakeVirtualRecordset failed.", vbExclamation, frm.Caption
             Exit Sub
         End If
         Set frmList.vrsList = vRS
-        frmList.dgdList.BackColor = vbButtonFace
+        'frmList.dgdList.BackColor = vbButtonFace
+        frmList.ssugList.Override.AllowUpdate = ssAllowUpdateNo
+        frmList.ssugList.Override.CellClickAction = ssClickActionRowSelect
+        frmList.ssugList.Override.EditCellAppearance.BackColor = vbButtonFace
+        frmList.ssugList.Override.EditCellAppearance.ForeColor = vbWindowBackground
     End If
     
     frmList.Show vbModal
