@@ -703,7 +703,7 @@ Private Function ParseFilter(strFilter As String) As String
     
     For i = 1 To TokenCount(strFilter, " and ")
         Token = ParseStr(strFilter, i, " and ", """")
-        Debug.Print "Token #" & i & ": """ & Token & """"
+        'Debug.Print "Token #" & i & ": """ & Token & """"
         
         FieldName = Trim(Mid(Token, 1, InStr(Token, " ") - 1))
         
