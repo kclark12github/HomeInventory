@@ -360,6 +360,7 @@ Private gfDragMode As Boolean
 Private DragNode As ComctlLib.Node
 Private fUpdateInProgress As Boolean
 Private fAdding As Boolean
+Private fPopulateInProgress As Boolean
 Private LocalSite As String
 Private WithEvents IE As SHDocVw.InternetExplorer
 Attribute IE.VB_VarHelpID = -1
@@ -481,8 +482,10 @@ Private Sub ClearDetail()
     txtParentID.Visible = False
     txtButtonLabel.Visible = False
     
-    lblLoad.Visible = False
-    prgLoad.Visible = False
+    If Not fPopulateInProgress Then
+        lblLoad.Visible = False
+        prgLoad.Visible = False
+    End If
     
     cmdOK.Visible = False
     cmdCancel.Visible = False
@@ -821,10 +824,10 @@ Private Sub PopulateButton(ButtonLabel As String, ParentID As String, intTreeVie
     Dim NodeIndex As Integer
     
     Trace trcEnter, "PopulateButton()"
-    
     SQLstatement = "SELECT * FROM MenuEntries where ButtonLabel='" & ButtonLabel & "' and ParentID=" & ParentID & " order by ButtonLabel,ParentID,Label"
     Trace trcBody, "rsMenuEntries.Open """ & SQLstatement & """, adoconn, adOpenKeyset, adLockReadOnly"
     rsMenuEntries.Open SQLstatement, adoConn, adOpenForwardOnly, adLockReadOnly
+    
     Do Until rsMenuEntries.EOF
         prgLoad.Value = prgLoad.Value + 1
         
@@ -899,41 +902,15 @@ Public Sub PopulateMenu()
     Set adoConn = New ADODB.Connection
     adoConn.Open "FileDSN=" & gstrFileDSN
     
-    SQLstatement = "SELECT * FROM MenuEntries"
-    rsTable.CacheSize = 2000
-    rsTable.Open SQLstatement, adoConn, adOpenKeyset, adLockReadOnly
-    prgLoad.Max = rsTable.RecordCount
-    rsTable.Close
-    Set rsTable = Nothing
-    
     tvwDB.Sorted = True
     RootIndex = AddNode(0, "0", "Web Menu Buttons", "", "0", True, False)
     
-    'rsButtons.CacheSize = 100
-    lblLoad.Caption = "Loading Links DataBase..."
-    
-    'SQLstatement = "SELECT Count(*) as Count FROM MenuEntries"
-    'Trace trcBody, "rsButtons.Open """ & SQLstatement & """, adoconn, adOpenKeyset, adLockReadOnly"
-    'rsButtons.Open SQLstatement, adoconn, adOpenKeyset, adLockReadOnly
-    'prgLoad.Max = rsButtons!Count
-    'rsButtons.Close
-    
-    prgLoad.Visible = True
-    prgLoad.Value = 0
-    Count = 0
-    lblID.Visible = False
-    lblLoad.Visible = True
-    
     SQLstatement = "SELECT Distinct ButtonLabel FROM MenuEntries order by ButtonLabel"
-'SQLstatement = "SELECT Distinct ButtonLabel FROM MenuEntries where buttonlabel = 'Books' order by ButtonLabel"
     Trace trcBody, "rsButtons.Open """ & SQLstatement & """, adoconn, adOpenKeyset, adLockReadOnly"
     rsButtons.Open SQLstatement, adoConn, adOpenKeyset, adLockReadOnly
     
     While Not rsButtons.EOF
-        lblLoad.Caption = "Loading " & rsButtons!ButtonLabel & " Entries..."
         intIndex = AddNode(RootIndex, "0", VBdecode(rsButtons("ButtonLabel")), VBdecode(rsButtons("ButtonLabel")), "0", True, False)
-        PopulateButton rsButtons("ButtonLabel"), 0, intIndex
-        'lblLoad.Caption = rsButtons!ButtonLabel & " Load Complete."
         tvwDB.Refresh
         DoEvents
         rsButtons.MoveNext
@@ -1054,10 +1031,42 @@ Private Sub tvwDB_Collapse(ByVal Node As ComctlLib.Node)
     End If
     Trace trcExit, "tvwDB_Collapse()"
 End Sub
+Private Sub tvwDB_DblClick()
+    Trace trcEnter, "tvwDB_DblClick()"
+    If IsButton(tvwDB.SelectedItem) Then tvwDB_Expand tvwDB.SelectedItem
+    Trace trcExit, "tvwDB_DblClick()"
+End Sub
 Private Sub tvwDB_Expand(ByVal Node As ComctlLib.Node)
     Trace trcEnter, "tvwDB_Expand()"
     If IsGroup(Node) Then
         Node.Image = "Open"
+    ElseIf Not IsLink(Node) Then
+        'See if the Button has been populated yet...
+        If Node.Children = 0 Then
+            Dim rsCount As ADODB.Recordset
+            Dim ButtonLabel As String
+            
+            ButtonLabel = Right(Node.Tag, Len(Node.Tag) - Len("Button: "))
+            lblLoad.Visible = True
+            lblLoad.Caption = "Loading " & ButtonLabel & " Links..."
+            prgLoad.Visible = True
+            prgLoad.Value = 0
+            Set rsCount = New ADODB.Recordset
+            rsCount.Open "SELECT Count(*) FROM MenuEntries where ButtonLabel='" & ButtonLabel & "'", adoConn, adOpenForwardOnly, adLockReadOnly
+            prgLoad.Max = rsCount(0).Value
+            
+            'OK, populate it...
+            fPopulateInProgress = True
+            PopulateButton ButtonLabel, 0, Node.Index
+            fPopulateInProgress = False
+            Node.Expanded = True
+            
+            CloseRecordset rsCount, True
+            lblLoad.Visible = False
+            lblLoad.Caption = vbNullString
+            prgLoad.Visible = False
+            prgLoad.Value = 0
+        End If
     End If
     Trace trcExit, "tvwDB_Expand()"
 End Sub
