@@ -453,5 +453,35 @@ ErrorHandler:
     Resume Next
 End Sub
 Public Sub dbcValidate(fld As ADODB.Field, ctl As DataCombo)
+    Dim adoRS As ADODB.Recordset
+    Dim RecordsAffected As Long
+    Dim SQLstring As String
+    Dim FieldList As String
+    Dim TableList As String
+    Dim WhereClause As String
+    Dim OrderByClause As String
+    
+    If Not IsNull(ctl.SelectedItem) Then Exit Sub
+    Set adoRS = ctl.DataSource
+    Call ParseSQLSelect(adoRS.Source, FieldList, TableList, WhereClause, OrderByClause)
+    If WhereClause <> vbNullString Then WhereClause = WhereClause & " And "
+    WhereClause = WhereClause & " " & fld.Name & " like '" & ctl.Text & "%'"
+    SQLstring = "select " & FieldList & " from " & TableList & " where " & WhereClause
+    If OrderByClause <> vbNullString Then SQLstring = SQLstring & " order by " & OrderByClause
+    
+    Set adoRS = New ADODB.Recordset
+    adoRS.Open SQLstring, adoConn, adOpenKeyset, adLockReadOnly
+    If Not adoRS.EOF Then
+        ctl.BoundText = adoRS(fld.Name)
+    'Else
+        'If MsgBox(ctl.Text & " does not yet exist in the database. Do you want to add this new department?", vbYesNo) = vbYes Then
+        '    adoConn.BeginTrans
+        '    adoConn.Execute "insert into Departments (DepartmentID) values ('" & ctl.Text & "')", RecordsAffected
+        '    adoConn.CommitTrans
+        '    'rsDepartments.Requery
+        'End If
+    End If
+    CloseRecordset adoRS, True
     If Len(ctl.Text) > fld.DefinedSize Then ctl.Text = Mid(ctl.Text, 1, fld.DefinedSize)
 End Sub
+
