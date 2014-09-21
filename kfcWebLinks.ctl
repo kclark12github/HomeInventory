@@ -1419,9 +1419,7 @@ Private Sub UserControl_Terminate()
         If (adoConn.State And adStateOpen) = adStateOpen Then
             adoConn.Close
         End If
-        If Destroy Then
-            Set adoConn = Nothing
-        End If
+        Set adoConn = Nothing
     End If
     Trace trcExit, "UserControl_Terminate()"
 End Sub
