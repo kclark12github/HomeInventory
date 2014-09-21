@@ -10,6 +10,7 @@ Begin VB.Form frmUSNClasses
    ClientLeft      =   120
    ClientTop       =   348
    ClientWidth     =   7788
+   Icon            =   "frmUSNClasses.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -127,8 +128,9 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          ScrollBars      =   2
-         TextRTF         =   $"frmUSNClasses.frx":0000
+         TextRTF         =   $"frmUSNClasses.frx":0682
       End
       Begin RichTextLib.RichTextBox rtxtLength 
          Height          =   312
@@ -139,8 +141,9 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":00E1
+         TextRTF         =   $"frmUSNClasses.frx":0757
       End
       Begin RichTextLib.RichTextBox rtxtBeam 
          Height          =   312
@@ -151,8 +154,9 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":01BC
+         TextRTF         =   $"frmUSNClasses.frx":0826
       End
       Begin RichTextLib.RichTextBox rtxtDraft 
          Height          =   312
@@ -163,8 +167,9 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":0295
+         TextRTF         =   $"frmUSNClasses.frx":08F3
       End
       Begin RichTextLib.RichTextBox rtxtPropulsion 
          Height          =   312
@@ -175,8 +180,9 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":036F
+         TextRTF         =   $"frmUSNClasses.frx":09C1
       End
       Begin RichTextLib.RichTextBox rtxtBoilers 
          Height          =   312
@@ -187,8 +193,9 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":044E
+         TextRTF         =   $"frmUSNClasses.frx":0A94
       End
       Begin RichTextLib.RichTextBox rtxtManning 
          Height          =   312
@@ -199,8 +206,9 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":052A
+         TextRTF         =   $"frmUSNClasses.frx":0B64
       End
       Begin VB.Label lblDisplacement 
          Alignment       =   1  'Right Justify
@@ -299,8 +307,9 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          ScrollBars      =   2
-         TextRTF         =   $"frmUSNClasses.frx":0606
+         TextRTF         =   $"frmUSNClasses.frx":0C34
       End
       Begin RichTextLib.RichTextBox rtxtMissiles 
          Height          =   312
@@ -311,8 +320,9 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":06E3
+         TextRTF         =   $"frmUSNClasses.frx":0D05
       End
       Begin RichTextLib.RichTextBox rtxtGuns 
          Height          =   312
@@ -323,8 +333,9 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":07C0
+         TextRTF         =   $"frmUSNClasses.frx":0DD6
       End
       Begin RichTextLib.RichTextBox rtxtASW 
          Height          =   312
@@ -335,8 +346,9 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":0899
+         TextRTF         =   $"frmUSNClasses.frx":0EA3
       End
       Begin RichTextLib.RichTextBox rtxtRadars 
          Height          =   312
@@ -347,8 +359,9 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":0979
+         TextRTF         =   $"frmUSNClasses.frx":0F77
       End
       Begin RichTextLib.RichTextBox rtxtSonars 
          Height          =   312
@@ -359,8 +372,9 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":0A54
+         TextRTF         =   $"frmUSNClasses.frx":1046
       End
       Begin RichTextLib.RichTextBox rtxtFireControl 
          Height          =   312
@@ -371,8 +385,9 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":0B2F
+         TextRTF         =   $"frmUSNClasses.frx":1115
       End
       Begin RichTextLib.RichTextBox rtxtEW 
          Height          =   312
@@ -383,8 +398,9 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   9864
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":0C10
+         TextRTF         =   $"frmUSNClasses.frx":11EA
       End
       Begin VB.Label lblAircraft 
          Alignment       =   1  'Right Justify
@@ -483,8 +499,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   12933
          _ExtentY        =   5101
          _Version        =   393217
-         Enabled         =   -1  'True
-         TextRTF         =   $"frmUSNClasses.frx":0CE7
+         TextRTF         =   $"frmUSNClasses.frx":12B5
       End
    End
    Begin VB.CommandButton cmdCancel 
@@ -572,7 +587,7 @@ Begin VB.Form frmUSNClasses
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:01 PM"
+            TextSave        =   "2:38 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -713,63 +728,63 @@ Begin VB.Form frmUSNClasses
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":0DCA
+            Picture         =   "frmUSNClasses.frx":138C
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":10E6
+            Picture         =   "frmUSNClasses.frx":16A8
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":140E
+            Picture         =   "frmUSNClasses.frx":19D0
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":1736
+            Picture         =   "frmUSNClasses.frx":1CF8
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":3EEA
+            Picture         =   "frmUSNClasses.frx":44AC
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":433E
+            Picture         =   "frmUSNClasses.frx":4900
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":4792
+            Picture         =   "frmUSNClasses.frx":4D54
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":525E
+            Picture         =   "frmUSNClasses.frx":5820
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":5586
+            Picture         =   "frmUSNClasses.frx":5B48
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":59DA
+            Picture         =   "frmUSNClasses.frx":5F9C
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":5E2E
+            Picture         =   "frmUSNClasses.frx":63F0
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":6282
+            Picture         =   "frmUSNClasses.frx":6844
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":66DA
+            Picture         =   "frmUSNClasses.frx":6C9C
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":6836
+            Picture         =   "frmUSNClasses.frx":6DF8
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClasses.frx":6992
+            Picture         =   "frmUSNClasses.frx":6F54
             Key             =   "NewRecord"
          EndProperty
       EndProperty
@@ -935,7 +950,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     Dim Caption As String
     
     If Not pRecordset.BOF And Not pRecordset.EOF Then
-        Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset("Name")
+        Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("Name")
         If pRecordset("Year") > 0 Then Caption = Caption & " of " & pRecordset("Year")
     End If
     UpdatePosition Me, Caption, pRecordset
@@ -1016,7 +1031,7 @@ Private Sub dbcClassification_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Classification"), dbcClassification) = 0 Then Cancel = True
-    If rsClassifications.Bookmark <> dbcClassification.SelectedItem Then rsClassifications.Bookmark = dbcClassification.SelectedItem
+    If rsClassifications.BookMark <> dbcClassification.SelectedItem Then rsClassifications.BookMark = dbcClassification.SelectedItem
 End Sub
 Private Sub DefaultClassificationDesc()
     If rsClassifications Is Nothing Then Exit Sub

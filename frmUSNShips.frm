@@ -11,6 +11,7 @@ Begin VB.Form frmUSNShips
    ClientLeft      =   36
    ClientTop       =   264
    ClientWidth     =   7764
+   Icon            =   "frmUSNShips.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -281,8 +282,9 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          ScrollBars      =   2
-         TextRTF         =   $"frmUSNShips.frx":0000
+         TextRTF         =   $"frmUSNShips.frx":0682
       End
       Begin RichTextLib.RichTextBox rtxtLength 
          Height          =   312
@@ -293,8 +295,9 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":00E1
+         TextRTF         =   $"frmUSNShips.frx":0757
       End
       Begin RichTextLib.RichTextBox rtxtBeam 
          Height          =   312
@@ -305,8 +308,9 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":01BC
+         TextRTF         =   $"frmUSNShips.frx":0826
       End
       Begin RichTextLib.RichTextBox rtxtDraft 
          Height          =   312
@@ -317,8 +321,9 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":0295
+         TextRTF         =   $"frmUSNShips.frx":08F3
       End
       Begin RichTextLib.RichTextBox rtxtPropulsion 
          Height          =   312
@@ -329,8 +334,9 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":036F
+         TextRTF         =   $"frmUSNShips.frx":09C1
       End
       Begin RichTextLib.RichTextBox rtxtBoilers 
          Height          =   312
@@ -341,8 +347,9 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":044E
+         TextRTF         =   $"frmUSNShips.frx":0A94
       End
       Begin RichTextLib.RichTextBox rtxtManning 
          Height          =   312
@@ -353,8 +360,9 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":052A
+         TextRTF         =   $"frmUSNShips.frx":0B64
       End
       Begin VB.Label lblManning 
          Alignment       =   1  'Right Justify
@@ -525,8 +533,7 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   12933
          _ExtentY        =   5101
          _Version        =   393217
-         Enabled         =   -1  'True
-         TextRTF         =   $"frmUSNShips.frx":0606
+         TextRTF         =   $"frmUSNShips.frx":0C34
       End
    End
    Begin VB.Frame fraShips 
@@ -545,8 +552,7 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   12933
          _ExtentY        =   5101
          _Version        =   393217
-         Enabled         =   -1  'True
-         TextRTF         =   $"frmUSNShips.frx":06EA
+         TextRTF         =   $"frmUSNShips.frx":0D0C
       End
    End
    Begin VB.Frame fraShips 
@@ -565,8 +571,9 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          ScrollBars      =   2
-         TextRTF         =   $"frmUSNShips.frx":07C9
+         TextRTF         =   $"frmUSNShips.frx":0DDF
       End
       Begin RichTextLib.RichTextBox rtxtMissiles 
          Height          =   312
@@ -577,8 +584,9 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":08A6
+         TextRTF         =   $"frmUSNShips.frx":0EB0
       End
       Begin RichTextLib.RichTextBox rtxtGuns 
          Height          =   312
@@ -589,8 +597,9 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":0983
+         TextRTF         =   $"frmUSNShips.frx":0F81
       End
       Begin RichTextLib.RichTextBox rtxtASW 
          Height          =   312
@@ -601,8 +610,9 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":0A5C
+         TextRTF         =   $"frmUSNShips.frx":104E
       End
       Begin RichTextLib.RichTextBox rtxtRadars 
          Height          =   312
@@ -613,8 +623,9 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":0B3C
+         TextRTF         =   $"frmUSNShips.frx":1122
       End
       Begin RichTextLib.RichTextBox rtxtSonars 
          Height          =   312
@@ -625,8 +636,9 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":0C17
+         TextRTF         =   $"frmUSNShips.frx":11F1
       End
       Begin RichTextLib.RichTextBox rtxtFireControl 
          Height          =   312
@@ -637,8 +649,9 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":0CF2
+         TextRTF         =   $"frmUSNShips.frx":12C0
       End
       Begin RichTextLib.RichTextBox rtxtEW 
          Height          =   312
@@ -649,8 +662,9 @@ Begin VB.Form frmUSNShips
          _ExtentX        =   9864
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":0DD3
+         TextRTF         =   $"frmUSNShips.frx":1395
       End
       Begin VB.Label lblEW 
          Alignment       =   1  'Right Justify
@@ -828,7 +842,7 @@ Begin VB.Form frmUSNShips
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:00 PM"
+            TextSave        =   "2:38 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -969,63 +983,63 @@ Begin VB.Form frmUSNShips
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":0EAA
+            Picture         =   "frmUSNShips.frx":1460
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":11C6
+            Picture         =   "frmUSNShips.frx":177C
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":14EE
+            Picture         =   "frmUSNShips.frx":1AA4
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":1816
+            Picture         =   "frmUSNShips.frx":1DCC
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":3FCA
+            Picture         =   "frmUSNShips.frx":4580
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":441E
+            Picture         =   "frmUSNShips.frx":49D4
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":4872
+            Picture         =   "frmUSNShips.frx":4E28
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":533E
+            Picture         =   "frmUSNShips.frx":58F4
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":5666
+            Picture         =   "frmUSNShips.frx":5C1C
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":5ABA
+            Picture         =   "frmUSNShips.frx":6070
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":5F0E
+            Picture         =   "frmUSNShips.frx":64C4
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":6362
+            Picture         =   "frmUSNShips.frx":6918
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":67BA
+            Picture         =   "frmUSNShips.frx":6D70
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":6916
+            Picture         =   "frmUSNShips.frx":6ECC
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNShips.frx":6A72
+            Picture         =   "frmUSNShips.frx":7028
             Key             =   "NewRecord"
          EndProperty
       EndProperty
@@ -1216,7 +1230,7 @@ End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     
-    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset("HullNumber") & " " & pRecordset("Name")
+    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("HullNumber") & " " & pRecordset("Name")
     UpdatePosition Me, Caption, pRecordset
     DefaultClassificationDesc
     DefaultClassDetails
@@ -1308,7 +1322,7 @@ Private Sub dbcClass_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Class"), dbcClass) = 0 Then Cancel = True
-    If rsClasses.Bookmark <> dbcClass.SelectedItem Then rsClasses.Bookmark = dbcClass.SelectedItem
+    If rsClasses.BookMark <> dbcClass.SelectedItem Then rsClasses.BookMark = dbcClass.SelectedItem
 End Sub
 Private Sub dbcClassification_Validate(Cancel As Boolean)
     If Not dbcClassification.Enabled Then Exit Sub
@@ -1318,7 +1332,7 @@ Private Sub dbcClassification_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Classification"), dbcClassification) = 0 Then Cancel = True
-    If rsClassifications.Bookmark <> dbcClassification.SelectedItem Then rsClassifications.Bookmark = dbcClassification.SelectedItem
+    If rsClassifications.BookMark <> dbcClassification.SelectedItem Then rsClassifications.BookMark = dbcClassification.SelectedItem
 End Sub
 Private Sub dbcCommand_GotFocus()
     TextSelected
@@ -1326,7 +1340,7 @@ End Sub
 Private Sub dbcCommand_Validate(Cancel As Boolean)
     If dbcCommand.Text = vbNullString Then dbcCommand.Text = "Unknown"
     If dbcValidate(rsMain("Command"), dbcCommand) = 0 Then Cancel = True
-    If rsCommands.Bookmark <> dbcCommand.SelectedItem Then rsCommands.Bookmark = dbcCommand.SelectedItem
+    If rsCommands.BookMark <> dbcCommand.SelectedItem Then rsCommands.BookMark = dbcCommand.SelectedItem
 End Sub
 Private Sub dbcHomePort_GotFocus()
     TextSelected
@@ -1334,7 +1348,7 @@ End Sub
 Private Sub dbcHomePort_Validate(Cancel As Boolean)
     If dbcHomePort.Text = vbNullString Then dbcHomePort.Text = "Unknown"
     If dbcValidate(rsMain("HomePort"), dbcHomePort) = 0 Then Cancel = True
-    If rsHomePorts.Bookmark <> dbcHomePort.SelectedItem Then rsHomePorts.Bookmark = dbcHomePort.SelectedItem
+    If rsHomePorts.BookMark <> dbcHomePort.SelectedItem Then rsHomePorts.BookMark = dbcHomePort.SelectedItem
 End Sub
 Private Sub DefaultClassDetails()
     If rsClasses Is Nothing Then Exit Sub

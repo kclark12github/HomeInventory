@@ -8,6 +8,7 @@ Begin VB.Form frmUSNClassifications
    ClientLeft      =   120
    ClientTop       =   348
    ClientWidth     =   6984
+   Icon            =   "frmUSNClassifications.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -85,7 +86,7 @@ Begin VB.Form frmUSNClassifications
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:46 PM"
+            TextSave        =   "2:38 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -226,63 +227,63 @@ Begin VB.Form frmUSNClassifications
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClassifications.frx":0000
+            Picture         =   "frmUSNClassifications.frx":0682
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClassifications.frx":031C
+            Picture         =   "frmUSNClassifications.frx":099E
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClassifications.frx":0644
+            Picture         =   "frmUSNClassifications.frx":0CC6
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClassifications.frx":096C
+            Picture         =   "frmUSNClassifications.frx":0FEE
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClassifications.frx":3120
+            Picture         =   "frmUSNClassifications.frx":37A2
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClassifications.frx":3574
+            Picture         =   "frmUSNClassifications.frx":3BF6
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClassifications.frx":39C8
+            Picture         =   "frmUSNClassifications.frx":404A
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClassifications.frx":4494
+            Picture         =   "frmUSNClassifications.frx":4B16
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClassifications.frx":47BC
+            Picture         =   "frmUSNClassifications.frx":4E3E
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClassifications.frx":4C10
+            Picture         =   "frmUSNClassifications.frx":5292
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClassifications.frx":5064
+            Picture         =   "frmUSNClassifications.frx":56E6
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClassifications.frx":54B8
+            Picture         =   "frmUSNClassifications.frx":5B3A
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClassifications.frx":5910
+            Picture         =   "frmUSNClassifications.frx":5F92
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClassifications.frx":5A6C
+            Picture         =   "frmUSNClassifications.frx":60EE
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmUSNClassifications.frx":5BC8
+            Picture         =   "frmUSNClassifications.frx":624A
             Key             =   "NewRecord"
          EndProperty
       EndProperty
@@ -455,7 +456,7 @@ End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     
-    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset("Type") & " - " & pRecordset("Description")
+    If Not pRecordset.BOF And Not pRecordset.EOF Then Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("Type") & " - " & pRecordset("Description")
     UpdatePosition Me, Caption, pRecordset
 End Sub
 Private Sub tbMain_ButtonClick(ByVal Button As MSComctlLib.Button)
