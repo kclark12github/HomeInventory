@@ -19,7 +19,7 @@ Begin VB.Form frmBlueAngelsHistory
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   13
+      TabIndex        =   12
       Top             =   3228
       Width           =   7524
       _ExtentX        =   13272
@@ -48,7 +48,7 @@ Begin VB.Form frmBlueAngelsHistory
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:37 PM"
+            TextSave        =   "4:35 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -163,7 +163,7 @@ Begin VB.Form frmBlueAngelsHistory
       MaskColor       =   12632256
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   11
+         NumListImages   =   13
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmBlueAngelsHistory.frx":0010
             Key             =   "Find"
@@ -208,6 +208,14 @@ Begin VB.Form frmBlueAngelsHistory
             Picture         =   "frmBlueAngelsHistory.frx":56EC
             Key             =   "Filter"
          EndProperty
+         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmBlueAngelsHistory.frx":5B40
+            Key             =   "SQL"
+         EndProperty
+         BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmBlueAngelsHistory.frx":5F94
+            Key             =   ""
+         EndProperty
       EndProperty
    End
    Begin MSComctlLib.ImageList imlLarge 
@@ -223,35 +231,35 @@ Begin VB.Form frmBlueAngelsHistory
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   8
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":5B40
+            Picture         =   "frmBlueAngelsHistory.frx":63E8
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":5F94
+            Picture         =   "frmBlueAngelsHistory.frx":683C
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":6A60
+            Picture         =   "frmBlueAngelsHistory.frx":7308
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":6D7C
+            Picture         =   "frmBlueAngelsHistory.frx":7624
             Key             =   "List"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":7848
+            Picture         =   "frmBlueAngelsHistory.frx":80F0
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":7C9C
+            Picture         =   "frmBlueAngelsHistory.frx":8544
             Key             =   ""
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":A450
+            Picture         =   "frmBlueAngelsHistory.frx":ACF8
             Key             =   ""
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":A8A4
+            Picture         =   "frmBlueAngelsHistory.frx":B14C
             Key             =   ""
          EndProperty
       EndProperty
@@ -260,7 +268,7 @@ Begin VB.Form frmBlueAngelsHistory
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   12
+      TabIndex        =   13
       Top             =   0
       Width           =   7524
       _ExtentX        =   13272
@@ -272,7 +280,7 @@ Begin VB.Form frmBlueAngelsHistory
       ImageList       =   "imlSmall"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   9
+         NumButtons      =   11
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Key             =   "List"
             Object.ToolTipText     =   "List all records"
@@ -324,6 +332,13 @@ Begin VB.Form frmBlueAngelsHistory
                   Text            =   "Test2"
                EndProperty
             EndProperty
+         EndProperty
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "SQL"
+            ImageIndex      =   13
          EndProperty
       EndProperty
       BorderStyle     =   1
@@ -411,6 +426,12 @@ Begin VB.Form frmBlueAngelsHistory
       Begin VB.Menu mnuActionReport 
          Caption         =   "&Report"
       End
+      Begin VB.Menu mnuActionSep3 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuActionSQL 
+         Caption         =   "&SQL"
+      End
    End
 End
 Attribute VB_Name = "frmBlueAngelsHistory"
@@ -431,7 +452,7 @@ Private Sub cmdCancel_Click()
             Unload Me
         Case modeAdd, modeModify
             rsMain.CancelUpdate
-            If mode = modeAdd Then rsMain.MoveLast
+            If mode = modeAdd And Not rsMain.EOF Then rsMain.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -619,6 +640,12 @@ Private Sub mnuActionReport_Click()
     vRS.Close
     Set vRS = Nothing
 End Sub
+Private Sub mnuActionSQL_Click()
+    Load frmSQL
+    Set frmSQL.cnSQL = adoConn
+    frmSQL.sbStatus.Panels("DB").Text = "Hobby.mdb - [Blue Angels History]"
+    frmSQL.Show vbModal
+End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
@@ -664,12 +691,15 @@ Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
             mnuActionDelete_Click
         Case "Report"
             mnuActionReport_Click
+        Case "SQL"
+            mnuActionSQL_Click
     End Select
 End Sub
 Private Sub txtAircraftType_GotFocus()
     TextSelected
 End Sub
 Private Sub txtAircraftType_Validate(Cancel As Boolean)
+    If Not txtAircraftType.Enabled Then Exit Sub
     If txtAircraftType.Text = "" Then
         MsgBox "Aircraft Type must be specified!", vbExclamation, Me.Caption
         txtAircraftType.SetFocus
@@ -680,6 +710,7 @@ Private Sub txtDates_GotFocus()
     TextSelected
 End Sub
 Private Sub txtDates_Validate(Cancel As Boolean)
+    If Not txtDates.Enabled Then Exit Sub
     If txtDates.Text = "" Then
         MsgBox "Dates must be specified!", vbExclamation, Me.Caption
         txtDates.SetFocus

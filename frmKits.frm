@@ -49,7 +49,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:43 PM"
+            TextSave        =   "4:35 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -684,7 +684,7 @@ Private Sub cmdCancel_Click()
             Unload Me
         Case modeAdd, modeModify
             rsMain.CancelUpdate
-            If mode = modeAdd Then rsMain.MoveLast
+            If mode = modeAdd And Not rsMain.EOF Then rsMain.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -735,6 +735,7 @@ Private Sub dbcManufacturer_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcManufacturer_Validate(Cancel As Boolean)
+    If Not dbcManufacturer.Enabled Then Exit Sub
     If dbcManufacturer.Text = vbNullString Then
         MsgBox "Manufacturer must be specified!", vbExclamation, Me.Caption
         dbcManufacturer.SetFocus
@@ -746,6 +747,7 @@ Private Sub dbcNation_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcNation_Validate(Cancel As Boolean)
+    If Not dbcNation.Enabled Then Exit Sub
     If dbcNation.Text = vbNullString Then
         MsgBox "Nation must be specified!", vbExclamation, Me.Caption
         dbcNation.SetFocus
@@ -764,6 +766,7 @@ Private Sub dbcType_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcType_Validate(Cancel As Boolean)
+    If Not dbcType.Enabled Then Exit Sub
     If dbcType.Text = vbNullString Then
         MsgBox "Type must be specified!", vbExclamation, Me.Caption
         dbcType.SetFocus
@@ -1029,6 +1032,7 @@ ErrorHandler:
     MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
     Resume Next
 End Sub
+
 Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
         Case "List"
@@ -1083,6 +1087,7 @@ Private Sub txtName_GotFocus()
     TextSelected
 End Sub
 Private Sub txtName_Validate(Cancel As Boolean)
+    If Not txtName.Enabled Then Exit Sub
     If txtName.Text = vbNullString Then
         MsgBox "Name must be specified!", vbExclamation, Me.Caption
         Cancel = True

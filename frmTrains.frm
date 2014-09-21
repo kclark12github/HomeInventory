@@ -20,7 +20,7 @@ Begin VB.Form frmTrains
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   21
+      TabIndex        =   20
       Top             =   2916
       Width           =   7524
       _ExtentX        =   13272
@@ -49,7 +49,7 @@ Begin VB.Form frmTrains
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:46 PM"
+            TextSave        =   "4:35 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -210,7 +210,7 @@ Begin VB.Form frmTrains
    End
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   480
-      Top             =   2400
+      Top             =   2760
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -219,7 +219,7 @@ Begin VB.Form frmTrains
       MaskColor       =   12632256
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   11
+         NumListImages   =   13
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmTrains.frx":0000
             Key             =   "Find"
@@ -264,11 +264,19 @@ Begin VB.Form frmTrains
             Picture         =   "frmTrains.frx":56DC
             Key             =   "Filter"
          EndProperty
+         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":5B30
+            Key             =   "SQL"
+         EndProperty
+         BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":5F84
+            Key             =   ""
+         EndProperty
       EndProperty
    End
    Begin MSComctlLib.ImageList imlLarge 
       Left            =   60
-      Top             =   2400
+      Top             =   2760
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -279,35 +287,35 @@ Begin VB.Form frmTrains
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   8
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":5B30
+            Picture         =   "frmTrains.frx":63D8
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":5F84
+            Picture         =   "frmTrains.frx":682C
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":6A50
+            Picture         =   "frmTrains.frx":72F8
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":6D6C
+            Picture         =   "frmTrains.frx":7614
             Key             =   "List"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":7838
+            Picture         =   "frmTrains.frx":80E0
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":7C8C
+            Picture         =   "frmTrains.frx":8534
             Key             =   ""
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":A440
+            Picture         =   "frmTrains.frx":ACE8
             Key             =   ""
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":A894
+            Picture         =   "frmTrains.frx":B13C
             Key             =   ""
          EndProperty
       EndProperty
@@ -316,7 +324,7 @@ Begin VB.Form frmTrains
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   20
+      TabIndex        =   21
       Top             =   0
       Width           =   7524
       _ExtentX        =   13272
@@ -328,7 +336,7 @@ Begin VB.Form frmTrains
       ImageList       =   "imlSmall"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   9
+         NumButtons      =   11
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Key             =   "List"
             Object.ToolTipText     =   "List all records"
@@ -380,6 +388,13 @@ Begin VB.Form frmTrains
                   Text            =   "Test2"
                EndProperty
             EndProperty
+         EndProperty
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "SQL"
+            ImageIndex      =   13
          EndProperty
       EndProperty
       BorderStyle     =   1
@@ -512,6 +527,12 @@ Begin VB.Form frmTrains
       Begin VB.Menu mnuActionReport 
          Caption         =   "&Report"
       End
+      Begin VB.Menu mnuActionSep3 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuActionSQL 
+         Caption         =   "&SQL"
+      End
    End
 End
 Attribute VB_Name = "frmTrains"
@@ -536,7 +557,7 @@ Private Sub cmdCancel_Click()
             Unload Me
         Case modeAdd, modeModify
             rsMain.CancelUpdate
-            If mode = modeAdd Then rsMain.MoveLast
+            If mode = modeAdd And Not rsMain.EOF Then rsMain.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -575,6 +596,7 @@ Private Sub dbcManufacturer_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcManufacturer_Validate(Cancel As Boolean)
+    If Not dbcManufacturer.Enabled Then Exit Sub
     If dbcManufacturer.Text = vbNullString Then
         MsgBox "Manufacturer must be specified!", vbExclamation, Me.Caption
         dbcManufacturer.SetFocus
@@ -593,6 +615,7 @@ Private Sub dbcType_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcType_Validate(Cancel As Boolean)
+    If Not dbcType.Enabled Then Exit Sub
     If dbcType.Text = vbNullString Then
         MsgBox "Type must be specified!", vbExclamation, Me.Caption
         dbcType.SetFocus
@@ -791,6 +814,12 @@ Private Sub mnuActionReport_Click()
     vRS.Close
     Set vRS = Nothing
 End Sub
+Private Sub mnuActionSQL_Click()
+    Load frmSQL
+    Set frmSQL.cnSQL = adoConn
+    frmSQL.sbStatus.Panels("DB").Text = "Hobby.mdb - [Trains]"
+    frmSQL.Show vbModal
+End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
@@ -836,6 +865,8 @@ Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
             mnuActionDelete_Click
         Case "Report"
             mnuActionReport_Click
+        Case "SQL"
+            mnuActionSQL_Click
     End Select
 End Sub
 Private Sub txtInventoried_GotFocus()
@@ -845,6 +876,7 @@ Private Sub txtline_GotFocus()
     TextSelected
 End Sub
 Private Sub txtline_Validate(Cancel As Boolean)
+    If Not txtLine.Enabled Then Exit Sub
     If txtLine.Text = vbNullString Then
         MsgBox "Line must be specified!", vbExclamation, Me.Caption
         Cancel = True

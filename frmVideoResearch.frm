@@ -20,7 +20,7 @@ Begin VB.Form frmVideoResearch
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   17
+      TabIndex        =   16
       Top             =   2916
       Width           =   7524
       _ExtentX        =   13272
@@ -49,7 +49,7 @@ Begin VB.Form frmVideoResearch
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:48 PM"
+            TextSave        =   "4:34 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -186,7 +186,7 @@ Begin VB.Form frmVideoResearch
    End
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   480
-      Top             =   2400
+      Top             =   2760
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -195,7 +195,7 @@ Begin VB.Form frmVideoResearch
       MaskColor       =   12632256
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   11
+         NumListImages   =   13
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmVideoResearch.frx":0000
             Key             =   "Find"
@@ -240,11 +240,19 @@ Begin VB.Form frmVideoResearch
             Picture         =   "frmVideoResearch.frx":56DC
             Key             =   "Filter"
          EndProperty
+         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmVideoResearch.frx":5B30
+            Key             =   "SQL"
+         EndProperty
+         BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmVideoResearch.frx":5F84
+            Key             =   ""
+         EndProperty
       EndProperty
    End
    Begin MSComctlLib.ImageList imlLarge 
       Left            =   60
-      Top             =   2400
+      Top             =   2760
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -255,35 +263,35 @@ Begin VB.Form frmVideoResearch
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   8
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmVideoResearch.frx":5B30
+            Picture         =   "frmVideoResearch.frx":63D8
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmVideoResearch.frx":5F84
+            Picture         =   "frmVideoResearch.frx":682C
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmVideoResearch.frx":6A50
+            Picture         =   "frmVideoResearch.frx":72F8
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmVideoResearch.frx":6D6C
+            Picture         =   "frmVideoResearch.frx":7614
             Key             =   "List"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmVideoResearch.frx":7838
+            Picture         =   "frmVideoResearch.frx":80E0
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmVideoResearch.frx":7C8C
+            Picture         =   "frmVideoResearch.frx":8534
             Key             =   ""
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmVideoResearch.frx":A440
+            Picture         =   "frmVideoResearch.frx":ACE8
             Key             =   ""
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmVideoResearch.frx":A894
+            Picture         =   "frmVideoResearch.frx":B13C
             Key             =   ""
          EndProperty
       EndProperty
@@ -292,7 +300,7 @@ Begin VB.Form frmVideoResearch
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   16
+      TabIndex        =   17
       Top             =   0
       Width           =   7524
       _ExtentX        =   13272
@@ -304,7 +312,7 @@ Begin VB.Form frmVideoResearch
       ImageList       =   "imlSmall"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   9
+         NumButtons      =   11
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Key             =   "List"
             Object.ToolTipText     =   "List all records"
@@ -356,6 +364,13 @@ Begin VB.Form frmVideoResearch
                   Text            =   "Test2"
                EndProperty
             EndProperty
+         EndProperty
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "SQL"
+            ImageIndex      =   13
          EndProperty
       EndProperty
       BorderStyle     =   1
@@ -470,6 +485,12 @@ Begin VB.Form frmVideoResearch
       Begin VB.Menu mnuActionReport 
          Caption         =   "&Report"
       End
+      Begin VB.Menu mnuActionSep3 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuActionSQL 
+         Caption         =   "&SQL"
+      End
    End
 End
 Attribute VB_Name = "frmVideoResearch"
@@ -493,7 +514,7 @@ Private Sub cmdCancel_Click()
             Unload Me
         Case modeAdd, modeModify
             rsMain.CancelUpdate
-            If mode = modeAdd Then rsMain.MoveLast
+            If mode = modeAdd And Not rsMain.EOF Then rsMain.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -525,6 +546,7 @@ Private Sub dbcDistributor_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcDistributor_Validate(Cancel As Boolean)
+    If Not dbcDistributor.Enabled Then Exit Sub
     If dbcDistributor.Text = "" Then
         MsgBox "Distributor must be specified!", vbExclamation, Me.Caption
         dbcDistributor.SetFocus
@@ -536,6 +558,7 @@ Private Sub dbcSubject_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcSubject_Validate(Cancel As Boolean)
+    If Not dbcSubject.Enabled Then Exit Sub
     If dbcSubject.Text = "" Then
         MsgBox "Subject must be specified!", vbExclamation, Me.Caption
         dbcSubject.SetFocus
@@ -721,6 +744,12 @@ Private Sub mnuActionReport_Click()
     vRS.Close
     Set vRS = Nothing
 End Sub
+Private Sub mnuActionSQL_Click()
+    Load frmSQL
+    Set frmSQL.cnSQL = adoConn
+    frmSQL.sbStatus.Panels("DB").Text = "Hobby.mdb - [Video Research]"
+    frmSQL.Show vbModal
+End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
@@ -766,6 +795,8 @@ Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
             mnuActionDelete_Click
         Case "Report"
             mnuActionReport_Click
+        Case "SQL"
+            mnuActionSQL_Click
     End Select
 End Sub
 Private Sub txtInventoried_GotFocus()
@@ -775,6 +806,7 @@ Private Sub txtTitle_GotFocus()
     TextSelected
 End Sub
 Private Sub txtTitle_Validate(Cancel As Boolean)
+    If Not txtTitle.Enabled Then Exit Sub
     If txtTitle.Text = "" Then
         MsgBox "Title must be specified!", vbExclamation, Me.Caption
         txtTitle.SetFocus
@@ -792,6 +824,7 @@ Private Sub txtSort_GotFocus()
     If txtSort.Text = "" Then txtSort.Text = dbcSubject.Text & ": " & txtTitle.Text
 End Sub
 Private Sub txtSort_Validate(Cancel As Boolean)
+    If Not txtSort.Enabled Then Exit Sub
     If txtSort.Text = "" Then
         MsgBox "Sort should be specified!", vbExclamation, Me.Caption
         txtSort.SetFocus

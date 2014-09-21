@@ -20,7 +20,7 @@ Begin VB.Form frmTools
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   19
+      TabIndex        =   18
       Top             =   3216
       Width           =   7524
       _ExtentX        =   13272
@@ -49,7 +49,7 @@ Begin VB.Form frmTools
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:46 PM"
+            TextSave        =   "4:34 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -194,7 +194,7 @@ Begin VB.Form frmTools
    End
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   480
-      Top             =   2700
+      Top             =   2760
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -203,7 +203,7 @@ Begin VB.Form frmTools
       MaskColor       =   12632256
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   11
+         NumListImages   =   13
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmTools.frx":0000
             Key             =   "Find"
@@ -248,11 +248,19 @@ Begin VB.Form frmTools
             Picture         =   "frmTools.frx":56DC
             Key             =   "Filter"
          EndProperty
+         BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTools.frx":5B30
+            Key             =   "SQL"
+         EndProperty
+         BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTools.frx":5F84
+            Key             =   ""
+         EndProperty
       EndProperty
    End
    Begin MSComctlLib.ImageList imlLarge 
       Left            =   60
-      Top             =   2700
+      Top             =   2760
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -263,35 +271,35 @@ Begin VB.Form frmTools
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   8
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":5B30
+            Picture         =   "frmTools.frx":63D8
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":5F84
+            Picture         =   "frmTools.frx":682C
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":6A50
+            Picture         =   "frmTools.frx":72F8
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":6D6C
+            Picture         =   "frmTools.frx":7614
             Key             =   "List"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":7838
+            Picture         =   "frmTools.frx":80E0
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":7C8C
+            Picture         =   "frmTools.frx":8534
             Key             =   ""
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":A440
+            Picture         =   "frmTools.frx":ACE8
             Key             =   ""
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTools.frx":A894
+            Picture         =   "frmTools.frx":B13C
             Key             =   ""
          EndProperty
       EndProperty
@@ -300,7 +308,7 @@ Begin VB.Form frmTools
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   18
+      TabIndex        =   19
       Top             =   0
       Width           =   7524
       _ExtentX        =   13272
@@ -312,7 +320,7 @@ Begin VB.Form frmTools
       ImageList       =   "imlSmall"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   9
+         NumButtons      =   11
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Key             =   "List"
             Object.ToolTipText     =   "List all records"
@@ -364,6 +372,13 @@ Begin VB.Form frmTools
                   Text            =   "Test2"
                EndProperty
             EndProperty
+         EndProperty
+         BeginProperty Button10 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button11 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "SQL"
+            ImageIndex      =   13
          EndProperty
       EndProperty
       BorderStyle     =   1
@@ -487,6 +502,12 @@ Begin VB.Form frmTools
       Begin VB.Menu mnuActionReport 
          Caption         =   "&Report"
       End
+      Begin VB.Menu mnuActionSep3 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuActionSQL 
+         Caption         =   "&SQL"
+      End
    End
 End
 Attribute VB_Name = "frmTools"
@@ -509,7 +530,7 @@ Private Sub cmdCancel_Click()
             Unload Me
         Case modeAdd, modeModify
             rsMain.CancelUpdate
-            If mode = modeAdd Then rsMain.MoveLast
+            If mode = modeAdd And Not rsMain.EOF Then rsMain.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -548,6 +569,7 @@ Private Sub dbcManufacturer_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcManufacturer_Validate(Cancel As Boolean)
+    If Not dbcManufacturer.Enabled Then Exit Sub
     If dbcManufacturer.Text = vbNullString Then
         MsgBox "Manufacturer must be specified!", vbExclamation, Me.Caption
         dbcManufacturer.SetFocus
@@ -636,6 +658,8 @@ Private Sub mnuActionList_Click()
     frmList.Show vbModal
     If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
+    Else
+        sbStatus.Panels("Message").Text = vbNullString
     End If
     adoConn.CommitTrans
     fTransaction = False
@@ -669,6 +693,8 @@ Private Sub mnuActionFilter_Click()
     frmFilter.Show vbModal
     If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
+    Else
+        sbStatus.Panels("Message").Text = vbNullString
     End If
 End Sub
 Private Sub mnuActionNew_Click()
@@ -733,6 +759,12 @@ Private Sub mnuActionReport_Click()
     vRS.Close
     Set vRS = Nothing
 End Sub
+Private Sub mnuActionSQL_Click()
+    Load frmSQL
+    Set frmSQL.cnSQL = adoConn
+    frmSQL.sbStatus.Panels("DB").Text = "Hobby.mdb - [Tools]"
+    frmSQL.Show vbModal
+End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
@@ -751,6 +783,8 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
         If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
             sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
+        Else
+            sbStatus.Panels("Message").Text = vbNullString
         End If
         sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
     End If
@@ -778,6 +812,8 @@ Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
             mnuActionDelete_Click
         Case "Report"
             mnuActionReport_Click
+        Case "SQL"
+            mnuActionSQL_Click
     End Select
 End Sub
 Private Sub txtCount_GotFocus()
@@ -793,6 +829,7 @@ Private Sub txtName_GotFocus()
     TextSelected
 End Sub
 Private Sub txtName_Validate(Cancel As Boolean)
+    If Not txtName.Enabled Then Exit Sub
     If txtName.Text = vbNullString Then
         MsgBox "Name must be specified!", vbExclamation, Me.Caption
         txtName.SetFocus

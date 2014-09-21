@@ -20,7 +20,7 @@ Begin VB.Form frmBooks
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   22
+      TabIndex        =   21
       Top             =   3804
       Width           =   7524
       _ExtentX        =   13272
@@ -49,7 +49,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:43 PM"
+            TextSave        =   "4:15 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -210,7 +210,7 @@ Begin VB.Form frmBooks
       Width           =   5892
    End
    Begin MSComctlLib.ImageList imlSmall 
-      Left            =   480
+      Left            =   540
       Top             =   3420
       _ExtentX        =   804
       _ExtentY        =   804
@@ -276,7 +276,7 @@ Begin VB.Form frmBooks
       EndProperty
    End
    Begin MSComctlLib.ImageList imlLarge 
-      Left            =   60
+      Left            =   120
       Top             =   3420
       _ExtentX        =   804
       _ExtentY        =   804
@@ -325,7 +325,7 @@ Begin VB.Form frmBooks
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   21
+      TabIndex        =   22
       Top             =   0
       Width           =   7524
       _ExtentX        =   13272
@@ -559,7 +559,7 @@ Private Sub cmdCancel_Click()
             Unload Me
         Case modeAdd, modeModify
             rsMain.CancelUpdate
-            If mode = modeAdd Then rsMain.MoveLast
+            If mode = modeAdd And Not rsMain.EOF Then rsMain.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -594,6 +594,7 @@ Private Sub dbcAuthor_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcAuthor_Validate(Cancel As Boolean)
+    If Not dbcAuthor.Enabled Then Exit Sub
     If dbcAuthor.Text = "" Then
         MsgBox "Author must be specified!", vbExclamation, Me.Caption
         dbcAuthor.SetFocus
@@ -741,6 +742,8 @@ Private Sub mnuActionList_Click()
     frmList.Show vbModal
     If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
+    Else
+        sbStatus.Panels("Message").Text = vbNullString
     End If
     adoConn.CommitTrans
     fTransaction = False
@@ -774,6 +777,8 @@ Private Sub mnuActionFilter_Click()
     frmFilter.Show vbModal
     If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
+    Else
+        sbStatus.Panels("Message").Text = vbNullString
     End If
 End Sub
 Private Sub mnuActionNew_Click()
@@ -864,6 +869,8 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
         If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
             sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
+        Else
+            sbStatus.Panels("Message").Text = vbNullString
         End If
         sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
     End If
@@ -902,6 +909,7 @@ Private Sub txtAlphaSort_KeyPress(KeyAscii As Integer)
     KeyPressUcase KeyAscii
 End Sub
 Private Sub txtAlphaSort_Validate(Cancel As Boolean)
+    If Not txtAlphaSort.Enabled Then Exit Sub
     If txtAlphaSort.Text = "" Then
         txtAlphaSort.Text = DefaultAlphaSort
         'MsgBox "AlphaSort must be specified!", vbExclamation, Me.Caption
@@ -913,6 +921,7 @@ Private Sub txtInventoried_GotFocus()
     TextSelected
 End Sub
 Private Sub txtInventoried_Validate(Cancel As Boolean)
+    If Not txtInventoried.Enabled Then Exit Sub
     If txtInventoried.Text = "" Then
         MsgBox "Date Inventoried must be specified!", vbExclamation, Me.Caption
         txtInventoried.SetFocus
@@ -926,6 +935,7 @@ Private Sub txtISBN_KeyPress(KeyAscii As Integer)
     KeyPressUcase KeyAscii
 End Sub
 Private Sub txtISBN_Validate(Cancel As Boolean)
+    If Not txtISBN.Enabled Then Exit Sub
     If txtISBN.Text = "" Then
         MsgBox "ISBN should be specified!", vbExclamation, Me.Caption
     End If
@@ -937,17 +947,13 @@ Private Sub txtPrice_GotFocus()
     TextSelected
 End Sub
 Private Sub txtPrice_Validate(Cancel As Boolean)
-    If txtPrice.Text = vbNullString Then txtPrice.Text = Format(0, "Currency")
-    If Not IsNumeric(txtPrice.Text) Then
-        MsgBox "Invalid price entered.", vbExclamation, Me.Caption
-        TextSelected
-        Cancel = True
-    End If
+    ValidateCurrency txtPrice.Text, Cancel
 End Sub
 Private Sub txtTitle_GotFocus()
     TextSelected
 End Sub
 Private Sub txtTitle_Validate(Cancel As Boolean)
+    If Not txtTitle.Enabled Then Exit Sub
     If txtTitle.Text = "" Then
         MsgBox "Title must be specified!", vbExclamation, Me.Caption
         txtTitle.SetFocus
