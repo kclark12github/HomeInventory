@@ -486,8 +486,7 @@ Private Sub mnuActionNew_Click()
     adoConn.BeginTrans
     fTransaction = True
     
-    txtInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
-    txtDesignation.SetFocus
+    txtAircraftType.SetFocus
 End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete

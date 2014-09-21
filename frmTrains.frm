@@ -732,12 +732,6 @@ Private Sub tbHobby_ButtonClick(ByVal Button As MSComctlLib.Button)
             mnuActionReport_Click
     End Select
 End Sub
-Private Sub txtCount_GotFocus()
-    TextSelected
-End Sub
-Private Sub txtCount_Validate(Cancel As Boolean)
-    If txtCount.Text = "" Then txtCount.Text = 1
-End Sub
 Private Sub txtInventoried_GotFocus()
     TextSelected
 End Sub
