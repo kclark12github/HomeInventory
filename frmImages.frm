@@ -10,6 +10,7 @@ Begin VB.Form frmImages
    ClientLeft      =   132
    ClientTop       =   360
    ClientWidth     =   8088
+   Icon            =   "frmImages.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -59,8 +60,7 @@ Begin VB.Form frmImages
             _ExtentX        =   13145
             _ExtentY        =   2773
             _Version        =   393217
-            Enabled         =   -1  'True
-            TextRTF         =   $"frmImages.frx":0000
+            TextRTF         =   $"frmImages.frx":2CFA
          End
       End
       Begin VB.TextBox txtFileName 
@@ -391,7 +391,7 @@ Begin VB.Form frmImages
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8784
+            Object.Width           =   8636
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
@@ -400,7 +400,7 @@ Begin VB.Form frmImages
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:46 PM"
+            TextSave        =   "2:28 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -568,63 +568,63 @@ Begin VB.Form frmImages
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":00DC
+            Picture         =   "frmImages.frx":2DCA
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":03F8
+            Picture         =   "frmImages.frx":30E6
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":0720
+            Picture         =   "frmImages.frx":340E
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":0A48
+            Picture         =   "frmImages.frx":3736
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":31FC
+            Picture         =   "frmImages.frx":5EEA
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":3650
+            Picture         =   "frmImages.frx":633E
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":3AA4
+            Picture         =   "frmImages.frx":6792
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":4570
+            Picture         =   "frmImages.frx":725E
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":4898
+            Picture         =   "frmImages.frx":7586
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":4CEC
+            Picture         =   "frmImages.frx":79DA
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":5140
+            Picture         =   "frmImages.frx":7E2E
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":5594
+            Picture         =   "frmImages.frx":8282
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":59EC
+            Picture         =   "frmImages.frx":86DA
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":5B48
+            Picture         =   "frmImages.frx":8836
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmImages.frx":5CA4
+            Picture         =   "frmImages.frx":8992
             Key             =   "NewRecord"
          EndProperty
       EndProperty
@@ -816,7 +816,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     Dim strTempFile As String
     
     If Not pRecordset.BOF And Not pRecordset.EOF Then
-        Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset("ID") & ": " & pRecordset("Name")
+        Caption = "Reference #" & pRecordset.BookMark & ": " & pRecordset("ID") & ": " & pRecordset("Name")
         
         fraImages(0).Enabled = True
         fraImages(0).ZOrder
@@ -936,8 +936,8 @@ Private Sub DisplayPicture()
     Else
         picImage.Move 0, 0, picWindow.Width, picWindow.Height
         picImage.Picture = LoadPicture(strTempFile)
-        ScrollV.Visible = False
-        ScrollV.Value = 0
+        scrollV.Visible = False
+        scrollV.Value = 0
         picRatio = 1
         picWidth = picWindow.Width
         picHeight = picWindow.Height
@@ -950,19 +950,19 @@ Private Sub DisplayPicture()
         picHeight = picRatio * picImage.Picture.Height
         
         If picHeight > picWindow.Height Then
-            ScrollV.Visible = True
-            ScrollV.ZOrder
+            scrollV.Visible = True
+            scrollV.ZOrder
             'Recalculate picRatio to take into consideration the width of the scroll bar...
-            picWidth = picWindow.Width - ScrollV.Width
+            picWidth = picWindow.Width - scrollV.Width
             picHeight = picWindow.Height
             picRatio = picWidth / picImage.Picture.Width
             picWidth = picRatio * picImage.Picture.Width
             picHeight = picRatio * picImage.Picture.Height
             
-            ScrollV.Move picWindow.Left + picWindow.Width - ScrollV.Width, picWindow.Top, ScrollV.Width, picWindow.Height
-            ScrollV.Max = picHeight - picWindow.Height
-            ScrollV.SmallChange = picHeight / 500
-            ScrollV.LargeChange = picHeight / 100
+            scrollV.Move picWindow.Left + picWindow.Width - scrollV.Width, picWindow.Top, scrollV.Width, picWindow.Height
+            scrollV.Max = picHeight - picWindow.Height
+            scrollV.SmallChange = picHeight / 500
+            scrollV.LargeChange = picHeight / 100
         End If
         picImage.PaintPicture picImage.Picture, 0, 0, picWidth, picHeight
         picImage.Move 0, 0, picWidth, picHeight
@@ -1010,7 +1010,7 @@ ExitSub:
     Close #FileUnit
 End Function
 Private Sub scrollV_Change()
-    picImage.Top = -ScrollV.Value
+    picImage.Top = -scrollV.Value
 End Sub
 Private Sub dbcCategory_GotFocus()
     TextSelected
@@ -1022,7 +1022,7 @@ Private Sub dbcCategory_Validate(Cancel As Boolean)
         dbcCategory.SetFocus
         Cancel = True
     End If
-    If rsCategories.Bookmark <> dbcCategory.SelectedItem Then rsCategories.Bookmark = dbcCategory.SelectedItem
+    If rsCategories.BookMark <> dbcCategory.SelectedItem Then rsCategories.BookMark = dbcCategory.SelectedItem
 End Sub
 Private Sub txtSort_GotFocus()
     TextSelected
