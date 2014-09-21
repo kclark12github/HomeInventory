@@ -201,7 +201,7 @@ Begin VB.Form frmSQL
          EndProperty
          BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   10414
+            Object.Width           =   10329
             Key             =   "Message"
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
@@ -210,7 +210,7 @@ Begin VB.Form frmSQL
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:39 PM"
+            TextSave        =   "9:42 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -300,7 +300,7 @@ Private Sub ExecuteSQL()
     
     fActiveTrans = False
     Select Case UCase(Mid(txtSQL.Text, 1, 6))
-        Case "UPDATE", "DELETE"
+        Case "UPDATE", "DELETE", "ALTER "
             Call BeginTrans(cnSQL)
             Set rsList = cnSQL.Execute(txtSQL.Text, RecordsAffected)
             dgdList.Visible = False
@@ -345,7 +345,7 @@ Private Sub ExecuteSQL()
                     vbTab & "Native Error: " & adoError.NativeError & vbCrLf
                 ErrorCount = ErrorCount + 1
                 Select Case UCase(Mid(txtSQL.Text, 1, 6))
-                    Case "DELETE", "UPDATE"
+                    Case "DELETE", "UPDATE", "ALTER "
                         txtResults = strOutput
                         If ErrorCount > 0 Then
                             If fActiveTrans Then cnSQL.RollbackTrans
@@ -360,6 +360,8 @@ Private Sub ExecuteSQL()
     End If
     
     Select Case UCase(Mid(txtSQL.Text, 1, 6))
+        Case "ALTER "
+            fResponse = True
         Case "DELETE"
             fResponse = MsgBox(RecordsAffected & " Records deleted... Commit transaction?", vbYesNo, Me.Caption) = vbYes
         Case "UPDATE"
@@ -378,12 +380,14 @@ Private Sub ExecuteSQL()
     End If
     
     Select Case UCase(Mid(txtSQL.Text, 1, 6))
+        Case "ALTER "
+            strOutput = "Alter command executed successfully..."
         Case "SELECT"
-            strOutput = RecordsAffected & " record(s) read"
+            strOutput = RecordsAffected & " record(s) read..."
         Case "DELETE"
-            strOutput = RecordsAffected & " record(s) deleted"
+            strOutput = RecordsAffected & " record(s) deleted..."
         Case "UPDATE"
-            strOutput = RecordsAffected & " record(s) updated"
+            strOutput = RecordsAffected & " record(s) updated..."
     End Select
     sbStatus.Panels("Message").Text = strOutput
     txtSQL.SetFocus
