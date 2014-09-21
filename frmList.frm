@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "7:13 PM"
+            TextSave        =   "11:59 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -310,7 +310,7 @@ Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
 '    rsTemp.Sort = ColName
 '    Set RS = rsTemp
 '    Set rsTemp = Nothing
-'    Set dgdList.DataSource = RS
+    Set dgdList.DataSource = RS
 End Sub
 Private Sub dgdList_KeyUp(KeyCode As Integer, Shift As Integer)
     Dim col As Column
@@ -480,8 +480,8 @@ Private Sub Form_Activate()
     Me.Width = GetSetting(App.ProductName, Me.Caption & " Settings", "Form Width", Me.Width)
     Me.Height = GetSetting(App.ProductName, Me.Caption & " Settings", "Form Height", Me.Height)
         
-    If RS.Filter <> vbNullString And RS.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & RS.Filter
+    If SQLfilter <> vbNullString Then
+        sbStatus.Panels("Message").Text = "Filter: " & SQLfilter
     Else
         sbStatus.Panels("Message").Text = vbNullString
     End If

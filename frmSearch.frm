@@ -1,4 +1,5 @@
 VERSION 5.00
+Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Begin VB.Form frmSearch 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Search"
@@ -30,6 +31,422 @@ Begin VB.Form frmSearch
       TabIndex        =   32
       Top             =   420
       Width           =   972
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   0
+      Left            =   360
+      TabIndex        =   66
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   1
+      Left            =   360
+      TabIndex        =   67
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   2
+      Left            =   360
+      TabIndex        =   68
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   3
+      Left            =   360
+      TabIndex        =   69
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   4
+      Left            =   360
+      TabIndex        =   70
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   5
+      Left            =   360
+      TabIndex        =   71
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   6
+      Left            =   360
+      TabIndex        =   72
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   7
+      Left            =   360
+      TabIndex        =   73
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   8
+      Left            =   360
+      TabIndex        =   74
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   9
+      Left            =   360
+      TabIndex        =   75
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   10
+      Left            =   360
+      TabIndex        =   76
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   11
+      Left            =   360
+      TabIndex        =   77
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   12
+      Left            =   360
+      TabIndex        =   78
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   13
+      Left            =   360
+      TabIndex        =   79
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   14
+      Left            =   360
+      TabIndex        =   80
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   15
+      Left            =   360
+      TabIndex        =   81
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   16
+      Left            =   360
+      TabIndex        =   82
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   17
+      Left            =   360
+      TabIndex        =   83
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   18
+      Left            =   360
+      TabIndex        =   84
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   19
+      Left            =   360
+      TabIndex        =   85
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   20
+      Left            =   360
+      TabIndex        =   86
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   21
+      Left            =   360
+      TabIndex        =   87
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   22
+      Left            =   360
+      TabIndex        =   88
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   23
+      Left            =   360
+      TabIndex        =   89
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   24
+      Left            =   360
+      TabIndex        =   90
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   25
+      Left            =   360
+      TabIndex        =   91
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   26
+      Left            =   360
+      TabIndex        =   92
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   27
+      Left            =   360
+      TabIndex        =   93
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   28
+      Left            =   360
+      TabIndex        =   94
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   29
+      Left            =   360
+      TabIndex        =   95
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   30
+      Left            =   360
+      TabIndex        =   96
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
+   End
+   Begin MSDataListLib.DataCombo dbcFields 
+      Height          =   288
+      Index           =   31
+      Left            =   360
+      TabIndex        =   97
+      Top             =   120
+      Width           =   4212
+      _ExtentX        =   7430
+      _ExtentY        =   508
+      _Version        =   393216
+      MatchEntry      =   -1  'True
+      Text            =   ""
    End
    Begin VB.TextBox txtFields 
       Height          =   312
@@ -591,36 +1008,38 @@ Const StartTop As Integer = 60
 Const StartLeft As Integer = 240
 Private Sub cmdApply_Click()
     Dim i As Integer
+    Dim ctl As Control
     'Parse fields on screen and build a Search for the recordset...
     
     strSearch = vbNullString
     For i = 0 To RS.Fields.Count - 1
-        If Len(txtFields(i).Text) > 0 Then
-            If Mid(txtFields(i).Text, 1, 1) = "=" Or _
-                Mid(txtFields(i).Text, 1, 2) = "<=" Or _
-                Mid(txtFields(i).Text, 1, 2) = ">=" Or _
-                Mid(txtFields(i).Text, 1, 1) = "<" Or _
-                Mid(txtFields(i).Text, 1, 1) = ">" Or _
-                UCase(Mid(txtFields(i).Text, 1, 5)) = "NOT " Then
+        If txtFields(i).Enabled Then Set ctl = txtFields(i) Else Set ctl = dbcFields(i)
+        If Len(ctl.Text) > 0 Then
+            If Mid(ctl.Text, 1, 1) = "=" Or _
+                Mid(ctl.Text, 1, 2) = "<=" Or _
+                Mid(ctl.Text, 1, 2) = ">=" Or _
+                Mid(ctl.Text, 1, 1) = "<" Or _
+                Mid(ctl.Text, 1, 1) = ">" Or _
+                UCase(Mid(ctl.Text, 1, 5)) = "NOT " Then
                 'Take what the user said literally...
-                strSearch = strSearch & RS.Fields(i).Name & " " & txtFields(i).Text & " and "
-            ElseIf UCase(Mid(txtFields(i).Text, 1, 4)) = "LIKE" Then
+                strSearch = strSearch & RS.Fields(i).Name & " " & ctl.Text & " and "
+            ElseIf UCase(Mid(ctl.Text, 1, 4)) = "LIKE" Then
                 'Force the "like" to uppercase for parsing later...
-                strSearch = strSearch & RS.Fields(i).Name & " LIKE" & Mid(txtFields(i).Text, 5) & " and "
-            ElseIf UCase(Mid(txtFields(i).Text, 1, 7)) = "BETWEEN" Then
+                strSearch = strSearch & RS.Fields(i).Name & " LIKE" & Mid(ctl.Text, 5) & " and "
+            ElseIf UCase(Mid(ctl.Text, 1, 7)) = "BETWEEN" Then
                 'Force the "between" to uppercase for parsing later...
-                strSearch = strSearch & RS.Fields(i).Name & " BETWEEN" & Mid(txtFields(i).Text, 8) & " and "
-            ElseIf UCase(Mid(txtFields(i).Text, 1, 2)) = "IN" Then
+                strSearch = strSearch & RS.Fields(i).Name & " BETWEEN" & Mid(ctl.Text, 8) & " and "
+            ElseIf UCase(Mid(ctl.Text, 1, 2)) = "IN" Then
                 'Force the "in" to uppercase for parsing later...
-                strSearch = strSearch & RS.Fields(i).Name & " IN" & Mid(txtFields(i).Text, 3) & " and "
+                strSearch = strSearch & RS.Fields(i).Name & " IN" & Mid(ctl.Text, 3) & " and "
             Else
                 Select Case RS.Fields(i).Type
                     Case adChar, adVarChar, adLongVarChar, adWChar, adVarWChar, adLongVarWChar
-                        strSearch = strSearch & RS.Fields(i).Name & " = '" & SQLQuote(txtFields(i).Text) & "' and "
+                        strSearch = strSearch & RS.Fields(i).Name & " = '" & SQLQuote(ctl.Text) & "' and "
                     Case adDate, adDBDate, adDBTime, adDBTimeStamp
-                        strSearch = strSearch & RS.Fields(i).Name & " = #" & txtFields(i).Text & "# and "
+                        strSearch = strSearch & RS.Fields(i).Name & " = #" & ctl.Text & "# and "
                     Case Else
-                        strSearch = strSearch & RS.Fields(i).Name & " = " & SQLQuote(txtFields(i).Text) & " and "
+                        strSearch = strSearch & RS.Fields(i).Name & " = " & SQLQuote(ctl.Text) & " and "
                 End Select
             End If
         End If
@@ -638,8 +1057,18 @@ End Sub
 Private Sub cmdCancel_Click()
     Unload Me
 End Sub
+Private Sub dbcFields_GotFocus(Index As Integer)
+    TextSelected
+End Sub
+Private Sub dbcFields_Validate(Index As Integer, Cancel As Boolean)
+    dbcFields(Index).Text = Trim(dbcFields(Index).Text)
+End Sub
 Private Sub Form_Activate()
+    Dim ctl As Control
+    Dim frm As Form
+    Dim fUseDataCombo As Boolean
     Dim i As Integer
+    Dim iField As Integer
     Dim iTop As Integer
     Dim iLeft As Integer
     Dim NewHeight As Integer
@@ -647,6 +1076,8 @@ Private Sub Form_Activate()
     Dim NewWidth As Integer
     Dim NewLeft As Integer
     
+    Set frm = Forms(Forms.Count - 2)
+    Me.Icon = frm.Icon
     NewWidth = 5832
     NewLeft = Me.Left + (Me.Width - NewWidth) / 2
     Me.Left = NewLeft
@@ -661,42 +1092,88 @@ Private Sub Form_Activate()
     cmdCancel.Left = cmdApply.Left
     
     For i = 0 To RS.Fields.Count - 1
-        If i > 31 Then
-            MsgBox "Warning: Only the first 32 fields can be used to Search your data.", vbInformation
-            Exit For
-        End If
-        txtFields(i).Visible = True
-        txtFields(i).Top = iTop
-        
-        lblFields(i).Alignment = lblFields(0).Alignment 'Right
-        lblFields(i).Visible = True
-        lblFields(i).Caption = RS.Fields(i).Name & ":"
-        lblFields(i).Top = txtFields(i).Top + (txtFields(i).Height / 2) - (lblFields(i).Height / 2)
-        lblFields(i).Left = iLeft
-        
-        txtFields(i).Left = lblFields(i).Left + lblFields(i).Width + hSpace
-        txtFields(i).Width = Me.ScaleWidth - lblFields(i).Left - lblFields(i).Width - hSpace - hSpace - cmdApply.Width - hSpace
-        txtFields(i).TabIndex = i
-        
-        iTop = iTop + txtFields(i).Height + vSpace
+        fUseDataCombo = False
+        'Debug.Print "RS.Fields(i).Name", RS.Fields(i).Name
+        Select Case RS.Fields(i).Type
+            Case adBinary, adLongVarBinary, adLongVarChar
+                'Don't deal with filtering these fields (we could do
+                'Memo fields, but eliminating them reduces the size of
+                'the filter form for these activites, so let's not)...
+                'Debug.Print vbTab & "Skipping: RS.Fields(i).Name", RS.Fields(i).Name
+            Case Else
+                If i > 31 Then
+                    MsgBox "Warning: Only the first 32 fields can be used to filter your data.", vbInformation
+                    Exit For
+                End If
+                
+                For Each ctl In frm.Controls
+                    If TypeName(ctl) = "DataCombo" Then
+                        If ctl.BoundColumn = RS.Fields(i).Name Then
+                            fUseDataCombo = True
+                            Set dbcFields(i).DataSource = Nothing
+                            dbcFields(i).DataField = ctl.DataField
+                            Set dbcFields(i).DataSource = ctl.DataSource
+                            Set dbcFields(i).RowSource = Nothing
+                            dbcFields(i).BoundColumn = ctl.BoundColumn
+                            dbcFields(i).ListField = ctl.ListField
+                            Set dbcFields(i).RowSource = ctl.RowSource
+                            
+                            dbcFields(i).BoundText = vbNullString
+                            dbcFields(i).Text = vbNullString
+                            Exit For
+                        End If
+                    End If
+                Next ctl
+                
+                If fUseDataCombo Then
+                    Set ctl = dbcFields(i)
+                Else
+                    Set ctl = txtFields(i)
+                End If
+                ctl.Visible = True
+                ctl.Enabled = True
+                ctl.Top = iTop
+                
+                lblFields(i).Alignment = lblFields(0).Alignment 'Right
+                lblFields(i).Visible = True
+                lblFields(i).Caption = RS.Fields(i).Name & ":"
+                lblFields(i).Top = ctl.Top + (ctl.Height / 2) - (lblFields(i).Height / 2)
+                lblFields(i).Left = iLeft
+                
+                ctl.Left = lblFields(i).Left + lblFields(i).Width + hSpace
+                ctl.Width = Me.ScaleWidth - lblFields(i).Left - lblFields(i).Width - hSpace - hSpace - cmdApply.Width - hSpace
+                ctl.TabIndex = i
+                
+                iTop = iTop + ctl.Height + vSpace
+                iField = i
+                Set ctl = Nothing
+        End Select
     Next i
     
-    NewHeight = (txtFields(i - 1).Top + txtFields(i - 1).Height + vSpace) + Me.Height - Me.ScaleHeight
+    If txtFields(iField).Enabled Then Set ctl = txtFields(iField) Else Set ctl = dbcFields(iField)
+    NewHeight = (ctl.Top + txtFields(iField).Height + vSpace) + Me.Height - Me.ScaleHeight
     If NewHeight > Me.Height Then
         Me.Top = Me.Top + ((NewHeight - Me.Height) / 2)
     Else
         Me.Top = Me.Top - ((NewHeight - Me.Height) / 2)
     End If
     Me.Height = NewHeight
-    txtFields(0).SetFocus
+    If txtFields(0).Enabled Then Set ctl = txtFields(0) Else Set ctl = dbcFields(0)
+    ctl.SetFocus
+    
+    Set frm = Nothing
+    Set ctl = Nothing
 End Sub
 Private Sub Form_Load()
     Dim i As Integer
     
-    Me.Icon = Forms(Forms.Count - 2).Icon
     For i = 0 To 31
+        dbcFields(i).Visible = False
+        dbcFields(i).Enabled = False
         txtFields(i).Visible = False
+        txtFields(i).Enabled = False
         lblFields(i).Visible = False
+        'lblFields(i).Enabled = False
     Next
 End Sub
 Private Sub txtFields_GotFocus(Index As Integer)

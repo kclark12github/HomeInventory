@@ -302,8 +302,8 @@ Public Sub ListCommand(frm As Form, RS As ADODB.Recordset, Optional AllowUpdate 
     
     frmList.Show vbModal
     frm.sbStatus.Panels("Message").Text = vbNullString
-    If RS.Filter <> vbNullString And RS.Filter <> 0 Then
-        frm.sbStatus.Panels("Message").Text = "Filter: " & RS.Filter
+    If SQLfilter <> vbNullString Then
+        frm.sbStatus.Panels("Message").Text = "Filter: " & SQLfilter
     End If
         
     If AllowUpdate Then
@@ -554,8 +554,8 @@ Public Sub UpdatePosition(frm As Form, ByVal Caption As String, RS As ADODB.Reco
     Else
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        If RS.Filter <> vbNullString And RS.Filter <> 0 Then
-            frm.sbStatus.Panels("Message").Text = "Filter: " & RS.Filter
+        If SQLfilter <> vbNullString Then
+            frm.sbStatus.Panels("Message").Text = "Filter: " & SQLfilter
         End If
         frm.sbStatus.Panels("Position").Text = "Record " & RS.BookMark & " of " & RS.RecordCount
     End If
