@@ -7,6 +7,7 @@ Begin VB.Form frmAbout
    ClientTop       =   1932
    ClientWidth     =   5736
    ClipControls    =   0   'False
+   Icon            =   "frmAbout.frx":0000
    LinkTopic       =   "Form2"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -14,12 +15,13 @@ Begin VB.Form frmAbout
    ScaleMode       =   0  'User
    ScaleWidth      =   5380.766
    ShowInTaskbar   =   0   'False
+   StartUpPosition =   1  'CenterOwner
    Begin VB.PictureBox picIcon 
       AutoSize        =   -1  'True
       ClipControls    =   0   'False
       Height          =   432
       Left            =   240
-      Picture         =   "frmAbout.frx":0000
+      Picture         =   "frmAbout.frx":030A
       ScaleHeight     =   263.118
       ScaleMode       =   0  'User
       ScaleWidth      =   263.118
@@ -90,7 +92,7 @@ Begin VB.Form frmAbout
       Width           =   3885
    End
    Begin VB.Label lblDisclaimer 
-      Caption         =   "Warning: ..."
+      Caption         =   $"frmAbout.frx":0614
       ForeColor       =   &H00000000&
       Height          =   825
       Left            =   255
@@ -145,6 +147,7 @@ Private Sub Form_Load()
     Me.Caption = "About " & App.Title
     lblVersion.Caption = "Version " & App.Major & "." & App.Minor & "." & App.Revision
     lblTitle.Caption = App.Title
+    lblDescription.Caption = "Home Inventory - Manage CDs, Books, Software, etc."
 End Sub
 Public Sub StartSysInfo()
     On Error GoTo SysInfoErr
