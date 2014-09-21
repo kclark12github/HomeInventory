@@ -118,86 +118,66 @@ Attribute VB_Name = "libISBN"
 'be as shown in the left-hand column and the title identifiers as shown in the
 'right-hand column.
 '
-'Publisher Identifier
+'Publisher Identifier       Numbers available per publisher for
+'                           Title identification
+'--------------------------------------------------------------------------------
+'     00 - 19               1 000 000
+'    200 - 699                100 000
+'   7000 - 8499                10 000
+'  85000 - 89999                1 000
+' 900000 - 949999                 100
+'9500000 - 9999999                 10
 '
-'Numbers available per publisher for
-'Title identification
 '
-'
+'Example: Group identifier "0"
+'If number ranges are between   Insert hyphens after
+'--------------------------------------------------------------------------------
+'     00 - 19       00 - 19     1st   3rd   9th digit
+'    200 - 699      20 - 69      "    4th      "
+'   7000 - 8499     70 - 84      "    5th      "
+'  85000 - 89999    85 - 89      "    6th      "
+' 900000 - 949999   90 - 94      "    7th      "
+'9500000 - 9999999  95 - 99      "    8th      "
 '--------------------------------------------------------------------------------
 '
-'     00 - 19
-'    200 - 699
-'   7000 - 8499
-'  85000 - 89999
-' 900000 - 949999
-'9500000 - 9999999
-'
-'
-' 1 000 000
-'100 000
-'10 000
-'1 000
-'100
-'10
-'
-'
-'
-'
-'Example: Group identifier "0"  If number ranges are between
-' Insert hyphens after
-'
+'Example: Group identifier "1"
+'If number ranges are between   Insert hyphens after
+'--------------------------------------------------------------------------------
+'     00 - 19       00 - 19     1st   3rd   9th digit
+'    200 - 699      20 - 69      "    4th      "
+'   7000 - 8499     70 - 84      "    5th      "
+'  85000 - 89999    85 - 89      "    6th      "
+' 900000 - 949999   90 - 94      "    7th      "
+'9500000 - 9999999  95 - 99      "    8th      "
 '--------------------------------------------------------------------------------
 '
-'     00 - 19
-'    200 - 699
-'   7000 - 8499
-'  85000 - 89999
-' 900000 - 949999
-'9500000 - 9999999  00 - 19
-'20 - 69
-'70 - 84
-'85 - 89
-'90 - 94
-'95 - 99  1st   3rd   9th digit
-'"    4th             "
-'"    5th             "
-'"    6th             "
-'"    7th             "
-'"    8th             "
-'
-'
-'
-'
-'--------------------------------------------------------------------------------
-'
-'(5) For purposes of data processing the 10-digit string is used without hyphens or spaces. Interpretation and human legible display is effectuated by means of the tables of group numbers and publisher identifier ranges.
+'(5) For purposes of data processing the 10-digit string is used without hyphens
+'    or spaces. Interpretation and human legible display is effectuated by means
+'    of the tables of group numbers and publisher identifier ranges.
 '
 '
 'Group Identifier:        Country or Area:
-'
 '--------------------------------------------------------------------------------
-'
 '0 + 1 English speaking area:
-  'Australia, Canada (E.), Gibraltar, Ireland, New Zealand, Puerto Rico, South Africa, Swaziland, UK, USA, Zimbabwe
+'       Australia, Canada (E.), Gibraltar, Ireland, New Zealand, Puerto Rico, South Africa, Swaziland, UK, USA, Zimbabwe
 '2 French speaking area:
-  'France, Belgium (Fr. sp.), Canada (Fr. sp.), Luxembourg, Switzerland (Fr. sp.)
+'       France, Belgium (Fr. sp.), Canada (Fr. sp.), Luxembourg, Switzerland (Fr. sp.)
 '3 German speaking area:
-  'Austria, Germany, Switzerland (Germ. sp.)
+'       Austria, Germany, Switzerland (Germ. sp.)
 '4 Japan
 '5 Russian Federation:
-  'Azerbaijan, Tajikistan,
-'Turkmenistan, Uzbekistan,
-'Armenia (and 99930),
-'Belarus (and 985),
-'Estonia (and 9949, 9985),
-'Georgia (and 99928),
-'Kazakhstan (and 9965),
-'Kyrgyzstan (and 9967),
-'Latvia (and 9984),
-'Lithuania (and 9986),
-'Moldova, Republic (and 9975),
-'Ukraine (and 966)
+'       Azerbaijan, Tajikistan,
+'       Turkmenistan, Uzbekistan,
+'       Armenia (and 99930),
+'       Belarus (and 985),
+'       Estonia (and 9949, 9985),
+'       Georgia (and 99928),
+'       Kazakhstan (and 9965),
+'       Kyrgyzstan (and 9967),
+'       Latvia (and 9984),
+'       Lithuania (and 9986),
+'       Moldova, Republic (and 9975),
+'       Ukraine (and 966)
 '7 China , People 's Republic
 '80 Czech Republic; Slovakia
 '81 India (and 93)
@@ -206,20 +186,20 @@ Attribute VB_Name = "libISBN"
 '84 Spain
 '85 Brazil
 '86 Yugoslavia:
-   'Bosnia and Herzegovina (and 9958),
-'Croatia (and 953),
-'Macedonia (and 9989),
-'Slovenia (and 961)
+'       Bosnia and Herzegovina (and 9958),
+'       Croatia (and 953),
+'       Macedonia (and 9989),
+'       Slovenia (and 961)
 '87 Denmark
 '88 Italian speaking area:
-  'Italy, Switzerland (It. sp.)
+'       Italy, Switzerland (It. sp.)
 '89 Korea
 '90 Netherlands
-  'Netherlands,
-'Belgium (Flemish)
+'       Netherlands,
+'       Belgium (Flemish)
 '91 Sweden
 '92 International Publishers (Unesco, EU);
-'European Community Organizations
+'       European Community Organizations
 '93 India (and 81)
 '950 Argentina
 '951 Finland (and 952)
@@ -248,14 +228,14 @@ Attribute VB_Name = "libISBN"
 '974 Thailand
 '975 Turkey
 '976 Caribbean Community:
-  'Antigua, Bahamas, Barbados, Belize, Cayman Islands, Dominica, Grenada, Guyana, Jamaica, Montserrat, St. Kitts-Nevis, St. Lucia, St. Vincent and the Grenadines, Trinidad and Tobago, Virgin Islands (Br)
+'       Antigua, Bahamas, Barbados, Belize, Cayman Islands, Dominica, Grenada, Guyana, Jamaica, Montserrat, St. Kitts-Nevis, St. Lucia, St. Vincent and the Grenadines, Trinidad and Tobago, Virgin Islands (Br)
 '977 Egypt
 '978 Nigeria
 '979 Indonesia
 '980 Venezuela
 '981 Singapore (and 9971)
 '982 South Pacific:
-  'Cook Islands, Fiji, Kiribati, Marshall Islands, Nauru, Niue, Solomon Islands, Tokelau, Tonga, Tuvalu; Vanuatu, Western Samoa
+'       Cook Islands, Fiji, Kiribati, Marshall Islands, Nauru, Niue, Solomon Islands, Tokelau, Tonga, Tuvalu; Vanuatu, Western Samoa
 '983 Malaysia (and 967)
 '984 Bangladesh
 '985 Belarus (and 5)
@@ -306,7 +286,7 @@ Attribute VB_Name = "libISBN"
 '99901 Bahrain
 '99903 Mauritius
 '99904 Netherlands Antilles
-  'Aruba, Neth. Ant.
+'       Aruba, Neth. Ant.
 '99905 Bolivia
 '99906 Kuwait
 '99908 Malawi
@@ -341,6 +321,7 @@ Attribute VB_Name = "libISBN"
 '99937 Macau
 '99938 Srpska
 '99939 Guatemala (and 99922)
+'--------------------------------------------------------------------------------
 Option Explicit
 Const isISBN = 0
 Const isISSN = 1
@@ -374,7 +355,27 @@ Private Sub Init()
     mPubPref(9) = 7
 
     'data obtained from http://www.isbn.spk-berlin.de/html/prefix/
+    'Group                 If Number Ranges
+    'Identifier "0"          are Between      Insert Hyphens After
+    '----------------------------------------------------------------------------
+    '00------------19            00-19        1st digit     3rd digit   9th digit
+    '200-----------699           20-69              "       4th   "           "
+    '7000----------8499          70-84              "       5th   "           "
+    '85000---------89999         85-89              "       6th   "           "
+    '900000--------949999        90-94              "       7th   "           "
+    '9500000-------9999999       95-99              "       8th   "           "
     chstr(0) = "00002070859095"         'English
+    'Group                 If Number Ranges
+    'Identifier "1"         are Between      Insert Hyphens After
+    '--------------------------------------------------------------------------
+    '00------------09            00-09       1st digit     3rd digit  9th digit
+    '100-----------399           10-39           "         4th  "           "
+    '4000----------5499          40-54           "         5th  "           "
+    '55000---------86979       5500-8697         "         6th  "           "
+    '869800--------998999      8698-9989         "         7th  "           "
+    '9990000-------9999999     9990-9999         "         8th  "           "
+    chstr(1) = "000010004000550086989990"     'English
+    
     chstr(2) = "00002070849095"         'French
     chstr(3) = "00002070859095"         'German
     chstr(4) = "00002070859095"         'Japan
@@ -488,7 +489,7 @@ Private Sub Init()
     chstr(231) = "005080"               'Seychelles
     chstr(232) = "001060"               'Malta
 End Sub
-Public Function checkISBN(strISBN As String) As String
+Public Function CheckISBN(strISBN As String) As String
     Dim ISBN As String
     Dim iType As Integer
     Dim CheckDigit As String
@@ -518,23 +519,23 @@ Public Function checkISBN(strISBN As String) As String
         If iType = isEAN And Mid(ISBN, 1, 3) = "978" Then Message = Message & "It is for a book with ISBN " & FullNum(Mid(ISBN, 4, 13)) & "."
         If iType = isEAN And Mid(ISBN, 1, 3) = "977" Then Message = Message & "It is for a serial publication with ISSN " & FullNum(Mid(ISBN, 4, 10)) & "."
         If iType = isEAN And Mid(ISBN, 1, 4) = "9790" Then Message = Message & "It is for a piece of music with ISMN " & FullNum("M" & Mid(ISBN, 5, 13)) & "."
-        checkISBN = FullNum(ISBN)
+        CheckISBN = FullNum(ISBN)
     Else
         If Len(ISBN) > 13 And Mid(ISBN, 1, 3) = "977" And Valid(Mid(ISBN, 1, 13), isEAN) Then
             EAN = Mid(ISBN, 1, 13)
             If EAN = FullNum(EAN) Then
                 Message = EAN & " is an EAN. The check digit is correct." & vbCrLf
                 Message = Message & "It is for a serial publication with ISSN " & FullNum(Mid(ISBN, 4, 10)) & ", issue number " & Mid(ISBN, 14, Len(ISBN)) & "."
-                checkISBN = FullNum(Mid(ISBN, 4, 10))
+                CheckISBN = FullNum(Mid(ISBN, 4, 10))
             Else
                 Message = "You have typed in too much, too little, or letters instead of numbers."
                 Call MsgBox(Message, vbExclamation, "checkISBN")
-                checkISBN = strISBN
+                CheckISBN = strISBN
             End If
         Else
             Message = "You have typed in too much, too little, or letters instead of numbers."
             Call MsgBox(Message, vbExclamation, "checkISBN")
-            checkISBN = strISBN
+            CheckISBN = strISBN
         End If
     End If
     'checkISBN = Message
@@ -588,31 +589,92 @@ End Function
 Private Function Hyphenate(str As String) As String
     Dim ourstr As String
     Dim breaker As Integer
-    Dim pref As String
+    Dim Pref As String
     Dim p As String
     Dim mppl As Integer
     Dim i As Integer
     
     Select Case GetType(str)
         Case isISBN
-            pref = Prefix(str)
-            If pref <> 10 And chstr(shp(pref)) <> vbNullString Then
-                p = chstr(shp(pref))
-                mppl = 8 - Len(pref)
-                i = Len(p) / 2
-                
-                While Substring(p, (i * 2) - 1, i * 2) > Substring(str, Len(pref) + 1, Len(pref) + 3)
-                    i = i - 1
-                Wend
-                If i = mppl + 1 And i = Len(p) / 2 Then i = mppl - 1                                                    'if it's only one over, it'll be one less
-                If i > mppl And pref <> "962" Then i = i + mppl - Len(p) / 2                                            'They get bigger again, at least for Russia
-                If i > mppl And (pref = "84" Or pref = "962" Or pref = "978" Or pref = "9986") Then i = 2 * mppl - i    'They get smaller in Hong Kong & Lithuania & Nigeria & Spain
-                If Mid(str, 1, 6) = "967999" Or Mid(str, 1, 7) = "9976999" Then i = i + 1                               'Malaysia & Tanzania have a three-digit break
-                breaker = i + Len(pref)
-                ourstr = pref & "-" & Substring(str, Len(pref) + 1, breaker) & "-" & Substring(str, breaker + 1, 9) & "-" & Mid(str, 10, 1)
-            Else
-                ourstr = Substring(str, 1, 9) & "-" & Substring(str, 10, 1)
-            End If
+            Pref = Prefix(str)
+            Select Case CInt(Pref)
+                Case 0
+                    'data obtained from http://www.isbn.spk-berlin.de/html/prefix/
+                    'Group                 If Number Ranges
+                    'Identifier "0"          are Between      Insert Hyphens After
+                    '----------------------------------------------------------------------------
+                    '00------------19            00-19        1st digit     3rd digit   9th digit
+                    '200-----------699           20-69              "       4th   "           "
+                    '7000----------8499          70-84              "       5th   "           "
+                    '85000---------89999         85-89              "       6th   "           "
+                    '900000--------949999        90-94              "       7th   "           "
+                    '9500000-------9999999       95-99              "       8th   "           "
+                    Select Case CInt(Mid(str, 2, 2))
+                        Case 0 To 19
+                            breaker = 3
+                        Case 20 To 69
+                            breaker = 4
+                        Case 70 To 84
+                            breaker = 5
+                        Case 85 To 89
+                            breaker = 6
+                        Case 90 To 94
+                            breaker = 7
+                        Case 95 To 99
+                            breaker = 8
+                    End Select
+                    ourstr = Pref & "-" & Substring(str, Len(Pref) + 1, breaker) & "-" & Substring(str, breaker + 1, 9) & "-" & Mid(str, 10, 1)
+                Case 1
+                    'data obtained from http://www.isbn.spk-berlin.de/html/prefix/
+                    'Group                 If Number Ranges
+                    'Identifier "1"         are Between      Insert Hyphens After
+                    '--------------------------------------------------------------------------
+                    '00------------09            00-09       1st digit     3rd digit  9th digit
+                    '100-----------399           10-39           "         4th  "           "
+                    '4000----------5499          40-54           "         5th  "           "
+                    '55000---------86979       5500-8697         "         6th  "           "
+                    '869800--------998999      8698-9989         "         7th  "           "
+                    '9990000-------9999999     9990-9999         "         8th  "           "
+                    Select Case CInt(Mid(str, 2, 4))
+                        Case 0 To 900
+                            breaker = 3
+                        Case 1000 To 3999
+                            breaker = 4
+                        Case 4000 To 5499
+                            breaker = 5
+                        Case 5500 To 8697
+                            breaker = 6
+                        Case 8698 To 9989
+                            breaker = 7
+                        Case 9990 To 9999
+                            breaker = 8
+                    End Select
+                    ourstr = Pref & "-" & Substring(str, Len(Pref) + 1, breaker) & "-" & Substring(str, breaker + 1, 9) & "-" & Mid(str, 10, 1)
+                Case Else
+                    If Pref <> 10 And chstr(shp(Pref)) <> vbNullString Then
+                        p = chstr(shp(Pref))
+                        mppl = 8 - Len(Pref)
+                        i = Len(p) / 2
+                        
+'                        Debug.Print "str", str
+'                        Debug.Print "chstr(shp(Pref))", p
+'                        Debug.Print Substring(p, (i * 2) - 1, i * 2) & " > " & Substring(str, Len(Pref) + 1, Len(Pref) + 3)
+                        
+                        While Substring(p, (i * 2) - 1, i * 2) > Substring(str, Len(Pref) + 1, Len(Pref) + 3)
+'                            Debug.Print Substring(p, (i * 2) - 1, i * 2) & " > " & Substring(str, Len(Pref) + 1, Len(Pref) + 3)
+                            i = i - 1
+                        Wend
+                        
+                        If i = mppl + 1 And i = Len(p) / 2 Then i = mppl - 1                                                    'if it's only one over, it'll be one less
+                        If i > mppl And Pref <> "962" Then i = i + mppl - Len(p) / 2                                            'They get bigger again, at least for Russia
+                        If i > mppl And (Pref = "84" Or Pref = "962" Or Pref = "978" Or Pref = "9986") Then i = 2 * mppl - i    'They get smaller in Hong Kong & Lithuania & Nigeria & Spain
+                        If Mid(str, 1, 6) = "967999" Or Mid(str, 1, 7) = "9976999" Then i = i + 1                               'Malaysia & Tanzania have a three-digit break
+                        breaker = i + Len(Pref)
+                        ourstr = Pref & "-" & Substring(str, Len(Pref) + 1, breaker) & "-" & Substring(str, breaker + 1, 9) & "-" & Mid(str, 10, 1)
+                    Else
+                        ourstr = Substring(str, 1, 9) & "-" & Substring(str, 10, 10)
+                    End If
+            End Select
         Case isISSN
             ourstr = Mid(str, 1, 4) & "-" & Mid(str, 5, 8)
         Case isISMN
@@ -636,13 +698,16 @@ Private Function Prefix(str As String) As Long
     If Mid(str, 1, 3) = "999" Then X = Mid(str, 1, 5)
     Prefix = X
 End Function
-Private Function shp(pref As String) As Long
+Private Function shp(sPref As String) As Long
     Dim X As Long
-    If pref < 8 Then X = pref
-    If pref > 7 And pref < 99 Then X = pref - 70        '80-93 -> 10-22
-    If pref > 100 And pref < 999 Then X = pref - 900    '950-989 -> 50-89
-    If pref > 1000 And pref < 9999 Then X = pref - 9800 '9900-9989 -> 100-189
-    If pref > 10000 Then X = pref - 99700               '99900-99999 -> 200-299
+    Dim Pref As Long
+    
+    Pref = CLng(sPref)
+    If Pref < 8 Then X = Pref
+    If Pref > 7 And Pref < 99 Then X = Pref - 70        '80-93 -> 10-22
+    If Pref > 100 And Pref < 999 Then X = Pref - 900    '950-989 -> 50-89
+    If Pref > 1000 And Pref < 9999 Then X = Pref - 9800 '9900-9989 -> 100-189
+    If Pref > 10000 Then X = Pref - 99700               '99900-99999 -> 200-299
     shp = X
 End Function
 Private Function Valid(sNum As String, iType As Integer) As Boolean
@@ -679,6 +744,54 @@ Private Function getISBN(istring As String) As String
         Next X
     getISBN = i
 End Function
+'Group                 If Number Ranges
+'Identifier "0"          are Between      Insert Hyphens After
+'----------------------------------------------------------------------------
+'00------------19            00-19        1st digit     3rd digit   9th digit
+'200-----------699           20-69              "       4th   "           "
+'7000----------8499          70-84              "       5th   "           "
+'85000---------89999         85-89              "       6th   "           "
+'900000--------949999        90-94              "       7th   "           "
+'9500000-------9999999       95-99              "       8th   "           "
+'
+'
+'
+'
+'Group                 If Number Ranges
+'Identifier "1"         are Between      Insert Hyphens After
+'--------------------------------------------------------------------------
+'00------------09            00-09       1st digit     3rd digit  9th digit
+'100-----------399           10-39           "         4th  "           "
+'4000----------5499          40-54           "         5th  "           "
+'55000---------86979       5500-8697         "         6th  "           "
+'869800--------998999      8698-9989         "         7th  "           "
+'9990000-------9999999     9990-9999         "         8th  "           "
+'
+'
+'The following table gives the range distribution of the group identifiers:
+'
+'                           0 - 7
+'                          80 - 94
+'                         950 - 995
+'                        9960 - 9989
+'                       99900 - 99999
+'
+'
+'
+'The following table is an example of the range distribution of publisher
+'prefixes. Assuming a group identifier of one digit only, the publisher
+'identifier ranges might be as shown in the left hand column and the title
+'identifiers as shown in the right hand column.
+'
+'
+'Publisher Identifier          Numbers Available for
+'                              Title Identification
+'        00-19                    1 000 000
+'       200-699                     100 000
+'      7000-8499                     10 000
+'     85000-89999                     1 000
+'    900000-949999                      100
+'   9500000-9999999                      10
 Public Function FormatISBN(sISBN As String) As String
     Dim s As String
     Dim Group As String

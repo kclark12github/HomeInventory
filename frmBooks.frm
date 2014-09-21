@@ -63,16 +63,16 @@ Begin VB.Form frmBooks
          EndProperty
          BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   8070
+            Object.Width           =   7964
             Key             =   "Message"
          EndProperty
          BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Alignment       =   2
             AutoSize        =   2
-            Object.Width           =   1270
+            Object.Width           =   1376
             MinWidth        =   1270
-            TextSave        =   "1:02 AM"
+            TextSave        =   "11:38 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -152,8 +152,8 @@ Begin VB.Form frmBooks
    End
    Begin VB.TextBox txtInventoried 
       Height          =   288
-      Left            =   1464
-      TabIndex        =   8
+      Left            =   3330
+      TabIndex        =   9
       Text            =   "Inventoried"
       Top             =   2880
       Width           =   3195
@@ -219,9 +219,9 @@ Begin VB.Form frmBooks
       Alignment       =   1  'Right Justify
       Caption         =   "Cataloged"
       Height          =   192
-      Left            =   5280
-      TabIndex        =   9
-      Top             =   2928
+      Left            =   480
+      TabIndex        =   8
+      Top             =   2940
       Width           =   1152
    End
    Begin VB.TextBox txtTitle 
@@ -396,9 +396,9 @@ Begin VB.Form frmBooks
       AutoSize        =   -1  'True
       Caption         =   "Date Inventoried:"
       Height          =   195
-      Left            =   141
+      Left            =   1995
       TabIndex        =   20
-      Top             =   2927
+      Top             =   2925
       Width           =   1215
    End
    Begin VB.Label lblAlphaSort 
@@ -811,7 +811,11 @@ Private Sub txtISBN_Validate(Cancel As Boolean)
         MsgBox "ISBN must be specified!", vbExclamation, Me.Caption
     Else
         'txtISBN.Text = FormatISBN(txtISBN.Text)
-        txtISBN.Text = checkISBN(txtISBN.Text)
+        Select Case Left(txtISBN.Text, 1)
+            Case "0" To "9", "M"        'Some forms of ISBN (EAN) may begin with "M"...
+                txtISBN.Text = CheckISBN(txtISBN.Text)
+            Case Else
+        End Select
     End If
 End Sub
 Private Sub txtMisc_GotFocus()
