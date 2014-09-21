@@ -2,7 +2,7 @@ VERSION 5.00
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
-   Caption         =   "Home Inventory"
+   Caption         =   "Ken's Stuff..."
    ClientHeight    =   3960
    ClientLeft      =   36
    ClientTop       =   492
@@ -354,66 +354,126 @@ Private Sub Form_Resize()
     End If
 End Sub
 Private Sub mnuDataBaseBooks_Click()
+    Me.MousePointer = vbHourglass
+    Load frmBooks
+    Me.MousePointer = vbDefault
     frmBooks.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyAircraftDesignations_Click()
+    Me.MousePointer = vbHourglass
+    Load frmAircraftDesignations
+    Me.MousePointer = vbDefault
     frmAircraftDesignations.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyBlueAngelsHistory_Click()
+    Me.MousePointer = vbHourglass
+    Load frmBlueAngelsHistory
+    Me.MousePointer = vbDefault
     frmBlueAngelsHistory.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyCompanies_Click()
+    Me.MousePointer = vbHourglass
+    Load frmCompanies
+    Me.MousePointer = vbDefault
     frmCompanies.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyDecals_Click()
+    Me.MousePointer = vbHourglass
+    Load frmDecals
+    Me.MousePointer = vbDefault
     frmDecals.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyDetailSets_Click()
+    Me.MousePointer = vbHourglass
+    Load frmDetailSets
+    Me.MousePointer = vbDefault
     frmDetailSets.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyKits_Click()
+    Me.MousePointer = vbHourglass
+    Load frmKits
+    Me.MousePointer = vbDefault
     frmKits.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyFinishingProducts_Click()
+    Me.MousePointer = vbHourglass
+    Load frmFinishingProducts
+    Me.MousePointer = vbDefault
     frmFinishingProducts.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyRockets_Click()
+    Me.MousePointer = vbHourglass
+    Load frmRockets
+    Me.MousePointer = vbDefault
     frmRockets.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyTools_Click()
+    Me.MousePointer = vbHourglass
+    Load frmTools
+    Me.MousePointer = vbDefault
     frmTools.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyTrains_Click()
+    Me.MousePointer = vbHourglass
+    Load frmTrains
+    Me.MousePointer = vbDefault
     frmTrains.Show vbModal
 End Sub
 Private Sub mnuDataBaseHobbyVideoResearch_Click()
+    Me.MousePointer = vbHourglass
+    Load frmVideoResearch
+    Me.MousePointer = vbDefault
     frmVideoResearch.Show vbModal
 End Sub
 Private Sub mnuDataBaseKFC_Click()
     frmWebLinks.Show vbModeless
 End Sub
 Private Sub mnuDataBaseMusic_Click()
+    Me.MousePointer = vbHourglass
+    Load frmMusic
+    Me.MousePointer = vbDefault
     frmMusic.Show vbModal
 End Sub
 Private Sub mnuDataBaseSoftware_Click()
+    Me.MousePointer = vbHourglass
+    Load frmSoftware
+    Me.MousePointer = vbDefault
     frmSoftware.Show vbModal
 End Sub
 Private Sub mnuDataBaseUSNavyShipsClasses_Click()
+    Me.MousePointer = vbHourglass
+    Load frmUSNClasses
+    Me.MousePointer = vbDefault
     frmUSNClasses.Show vbModal
 End Sub
 Private Sub mnuDataBaseUSNavyShipsClassifications_Click()
+    Me.MousePointer = vbHourglass
+    Load frmUSNClassifications
+    Me.MousePointer = vbDefault
     frmUSNClassifications.Show vbModal
 End Sub
 Private Sub mnuDataBaseUSNavyShipsShips_Click()
+    Me.MousePointer = vbHourglass
+    Load frmUSNShips
+    Me.MousePointer = vbDefault
     frmUSNShips.Show vbModal
 End Sub
 Private Sub mnuDataBaseVideoLibraryMovies_Click()
+    Me.MousePointer = vbHourglass
+    Load frmMovies
+    Me.MousePointer = vbDefault
     frmMovies.Show vbModal
 End Sub
 Private Sub mnuDataBaseVideoLibrarySpecials_Click()
+    Me.MousePointer = vbHourglass
+    Load frmSpecials
+    Me.MousePointer = vbDefault
     frmSpecials.Show vbModal
 End Sub
 Private Sub mnuDataBaseVideoLibraryTVEpisodes_Click()
+    Me.MousePointer = vbHourglass
+    Load frmTVEpisodes
+    Me.MousePointer = vbDefault
     frmTVEpisodes.Show vbModal
 End Sub
 Private Sub mnuFileBackground_Click()

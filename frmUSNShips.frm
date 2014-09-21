@@ -20,9 +20,189 @@ Begin VB.Form frmUSNShips
    StartUpPosition =   1  'CenterOwner
    Begin VB.Frame fraShips 
       Height          =   3132
+      Index           =   1
+      Left            =   156
+      TabIndex        =   32
+      Top             =   780
+      Width           =   7452
+      Begin VB.TextBox txtSpeed 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   47
+         Text            =   "Speed"
+         Top             =   2760
+         Width           =   6072
+      End
+      Begin RichTextLib.RichTextBox rtxtDisplacement 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   35
+         Top             =   240
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         ScrollBars      =   2
+         TextRTF         =   $"frmUSNShips.frx":0000
+      End
+      Begin RichTextLib.RichTextBox rtxtLength 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   37
+         Top             =   600
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":00E1
+      End
+      Begin RichTextLib.RichTextBox rtxtBeam 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   39
+         Top             =   960
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":01BC
+      End
+      Begin RichTextLib.RichTextBox rtxtDraft 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   41
+         Top             =   1320
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":0295
+      End
+      Begin RichTextLib.RichTextBox rtxtPropulsion 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   43
+         Top             =   1680
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":036F
+      End
+      Begin RichTextLib.RichTextBox rtxtBoilers 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   45
+         Top             =   2040
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":044E
+      End
+      Begin RichTextLib.RichTextBox rtxtManning 
+         Height          =   312
+         Left            =   1260
+         TabIndex        =   46
+         Top             =   2400
+         Width           =   6072
+         _ExtentX        =   10710
+         _ExtentY        =   550
+         _Version        =   393217
+         MultiLine       =   0   'False
+         TextRTF         =   $"frmUSNShips.frx":052A
+      End
+      Begin VB.Label lblManning 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Manning:"
+         Height          =   192
+         Left            =   564
+         TabIndex        =   49
+         Top             =   2460
+         Width           =   648
+      End
+      Begin VB.Label lblSpeed 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Speed:"
+         Height          =   192
+         Left            =   684
+         TabIndex        =   48
+         Top             =   2820
+         Width           =   528
+      End
+      Begin VB.Label lblBoilers 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Boilers:"
+         Height          =   192
+         Left            =   672
+         TabIndex        =   44
+         Top             =   2100
+         Width           =   540
+      End
+      Begin VB.Label lblPropulsion 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Propulsion:"
+         Height          =   192
+         Left            =   408
+         TabIndex        =   42
+         Top             =   1740
+         Width           =   804
+      End
+      Begin VB.Label lblDraft 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Draft:"
+         Height          =   192
+         Left            =   840
+         TabIndex        =   40
+         Top             =   1380
+         Width           =   372
+      End
+      Begin VB.Label lblBeam 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Beam:"
+         Height          =   192
+         Left            =   744
+         TabIndex        =   38
+         Top             =   1020
+         Width           =   468
+      End
+      Begin VB.Label lblLength 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Length:"
+         Height          =   192
+         Left            =   696
+         TabIndex        =   36
+         Top             =   660
+         Width           =   516
+      End
+      Begin VB.Label lblDisplacement 
+         Alignment       =   1  'Right Justify
+         AutoSize        =   -1  'True
+         Caption         =   "Displacement:"
+         Height          =   192
+         Left            =   180
+         TabIndex        =   34
+         Top             =   300
+         Width           =   1032
+      End
+   End
+   Begin VB.Frame fraShips 
+      Height          =   3132
       Index           =   0
       Left            =   156
-      TabIndex        =   16
+      TabIndex        =   14
       Top             =   780
       Width           =   7452
       Begin VB.TextBox txtZipCode 
@@ -62,7 +242,7 @@ Begin VB.Form frmUSNShips
          Height          =   288
          Left            =   2940
          Locked          =   -1  'True
-         TabIndex        =   18
+         TabIndex        =   16
          TabStop         =   0   'False
          Text            =   "Description"
          Top             =   1140
@@ -157,7 +337,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Home Port:"
          Height          =   192
          Left            =   516
-         TabIndex        =   27
+         TabIndex        =   25
          Top             =   1788
          Width           =   804
       End
@@ -167,7 +347,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Zip Code:"
          Height          =   192
          Left            =   4740
-         TabIndex        =   26
+         TabIndex        =   24
          Top             =   1788
          Width           =   696
       End
@@ -177,7 +357,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Local WebSite:"
          Height          =   192
          Left            =   240
-         TabIndex        =   25
+         TabIndex        =   23
          Top             =   2808
          Width           =   1092
       End
@@ -187,7 +367,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "WebSite:"
          Height          =   192
          Left            =   684
-         TabIndex        =   24
+         TabIndex        =   22
          Top             =   2508
          Width           =   660
       End
@@ -202,7 +382,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Class:"
          Height          =   192
          Left            =   888
-         TabIndex        =   23
+         TabIndex        =   21
          Top             =   900
          Width           =   444
       End
@@ -212,7 +392,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Command:"
          Height          =   192
          Left            =   552
-         TabIndex        =   22
+         TabIndex        =   20
          Top             =   1488
          Width           =   780
       End
@@ -222,7 +402,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Designation:"
          Height          =   192
          Left            =   432
-         TabIndex        =   21
+         TabIndex        =   19
          Top             =   300
          Width           =   900
       End
@@ -232,7 +412,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Name:"
          Height          =   192
          Left            =   852
-         TabIndex        =   20
+         TabIndex        =   18
          Top             =   600
          Width           =   480
       End
@@ -242,7 +422,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Classification:"
          Height          =   192
          Left            =   348
-         TabIndex        =   19
+         TabIndex        =   17
          Top             =   1200
          Width           =   984
       End
@@ -252,7 +432,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Commissioned:"
          Height          =   192
          Left            =   240
-         TabIndex        =   17
+         TabIndex        =   15
          Top             =   2100
          Width           =   1116
       End
@@ -261,13 +441,13 @@ Begin VB.Form frmUSNShips
       Height          =   3132
       Index           =   5
       Left            =   156
-      TabIndex        =   35
+      TabIndex        =   33
       Top             =   780
       Width           =   7452
       Begin MSDataGridLib.DataGrid dgdImages 
          Height          =   2832
          Left            =   120
-         TabIndex        =   68
+         TabIndex        =   66
          Top             =   180
          Width           =   7212
          _ExtentX        =   12721
@@ -333,30 +513,10 @@ Begin VB.Form frmUSNShips
       Height          =   3132
       Index           =   4
       Left            =   156
-      TabIndex        =   32
-      Top             =   780
-      Width           =   7452
-      Begin RichTextLib.RichTextBox rtxtMoreHistory 
-         Height          =   2892
-         Left            =   60
-         TabIndex        =   33
-         Top             =   180
-         Width           =   7332
-         _ExtentX        =   12933
-         _ExtentY        =   5101
-         _Version        =   393217
-         Enabled         =   -1  'True
-         TextRTF         =   $"frmUSNShips.frx":0000
-      End
-   End
-   Begin VB.Frame fraShips 
-      Height          =   3132
-      Index           =   3
-      Left            =   156
       TabIndex        =   30
       Top             =   780
       Width           =   7452
-      Begin RichTextLib.RichTextBox rtxtHistory 
+      Begin RichTextLib.RichTextBox rtxtMoreHistory 
          Height          =   2892
          Left            =   60
          TabIndex        =   31
@@ -366,200 +526,40 @@ Begin VB.Form frmUSNShips
          _ExtentY        =   5101
          _Version        =   393217
          Enabled         =   -1  'True
-         TextRTF         =   $"frmUSNShips.frx":00E4
+         TextRTF         =   $"frmUSNShips.frx":0606
       End
    End
    Begin VB.Frame fraShips 
       Height          =   3132
-      Index           =   1
+      Index           =   3
       Left            =   156
-      TabIndex        =   34
+      TabIndex        =   28
       Top             =   780
       Width           =   7452
-      Begin VB.TextBox txtSpeed 
-         Height          =   312
-         Left            =   1260
-         TabIndex        =   49
-         Text            =   "Speed"
-         Top             =   2760
-         Width           =   6072
-      End
-      Begin RichTextLib.RichTextBox rtxtDisplacement 
-         Height          =   312
-         Left            =   1260
-         TabIndex        =   37
-         Top             =   240
-         Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
+      Begin RichTextLib.RichTextBox rtxtHistory 
+         Height          =   2892
+         Left            =   60
+         TabIndex        =   29
+         Top             =   180
+         Width           =   7332
+         _ExtentX        =   12933
+         _ExtentY        =   5101
          _Version        =   393217
-         ScrollBars      =   2
-         TextRTF         =   $"frmUSNShips.frx":01C3
-      End
-      Begin RichTextLib.RichTextBox rtxtLength 
-         Height          =   312
-         Left            =   1260
-         TabIndex        =   39
-         Top             =   600
-         Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
-         _Version        =   393217
-         MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":02A4
-      End
-      Begin RichTextLib.RichTextBox rtxtBeam 
-         Height          =   312
-         Left            =   1260
-         TabIndex        =   41
-         Top             =   960
-         Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
-         _Version        =   393217
-         MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":037F
-      End
-      Begin RichTextLib.RichTextBox rtxtDraft 
-         Height          =   312
-         Left            =   1260
-         TabIndex        =   43
-         Top             =   1320
-         Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
-         _Version        =   393217
-         MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":0458
-      End
-      Begin RichTextLib.RichTextBox rtxtPropulsion 
-         Height          =   312
-         Left            =   1260
-         TabIndex        =   45
-         Top             =   1680
-         Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
-         _Version        =   393217
-         MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":0532
-      End
-      Begin RichTextLib.RichTextBox rtxtBoilers 
-         Height          =   312
-         Left            =   1260
-         TabIndex        =   47
-         Top             =   2040
-         Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
-         _Version        =   393217
-         MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":0611
-      End
-      Begin RichTextLib.RichTextBox rtxtManning 
-         Height          =   312
-         Left            =   1260
-         TabIndex        =   51
-         Top             =   2400
-         Width           =   6072
-         _ExtentX        =   10710
-         _ExtentY        =   550
-         _Version        =   393217
-         MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNShips.frx":06ED
-      End
-      Begin VB.Label lblManning 
-         Alignment       =   1  'Right Justify
-         AutoSize        =   -1  'True
-         Caption         =   "Manning:"
-         Height          =   192
-         Left            =   564
-         TabIndex        =   50
-         Top             =   2460
-         Width           =   648
-      End
-      Begin VB.Label lblSpeed 
-         Alignment       =   1  'Right Justify
-         AutoSize        =   -1  'True
-         Caption         =   "Speed:"
-         Height          =   192
-         Left            =   684
-         TabIndex        =   48
-         Top             =   2820
-         Width           =   528
-      End
-      Begin VB.Label lblBoilers 
-         Alignment       =   1  'Right Justify
-         AutoSize        =   -1  'True
-         Caption         =   "Boilers:"
-         Height          =   192
-         Left            =   672
-         TabIndex        =   46
-         Top             =   2100
-         Width           =   540
-      End
-      Begin VB.Label lblPropulsion 
-         Alignment       =   1  'Right Justify
-         AutoSize        =   -1  'True
-         Caption         =   "Propulsion:"
-         Height          =   192
-         Left            =   408
-         TabIndex        =   44
-         Top             =   1740
-         Width           =   804
-      End
-      Begin VB.Label lblDraft 
-         Alignment       =   1  'Right Justify
-         AutoSize        =   -1  'True
-         Caption         =   "Draft:"
-         Height          =   192
-         Left            =   840
-         TabIndex        =   42
-         Top             =   1380
-         Width           =   372
-      End
-      Begin VB.Label lblBeam 
-         Alignment       =   1  'Right Justify
-         AutoSize        =   -1  'True
-         Caption         =   "Beam:"
-         Height          =   192
-         Left            =   744
-         TabIndex        =   40
-         Top             =   1020
-         Width           =   468
-      End
-      Begin VB.Label lblLength 
-         Alignment       =   1  'Right Justify
-         AutoSize        =   -1  'True
-         Caption         =   "Length:"
-         Height          =   192
-         Left            =   696
-         TabIndex        =   38
-         Top             =   660
-         Width           =   516
-      End
-      Begin VB.Label lblDisplacement 
-         Alignment       =   1  'Right Justify
-         AutoSize        =   -1  'True
-         Caption         =   "Displacement:"
-         Height          =   192
-         Left            =   180
-         TabIndex        =   36
-         Top             =   300
-         Width           =   1032
+         Enabled         =   -1  'True
+         TextRTF         =   $"frmUSNShips.frx":06EA
       End
    End
    Begin VB.Frame fraShips 
       Height          =   3132
       Index           =   2
       Left            =   156
-      TabIndex        =   29
+      TabIndex        =   27
       Top             =   780
       Width           =   7452
       Begin RichTextLib.RichTextBox rtxtAircraft 
          Height          =   312
          Left            =   1260
-         TabIndex        =   53
+         TabIndex        =   51
          Top             =   240
          Width           =   6072
          _ExtentX        =   10710
@@ -571,7 +571,7 @@ Begin VB.Form frmUSNShips
       Begin RichTextLib.RichTextBox rtxtMissiles 
          Height          =   312
          Left            =   1260
-         TabIndex        =   55
+         TabIndex        =   53
          Top             =   600
          Width           =   6072
          _ExtentX        =   10710
@@ -583,7 +583,7 @@ Begin VB.Form frmUSNShips
       Begin RichTextLib.RichTextBox rtxtGuns 
          Height          =   312
          Left            =   1260
-         TabIndex        =   57
+         TabIndex        =   55
          Top             =   960
          Width           =   6072
          _ExtentX        =   10710
@@ -595,7 +595,7 @@ Begin VB.Form frmUSNShips
       Begin RichTextLib.RichTextBox rtxtASW 
          Height          =   312
          Left            =   1260
-         TabIndex        =   59
+         TabIndex        =   57
          Top             =   1320
          Width           =   6072
          _ExtentX        =   10710
@@ -607,7 +607,7 @@ Begin VB.Form frmUSNShips
       Begin RichTextLib.RichTextBox rtxtRadars 
          Height          =   312
          Left            =   1260
-         TabIndex        =   61
+         TabIndex        =   59
          Top             =   1680
          Width           =   6072
          _ExtentX        =   10710
@@ -619,7 +619,7 @@ Begin VB.Form frmUSNShips
       Begin RichTextLib.RichTextBox rtxtSonars 
          Height          =   312
          Left            =   1260
-         TabIndex        =   63
+         TabIndex        =   61
          Top             =   2040
          Width           =   6072
          _ExtentX        =   10710
@@ -631,7 +631,7 @@ Begin VB.Form frmUSNShips
       Begin RichTextLib.RichTextBox rtxtFireControl 
          Height          =   312
          Left            =   1260
-         TabIndex        =   65
+         TabIndex        =   63
          Top             =   2400
          Width           =   6072
          _ExtentX        =   10710
@@ -643,7 +643,7 @@ Begin VB.Form frmUSNShips
       Begin RichTextLib.RichTextBox rtxtEW 
          Height          =   312
          Left            =   1740
-         TabIndex        =   67
+         TabIndex        =   65
          Top             =   2760
          Width           =   5592
          _ExtentX        =   9864
@@ -658,7 +658,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Electronic Warfare:"
          Height          =   192
          Left            =   300
-         TabIndex        =   66
+         TabIndex        =   64
          Top             =   2820
          Width           =   1356
       End
@@ -668,7 +668,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Fire Control:"
          Height          =   192
          Left            =   360
-         TabIndex        =   64
+         TabIndex        =   62
          Top             =   2460
          Width           =   852
       End
@@ -678,7 +678,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Sonars:"
          Height          =   192
          Left            =   660
-         TabIndex        =   62
+         TabIndex        =   60
          Top             =   2100
          Width           =   552
       End
@@ -688,7 +688,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Radars:"
          Height          =   192
          Left            =   636
-         TabIndex        =   60
+         TabIndex        =   58
          Top             =   1740
          Width           =   576
       End
@@ -698,7 +698,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "ASW Weapons:"
          Height          =   192
          Left            =   60
-         TabIndex        =   58
+         TabIndex        =   56
          Top             =   1380
          Width           =   1152
       End
@@ -708,7 +708,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Guns:"
          Height          =   192
          Left            =   804
-         TabIndex        =   56
+         TabIndex        =   54
          Top             =   1020
          Width           =   408
       End
@@ -718,7 +718,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Missiles:"
          Height          =   192
          Left            =   588
-         TabIndex        =   54
+         TabIndex        =   52
          Top             =   660
          Width           =   624
       End
@@ -728,7 +728,7 @@ Begin VB.Form frmUSNShips
          Caption         =   "Aircraft:"
          Height          =   192
          Left            =   684
-         TabIndex        =   52
+         TabIndex        =   50
          Top             =   300
          Width           =   528
       End
@@ -781,7 +781,7 @@ Begin VB.Form frmUSNShips
       Default         =   -1  'True
       Height          =   372
       Left            =   5700
-      TabIndex        =   11
+      TabIndex        =   68
       Top             =   4500
       Width           =   972
    End
@@ -791,7 +791,7 @@ Begin VB.Form frmUSNShips
       CausesValidation=   0   'False
       Height          =   372
       Left            =   6696
-      TabIndex        =   12
+      TabIndex        =   69
       Top             =   4500
       Width           =   972
    End
@@ -799,7 +799,7 @@ Begin VB.Form frmUSNShips
       Align           =   2  'Align Bottom
       Height          =   252
       Left            =   0
-      TabIndex        =   13
+      TabIndex        =   11
       Top             =   4908
       Width           =   7764
       _ExtentX        =   13695
@@ -828,7 +828,7 @@ Begin VB.Form frmUSNShips
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:08 AM"
+            TextSave        =   "1:40 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -995,7 +995,7 @@ Begin VB.Form frmUSNShips
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   28
+      TabIndex        =   26
       Top             =   0
       Width           =   7764
       _ExtentX        =   13695
@@ -1075,7 +1075,7 @@ Begin VB.Form frmUSNShips
       Caption         =   "A"
       Height          =   192
       Left            =   0
-      TabIndex        =   69
+      TabIndex        =   67
       Top             =   0
       Visible         =   0   'False
       Width           =   108
@@ -1085,7 +1085,7 @@ Begin VB.Form frmUSNShips
       Caption         =   "lblID"
       Height          =   192
       Left            =   360
-      TabIndex        =   15
+      TabIndex        =   13
       Top             =   4596
       Width           =   324
    End
@@ -1094,7 +1094,7 @@ Begin VB.Form frmUSNShips
       Caption         =   "ID:"
       Height          =   192
       Left            =   96
-      TabIndex        =   14
+      TabIndex        =   12
       Top             =   4596
       Width           =   192
    End
@@ -1370,7 +1370,6 @@ Private Sub dgdImages_MouseMove(Button As Integer, Shift As Integer, X As Single
     MouseY = Y
 End Sub
 Private Sub Form_Load()
-    Me.MousePointer = vbHourglass
     Set adoConn = New ADODB.Connection
     Set rsMain = New ADODB.Recordset
     Set DBinfo = frmMain.DBcollection("US Navy Ships")
@@ -1422,7 +1421,6 @@ Private Sub Form_Load()
     frmMain.ProtectFields Me
     mode = modeDisplay
     fTransaction = False
-    Me.MousePointer = vbDefault
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
     If fTransaction Then
@@ -1449,6 +1447,7 @@ End Sub
 Private Sub mnuActionList_Click()
     Dim frm As Form
     
+    Me.MousePointer = vbHourglass
     Load frmList
     frmList.Caption = Me.Caption & " List"
     If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
@@ -1465,6 +1464,7 @@ Private Sub mnuActionList_Click()
     
     adoConn.BeginTrans
     fTransaction = True
+    Me.MousePointer = vbDefault
     frmList.Show vbModal
     If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
@@ -1487,6 +1487,7 @@ End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form
     
+    Me.MousePointer = vbHourglass
     Load frmFilter
     frmFilter.Caption = Me.Caption & " Filter"
     If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
@@ -1500,6 +1501,7 @@ Private Sub mnuActionFilter_Click()
     frmFilter.Height = frm.Height
     
     Set frmFilter.RS = rsMain
+    Me.MousePointer = vbDefault
     frmFilter.Show vbModal
     If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
@@ -1544,6 +1546,7 @@ Private Sub mnuActionReport_Click()
     Dim Report As New CRAXDRT.Report
     Dim vRS As ADODB.Recordset
     
+    Me.MousePointer = vbHourglass
     MakeVirtualRecordset adoConn, rsMain, vRS
     
     Load frmViewReport
@@ -1564,6 +1567,7 @@ Private Sub mnuActionReport_Click()
     Report.ReadRecords
     
     frmViewReport.scrViewer.ReportSource = Report
+    Me.MousePointer = vbDefault
     frmViewReport.Show vbModal
     
     Set scrApplication = Nothing
@@ -1664,9 +1668,14 @@ Private Sub txtCommissioned_GotFocus()
     TextSelected
 End Sub
 Private Sub txtCommissioned_Validate(Cancel As Boolean)
+    Dim tempDT As Date
+    
+    If Trim(txtCommissioned.Text) = vbNullString Then Exit Sub
+    
     On Error Resume Next
     txtCommissioned.Text = Format(txtCommissioned.Text, "dddd, MMMM dd, yyyy")
-    If Not IsDate(txtCommissioned.Text) Then
+    tempDT = CDate(Format(CDate(Mid(txtCommissioned.Text, InStr(txtCommissioned.Text, ", ") + 2)), "dd-MMM-yyyy"))
+    If Err.Number <> 0 Then
         MsgBox "Invalid date format", vbExclamation
         Cancel = True
         Exit Sub

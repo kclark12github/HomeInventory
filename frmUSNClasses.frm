@@ -21,7 +21,7 @@ Begin VB.Form frmUSNClasses
       Height          =   3132
       Index           =   0
       Left            =   156
-      TabIndex        =   19
+      TabIndex        =   34
       Top             =   780
       Width           =   7452
       Begin VB.TextBox txtYear 
@@ -36,7 +36,7 @@ Begin VB.Form frmUSNClasses
          EndProperty
          Height          =   288
          Left            =   1260
-         TabIndex        =   22
+         TabIndex        =   2
          Text            =   "Year"
          Top             =   552
          Width           =   1452
@@ -44,7 +44,7 @@ Begin VB.Form frmUSNClasses
       Begin VB.TextBox txtName 
          Height          =   288
          Left            =   1260
-         TabIndex        =   21
+         TabIndex        =   1
          Text            =   "Name"
          Top             =   252
          Width           =   5892
@@ -53,7 +53,7 @@ Begin VB.Form frmUSNClasses
          Height          =   288
          Left            =   2760
          Locked          =   -1  'True
-         TabIndex        =   20
+         TabIndex        =   4
          TabStop         =   0   'False
          Text            =   "Description"
          Top             =   840
@@ -62,7 +62,7 @@ Begin VB.Form frmUSNClasses
       Begin MSDataListLib.DataCombo dbcClassification 
          Height          =   288
          Left            =   1260
-         TabIndex        =   23
+         TabIndex        =   3
          Top             =   852
          Width           =   1452
          _ExtentX        =   2561
@@ -78,7 +78,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Year:"
          Height          =   192
          Left            =   792
-         TabIndex        =   26
+         TabIndex        =   37
          Top             =   600
          Width           =   384
       End
@@ -88,7 +88,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Classification:"
          Height          =   192
          Left            =   168
-         TabIndex        =   25
+         TabIndex        =   36
          Top             =   900
          Width           =   984
       End
@@ -98,7 +98,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Name:"
          Height          =   192
          Left            =   672
-         TabIndex        =   24
+         TabIndex        =   35
          Top             =   300
          Width           =   480
       End
@@ -107,13 +107,13 @@ Begin VB.Form frmUSNClasses
       Height          =   3132
       Index           =   1
       Left            =   156
-      TabIndex        =   2
+      TabIndex        =   25
       Top             =   780
       Width           =   7452
       Begin VB.TextBox txtSpeed 
          Height          =   312
          Left            =   1260
-         TabIndex        =   3
+         TabIndex        =   12
          Text            =   "Speed"
          Top             =   2760
          Width           =   6072
@@ -121,7 +121,7 @@ Begin VB.Form frmUSNClasses
       Begin RichTextLib.RichTextBox rtxtDisplacement 
          Height          =   312
          Left            =   1260
-         TabIndex        =   4
+         TabIndex        =   5
          Top             =   240
          Width           =   6072
          _ExtentX        =   10710
@@ -134,7 +134,7 @@ Begin VB.Form frmUSNClasses
       Begin RichTextLib.RichTextBox rtxtLength 
          Height          =   312
          Left            =   1260
-         TabIndex        =   5
+         TabIndex        =   6
          Top             =   600
          Width           =   6072
          _ExtentX        =   10710
@@ -147,7 +147,7 @@ Begin VB.Form frmUSNClasses
       Begin RichTextLib.RichTextBox rtxtBeam 
          Height          =   312
          Left            =   1260
-         TabIndex        =   6
+         TabIndex        =   7
          Top             =   960
          Width           =   6072
          _ExtentX        =   10710
@@ -160,7 +160,7 @@ Begin VB.Form frmUSNClasses
       Begin RichTextLib.RichTextBox rtxtDraft 
          Height          =   312
          Left            =   1260
-         TabIndex        =   7
+         TabIndex        =   8
          Top             =   1320
          Width           =   6072
          _ExtentX        =   10710
@@ -173,7 +173,7 @@ Begin VB.Form frmUSNClasses
       Begin RichTextLib.RichTextBox rtxtPropulsion 
          Height          =   312
          Left            =   1260
-         TabIndex        =   8
+         TabIndex        =   9
          Top             =   1680
          Width           =   6072
          _ExtentX        =   10710
@@ -186,7 +186,7 @@ Begin VB.Form frmUSNClasses
       Begin RichTextLib.RichTextBox rtxtBoilers 
          Height          =   312
          Left            =   1260
-         TabIndex        =   9
+         TabIndex        =   10
          Top             =   2040
          Width           =   6072
          _ExtentX        =   10710
@@ -199,7 +199,7 @@ Begin VB.Form frmUSNClasses
       Begin RichTextLib.RichTextBox rtxtManning 
          Height          =   312
          Left            =   1260
-         TabIndex        =   10
+         TabIndex        =   11
          Top             =   2400
          Width           =   6072
          _ExtentX        =   10710
@@ -215,7 +215,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Displacement:"
          Height          =   192
          Left            =   180
-         TabIndex        =   18
+         TabIndex        =   33
          Top             =   300
          Width           =   1032
       End
@@ -225,7 +225,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Length:"
          Height          =   192
          Left            =   696
-         TabIndex        =   17
+         TabIndex        =   32
          Top             =   660
          Width           =   516
       End
@@ -235,7 +235,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Beam:"
          Height          =   192
          Left            =   744
-         TabIndex        =   16
+         TabIndex        =   31
          Top             =   1020
          Width           =   468
       End
@@ -245,7 +245,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Draft:"
          Height          =   192
          Left            =   840
-         TabIndex        =   15
+         TabIndex        =   30
          Top             =   1380
          Width           =   372
       End
@@ -255,7 +255,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Propulsion:"
          Height          =   192
          Left            =   408
-         TabIndex        =   14
+         TabIndex        =   29
          Top             =   1740
          Width           =   804
       End
@@ -265,7 +265,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Boilers:"
          Height          =   192
          Left            =   672
-         TabIndex        =   13
+         TabIndex        =   28
          Top             =   2100
          Width           =   540
       End
@@ -275,7 +275,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Speed:"
          Height          =   192
          Left            =   684
-         TabIndex        =   12
+         TabIndex        =   27
          Top             =   2820
          Width           =   528
       End
@@ -285,60 +285,22 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Manning:"
          Height          =   192
          Left            =   564
-         TabIndex        =   11
+         TabIndex        =   26
          Top             =   2460
          Width           =   648
       End
    End
    Begin VB.Frame fraShips 
       Height          =   3132
-      Index           =   3
-      Left            =   156
-      TabIndex        =   0
-      Top             =   780
-      Width           =   7452
-      Begin RichTextLib.RichTextBox rtxtDescription 
-         Height          =   2892
-         Left            =   60
-         TabIndex        =   1
-         Top             =   180
-         Width           =   7332
-         _ExtentX        =   12933
-         _ExtentY        =   5101
-         _Version        =   393217
-         TextRTF         =   $"frmUSNClasses.frx":0606
-      End
-   End
-   Begin VB.CommandButton cmdCancel 
-      Cancel          =   -1  'True
-      Caption         =   "Cancel"
-      CausesValidation=   0   'False
-      Height          =   372
-      Left            =   6696
-      TabIndex        =   46
-      Top             =   4500
-      Width           =   972
-   End
-   Begin VB.CommandButton cmdOK 
-      Caption         =   "OK"
-      Default         =   -1  'True
-      Height          =   372
-      Left            =   5700
-      TabIndex        =   45
-      Top             =   4500
-      Width           =   972
-   End
-   Begin VB.Frame fraShips 
-      Height          =   3132
       Index           =   2
       Left            =   156
-      TabIndex        =   27
+      TabIndex        =   38
       Top             =   780
       Width           =   7452
       Begin RichTextLib.RichTextBox rtxtAircraft 
          Height          =   312
          Left            =   1260
-         TabIndex        =   28
+         TabIndex        =   13
          Top             =   240
          Width           =   6072
          _ExtentX        =   10710
@@ -346,12 +308,12 @@ Begin VB.Form frmUSNClasses
          _Version        =   393217
          Enabled         =   -1  'True
          ScrollBars      =   2
-         TextRTF         =   $"frmUSNClasses.frx":06E9
+         TextRTF         =   $"frmUSNClasses.frx":0606
       End
       Begin RichTextLib.RichTextBox rtxtMissiles 
          Height          =   312
          Left            =   1260
-         TabIndex        =   29
+         TabIndex        =   14
          Top             =   600
          Width           =   6072
          _ExtentX        =   10710
@@ -359,12 +321,12 @@ Begin VB.Form frmUSNClasses
          _Version        =   393217
          Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":07C6
+         TextRTF         =   $"frmUSNClasses.frx":06E3
       End
       Begin RichTextLib.RichTextBox rtxtGuns 
          Height          =   312
          Left            =   1260
-         TabIndex        =   30
+         TabIndex        =   15
          Top             =   960
          Width           =   6072
          _ExtentX        =   10710
@@ -372,12 +334,12 @@ Begin VB.Form frmUSNClasses
          _Version        =   393217
          Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":08A3
+         TextRTF         =   $"frmUSNClasses.frx":07C0
       End
       Begin RichTextLib.RichTextBox rtxtASW 
          Height          =   312
          Left            =   1260
-         TabIndex        =   31
+         TabIndex        =   16
          Top             =   1320
          Width           =   6072
          _ExtentX        =   10710
@@ -385,12 +347,12 @@ Begin VB.Form frmUSNClasses
          _Version        =   393217
          Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":097C
+         TextRTF         =   $"frmUSNClasses.frx":0899
       End
       Begin RichTextLib.RichTextBox rtxtRadars 
          Height          =   312
          Left            =   1260
-         TabIndex        =   32
+         TabIndex        =   17
          Top             =   1680
          Width           =   6072
          _ExtentX        =   10710
@@ -398,12 +360,12 @@ Begin VB.Form frmUSNClasses
          _Version        =   393217
          Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":0A5C
+         TextRTF         =   $"frmUSNClasses.frx":0979
       End
       Begin RichTextLib.RichTextBox rtxtSonars 
          Height          =   312
          Left            =   1260
-         TabIndex        =   33
+         TabIndex        =   18
          Top             =   2040
          Width           =   6072
          _ExtentX        =   10710
@@ -411,12 +373,12 @@ Begin VB.Form frmUSNClasses
          _Version        =   393217
          Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":0B37
+         TextRTF         =   $"frmUSNClasses.frx":0A54
       End
       Begin RichTextLib.RichTextBox rtxtFireControl 
          Height          =   312
          Left            =   1260
-         TabIndex        =   34
+         TabIndex        =   19
          Top             =   2400
          Width           =   6072
          _ExtentX        =   10710
@@ -424,12 +386,12 @@ Begin VB.Form frmUSNClasses
          _Version        =   393217
          Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":0C12
+         TextRTF         =   $"frmUSNClasses.frx":0B2F
       End
       Begin RichTextLib.RichTextBox rtxtEW 
          Height          =   312
          Left            =   1740
-         TabIndex        =   35
+         TabIndex        =   20
          Top             =   2760
          Width           =   5592
          _ExtentX        =   9864
@@ -437,7 +399,7 @@ Begin VB.Form frmUSNClasses
          _Version        =   393217
          Enabled         =   -1  'True
          MultiLine       =   0   'False
-         TextRTF         =   $"frmUSNClasses.frx":0CF3
+         TextRTF         =   $"frmUSNClasses.frx":0C10
       End
       Begin VB.Label lblAircraft 
          Alignment       =   1  'Right Justify
@@ -445,7 +407,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Aircraft:"
          Height          =   192
          Left            =   684
-         TabIndex        =   43
+         TabIndex        =   46
          Top             =   300
          Width           =   528
       End
@@ -455,7 +417,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Missiles:"
          Height          =   192
          Left            =   588
-         TabIndex        =   42
+         TabIndex        =   45
          Top             =   660
          Width           =   624
       End
@@ -465,7 +427,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Guns:"
          Height          =   192
          Left            =   804
-         TabIndex        =   41
+         TabIndex        =   44
          Top             =   1020
          Width           =   408
       End
@@ -475,7 +437,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "ASW Weapons:"
          Height          =   192
          Left            =   60
-         TabIndex        =   40
+         TabIndex        =   43
          Top             =   1380
          Width           =   1152
       End
@@ -485,7 +447,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Radars:"
          Height          =   192
          Left            =   636
-         TabIndex        =   39
+         TabIndex        =   42
          Top             =   1740
          Width           =   576
       End
@@ -495,7 +457,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Sonars:"
          Height          =   192
          Left            =   660
-         TabIndex        =   38
+         TabIndex        =   41
          Top             =   2100
          Width           =   552
       End
@@ -505,7 +467,7 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Fire Control:"
          Height          =   192
          Left            =   360
-         TabIndex        =   37
+         TabIndex        =   40
          Top             =   2460
          Width           =   852
       End
@@ -515,15 +477,53 @@ Begin VB.Form frmUSNClasses
          Caption         =   "Electronic Warfare:"
          Height          =   192
          Left            =   300
-         TabIndex        =   36
+         TabIndex        =   39
          Top             =   2820
          Width           =   1356
       End
    End
+   Begin VB.Frame fraShips 
+      Height          =   3132
+      Index           =   3
+      Left            =   156
+      TabIndex        =   24
+      Top             =   780
+      Width           =   7452
+      Begin RichTextLib.RichTextBox rtxtDescription 
+         Height          =   2892
+         Left            =   60
+         TabIndex        =   21
+         Top             =   180
+         Width           =   7332
+         _ExtentX        =   12933
+         _ExtentY        =   5101
+         _Version        =   393217
+         TextRTF         =   $"frmUSNClasses.frx":0CE7
+      End
+   End
+   Begin VB.CommandButton cmdCancel 
+      Cancel          =   -1  'True
+      Caption         =   "Cancel"
+      CausesValidation=   0   'False
+      Height          =   372
+      Left            =   6696
+      TabIndex        =   23
+      Top             =   4500
+      Width           =   972
+   End
+   Begin VB.CommandButton cmdOK 
+      Caption         =   "OK"
+      Default         =   -1  'True
+      Height          =   372
+      Left            =   5700
+      TabIndex        =   22
+      Top             =   4500
+      Width           =   972
+   End
    Begin MSComctlLib.TabStrip tsClasses 
       Height          =   3612
       Left            =   96
-      TabIndex        =   44
+      TabIndex        =   0
       Top             =   360
       Width           =   7572
       _ExtentX        =   13356
@@ -586,7 +586,7 @@ Begin VB.Form frmUSNClasses
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:24 AM"
+            TextSave        =   "1:40 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -969,7 +969,7 @@ Private Sub cmdOK_Click()
 End Sub
 Private Sub dbcClassification_Validate(Cancel As Boolean)
     If Not dbcClassification.Enabled Then Exit Sub
-    If dbcClassification.Text = vbNullString Then
+    If dbcClassification.Text = vbNullString And txtClassDesc.Text <> "Unused" And txtClassDesc.Text <> "Unassigned" Then
         MsgBox "Classification must be specified!", vbExclamation, Me.Caption
         dbcClassification.SetFocus
         Cancel = True
@@ -985,7 +985,6 @@ Private Sub DefaultClassificationDesc()
     rsClassifications.Find "ID=" & rsMain("ClassificationID").Value
 End Sub
 Private Sub Form_Load()
-    Me.MousePointer = vbHourglass
     Set adoConn = New ADODB.Connection
     Set rsMain = New ADODB.Recordset
     Set DBinfo = frmMain.DBcollection("US Navy Ships")
@@ -1020,7 +1019,6 @@ Private Sub Form_Load()
     '    rsMain.MoveNext
     'Wend
     'rsMain.MoveFirst
-    Me.MousePointer = vbDefault
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
     If fTransaction Then
@@ -1043,6 +1041,7 @@ End Sub
 Private Sub mnuActionList_Click()
     Dim frm As Form
     
+    Me.MousePointer = vbHourglass
     Load frmList
     frmList.Caption = Me.Caption & " List"
     If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
@@ -1059,6 +1058,7 @@ Private Sub mnuActionList_Click()
     
     adoConn.BeginTrans
     fTransaction = True
+    Me.MousePointer = vbDefault
     frmList.Show vbModal
     If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
@@ -1078,6 +1078,7 @@ End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form
     
+    Me.MousePointer = vbHourglass
     Load frmFilter
     frmFilter.Caption = Me.Caption & " Filter"
     If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
@@ -1091,6 +1092,7 @@ Private Sub mnuActionFilter_Click()
     frmFilter.Height = frm.Height
     
     Set frmFilter.RS = rsMain
+    Me.MousePointer = vbDefault
     frmFilter.Show vbModal
     If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
@@ -1135,6 +1137,7 @@ Private Sub mnuActionReport_Click()
     Dim Report As New CRAXDRT.Report
     Dim vRS As ADODB.Recordset
     
+    Me.MousePointer = vbHourglass
     MakeVirtualRecordset adoConn, rsMain, vRS
     
     Load frmViewReport
@@ -1152,6 +1155,7 @@ Private Sub mnuActionReport_Click()
     
     Set Report = scrApplication.OpenReport(App.Path & "\Reports\USN Ship Classes.rpt", crOpenReportByTempCopy)
     Report.Database.SetDataSource vRS, 3, 1
+    Me.MousePointer = vbDefault
     Report.ReadRecords
     
     frmViewReport.scrViewer.ReportSource = Report
@@ -1238,7 +1242,8 @@ End Sub
 Private Sub txtYear_Validate(Cancel As Boolean)
     On Error Resume Next
     txtYear.Text = Format(txtYear.Text, "0000")
-    If Not IsDate(txtYear.Text) Then
+    If txtYear.Text = 0 Or (txtYear.Text >= 1776 And txtYear.Text <= 2999) Then
+    Else
         MsgBox "Invalid year format", vbExclamation
         Cancel = True
         Exit Sub
