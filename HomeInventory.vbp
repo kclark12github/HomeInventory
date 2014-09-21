@@ -58,6 +58,7 @@ Form=frmTools.frm
 Form=frmTrains.frm
 Form=frmVideoResearch.frm
 Form=frmFilter.frm
+Designer=scrDesignationsReport.Dsr
 Startup="frmMain"
 HelpFile=""
 Title="HomeInventory"
