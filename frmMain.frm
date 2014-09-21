@@ -179,7 +179,8 @@ Option Explicit
 
 Private cnKFC As New ADODB.Connection
 Private cmdKFC As New ADODB.Command
-Const gstrProvider = "Microsoft.Jet.OLEDB.3.51"
+'Const gstrProvider = "Microsoft.Jet.OLEDB.3.51"
+Const gstrProvider = "Microsoft.Jet.OLEDB.4.0"
 'Const gstrConnectionString = "E:\WebShare\wwwroot\Access\KFC.mdb"
 Const gstrRunTimeUserName = "admin"
 Const gstrRunTimePassword = vbNullString

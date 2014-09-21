@@ -606,7 +606,7 @@ Private Sub DeleteByParent(ParentID As Long)
     While Not rsEntry.EOF
         DeleteByParent rsEntry("ID")
         rsEntry.Delete adAffectCurrent
-        rsEntry.MoveNext
+        If Not rsEntry.EOF Then rsEntry.MoveNext
     Wend
     rsEntry.Close
     Set rsEntry = Nothing
