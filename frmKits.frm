@@ -318,6 +318,7 @@ Begin VB.Form frmKits
          _ExtentX        =   13356
          _ExtentY        =   4360
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmKits.frx":0000
       End
    End
@@ -354,7 +355,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:40 PM"
+            TextSave        =   "10:19 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
