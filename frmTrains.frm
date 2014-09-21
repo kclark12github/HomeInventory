@@ -5,14 +5,14 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmTrains 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Trains"
-   ClientHeight    =   2976
+   ClientHeight    =   3000
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   2976
+   ScaleHeight     =   3000
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
@@ -134,114 +134,6 @@ Begin VB.Form frmTrains
       Top             =   372
       Width           =   5892
    End
-   Begin MSComctlLib.ImageList imlSmall 
-      Left            =   492
-      Top             =   2520
-      _ExtentX        =   804
-      _ExtentY        =   804
-      BackColor       =   -2147483643
-      ImageWidth      =   16
-      ImageHeight     =   16
-      MaskColor       =   12632256
-      _Version        =   393216
-      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   10
-         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":0000
-            Key             =   "Modify"
-         EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":031C
-            Key             =   "Find"
-         EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":0638
-            Key             =   "Delete"
-         EndProperty
-         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":0A8C
-            Key             =   "List"
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":1558
-            Key             =   "Copy"
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":2224
-            Key             =   "New2"
-         EndProperty
-         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":2CF0
-            Key             =   "Delete2"
-         EndProperty
-         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":37BC
-            Key             =   "Modify2"
-         EndProperty
-         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":4288
-            Key             =   "New"
-         EndProperty
-         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":4D54
-            Key             =   "Report"
-         EndProperty
-      EndProperty
-   End
-   Begin MSComctlLib.ImageList imlLarge 
-      Left            =   72
-      Top             =   2520
-      _ExtentX        =   804
-      _ExtentY        =   804
-      BackColor       =   -2147483643
-      ImageWidth      =   32
-      ImageHeight     =   32
-      MaskColor       =   12632256
-      _Version        =   393216
-      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   10
-         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":51A8
-            Key             =   "Report"
-         EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":55FC
-            Key             =   "Modify"
-         EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":5918
-            Key             =   "Find"
-         EndProperty
-         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":5C34
-            Key             =   "New2"
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":6700
-            Key             =   "Copy"
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":73CC
-            Key             =   "List"
-         EndProperty
-         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":7E98
-            Key             =   "Delete2"
-         EndProperty
-         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":8964
-            Key             =   "Modify2"
-         EndProperty
-         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":9430
-            Key             =   "New"
-         EndProperty
-         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmTrains.frx":9EFC
-            Key             =   "Delete"
-         EndProperty
-      EndProperty
-   End
    Begin MSDataListLib.DataCombo dbcCatalog 
       Height          =   288
       Left            =   1530
@@ -278,7 +170,111 @@ Begin VB.Form frmTrains
       MatchEntry      =   -1  'True
       Text            =   "Type"
    End
-   Begin MSComctlLib.Toolbar tbHobby 
+   Begin MSComctlLib.ImageList imlSmall 
+      Left            =   480
+      Top             =   2400
+      _ExtentX        =   804
+      _ExtentY        =   804
+      BackColor       =   -2147483643
+      ImageWidth      =   16
+      ImageHeight     =   16
+      MaskColor       =   12632256
+      _Version        =   393216
+      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+         NumListImages   =   11
+         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":0000
+            Key             =   "Find"
+         EndProperty
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":031C
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":0644
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":096C
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":3120
+            Key             =   "Delete"
+         EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":3574
+            Key             =   "List"
+         EndProperty
+         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":4040
+            Key             =   "Report"
+         EndProperty
+         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":4494
+            Key             =   "Modify"
+         EndProperty
+         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":4F60
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":5288
+            Key             =   "Sort"
+         EndProperty
+         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":56DC
+            Key             =   "Filter"
+         EndProperty
+      EndProperty
+   End
+   Begin MSComctlLib.ImageList imlLarge 
+      Left            =   60
+      Top             =   2400
+      _ExtentX        =   804
+      _ExtentY        =   804
+      BackColor       =   -2147483643
+      ImageWidth      =   32
+      ImageHeight     =   32
+      MaskColor       =   12632256
+      _Version        =   393216
+      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+         NumListImages   =   8
+         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":5B30
+            Key             =   "Report"
+         EndProperty
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":5F84
+            Key             =   "Modify"
+         EndProperty
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":6A50
+            Key             =   "Find"
+         EndProperty
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":6D6C
+            Key             =   "List"
+         EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":7838
+            Key             =   "Delete"
+         EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":7C8C
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":A440
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmTrains.frx":A894
+            Key             =   ""
+         EndProperty
+      EndProperty
+   End
+   Begin MSComctlLib.Toolbar tbAction 
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
@@ -287,52 +283,68 @@ Begin VB.Form frmTrains
       Width           =   7524
       _ExtentX        =   13272
       _ExtentY        =   508
-      ButtonWidth     =   1439
+      ButtonWidth     =   487
       ButtonHeight    =   466
       Appearance      =   1
       Style           =   1
-      TextAlignment   =   1
       ImageList       =   "imlSmall"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   7
+         NumButtons      =   9
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "List"
             Key             =   "List"
             Object.ToolTipText     =   "List all records"
-            ImageKey        =   "List"
+            ImageIndex      =   3
          EndProperty
          BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
+            Key             =   "Refresh"
+            Object.ToolTipText     =   "Refresh data"
+            ImageIndex      =   9
          EndProperty
          BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "New"
-            Key             =   "New"
-            Object.ToolTipText     =   "New record"
-            ImageKey        =   "New"
+            Key             =   "Filter"
+            Object.ToolTipText     =   "Filter"
+            ImageIndex      =   11
          EndProperty
          BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Modify"
-            Key             =   "Modify"
-            Object.ToolTipText     =   "Modify record"
-            ImageKey        =   "Modify"
+            Style           =   3
          EndProperty
          BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Delete"
-            Key             =   "Delete"
-            Object.ToolTipText     =   "Delete record"
-            ImageKey        =   "Delete"
+            Key             =   "New"
+            Object.ToolTipText     =   "New record"
+            ImageIndex      =   4
          EndProperty
          BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   4
+            Key             =   "Modify"
+            Object.ToolTipText     =   "Modify record"
+            ImageIndex      =   8
          EndProperty
          BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Report"
+            Key             =   "Delete"
+            Object.ToolTipText     =   "Delete record"
+            ImageIndex      =   5
+         EndProperty
+         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   4
+         EndProperty
+         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Key             =   "Report"
             Object.ToolTipText     =   "Report"
-            ImageKey        =   "Report"
+            ImageIndex      =   7
+            BeginProperty ButtonMenus {66833FEC-8583-11D1-B16A-00C0F0283628} 
+               NumButtonMenus  =   2
+               BeginProperty ButtonMenu1 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Key             =   "Test"
+                  Text            =   "Test"
+               EndProperty
+               BeginProperty ButtonMenu2 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Key             =   "Test2"
+                  Text            =   "Test2"
+               EndProperty
+            EndProperty
          EndProperty
       EndProperty
+      BorderStyle     =   1
    End
    Begin VB.Label lblType 
       AutoSize        =   -1  'True
@@ -438,6 +450,12 @@ Begin VB.Form frmTrains
       Begin VB.Menu mnuActionList 
          Caption         =   "&List"
       End
+      Begin VB.Menu mnuActionRefresh 
+         Caption         =   "&Refresh"
+      End
+      Begin VB.Menu mnuActionFilter 
+         Caption         =   "&Filter"
+      End
       Begin VB.Menu mnuActionSep1 
          Caption         =   "-"
       End
@@ -504,9 +522,6 @@ Private Sub cmdOK_Click()
             mode = modeDisplay
             adodcHobby.Enabled = True
             
-            SaveBookmark = rsTrains("Reference")
-            rsTrains.Requery
-            rsTrains.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
             rsManufacturers.Requery
             rsCatalogs.Requery
             rsScales.Requery
@@ -639,7 +654,6 @@ Private Sub mnuActionList_Click()
     frmList.Height = frm.Height
     
     Set frmList.rsList = rsTrains
-    Set frmList.mnuList = mnuAction
     Set frmList.dgdList.DataSource = frmList.rsList
     Set frmList.dgdList.Columns("Price").DataFormat = CurrencyFormat
     For Each Col In frmList.dgdList.Columns
@@ -651,6 +665,16 @@ Private Sub mnuActionList_Click()
     frmList.Show vbModal
     adoConn.CommitTrans
     fTransaction = False
+End Sub
+Private Sub mnuActionRefresh_Click()
+    Dim SaveBookmark As String
+    
+    SaveBookmark = rsTrains("Reference")
+    rsTrains.Requery
+    rsTrains.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
+End Sub
+Private Sub mnuActionFilter_Click()
+    Debug.Print "mnuActionFilter_Click()"
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
@@ -717,10 +741,14 @@ ErrorHandler:
     MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
     Resume Next
 End Sub
-Private Sub tbHobby_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
         Case "List"
             mnuActionList_Click
+        Case "Refresh"
+            mnuActionRefresh_Click
+        Case "Filter"
+            mnuActionFilter_Click
         Case "New"
             mnuActionNew_Click
         Case "Modify"

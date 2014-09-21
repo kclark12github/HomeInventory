@@ -19,120 +19,10 @@ Begin VB.Form frmAircraftDesignations
    Begin VB.TextBox txtNumber 
       Height          =   288
       Left            =   1458
-      TabIndex        =   19
+      TabIndex        =   18
       Text            =   "Number"
       Top             =   1596
       Width           =   1872
-   End
-   Begin MSComctlLib.Toolbar tbHobby 
-      Align           =   1  'Align Top
-      Height          =   288
-      Left            =   0
-      TabIndex        =   18
-      Top             =   0
-      Width           =   7524
-      _ExtentX        =   13272
-      _ExtentY        =   508
-      ButtonWidth     =   1439
-      ButtonHeight    =   466
-      Appearance      =   1
-      Style           =   1
-      TextAlignment   =   1
-      ImageList       =   "imlSmall"
-      _Version        =   393216
-      BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   7
-         BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "List"
-            Key             =   "List"
-            Object.ToolTipText     =   "List all records"
-            ImageKey        =   "List"
-         EndProperty
-         BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
-         EndProperty
-         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "New"
-            Key             =   "New"
-            Object.ToolTipText     =   "New record"
-            ImageKey        =   "New"
-         EndProperty
-         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Modify"
-            Key             =   "Modify"
-            Object.ToolTipText     =   "Modify record"
-            ImageKey        =   "Modify"
-         EndProperty
-         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Delete"
-            Key             =   "Delete"
-            Object.ToolTipText     =   "Delete record"
-            ImageKey        =   "Delete"
-         EndProperty
-         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   4
-         EndProperty
-         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Report"
-            Key             =   "Report"
-            Object.ToolTipText     =   "Report"
-            ImageKey        =   "Report"
-         EndProperty
-      EndProperty
-   End
-   Begin MSComctlLib.ImageList imlSmall 
-      Left            =   120
-      Top             =   4380
-      _ExtentX        =   804
-      _ExtentY        =   804
-      BackColor       =   -2147483643
-      ImageWidth      =   16
-      ImageHeight     =   16
-      MaskColor       =   12632256
-      _Version        =   393216
-      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   10
-         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":0000
-            Key             =   "Modify"
-         EndProperty
-         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":031C
-            Key             =   "Find"
-         EndProperty
-         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":0638
-            Key             =   "Delete"
-         EndProperty
-         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":0A8C
-            Key             =   "List"
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":1558
-            Key             =   "Copy"
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":2224
-            Key             =   "New2"
-         EndProperty
-         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":2CF0
-            Key             =   "Delete2"
-         EndProperty
-         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":37BC
-            Key             =   "Modify2"
-         EndProperty
-         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":4288
-            Key             =   "New"
-         EndProperty
-         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":4D54
-            Key             =   "Report"
-         EndProperty
-      EndProperty
    End
    Begin VB.CommandButton cmdCancel 
       Cancel          =   -1  'True
@@ -204,7 +94,7 @@ Begin VB.Form frmAircraftDesignations
       Left            =   1458
       MultiLine       =   -1  'True
       TabIndex        =   5
-      Text            =   "frmAircraftDesignations.frx":51A8
+      Text            =   "frmAircraftDesignations.frx":0000
       Top             =   1956
       Width           =   5832
    End
@@ -264,8 +154,66 @@ Begin VB.Form frmAircraftDesignations
       Top             =   372
       Width           =   5892
    End
+   Begin MSComctlLib.ImageList imlSmall 
+      Left            =   480
+      Top             =   4380
+      _ExtentX        =   804
+      _ExtentY        =   804
+      BackColor       =   -2147483643
+      ImageWidth      =   16
+      ImageHeight     =   16
+      MaskColor       =   12632256
+      _Version        =   393216
+      BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
+         NumListImages   =   11
+         BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmAircraftDesignations.frx":0006
+            Key             =   "Find"
+         EndProperty
+         BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmAircraftDesignations.frx":0322
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmAircraftDesignations.frx":064A
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmAircraftDesignations.frx":0972
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmAircraftDesignations.frx":3126
+            Key             =   "Delete"
+         EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmAircraftDesignations.frx":357A
+            Key             =   "List"
+         EndProperty
+         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmAircraftDesignations.frx":4046
+            Key             =   "Report"
+         EndProperty
+         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmAircraftDesignations.frx":449A
+            Key             =   "Modify"
+         EndProperty
+         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmAircraftDesignations.frx":4F66
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmAircraftDesignations.frx":528E
+            Key             =   "Sort"
+         EndProperty
+         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmAircraftDesignations.frx":56E2
+            Key             =   "Filter"
+         EndProperty
+      EndProperty
+   End
    Begin MSComctlLib.ImageList imlLarge 
-      Left            =   540
+      Left            =   60
       Top             =   4380
       _ExtentX        =   804
       _ExtentY        =   804
@@ -275,55 +223,119 @@ Begin VB.Form frmAircraftDesignations
       MaskColor       =   12632256
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   10
+         NumListImages   =   8
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":51AE
+            Picture         =   "frmAircraftDesignations.frx":5B36
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":5602
+            Picture         =   "frmAircraftDesignations.frx":5F8A
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":591E
+            Picture         =   "frmAircraftDesignations.frx":6A56
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":5C3A
-            Key             =   "New2"
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":6706
-            Key             =   "Copy"
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":73D2
+            Picture         =   "frmAircraftDesignations.frx":6D72
             Key             =   "List"
          EndProperty
-         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":7E9E
-            Key             =   "Delete2"
-         EndProperty
-         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":896A
-            Key             =   "Modify2"
-         EndProperty
-         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":9436
-            Key             =   "New"
-         EndProperty
-         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmAircraftDesignations.frx":9F02
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmAircraftDesignations.frx":783E
             Key             =   "Delete"
          EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmAircraftDesignations.frx":7C92
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmAircraftDesignations.frx":A446
+            Key             =   ""
+         EndProperty
+         BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmAircraftDesignations.frx":A89A
+            Key             =   ""
+         EndProperty
       EndProperty
+   End
+   Begin MSComctlLib.Toolbar tbAction 
+      Align           =   1  'Align Top
+      Height          =   288
+      Left            =   0
+      TabIndex        =   20
+      Top             =   0
+      Width           =   7524
+      _ExtentX        =   13272
+      _ExtentY        =   508
+      ButtonWidth     =   487
+      ButtonHeight    =   466
+      Appearance      =   1
+      Style           =   1
+      ImageList       =   "imlSmall"
+      _Version        =   393216
+      BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
+         NumButtons      =   9
+         BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "List"
+            Object.ToolTipText     =   "List all records"
+            ImageIndex      =   3
+         EndProperty
+         BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Refresh"
+            Object.ToolTipText     =   "Refresh data"
+            ImageIndex      =   9
+         EndProperty
+         BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Filter"
+            Object.ToolTipText     =   "Filter"
+            ImageIndex      =   11
+         EndProperty
+         BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   3
+         EndProperty
+         BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "New"
+            Object.ToolTipText     =   "New record"
+            ImageIndex      =   4
+         EndProperty
+         BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Modify"
+            Object.ToolTipText     =   "Modify record"
+            ImageIndex      =   8
+         EndProperty
+         BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Delete"
+            Object.ToolTipText     =   "Delete record"
+            ImageIndex      =   5
+         EndProperty
+         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   4
+         EndProperty
+         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Key             =   "Report"
+            Object.ToolTipText     =   "Report"
+            ImageIndex      =   7
+            BeginProperty ButtonMenus {66833FEC-8583-11D1-B16A-00C0F0283628} 
+               NumButtonMenus  =   2
+               BeginProperty ButtonMenu1 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Key             =   "Test"
+                  Text            =   "Test"
+               EndProperty
+               BeginProperty ButtonMenu2 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Key             =   "Test2"
+                  Text            =   "Test2"
+               EndProperty
+            EndProperty
+         EndProperty
+      EndProperty
+      BorderStyle     =   1
    End
    Begin VB.Label lblNumber 
       AutoSize        =   -1  'True
       Caption         =   "Number:"
       Height          =   192
       Left            =   780
-      TabIndex        =   20
+      TabIndex        =   19
       Top             =   1644
       Width           =   612
    End
@@ -412,6 +424,12 @@ Begin VB.Form frmAircraftDesignations
       Caption         =   "&Action"
       Begin VB.Menu mnuActionList 
          Caption         =   "&List"
+      End
+      Begin VB.Menu mnuActionRefresh 
+         Caption         =   "&Refresh"
+      End
+      Begin VB.Menu mnuActionFilter 
+         Caption         =   "&Filter"
       End
       Begin VB.Menu mnuActionSep1 
          Caption         =   "-"
@@ -577,7 +595,6 @@ Private Sub mnuActionList_Click()
     frmList.Height = frm.Height
     
     Set frmList.rsList = rsDesignations
-    Set frmList.mnuList = mnuAction
     Set frmList.dgdList.DataSource = frmList.rsList
     'Set frmList.dgdList.Columns("Price").DataFormat = CurrencyFormat
     For Each Col In frmList.dgdList.Columns
@@ -589,6 +606,13 @@ Private Sub mnuActionList_Click()
     frmList.Show vbModal
     adoConn.CommitTrans
     fTransaction = False
+End Sub
+Private Sub mnuActionRefresh_Click()
+    Dim SaveBookmark As String
+    
+End Sub
+Private Sub mnuActionFilter_Click()
+    Debug.Print "mnuActionFilter_Click()"
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
@@ -654,10 +678,14 @@ ErrorHandler:
     MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
     Resume Next
 End Sub
-Private Sub tbHobby_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
         Case "List"
             mnuActionList_Click
+        Case "Refresh"
+            mnuActionRefresh_Click
+        Case "Filter"
+            mnuActionFilter_Click
         Case "New"
             mnuActionNew_Click
         Case "Modify"

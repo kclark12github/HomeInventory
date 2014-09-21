@@ -5,14 +5,14 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmCompanies 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Hobby Companies"
-   ClientHeight    =   4476
+   ClientHeight    =   4428
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4476
+   ScaleHeight     =   4428
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
@@ -162,7 +162,7 @@ Begin VB.Form frmCompanies
    End
    Begin MSComctlLib.ImageList imlSmall 
       Left            =   480
-      Top             =   3900
+      Top             =   3840
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -171,52 +171,56 @@ Begin VB.Form frmCompanies
       MaskColor       =   12632256
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   10
+         NumListImages   =   11
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmCompanies.frx":0008
-            Key             =   "Modify"
+            Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmCompanies.frx":0324
-            Key             =   "Find"
+            Key             =   ""
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":0640
-            Key             =   "Delete"
+            Picture         =   "frmCompanies.frx":064C
+            Key             =   ""
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":0A94
-            Key             =   "List"
+            Picture         =   "frmCompanies.frx":0974
+            Key             =   ""
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":1560
-            Key             =   "Copy"
+            Picture         =   "frmCompanies.frx":3128
+            Key             =   "Delete"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":222C
-            Key             =   "New2"
+            Picture         =   "frmCompanies.frx":357C
+            Key             =   "List"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":2CF8
-            Key             =   "Delete2"
+            Picture         =   "frmCompanies.frx":4048
+            Key             =   "Report"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":37C4
-            Key             =   "Modify2"
+            Picture         =   "frmCompanies.frx":449C
+            Key             =   "Modify"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":4290
-            Key             =   "New"
+            Picture         =   "frmCompanies.frx":4F68
+            Key             =   ""
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":4D5C
-            Key             =   "Report"
+            Picture         =   "frmCompanies.frx":5290
+            Key             =   "Sort"
+         EndProperty
+         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmCompanies.frx":56E4
+            Key             =   "Filter"
          EndProperty
       EndProperty
    End
    Begin MSComctlLib.ImageList imlLarge 
       Left            =   60
-      Top             =   3900
+      Top             =   3840
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -225,111 +229,119 @@ Begin VB.Form frmCompanies
       MaskColor       =   12632256
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   10
+         NumListImages   =   8
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":51B0
+            Picture         =   "frmCompanies.frx":5B38
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":5604
+            Picture         =   "frmCompanies.frx":5F8C
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":5920
+            Picture         =   "frmCompanies.frx":6A58
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":5C3C
-            Key             =   "New2"
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":6708
-            Key             =   "Copy"
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":73D4
+            Picture         =   "frmCompanies.frx":6D74
             Key             =   "List"
          EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmCompanies.frx":7840
+            Key             =   "Delete"
+         EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmCompanies.frx":7C94
+            Key             =   ""
+         EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":7EA0
-            Key             =   "Delete2"
+            Picture         =   "frmCompanies.frx":A448
+            Key             =   ""
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":896C
-            Key             =   "Modify2"
-         EndProperty
-         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":9438
-            Key             =   "New"
-         EndProperty
-         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmCompanies.frx":9F04
-            Key             =   "Delete"
+            Picture         =   "frmCompanies.frx":A89C
+            Key             =   ""
          EndProperty
       EndProperty
    End
-   Begin MSComctlLib.Toolbar tbCompanies 
+   Begin MSComctlLib.Toolbar tbAction 
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
-      TabIndex        =   19
+      TabIndex        =   20
       Top             =   0
       Width           =   7524
       _ExtentX        =   13272
       _ExtentY        =   508
-      ButtonWidth     =   1439
+      ButtonWidth     =   487
       ButtonHeight    =   466
       Appearance      =   1
       Style           =   1
-      TextAlignment   =   1
       ImageList       =   "imlSmall"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   7
+         NumButtons      =   9
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "List"
             Key             =   "List"
             Object.ToolTipText     =   "List all records"
-            ImageKey        =   "List"
+            ImageIndex      =   3
          EndProperty
          BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
+            Key             =   "Refresh"
+            Object.ToolTipText     =   "Refresh data"
+            ImageIndex      =   9
          EndProperty
          BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "New"
-            Key             =   "New"
-            Object.ToolTipText     =   "New record"
-            ImageKey        =   "New"
+            Key             =   "Filter"
+            Object.ToolTipText     =   "Filter"
+            ImageIndex      =   11
          EndProperty
          BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Modify"
-            Key             =   "Modify"
-            Object.ToolTipText     =   "Modify record"
-            ImageKey        =   "Modify"
+            Style           =   3
          EndProperty
          BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Delete"
-            Key             =   "Delete"
-            Object.ToolTipText     =   "Delete record"
-            ImageKey        =   "Delete"
+            Key             =   "New"
+            Object.ToolTipText     =   "New record"
+            ImageIndex      =   4
          EndProperty
          BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   4
+            Key             =   "Modify"
+            Object.ToolTipText     =   "Modify record"
+            ImageIndex      =   8
          EndProperty
          BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Report"
+            Key             =   "Delete"
+            Object.ToolTipText     =   "Delete record"
+            ImageIndex      =   5
+         EndProperty
+         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   4
+         EndProperty
+         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Key             =   "Report"
             Object.ToolTipText     =   "Report"
-            ImageKey        =   "Report"
+            ImageIndex      =   7
+            BeginProperty ButtonMenus {66833FEC-8583-11D1-B16A-00C0F0283628} 
+               NumButtonMenus  =   2
+               BeginProperty ButtonMenu1 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Key             =   "Test"
+                  Text            =   "Test"
+               EndProperty
+               BeginProperty ButtonMenu2 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Key             =   "Test2"
+                  Text            =   "Test2"
+               EndProperty
+            EndProperty
          EndProperty
       EndProperty
+      BorderStyle     =   1
    End
    Begin VB.Label lblWebSite 
       AutoSize        =   -1  'True
       Caption         =   "Web Site:"
       Height          =   192
       Left            =   360
-      TabIndex        =   20
+      TabIndex        =   19
       Top             =   2988
       Width           =   696
    End
@@ -428,6 +440,12 @@ Begin VB.Form frmCompanies
       Begin VB.Menu mnuActionList 
          Caption         =   "&List"
       End
+      Begin VB.Menu mnuActionRefresh 
+         Caption         =   "&Refresh"
+      End
+      Begin VB.Menu mnuActionFilter 
+         Caption         =   "&Filter"
+      End
       Begin VB.Menu mnuActionSep1 
          Caption         =   "-"
       End
@@ -490,9 +508,6 @@ Private Sub cmdOK_Click()
             mode = modeDisplay
             adodcCompanies.Enabled = True
             
-            SaveBookmark = rsCompanies("Code")
-            rsCompanies.Requery
-            rsCompanies.Find "Code='" & SQLQuote(SaveBookmark) & "'"
             rsProductTypes.Requery
     End Select
 End Sub
@@ -577,7 +592,6 @@ Private Sub mnuActionList_Click()
     frmList.Height = frm.Height
     
     Set frmList.rsList = rsCompanies
-    Set frmList.mnuList = mnuAction
     Set frmList.dgdList.DataSource = frmList.rsList
     For Each Col In frmList.dgdList.Columns
         Col.Alignment = dbgGeneral
@@ -588,6 +602,16 @@ Private Sub mnuActionList_Click()
     frmList.Show vbModal
     adoConn.CommitTrans
     fTransaction = False
+End Sub
+Private Sub mnuActionRefresh_Click()
+    Dim SaveBookmark As String
+    
+    SaveBookmark = rsCompanies("Code")
+    rsCompanies.Requery
+    rsCompanies.Find "Code='" & SQLQuote(SaveBookmark) & "'"
+End Sub
+Private Sub mnuActionFilter_Click()
+    Debug.Print "mnuActionFilter_Click()"
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
@@ -653,10 +677,14 @@ ErrorHandler:
     MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
     Resume Next
 End Sub
-Private Sub tbCompanies_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
         Case "List"
             mnuActionList_Click
+        Case "Refresh"
+            mnuActionRefresh_Click
+        Case "Filter"
+            mnuActionFilter_Click
         Case "New"
             mnuActionNew_Click
         Case "Modify"

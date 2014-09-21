@@ -11,13 +11,13 @@ Begin VB.Form frmGrid
    ScaleWidth      =   7884
    StartUpPosition =   3  'Windows Default
    Begin MSHierarchicalFlexGridLib.MSHFlexGrid MSHFlexGrid1 
-      Height          =   612
-      Left            =   3360
+      Height          =   2112
+      Left            =   1980
       TabIndex        =   0
-      Top             =   2220
-      Width           =   1212
-      _ExtentX        =   2138
-      _ExtentY        =   1080
+      Top             =   720
+      Width           =   2592
+      _ExtentX        =   4572
+      _ExtentY        =   3725
       _Version        =   393216
       _NumberOfBands  =   1
       _Band(0).Cols   =   2

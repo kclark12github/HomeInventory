@@ -4,14 +4,14 @@ Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
 Begin VB.Form frmBlueAngelsHistory 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Blue Angels History"
-   ClientHeight    =   3276
+   ClientHeight    =   3288
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3276
+   ScaleHeight     =   3288
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
@@ -115,8 +115,8 @@ Begin VB.Form frmBlueAngelsHistory
       Width           =   5892
    End
    Begin MSComctlLib.ImageList imlSmall 
-      Left            =   486
-      Top             =   2820
+      Left            =   480
+      Top             =   2760
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -125,52 +125,56 @@ Begin VB.Form frmBlueAngelsHistory
       MaskColor       =   12632256
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   10
+         NumListImages   =   11
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmBlueAngelsHistory.frx":0010
-            Key             =   "Modify"
+            Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
             Picture         =   "frmBlueAngelsHistory.frx":032C
-            Key             =   "Find"
+            Key             =   ""
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":0648
-            Key             =   "Delete"
+            Picture         =   "frmBlueAngelsHistory.frx":0654
+            Key             =   ""
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":0A9C
-            Key             =   "List"
+            Picture         =   "frmBlueAngelsHistory.frx":097C
+            Key             =   ""
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":1568
-            Key             =   "Copy"
+            Picture         =   "frmBlueAngelsHistory.frx":3130
+            Key             =   "Delete"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":2234
-            Key             =   "New2"
+            Picture         =   "frmBlueAngelsHistory.frx":3584
+            Key             =   "List"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":2D00
-            Key             =   "Delete2"
+            Picture         =   "frmBlueAngelsHistory.frx":4050
+            Key             =   "Report"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":37CC
-            Key             =   "Modify2"
+            Picture         =   "frmBlueAngelsHistory.frx":44A4
+            Key             =   "Modify"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":4298
-            Key             =   "New"
+            Picture         =   "frmBlueAngelsHistory.frx":4F70
+            Key             =   ""
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":4D64
-            Key             =   "Report"
+            Picture         =   "frmBlueAngelsHistory.frx":5298
+            Key             =   "Sort"
+         EndProperty
+         BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmBlueAngelsHistory.frx":56EC
+            Key             =   "Filter"
          EndProperty
       EndProperty
    End
    Begin MSComctlLib.ImageList imlLarge 
-      Left            =   66
-      Top             =   2820
+      Left            =   60
+      Top             =   2760
       _ExtentX        =   804
       _ExtentY        =   804
       BackColor       =   -2147483643
@@ -179,50 +183,42 @@ Begin VB.Form frmBlueAngelsHistory
       MaskColor       =   12632256
       _Version        =   393216
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
-         NumListImages   =   10
+         NumListImages   =   8
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":51B8
+            Picture         =   "frmBlueAngelsHistory.frx":5B40
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":560C
+            Picture         =   "frmBlueAngelsHistory.frx":5F94
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":5928
+            Picture         =   "frmBlueAngelsHistory.frx":6A60
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":5C44
-            Key             =   "New2"
-         EndProperty
-         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":6710
-            Key             =   "Copy"
-         EndProperty
-         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":73DC
+            Picture         =   "frmBlueAngelsHistory.frx":6D7C
             Key             =   "List"
          EndProperty
+         BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmBlueAngelsHistory.frx":7848
+            Key             =   "Delete"
+         EndProperty
+         BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
+            Picture         =   "frmBlueAngelsHistory.frx":7C9C
+            Key             =   ""
+         EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":7EA8
-            Key             =   "Delete2"
+            Picture         =   "frmBlueAngelsHistory.frx":A450
+            Key             =   ""
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":8974
-            Key             =   "Modify2"
-         EndProperty
-         BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":9440
-            Key             =   "New"
-         EndProperty
-         BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmBlueAngelsHistory.frx":9F0C
-            Key             =   "Delete"
+            Picture         =   "frmBlueAngelsHistory.frx":A8A4
+            Key             =   ""
          EndProperty
       EndProperty
    End
-   Begin MSComctlLib.Toolbar tbHobby 
+   Begin MSComctlLib.Toolbar tbAction 
       Align           =   1  'Align Top
       Height          =   288
       Left            =   0
@@ -231,52 +227,68 @@ Begin VB.Form frmBlueAngelsHistory
       Width           =   7524
       _ExtentX        =   13272
       _ExtentY        =   508
-      ButtonWidth     =   1439
+      ButtonWidth     =   487
       ButtonHeight    =   466
       Appearance      =   1
       Style           =   1
-      TextAlignment   =   1
       ImageList       =   "imlSmall"
       _Version        =   393216
       BeginProperty Buttons {66833FE8-8583-11D1-B16A-00C0F0283628} 
-         NumButtons      =   7
+         NumButtons      =   9
          BeginProperty Button1 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "List"
             Key             =   "List"
             Object.ToolTipText     =   "List all records"
-            ImageKey        =   "List"
+            ImageIndex      =   3
          EndProperty
          BeginProperty Button2 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   3
+            Key             =   "Refresh"
+            Object.ToolTipText     =   "Refresh data"
+            ImageIndex      =   9
          EndProperty
          BeginProperty Button3 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "New"
-            Key             =   "New"
-            Object.ToolTipText     =   "New record"
-            ImageKey        =   "New"
+            Key             =   "Filter"
+            Object.ToolTipText     =   "Filter"
+            ImageIndex      =   11
          EndProperty
          BeginProperty Button4 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Modify"
-            Key             =   "Modify"
-            Object.ToolTipText     =   "Modify record"
-            ImageKey        =   "Modify"
+            Style           =   3
          EndProperty
          BeginProperty Button5 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Delete"
-            Key             =   "Delete"
-            Object.ToolTipText     =   "Delete record"
-            ImageKey        =   "Delete"
+            Key             =   "New"
+            Object.ToolTipText     =   "New record"
+            ImageIndex      =   4
          EndProperty
          BeginProperty Button6 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Style           =   4
+            Key             =   "Modify"
+            Object.ToolTipText     =   "Modify record"
+            ImageIndex      =   8
          EndProperty
          BeginProperty Button7 {66833FEA-8583-11D1-B16A-00C0F0283628} 
-            Caption         =   "Report"
+            Key             =   "Delete"
+            Object.ToolTipText     =   "Delete record"
+            ImageIndex      =   5
+         EndProperty
+         BeginProperty Button8 {66833FEA-8583-11D1-B16A-00C0F0283628} 
+            Style           =   4
+         EndProperty
+         BeginProperty Button9 {66833FEA-8583-11D1-B16A-00C0F0283628} 
             Key             =   "Report"
             Object.ToolTipText     =   "Report"
-            ImageKey        =   "Report"
+            ImageIndex      =   7
+            BeginProperty ButtonMenus {66833FEC-8583-11D1-B16A-00C0F0283628} 
+               NumButtonMenus  =   2
+               BeginProperty ButtonMenu1 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Key             =   "Test"
+                  Text            =   "Test"
+               EndProperty
+               BeginProperty ButtonMenu2 {66833FEE-8583-11D1-B16A-00C0F0283628} 
+                  Key             =   "Test2"
+                  Text            =   "Test2"
+               EndProperty
+            EndProperty
          EndProperty
       EndProperty
+      BorderStyle     =   1
    End
    Begin VB.Label lblDecalSets 
       AutoSize        =   -1  'True
@@ -337,6 +349,12 @@ Begin VB.Form frmBlueAngelsHistory
       Begin VB.Menu mnuActionList 
          Caption         =   "&List"
       End
+      Begin VB.Menu mnuActionRefresh 
+         Caption         =   "&Refresh"
+      End
+      Begin VB.Menu mnuActionFilter 
+         Caption         =   "&Filter"
+      End
       Begin VB.Menu mnuActionSep1 
          Caption         =   "-"
       End
@@ -396,10 +414,6 @@ Private Sub cmdOK_Click()
             frmMain.ProtectFields Me
             mode = modeDisplay
             adodcHobby.Enabled = True
-            
-            SaveBookmark = rsBlueAngelsHistory("Aircraft Type")
-            rsBlueAngelsHistory.Requery
-            rsBlueAngelsHistory.Find "Aircraft Type='" & SQLQuote(SaveBookmark) & "'"
     End Select
 End Sub
 Private Sub Form_Load()
@@ -468,7 +482,6 @@ Private Sub mnuActionList_Click()
     frmList.Height = frm.Height
     
     Set frmList.rsList = rsBlueAngelsHistory
-    Set frmList.mnuList = mnuAction
     Set frmList.dgdList.DataSource = frmList.rsList
     For Each Col In frmList.dgdList.Columns
         Col.Alignment = dbgGeneral
@@ -479,6 +492,16 @@ Private Sub mnuActionList_Click()
     frmList.Show vbModal
     adoConn.CommitTrans
     fTransaction = False
+End Sub
+Private Sub mnuActionRefresh_Click()
+    Dim SaveBookmark As String
+    
+    SaveBookmark = rsBlueAngelsHistory("Aircraft Type")
+    rsBlueAngelsHistory.Requery
+    rsBlueAngelsHistory.Find "Aircraft Type='" & SQLQuote(SaveBookmark) & "'"
+End Sub
+Private Sub mnuActionFilter_Click()
+    Debug.Print "mnuActionFilter_Click()"
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
@@ -544,10 +567,14 @@ ErrorHandler:
     MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
     Resume Next
 End Sub
-Private Sub tbHobby_ButtonClick(ByVal Button As MSComctlLib.Button)
+Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
         Case "List"
             mnuActionList_Click
+        Case "Refresh"
+            mnuActionRefresh_Click
+        Case "Filter"
+            mnuActionFilter_Click
         Case "New"
             mnuActionNew_Click
         Case "Modify"
