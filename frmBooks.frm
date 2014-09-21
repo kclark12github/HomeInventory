@@ -49,7 +49,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:21 AM"
+            TextSave        =   "8:01 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -731,7 +731,7 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
-    If rsBooks.Filter <> vbNullString Then
+    If rsBooks.Filter <> vbNullString And rsBooks.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsBooks.Filter
     End If
     adoConn.CommitTrans
@@ -761,7 +761,7 @@ Private Sub mnuActionFilter_Click()
     
     Set frmFilter.RS = rsBooks
     frmFilter.Show vbModal
-    If rsBooks.Filter <> vbNullString Then
+    If rsBooks.Filter <> vbNullString And rsBooks.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsBooks.Filter
     End If
 End Sub
@@ -842,7 +842,9 @@ Private Sub rsBooks_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal 
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        sbStatus.Panels("Position").Text = "Record " & rsBooks.Bookmark & " of " & rsBooks.RecordCount
+        If rsBooks.Filter <> vbNullString And rsBooks.Filter <> 0 Then
+            sbStatus.Panels("Message").Text = "Filter: " & rsBooks.Filter
+        End If
     End If
     
     adodcBooks.Caption = Caption

@@ -2,7 +2,7 @@ VERSION 5.00
 Object = "{F0D2F211-CCB0-11D0-A316-00AA00688B10}#1.0#0"; "MSDATLST.OCX"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{67397AA1-7FB1-11D0-B148-00A0C922E820}#6.0#0"; "MSADODC.OCX"
-Begin VB.Form frmPaintsBrushes 
+Begin VB.Form frmFinishingProducts 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Finishing Products"
    ClientHeight    =   3456
@@ -49,7 +49,7 @@ Begin VB.Form frmPaintsBrushes
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "6:12 PM"
+            TextSave        =   "7:58 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -217,47 +217,47 @@ Begin VB.Form frmPaintsBrushes
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   11
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":0000
+            Picture         =   "frmFinishingProducts.frx":0000
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":031C
+            Picture         =   "frmFinishingProducts.frx":031C
             Key             =   ""
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":0644
+            Picture         =   "frmFinishingProducts.frx":0644
             Key             =   ""
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":096C
+            Picture         =   "frmFinishingProducts.frx":096C
             Key             =   ""
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":3120
+            Picture         =   "frmFinishingProducts.frx":3120
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":3574
+            Picture         =   "frmFinishingProducts.frx":3574
             Key             =   "List"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":4040
+            Picture         =   "frmFinishingProducts.frx":4040
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":4494
+            Picture         =   "frmFinishingProducts.frx":4494
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":4F60
+            Picture         =   "frmFinishingProducts.frx":4F60
             Key             =   ""
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":5288
+            Picture         =   "frmFinishingProducts.frx":5288
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":56DC
+            Picture         =   "frmFinishingProducts.frx":56DC
             Key             =   "Filter"
          EndProperty
       EndProperty
@@ -275,35 +275,35 @@ Begin VB.Form frmPaintsBrushes
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   8
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":5B30
+            Picture         =   "frmFinishingProducts.frx":5B30
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":5F84
+            Picture         =   "frmFinishingProducts.frx":5F84
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":6A50
+            Picture         =   "frmFinishingProducts.frx":6A50
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":6D6C
+            Picture         =   "frmFinishingProducts.frx":6D6C
             Key             =   "List"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":7838
+            Picture         =   "frmFinishingProducts.frx":7838
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":7C8C
+            Picture         =   "frmFinishingProducts.frx":7C8C
             Key             =   ""
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":A440
+            Picture         =   "frmFinishingProducts.frx":A440
             Key             =   ""
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmPaintsBrushes.frx":A894
+            Picture         =   "frmFinishingProducts.frx":A894
             Key             =   ""
          EndProperty
       EndProperty
@@ -510,7 +510,7 @@ Begin VB.Form frmPaintsBrushes
       End
    End
 End
-Attribute VB_Name = "frmPaintsBrushes"
+Attribute VB_Name = "frmFinishingProducts"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
@@ -683,7 +683,7 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
-    If rsFinishingProducts.Filter <> vbNullString Then
+    If rsFinishingProducts.Filter <> vbNullString And rsFinishingProducts.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsFinishingProducts.Filter
     End If
     adoConn.CommitTrans
@@ -713,7 +713,7 @@ Private Sub mnuActionFilter_Click()
     
     Set frmFilter.RS = rsFinishingProducts
     frmFilter.Show vbModal
-    If rsFinishingProducts.Filter <> vbNullString Then
+    If rsFinishingProducts.Filter <> vbNullString And rsFinishingProducts.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsFinishingProducts.Filter
     End If
 End Sub
@@ -792,7 +792,9 @@ Private Sub rsFinishingProducts_MoveComplete(ByVal adReason As ADODB.EventReason
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        sbStatus.Panels("Message").Text = "Filter: " & rsFinishingProducts.Filter
+        If rsFinishingProducts.Filter <> vbNullString And rsFinishingProducts.Filter <> 0 Then
+            sbStatus.Panels("Message").Text = "Filter: " & rsFinishingProducts.Filter
+        End If
     End If
     
     adodcHobby.Caption = Caption

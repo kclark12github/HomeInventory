@@ -49,7 +49,7 @@ Begin VB.Form frmMusic
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:21 AM"
+            TextSave        =   "8:03 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -741,7 +741,7 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
-    If rsMusic.Filter <> vbNullString Then
+    If rsMusic.Filter <> vbNullString And rsMusic.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsMusic.Filter
     End If
     adoConn.CommitTrans
@@ -771,7 +771,7 @@ Private Sub mnuActionFilter_Click()
     
     Set frmFilter.RS = rsMusic
     frmFilter.Show vbModal
-    If rsMusic.Filter <> vbNullString Then
+    If rsMusic.Filter <> vbNullString And rsMusic.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsMusic.Filter
     End If
 End Sub
@@ -855,7 +855,9 @@ Private Sub rsMusic_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal 
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        sbStatus.Panels("Position").Text = "Record " & rsMusic.Bookmark & " of " & rsMusic.RecordCount
+        If rsMusic.Filter <> vbNullString And rsMusic.Filter <> 0 Then
+            sbStatus.Panels("Message").Text = "Filter: " & rsMusic.Filter
+        End If
     End If
     
     adodcMusic.Caption = Caption

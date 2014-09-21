@@ -49,7 +49,7 @@ Begin VB.Form frmTrains
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:51 PM"
+            TextSave        =   "8:05 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -702,7 +702,7 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
-    If rsTrains.Filter <> vbNullString Then
+    If rsTrains.Filter <> vbNullString And rsTrains.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsTrains.Filter
     End If
     adoConn.CommitTrans
@@ -732,7 +732,7 @@ Private Sub mnuActionFilter_Click()
     
     Set frmFilter.RS = rsTrains
     frmFilter.Show vbModal
-    If rsTrains.Filter <> vbNullString Then
+    If rsTrains.Filter <> vbNullString And rsTrains.Filter <> 0 Then
         sbStatus.Panels("Message").Text = "Filter: " & rsTrains.Filter
     End If
 End Sub
@@ -811,7 +811,9 @@ Private Sub rsTrains_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        sbStatus.Panels("Message").Text = "Filter: " & rsTrains.Filter
+        If rsTrains.Filter <> vbNullString And rsTrains.Filter <> 0 Then
+            sbStatus.Panels("Message").Text = "Filter: " & rsTrains.Filter
+        End If
     End If
     
     adodcHobby.Caption = Caption
