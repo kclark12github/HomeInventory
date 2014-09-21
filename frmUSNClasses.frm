@@ -127,6 +127,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmUSNClasses.frx":0000
       End
@@ -139,6 +140,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":00E1
       End
@@ -151,6 +153,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":01BC
       End
@@ -163,6 +166,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0295
       End
@@ -175,6 +179,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":036F
       End
@@ -187,6 +192,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":044E
       End
@@ -199,6 +205,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":052A
       End
@@ -299,6 +306,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          ScrollBars      =   2
          TextRTF         =   $"frmUSNClasses.frx":0606
       End
@@ -311,6 +319,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":06E3
       End
@@ -323,6 +332,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":07C0
       End
@@ -335,6 +345,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0899
       End
@@ -347,6 +358,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0979
       End
@@ -359,6 +371,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0A54
       End
@@ -371,6 +384,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   10710
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0B2F
       End
@@ -383,6 +397,7 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   9864
          _ExtentY        =   550
          _Version        =   393217
+         Enabled         =   -1  'True
          MultiLine       =   0   'False
          TextRTF         =   $"frmUSNClasses.frx":0C10
       End
@@ -483,7 +498,6 @@ Begin VB.Form frmUSNClasses
          _ExtentX        =   12933
          _ExtentY        =   5101
          _Version        =   393217
-         Enabled         =   -1  'True
          TextRTF         =   $"frmUSNClasses.frx":0CE7
       End
    End
@@ -572,7 +586,7 @@ Begin VB.Form frmUSNClasses
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "2:09 PM"
+            TextSave        =   "9:13 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -885,310 +899,82 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Dim adoConn As ADODB.Connection
 Dim WithEvents rsMain As ADODB.Recordset
 Attribute rsMain.VB_VarHelpID = -1
 Dim rsClassifications As New ADODB.Recordset
-Dim mode As ActionMode
-Dim fTransaction As Boolean
-Dim DBinfo As DataBaseInfo
-Private Sub BindFields()
-    'General
-    frmMain.BindField txtName, "Name", rsMain
-    frmMain.BindField dbcClassification, "Classification", rsMain, rsClassifications, "Type", "Type"
-    frmMain.BindField txtClassDesc, "Description", rsClassifications
-    frmMain.BindField txtYear, "Year", rsMain
-    
-    'Characteristics...
-    frmMain.BindField rtxtDisplacement, "Displacement", rsMain
-    frmMain.BindField rtxtLength, "Length", rsMain
-    frmMain.BindField rtxtBeam, "Beam", rsMain
-    frmMain.BindField rtxtDraft, "Draft", rsMain
-    frmMain.BindField rtxtPropulsion, "Propulsion", rsMain
-    frmMain.BindField rtxtBoilers, "Boilers", rsMain
-    frmMain.BindField txtSpeed, "Speed", rsMain
-    frmMain.BindField rtxtManning, "Manning", rsMain
-    
-    'Weapons...
-    frmMain.BindField rtxtAircraft, "Aircraft", rsMain
-    frmMain.BindField rtxtMissiles, "Missiles", rsMain
-    frmMain.BindField rtxtGuns, "Guns", rsMain
-    frmMain.BindField rtxtASW, "ASW Weapons", rsMain
-    frmMain.BindField rtxtRadars, "Radars", rsMain
-    frmMain.BindField rtxtSonars, "Sonars", rsMain
-    frmMain.BindField rtxtFireControl, "Fire Control", rsMain
-    frmMain.BindField rtxtEW, "EW", rsMain
-    
-    'Description...
-    frmMain.BindField rtxtDescription, "Description", rsMain
-End Sub
 Private Sub cmdCancel_Click()
-    Select Case mode
-        Case modeDisplay
-            Unload Me
-        Case modeAdd, modeModify
-            rsMain.CancelUpdate
-            If mode = modeAdd And Not rsMain.EOF Then rsMain.MoveLast
-            adoConn.RollbackTrans
-            fTransaction = False
-            frmMain.ProtectFields Me
-            mode = modeDisplay
-            adodcMain.Enabled = True
-    End Select
+    CancelCommand Me, rsMain
 End Sub
 Private Sub cmdOK_Click()
-    Select Case mode
-        Case modeDisplay
-            Unload Me
-        Case modeAdd, modeModify
-            'Why we need to do this is buggy...
-            rsMain("ClassificationID") = dbcClassification.BoundText
-            rsMain.UpdateBatch
-            adoConn.CommitTrans
-            fTransaction = False
-            frmMain.ProtectFields Me
-            mode = modeDisplay
-            adodcMain.Enabled = True
-            
-            mnuActionRefresh_Click
-    End Select
-End Sub
-Private Sub dbcClassification_Validate(Cancel As Boolean)
-    If Not dbcClassification.Enabled Then Exit Sub
-    If dbcClassification.Text = vbNullString And txtClassDesc.Text <> "Unused" And txtClassDesc.Text <> "Unassigned" Then
-        MsgBox "Classification must be specified!", vbExclamation, Me.Caption
-        dbcClassification.SetFocus
-        Cancel = True
-    End If
-    If rsClassifications.Bookmark <> dbcClassification.SelectedItem Then rsClassifications.Bookmark = dbcClassification.SelectedItem
-End Sub
-Private Sub DefaultClassificationDesc()
-    If rsClassifications Is Nothing Then Exit Sub
-    If rsClassifications.State = adStateClosed Then Exit Sub
-    If rsMain.BOF Or rsMain.EOF Then Exit Sub
-    
-    rsClassifications.MoveFirst
-    rsClassifications.Find "ID=" & rsMain("ClassificationID").Value
+    OKCommand Me, rsMain
 End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
-    Set rsMain = New ADODB.Recordset
-    Set DBinfo = frmMain.DBcollection("US Navy Ships")
-    With DBinfo
-        adoConn.Provider = .Provider
-        adoConn.CommandTimeout = 60
-        adoConn.ConnectionTimeout = 60
-        adoConn.Open .PathName, .UserName, .Password
-    End With
-    rsClassifications.CursorLocation = adUseClient
-    rsClassifications.Open "select * from [Classification] order by Type", adoConn, adOpenStatic, adLockReadOnly
+    adoConn.Open "FileDSN=" & gstrFileDSN
     
+    Set rsMain = New ADODB.Recordset
     rsMain.CursorLocation = adUseClient
-    rsMain.Open "select * from [Class] order by Classification, Year", adoConn, adOpenKeyset, adLockBatchOptimistic
+    SQLmain = "select * from [Class] order by Classification, Year"
+    SQLfilter = vbNullString
+    SQLkey = "Reference"
+    rsMain.Open SQLmain, adoConn, adOpenKeyset, adLockBatchOptimistic
+    DBcollection.Add "rsMain", rsMain
     rsMain.MoveFirst
     
-    Set adodcMain.Recordset = rsMain
-    frmMain.BindField lblID, "ID", rsMain
+    rsClassifications.CursorLocation = adUseClient
+    rsClassifications.Open "select * from [Classification] order by Type", adoConn, adOpenStatic, adLockReadOnly
+    DBcollection.Add "rsClassifications", rsClassifications
     
+    Set adodcMain.Recordset = rsMain
+    BindField lblID, "ID", rsMain
     BindFields
     
     Set tsClasses.SelectedItem = tsClasses.Tabs(1)
-    frmMain.ProtectFields Me
+    ProtectFields Me
     mode = modeDisplay
     fTransaction = False
-    
-    'Fixit Program Section...
-    'rsMain.MoveFirst
-    'While Not rsMain.EOF
-    '    rsMain("Classification").Value = dbcClassification.Text
-    '    rsMain.UpdateBatch
-    '    rsMain.MoveNext
-    'Wend
-    'rsMain.MoveFirst
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
-    If fTransaction Then
-        MsgBox "Please complete the current operation before closing the window.", vbExclamation, Me.Caption
-        Cancel = 1
-        Exit Sub
-    End If
-    CloseRecordset rsMain, True
-    CloseRecordset rsClassifications, True
-    
-    On Error Resume Next
-    adoConn.Close
-    If Err.Number = 3246 Then
-        adoConn.RollbackTrans
-        fTransaction = False
-        adoConn.Close
-    End If
-    Set adoConn = Nothing
-End Sub
-Private Sub mnuActionList_Click()
-    Dim frm As Form
-    
-    Me.MousePointer = vbHourglass
-    Load frmList
-    frmList.Caption = Me.Caption & " List"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmList.Top = frm.Top
-    frmList.Left = frm.Left
-    frmList.Width = frm.Width
-    frmList.Height = frm.Height
-    
-    Set frmList.rsList = rsMain
-    
-    adoConn.BeginTrans
-    fTransaction = True
-    Me.MousePointer = vbDefault
-    frmList.Show vbModal
-    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-    End If
-    adoConn.CommitTrans
-    fTransaction = False
-End Sub
-Private Sub mnuActionRefresh_Click()
-    Dim SaveBookmark As String
-    
-    On Error Resume Next
-    SaveBookmark = rsMain("Reference")
-    rsMain.Requery
-    rsMain.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
-    rsClassifications.Requery
+    Cancel = CloseConnection(Me)
 End Sub
 Private Sub mnuActionFilter_Click()
-    Dim frm As Form
+    FilterCommand Me, rsMain, SQLkey
+End Sub
+Private Sub mnuActionDelete_Click()
+    DeleteCommand Me, rsMain
+End Sub
+Private Sub mnuActionList_Click()
+    ListCommand Me, rsMain
+End Sub
+Private Sub mnuActionModify_Click()
+    ModifyCommand Me
     
-    Me.MousePointer = vbHourglass
-    Load frmFilter
-    frmFilter.Caption = Me.Caption & " Filter"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmFilter.Top = frm.Top
-    frmFilter.Left = frm.Left
-    frmFilter.Width = frm.Width
-    frmFilter.Height = frm.Height
-    
-    Set frmFilter.RS = rsMain
-    Me.MousePointer = vbDefault
-    frmFilter.Show vbModal
-    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-    End If
+    Set tsClasses.SelectedItem = tsClasses.Tabs(1)
 End Sub
 Private Sub mnuActionNew_Click()
-    mode = modeAdd
-    frmMain.OpenFields Me
-    txtClassDesc.Locked = True
-    txtClassDesc.BackColor = vbButtonFace
-    adodcMain.Enabled = False
-    rsMain.AddNew
-    adoConn.BeginTrans
-    fTransaction = True
+    NewCommand Me, rsMain
     
     txtYear.Text = Format(Now(), "0000")
     Set tsClasses.SelectedItem = tsClasses.Tabs(1)
-    txtName.SetFocus
 End Sub
-Private Sub mnuActionDelete_Click()
-    mode = modeDelete
-    If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsMain.Delete
-        rsMain.MoveNext
-        If rsMain.EOF Then rsMain.MoveLast
-    End If
-    mode = modeDisplay
-End Sub
-Private Sub mnuActionModify_Click()
-    mode = modeModify
-    frmMain.OpenFields Me
-    txtClassDesc.Locked = True
-    txtClassDesc.BackColor = vbButtonFace
-    adodcMain.Enabled = False
-    adoConn.BeginTrans
-    fTransaction = True
-    
-    Set tsClasses.SelectedItem = tsClasses.Tabs(1)
-    txtName.SetFocus
+Private Sub mnuActionRefresh_Click()
+    RefreshCommand SQLkey
 End Sub
 Private Sub mnuActionReport_Click()
-    Dim frm As Form
-    Dim scrApplication As New CRAXDRT.Application
-    Dim Report As New CRAXDRT.Report
-    Dim vRS As ADODB.Recordset
-    
-    Me.MousePointer = vbHourglass
-    MakeVirtualRecordset adoConn, rsMain, vRS
-    
-    Load frmViewReport
-    frmViewReport.Caption = Me.Caption & " Report"
-    If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
-        Set frm = frmMain
-    Else
-        Set frm = Me
-    End If
-    frmViewReport.Top = frm.Top
-    frmViewReport.Left = frm.Left
-    frmViewReport.Width = frm.Width
-    frmViewReport.Height = frm.Height
-    frmViewReport.WindowState = vbMaximized
-    
-    Set Report = scrApplication.OpenReport(App.Path & "\Reports\USN Ship Classes.rpt", crOpenReportByTempCopy)
-    Report.Database.SetDataSource vRS, 3, 1
-    Me.MousePointer = vbDefault
-    Report.ReadRecords
-    
-    frmViewReport.scrViewer.ReportSource = Report
-    frmViewReport.Show vbModal
-    
-    Set scrApplication = Nothing
-    Set Report = Nothing
-    vRS.Close
-    Set vRS = Nothing
+    ReportCommand Me, rsMain, App.Path & "\Reports\USN Ship Classes.rpt"
 End Sub
 Private Sub mnuActionSQL_Click()
-    Load frmSQL
-    Set frmSQL.cnSQL = adoConn
-    frmSQL.txtDatabase.Text = DBinfo.PathName
-    frmSQL.dbcTables.BoundText = "Class"
-    frmSQL.Show vbModal
+    SQLCommand "Class"
 End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
-    Dim i As Integer
     
-    On Error GoTo ErrorHandler
-    If rsMain.BOF And rsMain.EOF Then
-        Caption = "No Records"
-    ElseIf rsMain.EOF Then
-        Caption = "EOF"
-    ElseIf rsMain.BOF Then
-        Caption = "BOF"
-    Else
-        Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("Name") & " of " & rsMain("Year")
-        
-        i = InStr(Caption, "&")
-        If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
-            sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
-        End If
-        sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
+    If Not pRecordset.BOF And Not pRecordset.EOF Then
+        Caption = "Reference #" & pRecordset.Bookmark & ": " & pRecordset("Name")
+        If pRecordset("Year") > 0 Then Caption = Caption & " of " & pRecordset("Year")
     End If
+    UpdatePosition Me, Caption, pRecordset
     DefaultClassificationDesc
-    adodcMain.Caption = Caption
-    Exit Sub
-
-ErrorHandler:
-    MsgBox Err.Description & " (Error " & Err.Number & ")", vbExclamation, Me.Caption
-    Resume Next
 End Sub
 Private Sub tbAction_ButtonClick(ByVal Button As MSComctlLib.Button)
     Select Case Button.Key
@@ -1223,6 +1009,54 @@ Private Sub tsClasses_Click()
             End If
         Next
     End With
+End Sub
+'=================================================================================
+Private Sub BindFields()
+    'General
+    BindField txtName, "Name", rsMain
+    BindField dbcClassification, "Classification", rsMain, rsClassifications, "Type", "Type"
+    BindField txtClassDesc, "Description", rsClassifications
+    BindField txtYear, "Year", rsMain
+    
+    'Characteristics...
+    BindField rtxtDisplacement, "Displacement", rsMain
+    BindField rtxtLength, "Length", rsMain
+    BindField rtxtBeam, "Beam", rsMain
+    BindField rtxtDraft, "Draft", rsMain
+    BindField rtxtPropulsion, "Propulsion", rsMain
+    BindField rtxtBoilers, "Boilers", rsMain
+    BindField txtSpeed, "Speed", rsMain
+    BindField rtxtManning, "Manning", rsMain
+    
+    'Weapons...
+    BindField rtxtAircraft, "Aircraft", rsMain
+    BindField rtxtMissiles, "Missiles", rsMain
+    BindField rtxtGuns, "Guns", rsMain
+    BindField rtxtASW, "ASW Weapons", rsMain
+    BindField rtxtRadars, "Radars", rsMain
+    BindField rtxtSonars, "Sonars", rsMain
+    BindField rtxtFireControl, "Fire Control", rsMain
+    BindField rtxtEW, "EW", rsMain
+    
+    'Description...
+    BindField rtxtDescription, "Description", rsMain
+End Sub
+Private Sub dbcClassification_Validate(Cancel As Boolean)
+    If Not dbcClassification.Enabled Then Exit Sub
+    If dbcClassification.Text = vbNullString And txtClassDesc.Text <> "Unused" And txtClassDesc.Text <> "Unassigned" Then
+        MsgBox "Classification must be specified!", vbExclamation, Me.Caption
+        dbcClassification.SetFocus
+        Cancel = True
+    End If
+    If rsClassifications.Bookmark <> dbcClassification.SelectedItem Then rsClassifications.Bookmark = dbcClassification.SelectedItem
+End Sub
+Private Sub DefaultClassificationDesc()
+    If rsClassifications Is Nothing Then Exit Sub
+    If rsClassifications.State = adStateClosed Then Exit Sub
+    If rsMain.BOF Or rsMain.EOF Then Exit Sub
+    
+    rsClassifications.MoveFirst
+    rsClassifications.Find "ID=" & rsMain("ClassificationID").Value
 End Sub
 Private Sub txtYear_GotFocus()
     TextSelected
