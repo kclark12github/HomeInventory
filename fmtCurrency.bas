@@ -1,10 +1,10 @@
 Attribute VB_Name = "fmtCurrency"
 Public Function fmtCurrency(ctl As TextBox) As Boolean
-    FormatCurrency = True
+    fmtCurrency = True
     On Error Resume Next
     ctl = Format(CCur(ctl.Text), "Currency")
     If Err.Number <> 0 Then
-        FormatCurrency = False
+        fmtCurrency = False
         MsgBox "Invalid currency value entered: " & ctl.Text & ". Please enter a valid dollar amount.", vbExclamation
         TextSelected
         Exit Function

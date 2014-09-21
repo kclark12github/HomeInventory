@@ -3,7 +3,7 @@ Public Function fmtPercentage(ctl As TextBox) As Boolean
     Dim strTemp As String
     Dim i As Integer
     
-    FormatPercentage = True
+    fmtPercentage = True
     
     On Error Resume Next
     strTemp = ctl.Text
@@ -11,7 +11,7 @@ Public Function fmtPercentage(ctl As TextBox) As Boolean
     If i > 0 Then strTemp = Mid(strTemp, 1, i - 1)
     ctl.Text = Format(CDbl(strTemp) / 100, "Percent")
     If Err.Number <> 0 Then
-        FormatPercentage = False
+        fmtPercentage = False
         MsgBox "Invalid percent value entered: " & ctl.Text & ". Please enter a valid percentage.", vbExclamation
         TextSelected
         Exit Function
