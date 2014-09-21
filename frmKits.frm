@@ -49,7 +49,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:13 PM"
+            TextSave        =   "12:18 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -922,6 +922,7 @@ Private Sub mnuActionNew_Click()
     fTransaction = True
     
     txtDateInventoried.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
+    txtDateVerified.Text = Format(Now(), "mm/dd/yyyy hh:nn AMPM")
     txtDesignation.SetFocus
 End Sub
 Private Sub mnuActionDelete_Click()
