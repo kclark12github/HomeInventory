@@ -319,6 +319,7 @@ Begin VB.Form frmKits
          _ExtentX        =   13356
          _ExtentY        =   4360
          _Version        =   393217
+         Enabled         =   -1  'True
          TextRTF         =   $"frmKits.frx":0442
       End
    End
@@ -355,7 +356,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:06 PM"
+            TextSave        =   "12:30 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -541,63 +542,63 @@ Begin VB.Form frmKits
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":04F0
+            Picture         =   "frmKits.frx":050B
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":080C
+            Picture         =   "frmKits.frx":0827
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":0B34
+            Picture         =   "frmKits.frx":0B4F
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":0E5C
+            Picture         =   "frmKits.frx":0E77
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":3610
+            Picture         =   "frmKits.frx":362B
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":3A64
+            Picture         =   "frmKits.frx":3A7F
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":3EB8
+            Picture         =   "frmKits.frx":3ED3
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":4984
+            Picture         =   "frmKits.frx":499F
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":4CAC
+            Picture         =   "frmKits.frx":4CC7
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":5100
+            Picture         =   "frmKits.frx":511B
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":5554
+            Picture         =   "frmKits.frx":556F
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":59A8
+            Picture         =   "frmKits.frx":59C3
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":5E00
+            Picture         =   "frmKits.frx":5E1B
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":5F5C
+            Picture         =   "frmKits.frx":5F77
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmKits.frx":60B8
+            Picture         =   "frmKits.frx":60D3
             Key             =   "NewRecord"
          EndProperty
       EndProperty
@@ -764,7 +765,7 @@ Private Sub mnuRecordsDelete_Click()
     DeleteCommand Me, rsMain
 End Sub
 Private Sub mnuRecordsList_Click()
-    ListCommand Me, rsMain
+    ListCommand Me, rsMain, False
 End Sub
 Private Sub mnuRecordsModify_Click()
     ModifyCommand Me

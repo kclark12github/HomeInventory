@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "1:48 PM"
+            TextSave        =   "12:30 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -184,6 +184,7 @@ Public WithEvents vrsList As ADODB.Recordset
 Attribute vrsList.VB_VarHelpID = -1
 Public rsList As ADODB.Recordset
 Private RS As ADODB.Recordset
+Private rsTemp As ADODB.Recordset
 Public HiddenFields As String
 Private Key As String
 Private MouseY As Single
@@ -258,14 +259,57 @@ ExitSub:
     Me.MousePointer = vbDefault
 End Sub
 Private Sub dgdList_HeadClick(ByVal ColIndex As Integer)
+    Dim ColName As String
+    Dim fld As ADODB.Field
+    
+    ColName = dgdList.Columns(ColIndex).Caption
     If RS.BOF And RS.EOF Then Exit Sub
+    Set dgdList.DataSource = Nothing
     RS.Sort = vbNullString
     If SortDESC(ColIndex) Then
-        RS.Sort = dgdList.Columns(ColIndex).Caption & " DESC"
+        ColName = ColName & " DESC"
     Else
-        RS.Sort = dgdList.Columns(ColIndex).Caption & " ASC"
+        ColName = ColName & " ASC"
     End If
     SortDESC(ColIndex) = Not SortDESC(ColIndex)
+    
+    'Working around bug Q230167...
+    If Not rsTemp Is Nothing Then
+        CloseRecordset rsTemp, False
+    Else
+        Set rsTemp = New ADODB.Recordset
+    End If
+    
+    For Each fld In RS.Fields
+        rsTemp.Fields.Append fld.Name, fld.Type, fld.DefinedSize, fld.Attributes
+    Next fld
+    'Add the hidden field (assuming the value does not matter - usually used for Grids)...
+    'If Not IsMissing(HiddenFieldName) Then rsTemp.Fields.Append HiddenFieldName, adVarChar, 1
+    rsTemp.CursorType = adOpenStatic    'Updatable snapshot
+    rsTemp.LockType = adLockOptimistic  'Allow updates
+    rsTemp.Open
+    
+    'Copy the data from the real recordset to the virtual one...
+    If Not (RS.BOF And RS.EOF) Then
+        RS.MoveFirst
+        While Not RS.EOF
+            'Populate the grid with the recordset data...
+            rsTemp.AddNew
+            For Each fld In RS.Fields
+                rsTemp(fld.Name).Value = RS(fld.Name).Value
+            Next fld
+            rsTemp.Update
+            RS.MoveNext
+        Wend
+        rsTemp.MoveFirst
+    End If
+    RS.Close
+    Set RS = Nothing
+    
+    rsTemp.Sort = ColName
+    Set RS = rsTemp
+    Set rsTemp = Nothing
+    Set dgdList.DataSource = RS
 End Sub
 Private Sub dgdList_KeyUp(KeyCode As Integer, Shift As Integer)
     Dim col As Column
@@ -395,9 +439,9 @@ Private Sub Form_Activate()
         Set RS = frmList.vrsList
         fAllowEditMode = False
     End If
+    Set dgdList.DataSource = RS
     dgdList.AllowUpdate = fAllowEditMode
     dgdList.AllowAddNew = fAllowEditMode
-    Set dgdList.DataSource = RS
     ReDim SortDESC(0 To dgdList.Columns.Count - 1)
     
     For Each fld In RS.Fields

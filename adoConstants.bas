@@ -188,8 +188,6 @@ Public Function adoDataType(Code As ADODB.DataTypeEnum) As String
             adoDataType = "adDate"
         Case adDBDate
             adoDataType = "adDBDate"
-        Case adDBFileTime
-            adoDataType = "adDBFileTime"
         Case adDBTime
             adoDataType = "adDBTime"
         Case adDBTimeStamp
@@ -778,8 +776,6 @@ Private Function FormatField(fld As ADODB.Field, fDelimitted As Boolean) As Stri
             Case adDate
                 strVal = fld.Value
             Case adDBDate
-                strVal = fld.Value
-            Case adDBFileTime
                 strVal = fld.Value
             Case adDBTime
                 strVal = fld.Value

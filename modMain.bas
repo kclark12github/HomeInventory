@@ -3,8 +3,8 @@ Option Explicit
 'Global Const fmtDate As String = "dd-MMM-yyyy hh:nn AMPM"
 Global Const gstrProvider As String = "Microsoft.Jet.OLEDB.4.0"
 'Global Const gstrProvider As String = "Microsoft.Jet.OLEDB.3.51"
-Global Const gstrConnectionString As String = "DBQ=F:\Program Files\Home Inventory\Database\Ken's Stuff.mdb;DefaultDir=F:\Program Files\Home Inventory\Database;Driver={Microsoft Access Driver (*.mdb)};DriverId=281;FIL=MS Access;FILEDSN=C:\Program Files\Common Files\ODBC\Data Sources\Ken's Stuff.dsn;MaxBufferSize=2048;MaxScanRows=8;PageTimeout=5;SafeTransactions=0;Threads=3;UID=admin;UserCommitSync=Yes;"
-'Global Const gstrConnectionString As String = "DBQ=F:\Program Files\Home Inventory\Database\Ken's Stuff.mdb;"
+Global Const gstrConnectionString As String = "DBQ=C:\My Documents\Home Inventory\Database\Ken's Stuff.mdb;DefaultDir=C:\My Documents\Home Inventory\Database;Driver={Microsoft Access Driver (*.mdb)};DriverId=281;FIL=MS Access;FILEDSN=C:\Program Files\Common Files\ODBC\Data Sources\Ken's Stuff.dsn;MaxBufferSize=2048;MaxScanRows=8;PageTimeout=5;SafeTransactions=0;Threads=3;UID=admin;UserCommitSync=Yes;"
+'Global Const gstrConnectionString As String = "DBQ=C:\My Documents\Home Inventory\Database\Ken's Stuff.mdb;"
 Global Const gstrRunTimeUserName As String = "admin"
 Global Const gstrRunTimePassword As String = vbNullString
 'Global Const gstrDefaultImage As String = "EarthRise.jpg"
@@ -162,8 +162,8 @@ Public Sub EstablishConnection(cn As ADODB.Connection)
     'cn.IsolationLevel = adXactCursorStability
     'cn.mode = adModeShareDenyNone
     cn.CursorLocation = adUseClient
-    'cn.Open "Provider=Microsoft.Jet.OLEDB.4.0;Persist Security Info=False;Data Source=F:\Program Files\Home Inventory\Database\Ken's Stuff.mdb;;"
-    cn.Open "FileDSN=" & gstrFileDSN
+    'cn.Open "Provider=Microsoft.Jet.OLEDB.4.0;Persist Security Info=False;Data Source=c:\My Documents\Home Inventory\Database\Ken's Stuff.mdb;;"
+    cn.Open "Provider=MSDASQL;FileDSN=" & gstrFileDSN
 End Sub
 Public Sub FilterCommand(frm As Form, RS As ADODB.Recordset, ByVal Key As String)
     Dim FieldList As String
@@ -255,12 +255,14 @@ Public Sub ListCommand(frm As Form, RS As ADODB.Recordset, Optional AllowUpdate 
         Set frmList.rsList = RS
         adoConn.BeginTrans
         fTransaction = True
+        frmList.dgdList.BackColor = vbWindowBackground
     Else
         If Not MakeVirtualRecordset(adoConn, RS, vRS, "Junk") Then
             MsgBox "MakeVirtualRecordset failed.", vbExclamation, frm.Caption
             Exit Sub
         End If
         Set frmList.vrsList = vRS
+        frmList.dgdList.BackColor = vbButtonFace
     End If
     
     frmList.Show vbModal
@@ -478,7 +480,7 @@ Public Sub UpdatePosition(frm As Form, ByVal Caption As String, RS As ADODB.Reco
         If RS.Filter <> vbNullString And RS.Filter <> 0 Then
             frm.sbStatus.Panels("Message").Text = "Filter: " & RS.Filter
         End If
-        frm.sbStatus.Panels("Position").Text = "Record " & RS.Bookmark & " of " & RS.RecordCount
+        frm.sbStatus.Panels("Position").Text = "Record " & RS.BookMark & " of " & RS.RecordCount
     End If
     
     frm.adodcMain.Caption = Caption
