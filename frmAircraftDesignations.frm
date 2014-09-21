@@ -49,7 +49,7 @@ Begin VB.Form frmAircraftDesignations
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "7:59 PM"
+            TextSave        =   "11:12 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -496,8 +496,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 Dim adoConn As ADODB.Connection
-Dim WithEvents rsDesignations As ADODB.Recordset
-Attribute rsDesignations.VB_VarHelpID = -1
+Dim WithEvents rsMain As ADODB.Recordset
+Attribute rsMain.VB_VarHelpID = -1
 Dim rsManufacturers As New ADODB.Recordset
 Dim rsTypes As New ADODB.Recordset
 Dim mode As ActionMode
@@ -508,8 +508,8 @@ Private Sub cmdCancel_Click()
         Case modeDisplay
             Unload Me
         Case modeAdd, modeModify
-            rsDesignations.CancelUpdate
-            If mode = modeAdd Then rsDesignations.MoveLast
+            rsMain.CancelUpdate
+            If mode = modeAdd Then rsMain.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -525,18 +525,18 @@ Private Sub cmdOK_Click()
             Unload Me
         Case modeAdd, modeModify
             'Why we need to do this is buggy...
-            rsDesignations("Manufacturer") = dbcManufacturer.Text
-            rsDesignations("Type") = dbcType.Text
-            rsDesignations.UpdateBatch
+            rsMain("Manufacturer") = dbcManufacturer.Text
+            rsMain("Type") = dbcType.Text
+            rsMain.UpdateBatch
             adoConn.CommitTrans
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
             adodcHobby.Enabled = True
             
-            SaveBookmark = rsDesignations("Name")
-            rsDesignations.Requery
-            rsDesignations.Find "Name='" & SaveBookmark & "'"
+            SaveBookmark = rsMain("Name")
+            rsMain.Requery
+            rsMain.Find "Name='" & SaveBookmark & "'"
             rsManufacturers.Requery
             rsTypes.Requery
     End Select
@@ -556,7 +556,7 @@ Private Sub dbcType_GotFocus()
 End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
-    Set rsDesignations = New ADODB.Recordset
+    Set rsMain = New ADODB.Recordset
     Set DBinfo = frmMain.DBcollection("Hobby")
     With DBinfo
         adoConn.Provider = .Provider
@@ -564,8 +564,8 @@ Private Sub Form_Load()
         adoConn.ConnectionTimeout = 60
         adoConn.Open .PathName, .UserName, .Password
     End With
-    rsDesignations.CursorLocation = adUseClient
-    rsDesignations.Open "select * from [Aircraft Designations] order by Type,Number,Version", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsMain.CursorLocation = adUseClient
+    rsMain.Open "select * from [Aircraft Designations] order by Type,Number,Version", adoConn, adOpenKeyset, adLockBatchOptimistic
 
     rsManufacturers.CursorLocation = adUseClient
     rsManufacturers.Open "select distinct Manufacturer from [Aircraft Designations] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
@@ -573,16 +573,16 @@ Private Sub Form_Load()
     rsTypes.CursorLocation = adUseClient
     rsTypes.Open "select distinct Type from [Aircraft Designations] order by Type", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcHobby.Recordset = rsDesignations
-    frmMain.BindField lblID, "ID", rsDesignations
-    frmMain.BindField dbcManufacturer, "Manufacturer", rsDesignations, rsManufacturers, "Manufacturer", "Manufacturer"
-    frmMain.BindField txtName, "Name", rsDesignations
-    frmMain.BindField txtNumber, "Number", rsDesignations
-    frmMain.BindField txtDesignation, "Designation", rsDesignations
-    frmMain.BindField txtVersion, "Version", rsDesignations
-    frmMain.BindField dbcType, "Type", rsDesignations, rsTypes, "Type", "Type"
-    frmMain.BindField txtNotes, "Notes", rsDesignations
-    frmMain.BindField txtServiceDate, "Service Date", rsDesignations
+    Set adodcHobby.Recordset = rsMain
+    frmMain.BindField lblID, "ID", rsMain
+    frmMain.BindField dbcManufacturer, "Manufacturer", rsMain, rsManufacturers, "Manufacturer", "Manufacturer"
+    frmMain.BindField txtName, "Name", rsMain
+    frmMain.BindField txtNumber, "Number", rsMain
+    frmMain.BindField txtDesignation, "Designation", rsMain
+    frmMain.BindField txtVersion, "Version", rsMain
+    frmMain.BindField dbcType, "Type", rsMain, rsTypes, "Type", "Type"
+    frmMain.BindField txtNotes, "Notes", rsMain
+    frmMain.BindField txtServiceDate, "Service Date", rsMain
     
     frmMain.ProtectFields Me
     mode = modeDisplay
@@ -595,11 +595,11 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If Not rsDesignations.EOF Then
-        If rsDesignations.EditMode <> adEditNone Then rsDesignations.CancelUpdate
+    If Not rsMain.EOF Then
+        If rsMain.EditMode <> adEditNone Then rsMain.CancelUpdate
     End If
-    If (rsDesignations.State And adStateOpen) = adStateOpen Then rsDesignations.Close
-    Set rsDesignations = Nothing
+    If (rsMain.State And adStateOpen) = adStateOpen Then rsMain.Close
+    Set rsMain = Nothing
     rsManufacturers.Close
     Set rsManufacturers = Nothing
     rsTypes.Close
@@ -633,7 +633,7 @@ Private Sub mnuActionList_Click()
     frmList.Width = frm.Width
     frmList.Height = frm.Height
     
-    Set frmList.rsList = rsDesignations
+    Set frmList.rsList = rsMain
     Set frmList.dgdList.DataSource = frmList.rsList
     'Set frmList.dgdList.Columns("Price").DataFormat = CurrencyFormat
     For Each Col In frmList.dgdList.Columns
@@ -643,8 +643,8 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
-    If rsDesignations.Filter <> vbNullString And rsDesignations.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsDesignations.Filter
+    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
     End If
     adoConn.CommitTrans
     fTransaction = False
@@ -668,17 +668,17 @@ Private Sub mnuActionFilter_Click()
     frmFilter.Width = frm.Width
     frmFilter.Height = frm.Height
     
-    Set frmFilter.RS = rsDesignations
+    Set frmFilter.RS = rsMain
     frmFilter.Show vbModal
-    If rsDesignations.Filter <> vbNullString And rsDesignations.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsDesignations.Filter
+    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
     End If
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
     adodcHobby.Enabled = False
-    rsDesignations.AddNew
+    rsMain.AddNew
     adoConn.BeginTrans
     fTransaction = True
     
@@ -687,9 +687,9 @@ End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete
     If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsDesignations.Delete
-        rsDesignations.MoveNext
-        If rsDesignations.EOF Then rsDesignations.MoveLast
+        rsMain.Delete
+        rsMain.MoveNext
+        If rsMain.EOF Then rsMain.MoveLast
     End If
     mode = modeDisplay
 End Sub
@@ -707,7 +707,7 @@ Private Sub mnuActionReport_Click()
     Dim Report As New scrDesignationsReport
     Dim vRS As ADODB.Recordset
     
-    MakeVirtualRecordset adoConn, rsDesignations, vRS
+    MakeVirtualRecordset adoConn, rsMain, vRS
     
     Load frmViewReport
     frmViewReport.Caption = Me.Caption & " Report"
@@ -732,25 +732,26 @@ Private Sub mnuActionReport_Click()
     vRS.Close
     Set vRS = Nothing
 End Sub
-Private Sub rsDesignations_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsDesignations.BOF And rsDesignations.EOF Then
+    If rsMain.BOF And rsMain.EOF Then
         Caption = "No Records"
-    ElseIf rsDesignations.EOF Then
+    ElseIf rsMain.EOF Then
         Caption = "EOF"
-    ElseIf rsDesignations.BOF Then
+    ElseIf rsMain.BOF Then
         Caption = "BOF"
     Else
-        Caption = "Reference #" & rsDesignations.Bookmark & ": " & rsDesignations("Designation") & " " & rsDesignations("Name")
+        Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("Designation") & " " & rsMain("Name")
     
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        If rsDesignations.Filter <> vbNullString And rsDesignations.Filter <> 0 Then
-            sbStatus.Panels("Message").Text = "Filter: " & rsDesignations.Filter
+        If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+            sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
         End If
+        sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
     End If
     
     adodcHobby.Caption = Caption

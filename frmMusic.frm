@@ -49,7 +49,7 @@ Begin VB.Form frmMusic
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "8:03 PM"
+            TextSave        =   "11:14 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -532,8 +532,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 Dim adoConn As ADODB.Connection
-Dim WithEvents rsMusic As ADODB.Recordset
-Attribute rsMusic.VB_VarHelpID = -1
+Dim WithEvents rsMain As ADODB.Recordset
+Attribute rsMain.VB_VarHelpID = -1
 Dim rsArtists As New ADODB.Recordset
 Dim rsTypes As New ADODB.Recordset
 Dim strDefaultAlphaSort As String
@@ -545,8 +545,8 @@ Private Sub cmdCancel_Click()
         Case modeDisplay
             Unload Me
         Case modeAdd, modeModify
-            rsMusic.CancelUpdate
-            If mode = modeAdd Then rsMusic.MoveLast
+            rsMain.CancelUpdate
+            If mode = modeAdd Then rsMain.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -562,9 +562,9 @@ Private Sub cmdOK_Click()
             Unload Me
         Case modeAdd, modeModify
             'Why we need to do this is buggy...
-            rsMusic("Artist") = dbcArtist.Text
-            rsMusic("Type") = dbcType.Text
-            rsMusic.UpdateBatch
+            rsMain("Artist") = dbcArtist.Text
+            rsMain("Type") = dbcType.Text
+            rsMain.UpdateBatch
             adoConn.CommitTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -651,7 +651,7 @@ Private Sub dbcType_Validate(Cancel As Boolean)
 End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
-    Set rsMusic = New ADODB.Recordset
+    Set rsMain = New ADODB.Recordset
     Set DBinfo = frmMain.DBcollection("Music")
     With DBinfo
         adoConn.Provider = .Provider
@@ -659,8 +659,8 @@ Private Sub Form_Load()
         adoConn.ConnectionTimeout = 60
         adoConn.Open .PathName, .UserName, .Password
     End With
-    rsMusic.CursorLocation = adUseClient
-    rsMusic.Open "select * from [Music] order by AlphaSort", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsMain.CursorLocation = adUseClient
+    rsMain.Open "select * from [Music] order by AlphaSort", adoConn, adOpenKeyset, adLockBatchOptimistic
     
     rsArtists.CursorLocation = adUseClient
     rsArtists.Open "select distinct Artist from [Music] order by Artist", adoConn, adOpenStatic, adLockReadOnly
@@ -668,19 +668,19 @@ Private Sub Form_Load()
     rsTypes.CursorLocation = adUseClient
     rsTypes.Open "select distinct Type from [Music] order by Type", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcMusic.Recordset = rsMusic
-    frmMain.BindField lblID, "ID", rsMusic
-    frmMain.BindField dbcArtist, "Artist", rsMusic, rsArtists, "Artist", "Artist"
-    frmMain.BindField txtTitle, "Title", rsMusic
-    frmMain.BindField txtYear, "Year", rsMusic
-    frmMain.BindField txtPrice, "Price", rsMusic
-    frmMain.BindField chkCD, "CD", rsMusic
-    frmMain.BindField chkCS, "CS", rsMusic
-    frmMain.BindField chkLP, "LP", rsMusic
-    frmMain.BindField txtAlphaSort, "AlphaSort", rsMusic
-    frmMain.BindField dbcType, "Type", rsMusic, rsTypes, "Type", "Type"
-    frmMain.BindField chkInventoried, "Inventoried", rsMusic
-    frmMain.BindField txtInventoried, "DateInventoried", rsMusic
+    Set adodcMusic.Recordset = rsMain
+    frmMain.BindField lblID, "ID", rsMain
+    frmMain.BindField dbcArtist, "Artist", rsMain, rsArtists, "Artist", "Artist"
+    frmMain.BindField txtTitle, "Title", rsMain
+    frmMain.BindField txtYear, "Year", rsMain
+    frmMain.BindField txtPrice, "Price", rsMain
+    frmMain.BindField chkCD, "CD", rsMain
+    frmMain.BindField chkCS, "CS", rsMain
+    frmMain.BindField chkLP, "LP", rsMain
+    frmMain.BindField txtAlphaSort, "AlphaSort", rsMain
+    frmMain.BindField dbcType, "Type", rsMain, rsTypes, "Type", "Type"
+    frmMain.BindField chkInventoried, "Inventoried", rsMain
+    frmMain.BindField txtInventoried, "DateInventoried", rsMain
 
     frmMain.ProtectFields Me
     mode = modeDisplay
@@ -693,11 +693,11 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If Not rsMusic.EOF Then
-        If rsMusic.EditMode <> adEditNone Then rsMusic.CancelUpdate
+    If Not rsMain.EOF Then
+        If rsMain.EditMode <> adEditNone Then rsMain.CancelUpdate
     End If
-    If (rsMusic.State And adStateOpen) = adStateOpen Then rsMusic.Close
-    Set rsMusic = Nothing
+    If (rsMain.State And adStateOpen) = adStateOpen Then rsMain.Close
+    Set rsMain = Nothing
     rsArtists.Close
     Set rsArtists = Nothing
     rsTypes.Close
@@ -731,7 +731,7 @@ Private Sub mnuActionList_Click()
     frmList.Width = frm.Width
     frmList.Height = frm.Height
     
-    Set frmList.rsList = rsMusic
+    Set frmList.rsList = rsMain
     Set frmList.dgdList.DataSource = frmList.rsList
     Set frmList.dgdList.Columns("Price").DataFormat = CurrencyFormat
     For Each Col In frmList.dgdList.Columns
@@ -741,8 +741,8 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
-    If rsMusic.Filter <> vbNullString And rsMusic.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsMusic.Filter
+    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
     End If
     adoConn.CommitTrans
     fTransaction = False
@@ -750,9 +750,9 @@ End Sub
 Private Sub mnuActionRefresh_Click()
     Dim SaveBookmark As String
     
-    SaveBookmark = rsMusic("AlphaSort")
-    rsMusic.Requery
-    rsMusic.Find "AlphaSort='" & SQLQuote(SaveBookmark) & "'"
+    SaveBookmark = rsMain("AlphaSort")
+    rsMain.Requery
+    rsMain.Find "AlphaSort='" & SQLQuote(SaveBookmark) & "'"
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form
@@ -769,17 +769,17 @@ Private Sub mnuActionFilter_Click()
     frmFilter.Width = frm.Width
     frmFilter.Height = frm.Height
     
-    Set frmFilter.RS = rsMusic
+    Set frmFilter.RS = rsMain
     frmFilter.Show vbModal
-    If rsMusic.Filter <> vbNullString And rsMusic.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsMusic.Filter
+    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
     End If
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
     adodcMusic.Enabled = False
-    rsMusic.AddNew
+    rsMain.AddNew
     adoConn.BeginTrans
     fTransaction = True
     
@@ -794,9 +794,9 @@ End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete
     If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsMusic.Delete
-        rsMusic.MoveNext
-        If rsMusic.EOF Then rsMusic.MoveLast
+        rsMain.Delete
+        rsMain.MoveNext
+        If rsMain.EOF Then rsMain.MoveLast
     End If
     mode = modeDisplay
 End Sub
@@ -814,7 +814,7 @@ Private Sub mnuActionReport_Click()
     Dim Report As New scrMusicReport
     Dim vRS As ADODB.Recordset
     
-    MakeVirtualRecordset adoConn, rsMusic, vRS
+    MakeVirtualRecordset adoConn, rsMain, vRS
     
     Load frmViewReport
     frmViewReport.Caption = Me.Caption & " Report"
@@ -839,25 +839,26 @@ Private Sub mnuActionReport_Click()
     vRS.Close
     Set vRS = Nothing
 End Sub
-Private Sub rsMusic_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsMusic.BOF And rsMusic.EOF Then
+    If rsMain.BOF And rsMain.EOF Then
         Caption = "No Records"
-    ElseIf rsMusic.EOF Then
+    ElseIf rsMain.EOF Then
         Caption = "EOF"
-    ElseIf rsMusic.BOF Then
+    ElseIf rsMain.BOF Then
         Caption = "BOF"
     Else
-        Caption = "Reference #" & rsMusic.Bookmark & ": " & rsMusic("ALPHASORT")
+        Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("ALPHASORT")
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        If rsMusic.Filter <> vbNullString And rsMusic.Filter <> 0 Then
-            sbStatus.Panels("Message").Text = "Filter: " & rsMusic.Filter
+        If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+            sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
         End If
+        sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
     End If
     
     adodcMusic.Caption = Caption

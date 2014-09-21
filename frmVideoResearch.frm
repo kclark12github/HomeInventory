@@ -49,7 +49,7 @@ Begin VB.Form frmVideoResearch
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "7:53 PM"
+            TextSave        =   "11:15 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -479,8 +479,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 Dim adoConn As ADODB.Connection
-Dim WithEvents rsVideoResearch As ADODB.Recordset
-Attribute rsVideoResearch.VB_VarHelpID = -1
+Dim WithEvents rsMain As ADODB.Recordset
+Attribute rsMain.VB_VarHelpID = -1
 Dim rsDistributors As New ADODB.Recordset
 Dim rsSubjects As New ADODB.Recordset
 Dim strDefaultSort As String
@@ -492,8 +492,8 @@ Private Sub cmdCancel_Click()
         Case modeDisplay
             Unload Me
         Case modeAdd, modeModify
-            rsVideoResearch.CancelUpdate
-            If mode = modeAdd Then rsVideoResearch.MoveLast
+            rsMain.CancelUpdate
+            If mode = modeAdd Then rsMain.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -509,9 +509,9 @@ Private Sub cmdOK_Click()
             Unload Me
         Case modeAdd, modeModify
             'Why we need to do this is buggy...
-            rsVideoResearch("Distributor") = dbcDistributor.BoundText
-            rsVideoResearch("Subject") = dbcSubject.BoundText
-            rsVideoResearch.UpdateBatch
+            rsMain("Distributor") = dbcDistributor.BoundText
+            rsMain("Subject") = dbcSubject.BoundText
+            rsMain.UpdateBatch
             adoConn.CommitTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -546,7 +546,7 @@ Private Sub dbcSubject_Validate(Cancel As Boolean)
 End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
-    Set rsVideoResearch = New ADODB.Recordset
+    Set rsMain = New ADODB.Recordset
     Set DBinfo = frmMain.DBcollection("Hobby")
     With DBinfo
         adoConn.Provider = .Provider
@@ -554,8 +554,8 @@ Private Sub Form_Load()
         adoConn.ConnectionTimeout = 60
         adoConn.Open .PathName, .UserName, .Password
     End With
-    rsVideoResearch.CursorLocation = adUseClient
-    rsVideoResearch.Open "select * from [Video Research] order by Sort", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsMain.CursorLocation = adUseClient
+    rsMain.Open "select * from [Video Research] order by Sort", adoConn, adOpenKeyset, adLockBatchOptimistic
     
     rsDistributors.CursorLocation = adUseClient
     rsDistributors.Open "select distinct Distributor from [Video Research] order by Distributor", adoConn, adOpenStatic, adLockReadOnly
@@ -563,14 +563,14 @@ Private Sub Form_Load()
     rsSubjects.CursorLocation = adUseClient
     rsSubjects.Open "select distinct Subject from [Video Research] order by Subject", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcHobby.Recordset = rsVideoResearch
-    frmMain.BindField lblID, "ID", rsVideoResearch
-    frmMain.BindField dbcDistributor, "Distributor", rsVideoResearch, rsDistributors, "Distributor", "Distributor"
-    frmMain.BindField txtTitle, "Title", rsVideoResearch
-    frmMain.BindField txtCost, "Cost", rsVideoResearch
-    frmMain.BindField dbcSubject, "Subject", rsVideoResearch, rsSubjects, "Subject", "Subject"
-    frmMain.BindField txtSort, "Sort", rsVideoResearch
-    frmMain.BindField txtInventoried, "DateInventoried", rsVideoResearch
+    Set adodcHobby.Recordset = rsMain
+    frmMain.BindField lblID, "ID", rsMain
+    frmMain.BindField dbcDistributor, "Distributor", rsMain, rsDistributors, "Distributor", "Distributor"
+    frmMain.BindField txtTitle, "Title", rsMain
+    frmMain.BindField txtCost, "Cost", rsMain
+    frmMain.BindField dbcSubject, "Subject", rsMain, rsSubjects, "Subject", "Subject"
+    frmMain.BindField txtSort, "Sort", rsMain
+    frmMain.BindField txtInventoried, "DateInventoried", rsMain
 
     frmMain.ProtectFields Me
     mode = modeDisplay
@@ -583,11 +583,11 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If Not rsVideoResearch.EOF Then
-        If rsVideoResearch.EditMode <> adEditNone Then rsVideoResearch.CancelUpdate
+    If Not rsMain.EOF Then
+        If rsMain.EditMode <> adEditNone Then rsMain.CancelUpdate
     End If
-    If (rsVideoResearch.State And adStateOpen) = adStateOpen Then rsVideoResearch.Close
-    Set rsVideoResearch = Nothing
+    If (rsMain.State And adStateOpen) = adStateOpen Then rsMain.Close
+    Set rsMain = Nothing
     rsDistributors.Close
     Set rsDistributors = Nothing
     rsSubjects.Close
@@ -621,7 +621,7 @@ Private Sub mnuActionList_Click()
     frmList.Width = frm.Width
     frmList.Height = frm.Height
     
-    Set frmList.rsList = rsVideoResearch
+    Set frmList.rsList = rsMain
     Set frmList.dgdList.DataSource = frmList.rsList
     Set frmList.dgdList.Columns("Cost").DataFormat = CurrencyFormat
     For Each Col In frmList.dgdList.Columns
@@ -631,8 +631,8 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
-    If rsVideoResearch.Filter <> vbNullString And rsVideoResearch.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsVideoResearch.Filter
+    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
     End If
     adoConn.CommitTrans
     fTransaction = False
@@ -640,9 +640,9 @@ End Sub
 Private Sub mnuActionRefresh_Click()
     Dim SaveBookmark As String
     
-    SaveBookmark = rsVideoResearch("Sort")
-    rsVideoResearch.Requery
-    rsVideoResearch.Find "Sort='" & SQLQuote(SaveBookmark) & "'"
+    SaveBookmark = rsMain("Sort")
+    rsMain.Requery
+    rsMain.Find "Sort='" & SQLQuote(SaveBookmark) & "'"
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form
@@ -659,17 +659,17 @@ Private Sub mnuActionFilter_Click()
     frmFilter.Width = frm.Width
     frmFilter.Height = frm.Height
     
-    Set frmFilter.RS = rsVideoResearch
+    Set frmFilter.RS = rsMain
     frmFilter.Show vbModal
-    If rsVideoResearch.Filter <> vbNullString And rsVideoResearch.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsVideoResearch.Filter
+    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
     End If
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
     adodcHobby.Enabled = False
-    rsVideoResearch.AddNew
+    rsMain.AddNew
     adoConn.BeginTrans
     fTransaction = True
     
@@ -680,9 +680,9 @@ End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete
     If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsVideoResearch.Delete
-        rsVideoResearch.MoveNext
-        If rsVideoResearch.EOF Then rsVideoResearch.MoveLast
+        rsMain.Delete
+        rsMain.MoveNext
+        If rsMain.EOF Then rsMain.MoveLast
     End If
     mode = modeDisplay
 End Sub
@@ -700,7 +700,7 @@ Private Sub mnuActionReport_Click()
     Dim Report As New scrVideoResearchReport
     Dim vRS As ADODB.Recordset
     
-    MakeVirtualRecordset adoConn, rsVideoResearch, vRS
+    MakeVirtualRecordset adoConn, rsMain, vRS
     
     Load frmViewReport
     frmViewReport.Caption = Me.Caption & " Report"
@@ -725,25 +725,26 @@ Private Sub mnuActionReport_Click()
     vRS.Close
     Set vRS = Nothing
 End Sub
-Private Sub rsVideoResearch_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsVideoResearch.BOF And rsVideoResearch.EOF Then
+    If rsMain.BOF And rsMain.EOF Then
         Caption = "No Records"
-    ElseIf rsVideoResearch.EOF Then
+    ElseIf rsMain.EOF Then
         Caption = "EOF"
-    ElseIf rsVideoResearch.BOF Then
+    ElseIf rsMain.BOF Then
         Caption = "BOF"
     Else
-        Caption = "Reference #" & rsVideoResearch.Bookmark & ": " & rsVideoResearch("Sort")
+        Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("Sort")
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        If rsVideoResearch.Filter <> vbNullString And rsVideoResearch.Filter <> 0 Then
-            sbStatus.Panels("Message").Text = "Filter: " & rsVideoResearch.Filter
+        If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+            sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
         End If
+        sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
     End If
     
     adodcHobby.Caption = Caption

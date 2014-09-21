@@ -49,7 +49,7 @@ Begin VB.Form frmRockets
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "8:03 PM"
+            TextSave        =   "11:14 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -576,8 +576,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 Dim adoConn As ADODB.Connection
-Dim WithEvents rsRockets As ADODB.Recordset
-Attribute rsRockets.VB_VarHelpID = -1
+Dim WithEvents rsMain As ADODB.Recordset
+Attribute rsMain.VB_VarHelpID = -1
 Dim rsManufacturers As New ADODB.Recordset
 Dim rsCatalogs As New ADODB.Recordset
 Dim rsScales As New ADODB.Recordset
@@ -591,8 +591,8 @@ Private Sub cmdCancel_Click()
         Case modeDisplay
             Unload Me
         Case modeAdd, modeModify
-            rsRockets.CancelUpdate
-            If mode = modeAdd Then rsRockets.MoveLast
+            rsMain.CancelUpdate
+            If mode = modeAdd Then rsMain.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -608,9 +608,9 @@ Private Sub cmdOK_Click()
             Unload Me
         Case modeAdd, modeModify
             'Why we need to do this is buggy...
-            rsRockets("Manufacturer") = dbcManufacturer.BoundText
-            rsRockets("Catalog") = dbcCatalog.BoundText
-            rsRockets.UpdateBatch
+            rsMain("Manufacturer") = dbcManufacturer.BoundText
+            rsMain("Catalog") = dbcCatalog.BoundText
+            rsMain.UpdateBatch
             adoConn.CommitTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -673,7 +673,7 @@ Private Sub dbcType_Validate(Cancel As Boolean)
 End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
-    Set rsRockets = New ADODB.Recordset
+    Set rsMain = New ADODB.Recordset
     Set DBinfo = frmMain.DBcollection("Hobby")
     With DBinfo
         adoConn.Provider = .Provider
@@ -681,8 +681,8 @@ Private Sub Form_Load()
         adoConn.ConnectionTimeout = 60
         adoConn.Open .PathName, .UserName, .Password
     End With
-    rsRockets.CursorLocation = adUseClient
-    rsRockets.Open "select * from [Rockets] order by Scale,Designation,Name", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsMain.CursorLocation = adUseClient
+    rsMain.Open "select * from [Rockets] order by Scale,Designation,Name", adoConn, adOpenKeyset, adLockBatchOptimistic
     
     rsManufacturers.CursorLocation = adUseClient
     rsManufacturers.Open "select distinct Manufacturer from [Rockets] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
@@ -699,19 +699,19 @@ Private Sub Form_Load()
     rsTypes.CursorLocation = adUseClient
     rsTypes.Open "select distinct Type from [Rockets] order by Type", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcHobby.Recordset = rsRockets
-    frmMain.BindField lblID, "ID", rsRockets
-    frmMain.BindField dbcManufacturer, "Manufacturer", rsRockets, rsManufacturers, "Manufacturer", "Manufacturer"
-    frmMain.BindField txtDesignation, "Designation", rsRockets
-    frmMain.BindField txtName, "Name", rsRockets
-    frmMain.BindField txtPrice, "Price", rsRockets
-    frmMain.BindField dbcScale, "Scale", rsRockets, rsScales, "Scale", "Scale"
-    frmMain.BindField txtReference, "Reference", rsRockets
-    frmMain.BindField dbcCatalog, "Catalog", rsRockets, rsCatalogs, "Catalog", "Catalog"
-    frmMain.BindField dbcNation, "Nation", rsRockets, rsNations, "Nation", "Nation"
-    frmMain.BindField dbcType, "Type", rsRockets, rsTypes, "Type", "Type"
-    frmMain.BindField txtCount, "Count", rsRockets
-    frmMain.BindField txtInventoried, "DateInventoried", rsRockets
+    Set adodcHobby.Recordset = rsMain
+    frmMain.BindField lblID, "ID", rsMain
+    frmMain.BindField dbcManufacturer, "Manufacturer", rsMain, rsManufacturers, "Manufacturer", "Manufacturer"
+    frmMain.BindField txtDesignation, "Designation", rsMain
+    frmMain.BindField txtName, "Name", rsMain
+    frmMain.BindField txtPrice, "Price", rsMain
+    frmMain.BindField dbcScale, "Scale", rsMain, rsScales, "Scale", "Scale"
+    frmMain.BindField txtReference, "Reference", rsMain
+    frmMain.BindField dbcCatalog, "Catalog", rsMain, rsCatalogs, "Catalog", "Catalog"
+    frmMain.BindField dbcNation, "Nation", rsMain, rsNations, "Nation", "Nation"
+    frmMain.BindField dbcType, "Type", rsMain, rsTypes, "Type", "Type"
+    frmMain.BindField txtCount, "Count", rsMain
+    frmMain.BindField txtInventoried, "DateInventoried", rsMain
 
     frmMain.ProtectFields Me
     mode = modeDisplay
@@ -724,11 +724,11 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If Not rsRockets.EOF Then
-        If rsRockets.EditMode <> adEditNone Then rsRockets.CancelUpdate
+    If Not rsMain.EOF Then
+        If rsMain.EditMode <> adEditNone Then rsMain.CancelUpdate
     End If
-    If (rsRockets.State And adStateOpen) = adStateOpen Then rsRockets.Close
-    Set rsRockets = Nothing
+    If (rsMain.State And adStateOpen) = adStateOpen Then rsMain.Close
+    Set rsMain = Nothing
     rsManufacturers.Close
     Set rsManufacturers = Nothing
     rsCatalogs.Close
@@ -768,7 +768,7 @@ Private Sub mnuActionList_Click()
     frmList.Width = frm.Width
     frmList.Height = frm.Height
     
-    Set frmList.rsList = rsRockets
+    Set frmList.rsList = rsMain
     Set frmList.dgdList.DataSource = frmList.rsList
     Set frmList.dgdList.Columns("Price").DataFormat = CurrencyFormat
     For Each Col In frmList.dgdList.Columns
@@ -778,8 +778,8 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
-    If rsRockets.Filter <> vbNullString And rsRockets.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsRockets.Filter
+    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
     End If
     adoConn.CommitTrans
     fTransaction = False
@@ -787,9 +787,9 @@ End Sub
 Private Sub mnuActionRefresh_Click()
     Dim SaveBookmark As String
     
-    SaveBookmark = rsRockets("Reference")
-    rsRockets.Requery
-    rsRockets.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
+    SaveBookmark = rsMain("Reference")
+    rsMain.Requery
+    rsMain.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form
@@ -806,17 +806,17 @@ Private Sub mnuActionFilter_Click()
     frmFilter.Width = frm.Width
     frmFilter.Height = frm.Height
     
-    Set frmFilter.RS = rsRockets
+    Set frmFilter.RS = rsMain
     frmFilter.Show vbModal
-    If rsRockets.Filter <> vbNullString And rsRockets.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsRockets.Filter
+    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
     End If
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
     adodcHobby.Enabled = False
-    rsRockets.AddNew
+    rsMain.AddNew
     adoConn.BeginTrans
     fTransaction = True
     
@@ -826,9 +826,9 @@ End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete
     If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsRockets.Delete
-        rsRockets.MoveNext
-        If rsRockets.EOF Then rsRockets.MoveLast
+        rsMain.Delete
+        rsMain.MoveNext
+        If rsMain.EOF Then rsMain.MoveLast
     End If
     mode = modeDisplay
 End Sub
@@ -846,7 +846,7 @@ Private Sub mnuActionReport_Click()
     Dim Report As New scrRocketsReport
     Dim vRS As ADODB.Recordset
     
-    MakeVirtualRecordset adoConn, rsRockets, vRS
+    MakeVirtualRecordset adoConn, rsMain, vRS
     
     Load frmViewReport
     frmViewReport.Caption = Me.Caption & " Report"
@@ -871,29 +871,30 @@ Private Sub mnuActionReport_Click()
     vRS.Close
     Set vRS = Nothing
 End Sub
-Private Sub rsRockets_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsRockets.BOF And rsRockets.EOF Then
+    If rsMain.BOF And rsMain.EOF Then
         Caption = "No Records"
-    ElseIf rsRockets.EOF Then
+    ElseIf rsMain.EOF Then
         Caption = "EOF"
-    ElseIf rsRockets.BOF Then
+    ElseIf rsMain.BOF Then
         Caption = "BOF"
     Else
-        If IsNumeric(rsRockets("Scale")) Then
-            Caption = "Reference #" & rsRockets.Bookmark & ": 1/" & rsRockets("Scale") & " Scale; " & rsRockets("Designation") & " " & rsRockets("Name")
+        If IsNumeric(rsMain("Scale")) Then
+            Caption = "Reference #" & rsMain.Bookmark & ": 1/" & rsMain("Scale") & " Scale; " & rsMain("Designation") & " " & rsMain("Name")
         Else
-            Caption = "Reference #" & rsRockets.Bookmark & ": " & rsRockets("Scale") & " Scale; " & rsRockets("Designation") & " " & rsRockets("Name")
+            Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("Scale") & " Scale; " & rsMain("Designation") & " " & rsMain("Name")
         End If
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        If rsRockets.Filter <> vbNullString And rsRockets.Filter <> 0 Then
-            sbStatus.Panels("Message").Text = "Filter: " & rsRockets.Filter
+        If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+            sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
         End If
+        sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
     End If
     
     adodcHobby.Caption = Caption

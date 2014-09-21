@@ -49,7 +49,7 @@ Begin VB.Form frmTrains
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "8:05 PM"
+            TextSave        =   "11:15 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -521,8 +521,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 Dim adoConn As ADODB.Connection
-Dim WithEvents rsTrains As ADODB.Recordset
-Attribute rsTrains.VB_VarHelpID = -1
+Dim WithEvents rsMain As ADODB.Recordset
+Attribute rsMain.VB_VarHelpID = -1
 Dim rsManufacturers As New ADODB.Recordset
 Dim rsCatalogs As New ADODB.Recordset
 Dim rsScales As New ADODB.Recordset
@@ -535,8 +535,8 @@ Private Sub cmdCancel_Click()
         Case modeDisplay
             Unload Me
         Case modeAdd, modeModify
-            rsTrains.CancelUpdate
-            If mode = modeAdd Then rsTrains.MoveLast
+            rsMain.CancelUpdate
+            If mode = modeAdd Then rsMain.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -552,9 +552,9 @@ Private Sub cmdOK_Click()
             Unload Me
         Case modeAdd, modeModify
             'Why we need to do this is buggy...
-            rsTrains("Manufacturer") = dbcManufacturer.BoundText
-            rsTrains("Catalog") = dbcCatalog.BoundText
-            rsTrains.UpdateBatch
+            rsMain("Manufacturer") = dbcManufacturer.BoundText
+            rsMain("Catalog") = dbcCatalog.BoundText
+            rsMain.UpdateBatch
             adoConn.CommitTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -605,7 +605,7 @@ Private Sub dbcType_Validate(Cancel As Boolean)
 End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
-    Set rsTrains = New ADODB.Recordset
+    Set rsMain = New ADODB.Recordset
     Set DBinfo = frmMain.DBcollection("Hobby")
     With DBinfo
         adoConn.Provider = .Provider
@@ -613,8 +613,8 @@ Private Sub Form_Load()
         adoConn.ConnectionTimeout = 60
         adoConn.Open .PathName, .UserName, .Password
     End With
-    rsTrains.CursorLocation = adUseClient
-    rsTrains.Open "select * from [Trains] order by Scale,Type,Line", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsMain.CursorLocation = adUseClient
+    rsMain.Open "select * from [Trains] order by Scale,Type,Line", adoConn, adOpenKeyset, adLockBatchOptimistic
     
     rsManufacturers.CursorLocation = adUseClient
     rsManufacturers.Open "select distinct Manufacturer from [Trains] order by Manufacturer", adoConn, adOpenStatic, adLockReadOnly
@@ -628,16 +628,16 @@ Private Sub Form_Load()
     rsTypes.CursorLocation = adUseClient
     rsTypes.Open "select distinct Type from [Trains] order by Type", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcHobby.Recordset = rsTrains
-    frmMain.BindField lblID, "ID", rsTrains
-    frmMain.BindField dbcManufacturer, "Manufacturer", rsTrains, rsManufacturers, "Manufacturer", "Manufacturer"
-    frmMain.BindField txtLine, "Line", rsTrains
-    frmMain.BindField txtPrice, "Price", rsTrains
-    frmMain.BindField dbcScale, "Scale", rsTrains, rsScales, "Scale", "Scale"
-    frmMain.BindField txtReference, "Reference", rsTrains
-    frmMain.BindField dbcCatalog, "Catalog", rsTrains, rsCatalogs, "Catalog", "Catalog"
-    frmMain.BindField dbcType, "Type", rsTrains, rsTypes, "Type", "Type"
-    frmMain.BindField txtInventoried, "DateInventoried", rsTrains
+    Set adodcHobby.Recordset = rsMain
+    frmMain.BindField lblID, "ID", rsMain
+    frmMain.BindField dbcManufacturer, "Manufacturer", rsMain, rsManufacturers, "Manufacturer", "Manufacturer"
+    frmMain.BindField txtLine, "Line", rsMain
+    frmMain.BindField txtPrice, "Price", rsMain
+    frmMain.BindField dbcScale, "Scale", rsMain, rsScales, "Scale", "Scale"
+    frmMain.BindField txtReference, "Reference", rsMain
+    frmMain.BindField dbcCatalog, "Catalog", rsMain, rsCatalogs, "Catalog", "Catalog"
+    frmMain.BindField dbcType, "Type", rsMain, rsTypes, "Type", "Type"
+    frmMain.BindField txtInventoried, "DateInventoried", rsMain
 
     frmMain.ProtectFields Me
     mode = modeDisplay
@@ -650,11 +650,11 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If Not rsTrains.EOF Then
-        If rsTrains.EditMode <> adEditNone Then rsTrains.CancelUpdate
+    If Not rsMain.EOF Then
+        If rsMain.EditMode <> adEditNone Then rsMain.CancelUpdate
     End If
-    If (rsTrains.State And adStateOpen) = adStateOpen Then rsTrains.Close
-    Set rsTrains = Nothing
+    If (rsMain.State And adStateOpen) = adStateOpen Then rsMain.Close
+    Set rsMain = Nothing
     rsManufacturers.Close
     Set rsManufacturers = Nothing
     rsCatalogs.Close
@@ -692,7 +692,7 @@ Private Sub mnuActionList_Click()
     frmList.Width = frm.Width
     frmList.Height = frm.Height
     
-    Set frmList.rsList = rsTrains
+    Set frmList.rsList = rsMain
     Set frmList.dgdList.DataSource = frmList.rsList
     Set frmList.dgdList.Columns("Price").DataFormat = CurrencyFormat
     For Each Col In frmList.dgdList.Columns
@@ -702,8 +702,8 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
-    If rsTrains.Filter <> vbNullString And rsTrains.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsTrains.Filter
+    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
     End If
     adoConn.CommitTrans
     fTransaction = False
@@ -711,9 +711,9 @@ End Sub
 Private Sub mnuActionRefresh_Click()
     Dim SaveBookmark As String
     
-    SaveBookmark = rsTrains("Reference")
-    rsTrains.Requery
-    rsTrains.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
+    SaveBookmark = rsMain("Reference")
+    rsMain.Requery
+    rsMain.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form
@@ -730,17 +730,17 @@ Private Sub mnuActionFilter_Click()
     frmFilter.Width = frm.Width
     frmFilter.Height = frm.Height
     
-    Set frmFilter.RS = rsTrains
+    Set frmFilter.RS = rsMain
     frmFilter.Show vbModal
-    If rsTrains.Filter <> vbNullString And rsTrains.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsTrains.Filter
+    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
     End If
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
     adodcHobby.Enabled = False
-    rsTrains.AddNew
+    rsMain.AddNew
     adoConn.BeginTrans
     fTransaction = True
     
@@ -750,9 +750,9 @@ End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete
     If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsTrains.Delete
-        rsTrains.MoveNext
-        If rsTrains.EOF Then rsTrains.MoveLast
+        rsMain.Delete
+        rsMain.MoveNext
+        If rsMain.EOF Then rsMain.MoveLast
     End If
     mode = modeDisplay
 End Sub
@@ -770,7 +770,7 @@ Private Sub mnuActionReport_Click()
     Dim Report As New scrTrainsReport
     Dim vRS As ADODB.Recordset
     
-    MakeVirtualRecordset adoConn, rsTrains, vRS
+    MakeVirtualRecordset adoConn, rsMain, vRS
     
     Load frmViewReport
     frmViewReport.Caption = Me.Caption & " Report"
@@ -795,25 +795,26 @@ Private Sub mnuActionReport_Click()
     vRS.Close
     Set vRS = Nothing
 End Sub
-Private Sub rsTrains_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsTrains.BOF And rsTrains.EOF Then
+    If rsMain.BOF And rsMain.EOF Then
         Caption = "No Records"
-    ElseIf rsTrains.EOF Then
+    ElseIf rsMain.EOF Then
         Caption = "EOF"
-    ElseIf rsTrains.BOF Then
+    ElseIf rsMain.BOF Then
         Caption = "BOF"
     Else
-        Caption = "Reference #" & rsTrains.Bookmark & ": " & rsTrains("Scale") & " Scale; " & rsTrains("Type") & "; " & rsTrains("Line")
+        Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("Scale") & " Scale; " & rsMain("Type") & "; " & rsMain("Line")
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        If rsTrains.Filter <> vbNullString And rsTrains.Filter <> 0 Then
-            sbStatus.Panels("Message").Text = "Filter: " & rsTrains.Filter
+        If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+            sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
         End If
+        sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
     End If
     
     adodcHobby.Caption = Caption

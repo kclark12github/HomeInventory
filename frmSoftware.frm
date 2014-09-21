@@ -49,7 +49,7 @@ Begin VB.Form frmSoftware
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "7:55 PM"
+            TextSave        =   "11:14 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -578,8 +578,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 Dim adoConn As ADODB.Connection
-Dim WithEvents rsSoftware As ADODB.Recordset
-Attribute rsSoftware.VB_VarHelpID = -1
+Dim WithEvents rsMain As ADODB.Recordset
+Attribute rsMain.VB_VarHelpID = -1
 Dim rsPublishers As New ADODB.Recordset
 Dim rsTypes As New ADODB.Recordset
 Dim rsPlatforms As New ADODB.Recordset
@@ -591,8 +591,8 @@ Private Sub cmdCancel_Click()
         Case modeDisplay
             Unload Me
         Case modeAdd, modeModify
-            rsSoftware.CancelUpdate
-            If mode = modeAdd Then rsSoftware.MoveLast
+            rsMain.CancelUpdate
+            If mode = modeAdd Then rsMain.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -608,10 +608,10 @@ Private Sub cmdOK_Click()
             Unload Me
         Case modeAdd, modeModify
             'Why we need to do this is buggy...
-            rsSoftware("Publisher") = dbcPublisher.Text
-            rsSoftware("Platform") = dbcPlatform.Text
-            rsSoftware("Type") = dbcType.Text
-            rsSoftware.UpdateBatch
+            rsMain("Publisher") = dbcPublisher.Text
+            rsMain("Platform") = dbcPlatform.Text
+            rsMain("Type") = dbcType.Text
+            rsMain.UpdateBatch
             adoConn.CommitTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -655,7 +655,7 @@ Private Sub dbcType_Validate(Cancel As Boolean)
 End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
-    Set rsSoftware = New ADODB.Recordset
+    Set rsMain = New ADODB.Recordset
     Set DBinfo = frmMain.DBcollection("Software")
     With DBinfo
         adoConn.Provider = .Provider
@@ -663,8 +663,8 @@ Private Sub Form_Load()
         adoConn.ConnectionTimeout = 60
         adoConn.Open .PathName, .UserName, .Password
     End With
-    rsSoftware.CursorLocation = adUseClient
-    rsSoftware.Open "select * from [Software] order by Type,Title", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsMain.CursorLocation = adUseClient
+    rsMain.Open "select * from [Software] order by Type,Title", adoConn, adOpenKeyset, adLockBatchOptimistic
 
     rsPublishers.CursorLocation = adUseClient
     rsPublishers.Open "select distinct Publisher from [Software] order by Publisher", adoConn, adOpenStatic, adLockReadOnly
@@ -675,19 +675,19 @@ Private Sub Form_Load()
     rsTypes.CursorLocation = adUseClient
     rsTypes.Open "select distinct Type from [Software] order by Type", adoConn, adOpenStatic, adLockReadOnly
     
-    Set adodcSoftware.Recordset = rsSoftware
-    frmMain.BindField lblID, "ID", rsSoftware
-    frmMain.BindField dbcPublisher, "Publisher", rsSoftware, rsPublishers, "Publisher", "Publisher"
-    frmMain.BindField txtTitle, "Title", rsSoftware
-    frmMain.BindField txtVersion, "Version", rsSoftware
-    frmMain.BindField txtISBN, "ISBN", rsSoftware
-    frmMain.BindField txtValue, "Value", rsSoftware
-    frmMain.BindField txtCost, "Cost", rsSoftware
-    frmMain.BindField dbcType, "Type", rsSoftware, rsTypes, "Type", "Type"
-    frmMain.BindField dbcPlatform, "Platform", rsSoftware, rsPlatforms, "Platform", "Platform"
-    frmMain.BindField txtCDkey, "CDkey", rsSoftware
-    frmMain.BindField chkCataloged, "Cataloged", rsSoftware
-    frmMain.BindField txtInventoried, "DateInventoried", rsSoftware
+    Set adodcSoftware.Recordset = rsMain
+    frmMain.BindField lblID, "ID", rsMain
+    frmMain.BindField dbcPublisher, "Publisher", rsMain, rsPublishers, "Publisher", "Publisher"
+    frmMain.BindField txtTitle, "Title", rsMain
+    frmMain.BindField txtVersion, "Version", rsMain
+    frmMain.BindField txtISBN, "ISBN", rsMain
+    frmMain.BindField txtValue, "Value", rsMain
+    frmMain.BindField txtCost, "Cost", rsMain
+    frmMain.BindField dbcType, "Type", rsMain, rsTypes, "Type", "Type"
+    frmMain.BindField dbcPlatform, "Platform", rsMain, rsPlatforms, "Platform", "Platform"
+    frmMain.BindField txtCDkey, "CDkey", rsMain
+    frmMain.BindField chkCataloged, "Cataloged", rsMain
+    frmMain.BindField txtInventoried, "DateInventoried", rsMain
 
     frmMain.ProtectFields Me
     mode = modeDisplay
@@ -700,11 +700,11 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If Not rsSoftware.EOF Then
-        If rsSoftware.EditMode <> adEditNone Then rsSoftware.CancelUpdate
+    If Not rsMain.EOF Then
+        If rsMain.EditMode <> adEditNone Then rsMain.CancelUpdate
     End If
-    If (rsSoftware.State And adStateOpen) = adStateOpen Then rsSoftware.Close
-    Set rsSoftware = Nothing
+    If (rsMain.State And adStateOpen) = adStateOpen Then rsMain.Close
+    Set rsMain = Nothing
     rsPublishers.Close
     Set rsPublishers = Nothing
     rsPlatforms.Close
@@ -740,7 +740,7 @@ Private Sub mnuActionList_Click()
     frmList.Width = frm.Width
     frmList.Height = frm.Height
     
-    Set frmList.rsList = rsSoftware
+    Set frmList.rsList = rsMain
     Set frmList.dgdList.DataSource = frmList.rsList
     Set frmList.dgdList.Columns("Value").DataFormat = CurrencyFormat
     Set frmList.dgdList.Columns("Cost").DataFormat = CurrencyFormat
@@ -751,8 +751,8 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
-    If rsSoftware.Filter <> vbNullString And rsSoftware.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsSoftware.Filter
+    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
     End If
     adoConn.CommitTrans
     fTransaction = False
@@ -760,9 +760,9 @@ End Sub
 Private Sub mnuActionRefresh_Click()
     Dim SaveBookmark As String
     
-    SaveBookmark = rsSoftware("Title")
-    rsSoftware.Requery
-    rsSoftware.Find "Title='" & SQLQuote(SaveBookmark) & "'"
+    SaveBookmark = rsMain("Title")
+    rsMain.Requery
+    rsMain.Find "Title='" & SQLQuote(SaveBookmark) & "'"
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form
@@ -779,17 +779,17 @@ Private Sub mnuActionFilter_Click()
     frmFilter.Width = frm.Width
     frmFilter.Height = frm.Height
     
-    Set frmFilter.RS = rsSoftware
+    Set frmFilter.RS = rsMain
     frmFilter.Show vbModal
-    If rsSoftware.Filter <> vbNullString And rsSoftware.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsSoftware.Filter
+    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
     End If
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
     adodcSoftware.Enabled = False
-    rsSoftware.AddNew
+    rsMain.AddNew
     adoConn.BeginTrans
     fTransaction = True
     
@@ -800,9 +800,9 @@ End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete
     If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsSoftware.Delete
-        rsSoftware.MoveNext
-        If rsSoftware.EOF Then rsSoftware.MoveLast
+        rsMain.Delete
+        rsMain.MoveNext
+        If rsMain.EOF Then rsMain.MoveLast
     End If
     mode = modeDisplay
 End Sub
@@ -820,7 +820,7 @@ Private Sub mnuActionReport_Click()
     Dim Report As New scrSoftwareReport
     Dim vRS As ADODB.Recordset
     
-    MakeVirtualRecordset adoConn, rsSoftware, vRS
+    MakeVirtualRecordset adoConn, rsMain, vRS
     
     Load frmViewReport
     frmViewReport.Caption = Me.Caption & " Report"
@@ -845,25 +845,26 @@ Private Sub mnuActionReport_Click()
     vRS.Close
     Set vRS = Nothing
 End Sub
-Private Sub rsSoftware_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsSoftware.BOF And rsSoftware.EOF Then
+    If rsMain.BOF And rsMain.EOF Then
         Caption = "No Records"
-    ElseIf rsSoftware.EOF Then
+    ElseIf rsMain.EOF Then
         Caption = "EOF"
-    ElseIf rsSoftware.BOF Then
+    ElseIf rsMain.BOF Then
         Caption = "BOF"
     Else
-        Caption = "Reference #" & rsSoftware.Bookmark & ": " & rsSoftware("Type") & "; " & rsSoftware("Title")
+        Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("Type") & "; " & rsMain("Title")
     
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        If rsSoftware.Filter <> vbNullString And rsSoftware.Filter <> 0 Then
-            sbStatus.Panels("Message").Text = "Filter: " & rsSoftware.Filter
+        If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+            sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
         End If
+        sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
     End If
     
     adodcSoftware.Caption = Caption

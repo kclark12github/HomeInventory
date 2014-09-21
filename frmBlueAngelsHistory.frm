@@ -48,7 +48,7 @@ Begin VB.Form frmBlueAngelsHistory
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "8:00 PM"
+            TextSave        =   "11:12 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -420,8 +420,8 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 Dim adoConn As ADODB.Connection
-Dim WithEvents rsBlueAngelsHistory As ADODB.Recordset
-Attribute rsBlueAngelsHistory.VB_VarHelpID = -1
+Dim WithEvents rsMain As ADODB.Recordset
+Attribute rsMain.VB_VarHelpID = -1
 Dim mode As ActionMode
 Dim fTransaction As Boolean
 Dim DBinfo As DataBaseInfo
@@ -430,8 +430,8 @@ Private Sub cmdCancel_Click()
         Case modeDisplay
             Unload Me
         Case modeAdd, modeModify
-            rsBlueAngelsHistory.CancelUpdate
-            If mode = modeAdd Then rsBlueAngelsHistory.MoveLast
+            rsMain.CancelUpdate
+            If mode = modeAdd Then rsMain.MoveLast
             adoConn.RollbackTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -447,7 +447,7 @@ Private Sub cmdOK_Click()
             Unload Me
         Case modeAdd, modeModify
             'Why we need to do this is buggy...
-            rsBlueAngelsHistory.UpdateBatch
+            rsMain.UpdateBatch
             adoConn.CommitTrans
             fTransaction = False
             frmMain.ProtectFields Me
@@ -457,7 +457,7 @@ Private Sub cmdOK_Click()
 End Sub
 Private Sub Form_Load()
     Set adoConn = New ADODB.Connection
-    Set rsBlueAngelsHistory = New ADODB.Recordset
+    Set rsMain = New ADODB.Recordset
     Set DBinfo = frmMain.DBcollection("Hobby")
     With DBinfo
         adoConn.Provider = .Provider
@@ -465,15 +465,15 @@ Private Sub Form_Load()
         adoConn.ConnectionTimeout = 60
         adoConn.Open .PathName, .UserName, .Password
     End With
-    rsBlueAngelsHistory.CursorLocation = adUseClient
-    rsBlueAngelsHistory.Open "select * from [Blue Angels History] order by Dates", adoConn, adOpenKeyset, adLockBatchOptimistic
+    rsMain.CursorLocation = adUseClient
+    rsMain.Open "select * from [Blue Angels History] order by Dates", adoConn, adOpenKeyset, adLockBatchOptimistic
     
-    Set adodcHobby.Recordset = rsBlueAngelsHistory
-    frmMain.BindField lblID, "ID", rsBlueAngelsHistory
-    frmMain.BindField txtAircraftType, "Aircraft Type", rsBlueAngelsHistory
-    frmMain.BindField txtDates, "Dates", rsBlueAngelsHistory
-    frmMain.BindField txtKits, "Kits", rsBlueAngelsHistory
-    frmMain.BindField txtDecalSets, "Decal Sets", rsBlueAngelsHistory
+    Set adodcHobby.Recordset = rsMain
+    frmMain.BindField lblID, "ID", rsMain
+    frmMain.BindField txtAircraftType, "Aircraft Type", rsMain
+    frmMain.BindField txtDates, "Dates", rsMain
+    frmMain.BindField txtKits, "Kits", rsMain
+    frmMain.BindField txtDecalSets, "Decal Sets", rsMain
 
     frmMain.ProtectFields Me
     mode = modeDisplay
@@ -486,11 +486,11 @@ Private Sub Form_Unload(Cancel As Integer)
         Exit Sub
     End If
     
-    If Not rsBlueAngelsHistory.EOF Then
-        If rsBlueAngelsHistory.EditMode <> adEditNone Then rsBlueAngelsHistory.CancelUpdate
+    If Not rsMain.EOF Then
+        If rsMain.EditMode <> adEditNone Then rsMain.CancelUpdate
     End If
-    If (rsBlueAngelsHistory.State And adStateOpen) = adStateOpen Then rsBlueAngelsHistory.Close
-    Set rsBlueAngelsHistory = Nothing
+    If (rsMain.State And adStateOpen) = adStateOpen Then rsMain.Close
+    Set rsMain = Nothing
     
     On Error Resume Next
     adoConn.Close
@@ -520,7 +520,7 @@ Private Sub mnuActionList_Click()
     frmList.Width = frm.Width
     frmList.Height = frm.Height
     
-    Set frmList.rsList = rsBlueAngelsHistory
+    Set frmList.rsList = rsMain
     Set frmList.dgdList.DataSource = frmList.rsList
     For Each Col In frmList.dgdList.Columns
         Col.Alignment = dbgGeneral
@@ -529,8 +529,8 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
-    If rsBlueAngelsHistory.Filter <> vbNullString And rsBlueAngelsHistory.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsBlueAngelsHistory.Filter
+    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
     End If
     adoConn.CommitTrans
     fTransaction = False
@@ -538,9 +538,9 @@ End Sub
 Private Sub mnuActionRefresh_Click()
     Dim SaveBookmark As String
     
-    SaveBookmark = rsBlueAngelsHistory("Aircraft Type")
-    rsBlueAngelsHistory.Requery
-    rsBlueAngelsHistory.Find "Aircraft Type='" & SQLQuote(SaveBookmark) & "'"
+    SaveBookmark = rsMain("Aircraft Type")
+    rsMain.Requery
+    rsMain.Find "Aircraft Type='" & SQLQuote(SaveBookmark) & "'"
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form
@@ -557,17 +557,17 @@ Private Sub mnuActionFilter_Click()
     frmFilter.Width = frm.Width
     frmFilter.Height = frm.Height
     
-    Set frmFilter.RS = rsBlueAngelsHistory
+    Set frmFilter.RS = rsMain
     frmFilter.Show vbModal
-    If rsBlueAngelsHistory.Filter <> vbNullString And rsBlueAngelsHistory.Filter <> 0 Then
-        sbStatus.Panels("Message").Text = "Filter: " & rsBlueAngelsHistory.Filter
+    If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
     End If
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
     frmMain.OpenFields Me
     adodcHobby.Enabled = False
-    rsBlueAngelsHistory.AddNew
+    rsMain.AddNew
     adoConn.BeginTrans
     fTransaction = True
     
@@ -576,9 +576,9 @@ End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete
     If MsgBox("Are you sure you want to permanently delete this record...?", vbYesNo, Me.Caption) = vbYes Then
-        rsBlueAngelsHistory.Delete
-        rsBlueAngelsHistory.MoveNext
-        If rsBlueAngelsHistory.EOF Then rsBlueAngelsHistory.MoveLast
+        rsMain.Delete
+        rsMain.MoveNext
+        If rsMain.EOF Then rsMain.MoveLast
     End If
     mode = modeDisplay
 End Sub
@@ -596,7 +596,7 @@ Private Sub mnuActionReport_Click()
     Dim Report As New scrBlueAngelsReport
     Dim vRS As ADODB.Recordset
     
-    MakeVirtualRecordset adoConn, rsBlueAngelsHistory, vRS
+    MakeVirtualRecordset adoConn, rsMain, vRS
     
     Load frmViewReport
     frmViewReport.Caption = Me.Caption & " Report"
@@ -621,25 +621,26 @@ Private Sub mnuActionReport_Click()
     vRS.Close
     Set vRS = Nothing
 End Sub
-Private Sub rsBlueAngelsHistory_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
     Dim Caption As String
     Dim i As Integer
     
     On Error GoTo ErrorHandler
-    If rsBlueAngelsHistory.BOF And rsBlueAngelsHistory.EOF Then
+    If rsMain.BOF And rsMain.EOF Then
         Caption = "No Records"
-    ElseIf rsBlueAngelsHistory.EOF Then
+    ElseIf rsMain.EOF Then
         Caption = "EOF"
-    ElseIf rsBlueAngelsHistory.BOF Then
+    ElseIf rsMain.BOF Then
         Caption = "BOF"
     Else
-        Caption = "Reference #" & rsBlueAngelsHistory.Bookmark & ": " & rsBlueAngelsHistory("Dates") & ": " & rsBlueAngelsHistory("Aircraft Type")
+        Caption = "Reference #" & rsMain.Bookmark & ": " & rsMain("Dates") & ": " & rsMain("Aircraft Type")
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
-        If rsBlueAngelsHistory.Filter <> vbNullString And rsBlueAngelsHistory.Filter <> 0 Then
-            sbStatus.Panels("Message").Text = "Filter: " & rsBlueAngelsHistory.Filter
+        If rsMain.Filter <> vbNullString And rsMain.Filter <> 0 Then
+            sbStatus.Panels("Message").Text = "Filter: " & rsMain.Filter
         End If
+        sbStatus.Panels("Position").Text = "Record " & rsMain.Bookmark & " of " & rsMain.RecordCount
     End If
     
     adodcHobby.Caption = Caption
