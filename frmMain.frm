@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Ken's Stuff..."
@@ -60,7 +60,7 @@ Begin VB.Form frmMain
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "4:49 PM"
+            TextSave        =   "3:55 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -106,10 +106,22 @@ Begin VB.Form frmMain
          Caption         =   "E&xit"
       End
    End
-   Begin VB.Menu mnuDataBase 
+   Begin VB.Menu mnuDatabase 
       Caption         =   "&DataBase"
       Begin VB.Menu mnuDataBaseBooks 
          Caption         =   "&Books"
+      End
+      Begin VB.Menu mnuDataBaseCollectables 
+         Caption         =   "&Collectables"
+         Begin VB.Menu mnuDataBaseCollectablesCars 
+            Caption         =   "&Cars (Hot Wheels, Matchbox, etc.)"
+         End
+         Begin VB.Menu mnuDataBaseCollectablesStarWars 
+            Caption         =   "&Star Wars"
+         End
+         Begin VB.Menu mnuDataBaseCollectablesTYCollectables 
+            Caption         =   "&TY Collectables (Beanie Babies, etc.)"
+         End
       End
       Begin VB.Menu mnuDataBaseHobby 
          Caption         =   "&Hobby"
