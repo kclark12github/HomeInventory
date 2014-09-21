@@ -6,6 +6,7 @@ Begin VB.Form frmOptions
    ClientLeft      =   48
    ClientTop       =   276
    ClientWidth     =   5820
+   Icon            =   "frmOptions.frx":0000
    LinkTopic       =   "Form1"
    ScaleHeight     =   1404
    ScaleWidth      =   5820

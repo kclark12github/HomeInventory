@@ -62,7 +62,7 @@ Begin VB.Form frmList
          EndProperty
          BeginProperty Panel6 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             AutoSize        =   1
-            Object.Width           =   3112
+            Object.Width           =   3027
             Key             =   "Message"
          EndProperty
          BeginProperty Panel7 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "5:32 PM"
+            TextSave        =   "1:48 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -452,6 +452,7 @@ End Sub
 Private Sub Form_Load()
     'fDebug = True
     
+    Me.Icon = Forms(Forms.Count - 2).Icon
     dgdList.Top = 0
     dgdList.Left = 0
     dgdList.Width = Me.ScaleWidth

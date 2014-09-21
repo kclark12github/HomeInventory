@@ -120,6 +120,7 @@ Private Sub Form_Activate()
 End Sub
 Private Sub Form_Load()
     fActivated = False
+    Me.Icon = Forms(Forms.Count - 2).Icon
     Me.Caption = frmImages.rsMain("Name")
     LoadImage
 End Sub

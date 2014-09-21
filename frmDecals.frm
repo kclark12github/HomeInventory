@@ -9,6 +9,7 @@ Begin VB.Form frmDecals
    ClientLeft      =   36
    ClientTop       =   492
    ClientWidth     =   7524
+   Icon            =   "frmDecals.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -49,7 +50,7 @@ Begin VB.Form frmDecals
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:43 PM"
+            TextSave        =   "1:37 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -318,63 +319,63 @@ Begin VB.Form frmDecals
       BeginProperty Images {2C247F25-8591-11D1-B16A-00C0F0283628} 
          NumListImages   =   15
          BeginProperty ListImage1 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmDecals.frx":0000
+            Picture         =   "frmDecals.frx":0682
             Key             =   "Find"
          EndProperty
          BeginProperty ListImage2 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmDecals.frx":031C
+            Picture         =   "frmDecals.frx":099E
             Key             =   "Warning"
          EndProperty
          BeginProperty ListImage3 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmDecals.frx":0644
+            Picture         =   "frmDecals.frx":0CC6
             Key             =   "List"
          EndProperty
          BeginProperty ListImage4 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmDecals.frx":096C
+            Picture         =   "frmDecals.frx":0FEE
             Key             =   "xNew"
          EndProperty
          BeginProperty ListImage5 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmDecals.frx":3120
+            Picture         =   "frmDecals.frx":37A2
             Key             =   "Stop"
          EndProperty
          BeginProperty ListImage6 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmDecals.frx":3574
+            Picture         =   "frmDecals.frx":3BF6
             Key             =   "Report"
          EndProperty
          BeginProperty ListImage7 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmDecals.frx":39C8
+            Picture         =   "frmDecals.frx":404A
             Key             =   "Modify"
          EndProperty
          BeginProperty ListImage8 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmDecals.frx":4494
+            Picture         =   "frmDecals.frx":4B16
             Key             =   "Refresh"
          EndProperty
          BeginProperty ListImage9 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmDecals.frx":47BC
+            Picture         =   "frmDecals.frx":4E3E
             Key             =   "Sort"
          EndProperty
          BeginProperty ListImage10 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmDecals.frx":4C10
+            Picture         =   "frmDecals.frx":5292
             Key             =   "SQL"
          EndProperty
          BeginProperty ListImage11 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmDecals.frx":5064
+            Picture         =   "frmDecals.frx":56E6
             Key             =   "Search"
          EndProperty
          BeginProperty ListImage12 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmDecals.frx":54B8
+            Picture         =   "frmDecals.frx":5B3A
             Key             =   "Filter"
          EndProperty
          BeginProperty ListImage13 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmDecals.frx":5910
+            Picture         =   "frmDecals.frx":5F92
             Key             =   "Delete"
          EndProperty
          BeginProperty ListImage14 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmDecals.frx":5A6C
+            Picture         =   "frmDecals.frx":60EE
             Key             =   "Blank"
          EndProperty
          BeginProperty ListImage15 {2C247F27-8591-11D1-B16A-00C0F0283628} 
-            Picture         =   "frmDecals.frx":5BC8
+            Picture         =   "frmDecals.frx":624A
             Key             =   "NewRecord"
          EndProperty
       EndProperty
@@ -654,7 +655,7 @@ Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal p
     Dim Caption As String
     
     If Not pRecordset.BOF And Not pRecordset.EOF Then
-        Caption = "Reference #" & pRecordset.Bookmark & ": "
+        Caption = "Reference #" & pRecordset.BookMark & ": "
         If IsNumeric(rsMain("Scale")) Then Caption = Caption & "1/"
         Caption = Caption & pRecordset("Scale") & " Scale; " & pRecordset("Name")
     End If
@@ -689,7 +690,7 @@ End Sub
 Private Sub dbcCatalog_Validate(Cancel As Boolean)
     If Trim(dbcCatalog.Text) = vbNullString Then dbcCatalog.Text = "Unknown"
     If dbcValidate(rsMain("Catalog"), dbcCatalog) = 0 Then Cancel = True
-    If rsCatalogs.Bookmark <> dbcCatalog.SelectedItem Then rsCatalogs.Bookmark = dbcCatalog.SelectedItem
+    If rsCatalogs.BookMark <> dbcCatalog.SelectedItem Then rsCatalogs.BookMark = dbcCatalog.SelectedItem
 End Sub
 Private Sub dbcManufacturer_GotFocus()
     TextSelected
@@ -702,7 +703,7 @@ Private Sub dbcManufacturer_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Manufacturer"), dbcManufacturer) = 0 Then Cancel = True
-    If rsManufacturers.Bookmark <> dbcManufacturer.SelectedItem Then rsManufacturers.Bookmark = dbcManufacturer.SelectedItem
+    If rsManufacturers.BookMark <> dbcManufacturer.SelectedItem Then rsManufacturers.BookMark = dbcManufacturer.SelectedItem
 End Sub
 Private Sub dbcNation_GotFocus()
     TextSelected
@@ -715,7 +716,7 @@ Private Sub dbcNation_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Nation"), dbcNation) = 0 Then Cancel = True
-    If rsNations.Bookmark <> dbcNation.SelectedItem Then rsNations.Bookmark = dbcNation.SelectedItem
+    If rsNations.BookMark <> dbcNation.SelectedItem Then rsNations.BookMark = dbcNation.SelectedItem
 End Sub
 Private Sub dbcScale_GotFocus()
     TextSelected
@@ -723,7 +724,7 @@ End Sub
 Private Sub dbcScale_Validate(Cancel As Boolean)
     If dbcScale.Text = vbNullString Then dbcScale.Text = "Unknown"
     If dbcValidate(rsMain("Scale"), dbcScale) = 0 Then Cancel = True
-    If rsScales.Bookmark <> dbcScale.SelectedItem Then rsScales.Bookmark = dbcScale.SelectedItem
+    If rsScales.BookMark <> dbcScale.SelectedItem Then rsScales.BookMark = dbcScale.SelectedItem
 End Sub
 Private Sub dbcType_GotFocus()
     TextSelected
@@ -736,7 +737,7 @@ Private Sub dbcType_Validate(Cancel As Boolean)
         Cancel = True
     End If
     If dbcValidate(rsMain("Type"), dbcType) = 0 Then Cancel = True
-    If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
+    If rsTypes.BookMark <> dbcType.SelectedItem Then rsTypes.BookMark = dbcType.SelectedItem
 End Sub
 Private Sub txtCount_GotFocus()
     TextSelected

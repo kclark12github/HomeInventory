@@ -210,7 +210,7 @@ Begin VB.Form frmSQL
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "9:42 AM"
+            TextSave        =   "1:49 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -520,6 +520,9 @@ Private Sub Form_Activate()
     InitialWidth = Me.Width
     InitialHeight = Me.Height
     txtSQL.SetFocus
+End Sub
+Private Sub Form_Load()
+    Me.Icon = Forms(Forms.Count - 2).Icon
 End Sub
 Private Sub Form_Resize()
     Dim NewFrameWidth As Double

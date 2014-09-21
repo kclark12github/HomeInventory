@@ -650,6 +650,7 @@ Private Sub Form_Activate()
     Dim NewWidth As Integer
     Dim NewLeft As Integer
     
+    Me.Icon = Forms(Forms.Count - 2).Icon
     NewWidth = 5832
     NewLeft = Me.Left + (Me.Width - NewWidth) / 2
     Me.Left = NewLeft

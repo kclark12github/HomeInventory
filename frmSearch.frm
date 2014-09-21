@@ -693,6 +693,7 @@ End Sub
 Private Sub Form_Load()
     Dim i As Integer
     
+    Me.Icon = Forms(Forms.Count - 2).Icon
     For i = 0 To 31
         txtFields(i).Visible = False
         lblFields(i).Visible = False

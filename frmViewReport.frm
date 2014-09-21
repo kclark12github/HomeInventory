@@ -63,6 +63,7 @@ Private Sub Form_Activate()
 End Sub
 Private Sub Form_Load()
     fActivated = False
+    Me.Icon = Forms(Forms.Count - 2).Icon
 End Sub
 Private Sub Form_Paint()
     If Not fActivated Then
