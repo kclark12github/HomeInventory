@@ -49,7 +49,7 @@ Begin VB.Form frmMusic
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:09 PM"
+            TextSave        =   "11:09 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -654,10 +654,21 @@ Private Sub dbcArtist_Validate(Cancel As Boolean)
         dbcArtist.SetFocus
         Cancel = True
     End If
+    If dbcValidate(rsMain("Artist"), dbcArtist) = 0 Then Cancel = True
     If rsArtists.Bookmark <> dbcArtist.SelectedItem Then rsArtists.Bookmark = dbcArtist.SelectedItem
 End Sub
 Private Sub dbcType_GotFocus()
     TextSelected
+End Sub
+Private Sub dbcType_Validate(Cancel As Boolean)
+    If Not dbcType.Enabled Then Exit Sub
+    If dbcType.Text = "" Then
+        MsgBox "Type must be specified!", vbExclamation, Me.Caption
+        dbcType.SetFocus
+        Cancel = True
+    End If
+    If dbcValidate(rsMain("Type"), dbcType) = 0 Then Cancel = True
+    If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
 End Sub
 Private Function DefaultAlphaSort() As String
     Dim LastName As String

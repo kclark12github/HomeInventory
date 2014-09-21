@@ -49,7 +49,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:09 PM"
+            TextSave        =   "10:50 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -641,9 +641,21 @@ Private Sub dbcAuthor_Validate(Cancel As Boolean)
         dbcAuthor.SetFocus
         Cancel = True
     End If
+    If dbcValidate(rsMain("Author"), dbcAuthor) = 0 Then Cancel = True
+    If rsAuthors.Bookmark <> dbcAuthor.SelectedItem Then rsAuthors.Bookmark = dbcAuthor.SelectedItem
 End Sub
 Private Sub dbcSubject_GotFocus()
     TextSelected
+End Sub
+Private Sub dbcSubject_Validate(Cancel As Boolean)
+    If Not dbcSubject.Enabled Then Exit Sub
+    'If dbcSubject.Text = "" Then
+    '    MsgBox "Subject must be specified!", vbExclamation, Me.Caption
+    '    dbcSubject.SetFocus
+    '    Cancel = True
+    'End If
+    If dbcValidate(rsMain("Subject"), dbcSubject) = 0 Then Cancel = True
+    If rsSubjects.Bookmark <> dbcSubject.SelectedItem Then rsSubjects.Bookmark = dbcSubject.SelectedItem
 End Sub
 Private Function DefaultAlphaSort() As String
     Dim LastName As String

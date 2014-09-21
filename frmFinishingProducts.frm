@@ -49,7 +49,7 @@ Begin VB.Form frmFinishingProducts
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:09 PM"
+            TextSave        =   "10:59 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -629,6 +629,7 @@ Private Sub dbcCatalog_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcCatalog_Validate(Cancel As Boolean)
+    If dbcValidate(rsMain("Catalog"), dbcCatalog) = 0 Then Cancel = True
     If rsCatalogs.Bookmark <> dbcCatalog.SelectedItem Then rsCatalogs.Bookmark = dbcCatalog.SelectedItem
 End Sub
 Private Sub dbcManufacturer_GotFocus()
@@ -641,6 +642,7 @@ Private Sub dbcManufacturer_Validate(Cancel As Boolean)
         dbcManufacturer.SetFocus
         Cancel = True
     End If
+    If dbcValidate(rsMain("Manufacturer"), dbcManufacturer) = 0 Then Cancel = True
     If rsManufacturers.Bookmark <> dbcManufacturer.SelectedItem Then rsManufacturers.Bookmark = dbcManufacturer.SelectedItem
 End Sub
 Private Sub dbcType_GotFocus()
@@ -653,6 +655,7 @@ Private Sub dbcType_Validate(Cancel As Boolean)
         dbcType.SetFocus
         Cancel = True
     End If
+    If dbcValidate(rsMain("Type"), dbcType) = 0 Then Cancel = True
     If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
 End Sub
 Private Sub txtCount_GotFocus()

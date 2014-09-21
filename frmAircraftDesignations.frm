@@ -49,7 +49,7 @@ Begin VB.Form frmAircraftDesignations
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:46 PM"
+            TextSave        =   "10:49 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -608,9 +608,21 @@ Private Sub dbcManufacturer_Validate(Cancel As Boolean)
         dbcManufacturer.SetFocus
         Cancel = True
     End If
+    If dbcValidate(rsMain("Manufacturer"), dbcManufacturer) = 0 Then Cancel = True
+    If rsManufacturers.Bookmark <> dbcManufacturer.SelectedItem Then rsManufacturers.Bookmark = dbcManufacturer.SelectedItem
 End Sub
 Private Sub dbcType_GotFocus()
     TextSelected
+End Sub
+Private Sub dbcType_Validate(Cancel As Boolean)
+    If Not dbcType.Enabled Then Exit Sub
+    'If dbcType.Text = "" Then
+    '    MsgBox "Type must be specified!", vbExclamation, Me.Caption
+    '    dbcType.SetFocus
+    '    Cancel = True
+    'End If
+    If dbcValidate(rsMain("Type"), dbcType) = 0 Then Cancel = True
+    If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
 End Sub
 Private Sub txtDesignation_GotFocus()
     TextSelected

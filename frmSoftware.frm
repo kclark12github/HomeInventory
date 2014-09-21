@@ -49,7 +49,7 @@ Begin VB.Form frmSoftware
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:09 PM"
+            TextSave        =   "11:06 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -700,6 +700,8 @@ Private Sub dbcPublisher_Validate(Cancel As Boolean)
         dbcPublisher.SetFocus
         Cancel = True
     End If
+    If dbcValidate(rsMain("Publisher"), dbcPublisher) = 0 Then Cancel = True
+    If rsPublishers.Bookmark <> dbcPublisher.SelectedItem Then rsPublishers.Bookmark = dbcPublisher.SelectedItem
 End Sub
 Private Sub dbcPlatform_GotFocus()
     TextSelected
@@ -711,6 +713,8 @@ Private Sub dbcPlatform_Validate(Cancel As Boolean)
         dbcPlatform.SetFocus
         Cancel = True
     End If
+    If dbcValidate(rsMain("Platform"), dbcPlatform) = 0 Then Cancel = True
+    If rsPlatforms.Bookmark <> dbcPlatform.SelectedItem Then rsPlatforms.Bookmark = dbcPlatform.SelectedItem
 End Sub
 Private Sub dbcType_GotFocus()
     TextSelected
@@ -722,6 +726,8 @@ Private Sub dbcType_Validate(Cancel As Boolean)
         dbcType.SetFocus
         Cancel = True
     End If
+    If dbcValidate(rsMain("Type"), dbcType) = 0 Then Cancel = True
+    If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
 End Sub
 Private Sub txtCDkey_GotFocus()
     TextSelected

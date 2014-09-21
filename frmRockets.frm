@@ -49,7 +49,7 @@ Begin VB.Form frmRockets
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:09 PM"
+            TextSave        =   "10:56 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -706,6 +706,7 @@ Private Sub dbcCatalog_GotFocus()
 End Sub
 Private Sub dbcCatalog_Validate(Cancel As Boolean)
     If Trim(dbcCatalog.Text) = vbNullString Then dbcCatalog.Text = "Unknown"
+    If dbcValidate(rsMain("Catalog"), dbcCatalog) = 0 Then Cancel = True
     If rsCatalogs.Bookmark <> dbcCatalog.SelectedItem Then rsCatalogs.Bookmark = dbcCatalog.SelectedItem
 End Sub
 Private Sub dbcManufacturer_GotFocus()
@@ -718,6 +719,7 @@ Private Sub dbcManufacturer_Validate(Cancel As Boolean)
         dbcManufacturer.SetFocus
         Cancel = True
     End If
+    If dbcValidate(rsMain("Manufacturer"), dbcManufacturer) = 0 Then Cancel = True
     If rsManufacturers.Bookmark <> dbcManufacturer.SelectedItem Then rsManufacturers.Bookmark = dbcManufacturer.SelectedItem
 End Sub
 Private Sub dbcNation_GotFocus()
@@ -730,6 +732,7 @@ Private Sub dbcNation_Validate(Cancel As Boolean)
         dbcNation.SetFocus
         Cancel = True
     End If
+    If dbcValidate(rsMain("Nation"), dbcNation) = 0 Then Cancel = True
     If rsNations.Bookmark <> dbcNation.SelectedItem Then rsNations.Bookmark = dbcNation.SelectedItem
 End Sub
 Private Sub dbcScale_GotFocus()
@@ -737,6 +740,7 @@ Private Sub dbcScale_GotFocus()
 End Sub
 Private Sub dbcScale_Validate(Cancel As Boolean)
     If dbcScale.Text = vbNullString Then dbcScale.Text = "Unknown"
+    If dbcValidate(rsMain("Scale"), dbcScale) = 0 Then Cancel = True
     If rsScales.Bookmark <> dbcScale.SelectedItem Then rsScales.Bookmark = dbcScale.SelectedItem
 End Sub
 Private Sub dbcType_GotFocus()
@@ -749,6 +753,7 @@ Private Sub dbcType_Validate(Cancel As Boolean)
         dbcType.SetFocus
         Cancel = True
     End If
+    If dbcValidate(rsMain("Type"), dbcType) = 0 Then Cancel = True
     If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
 End Sub
 Private Sub txtCount_GotFocus()

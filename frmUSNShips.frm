@@ -828,7 +828,7 @@ Begin VB.Form frmUSNShips
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:46 PM"
+            TextSave        =   "11:00 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -1307,6 +1307,7 @@ Private Sub dbcClass_Validate(Cancel As Boolean)
         dbcClass.SetFocus
         Cancel = True
     End If
+    If dbcValidate(rsMain("Class"), dbcClass) = 0 Then Cancel = True
     If rsClasses.Bookmark <> dbcClass.SelectedItem Then rsClasses.Bookmark = dbcClass.SelectedItem
 End Sub
 Private Sub dbcClassification_Validate(Cancel As Boolean)
@@ -1316,6 +1317,7 @@ Private Sub dbcClassification_Validate(Cancel As Boolean)
         dbcClassification.SetFocus
         Cancel = True
     End If
+    If dbcValidate(rsMain("Classification"), dbcClassification) = 0 Then Cancel = True
     If rsClassifications.Bookmark <> dbcClassification.SelectedItem Then rsClassifications.Bookmark = dbcClassification.SelectedItem
 End Sub
 Private Sub dbcCommand_GotFocus()
@@ -1323,6 +1325,7 @@ Private Sub dbcCommand_GotFocus()
 End Sub
 Private Sub dbcCommand_Validate(Cancel As Boolean)
     If dbcCommand.Text = vbNullString Then dbcCommand.Text = "Unknown"
+    If dbcValidate(rsMain("Command"), dbcCommand) = 0 Then Cancel = True
     If rsCommands.Bookmark <> dbcCommand.SelectedItem Then rsCommands.Bookmark = dbcCommand.SelectedItem
 End Sub
 Private Sub dbcHomePort_GotFocus()
@@ -1330,6 +1333,7 @@ Private Sub dbcHomePort_GotFocus()
 End Sub
 Private Sub dbcHomePort_Validate(Cancel As Boolean)
     If dbcHomePort.Text = vbNullString Then dbcHomePort.Text = "Unknown"
+    If dbcValidate(rsMain("HomePort"), dbcHomePort) = 0 Then Cancel = True
     If rsHomePorts.Bookmark <> dbcHomePort.SelectedItem Then rsHomePorts.Bookmark = dbcHomePort.SelectedItem
 End Sub
 Private Sub DefaultClassDetails()

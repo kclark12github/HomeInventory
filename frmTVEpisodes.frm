@@ -73,7 +73,7 @@ Begin VB.Form frmTVEpisodes
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "12:09 PM"
+            TextSave        =   "11:02 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -643,6 +643,7 @@ Private Sub dbcDistributor_Validate(Cancel As Boolean)
         dbcDistributor.SetFocus
         Cancel = True
     End If
+    If dbcValidate(rsMain("Distributor"), dbcDistributor) = 0 Then Cancel = True
     If rsDistributors.Bookmark <> dbcDistributor.SelectedItem Then rsDistributors.Bookmark = dbcDistributor.SelectedItem
 End Sub
 Private Sub dbcSeries_GotFocus()
@@ -655,6 +656,7 @@ Private Sub dbcSeries_Validate(Cancel As Boolean)
         dbcSeries.SetFocus
         Cancel = True
     End If
+    If dbcValidate(rsMain("Series"), dbcSeries) = 0 Then Cancel = True
     If rsSeries.Bookmark <> dbcSeries.SelectedItem Then rsSeries.Bookmark = dbcSeries.SelectedItem
 End Sub
 Private Sub dbcSubject_GotFocus()
@@ -667,6 +669,7 @@ Private Sub dbcSubject_Validate(Cancel As Boolean)
         dbcSubject.SetFocus
         Cancel = True
     End If
+    If dbcValidate(rsMain("Subject"), dbcSubject) = 0 Then Cancel = True
     If rsSubjects.Bookmark <> dbcSubject.SelectedItem Then rsSubjects.Bookmark = dbcSubject.SelectedItem
 End Sub
 Private Sub txtInventoried_GotFocus()

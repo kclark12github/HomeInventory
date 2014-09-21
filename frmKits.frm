@@ -355,7 +355,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:23 PM"
+            TextSave        =   "10:58 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -852,7 +852,7 @@ Private Sub dbcCatalog_GotFocus()
 End Sub
 Private Sub dbcCatalog_Validate(Cancel As Boolean)
     If Trim(dbcCatalog.Text) = vbNullString Then dbcCatalog.Text = "Unknown"
-    dbcValidate rsMain("Catalog"), dbcCatalog
+    If dbcValidate(rsMain("Catalog"), dbcCatalog) = 0 Then Cancel = True
     If rsCatalogs.Bookmark <> dbcCatalog.SelectedItem Then rsCatalogs.Bookmark = dbcCatalog.SelectedItem
 End Sub
 Private Sub dbcConditions_GotFocus()
@@ -860,7 +860,7 @@ Private Sub dbcConditions_GotFocus()
 End Sub
 Private Sub dbcConditions_Validate(Cancel As Boolean)
     If Trim(dbcConditions.Text) = vbNullString Then dbcConditions.Text = "Unknown"
-    dbcValidate rsMain("Condition"), dbcConditions
+    If dbcValidate(rsMain("Condition"), dbcCondition) = 0 Then Cancel = True
     If rsConditions.Bookmark <> dbcConditions.SelectedItem Then rsConditions.Bookmark = dbcConditions.SelectedItem
 End Sub
 Private Sub dbcLocations_GotFocus()
@@ -868,7 +868,7 @@ Private Sub dbcLocations_GotFocus()
 End Sub
 Private Sub dbcLocations_Validate(Cancel As Boolean)
     If Trim(dbcLocations.Text) = vbNullString Then dbcLocations.Text = "Unknown"
-    dbcValidate rsMain("Location"), dbcLocations
+    If dbcValidate(rsMain("Location"), dbcLocation) = 0 Then Cancel = True
     If rsLocations.Bookmark <> dbcLocations.SelectedItem Then rsLocations.Bookmark = dbcLocations.SelectedItem
 End Sub
 Private Sub dbcManufacturer_GotFocus()
@@ -881,7 +881,7 @@ Private Sub dbcManufacturer_Validate(Cancel As Boolean)
         dbcManufacturer.SetFocus
         Cancel = True
     End If
-    dbcValidate rsMain("Manufacturer"), dbcManufacturer
+    If dbcValidate(rsMain("Manufacturer"), dbcManufacturer) = 0 Then Cancel = True
     If rsManufacturers.Bookmark <> dbcManufacturer.SelectedItem Then rsManufacturers.Bookmark = dbcManufacturer.SelectedItem
 End Sub
 Private Sub dbcNation_GotFocus()
@@ -894,7 +894,7 @@ Private Sub dbcNation_Validate(Cancel As Boolean)
         dbcNation.SetFocus
         Cancel = True
     End If
-    dbcValidate rsMain("Nation"), dbcNation
+    If dbcValidate(rsMain("Nation"), dbcNation) = 0 Then Cancel = True
     If rsNations.Bookmark <> dbcNation.SelectedItem Then rsNations.Bookmark = dbcNation.SelectedItem
 End Sub
 Private Sub dbcScale_GotFocus()
@@ -902,7 +902,7 @@ Private Sub dbcScale_GotFocus()
 End Sub
 Private Sub dbcScale_Validate(Cancel As Boolean)
     If dbcScale.Text = vbNullString Then dbcScale.Text = "Unknown"
-    dbcValidate rsMain("Scale"), dbcScale
+    If dbcValidate(rsMain("Scale"), dbcScale) = 0 Then Cancel = True
     If rsScales.Bookmark <> dbcScale.SelectedItem Then rsScales.Bookmark = dbcScale.SelectedItem
 End Sub
 Private Sub dbcType_GotFocus()
@@ -915,7 +915,7 @@ Private Sub dbcType_Validate(Cancel As Boolean)
         dbcType.SetFocus
         Cancel = True
     End If
-    dbcValidate rsMain("Type"), dbcType
+    If dbcValidate(rsMain("Type"), dbcType) = 0 Then Cancel = True
     If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
 End Sub
 Private Sub txtDateVerified_GotFocus()

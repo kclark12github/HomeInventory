@@ -49,7 +49,7 @@ Begin VB.Form frmCompanies
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:46 PM"
+            TextSave        =   "10:50 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -612,6 +612,13 @@ Private Sub dbcProductType_GotFocus()
     TextSelected
 End Sub
 Private Sub dbcProductType_Validate(Cancel As Boolean)
+    If Not dbcProductType.Enabled Then Exit Sub
+    'If dbcProductType.Text = "" Then
+    '    MsgBox "ProductType must be specified!", vbExclamation, Me.Caption
+    '    dbcProductType.SetFocus
+    '    Cancel = True
+    'End If
+    If dbcValidate(rsMain("ProductType"), dbcProductType) = 0 Then Cancel = True
     If rsProductTypes.Bookmark <> dbcProductType.SelectedItem Then rsProductTypes.Bookmark = dbcProductType.SelectedItem
 End Sub
 Private Sub txtName_GotFocus()
