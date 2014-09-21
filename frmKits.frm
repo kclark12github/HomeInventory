@@ -149,7 +149,7 @@ Begin VB.Form frmKits
          MatchEntry      =   -1  'True
          Text            =   "Type"
       End
-      Begin MSDataListLib.DataCombo dbcConditions 
+      Begin MSDataListLib.DataCombo dbcCondition 
          Height          =   288
          Left            =   1524
          TabIndex        =   12
@@ -161,7 +161,7 @@ Begin VB.Form frmKits
          MatchEntry      =   -1  'True
          Text            =   "Condition"
       End
-      Begin MSDataListLib.DataCombo dbcLocations 
+      Begin MSDataListLib.DataCombo dbcLocation 
          Height          =   288
          Left            =   4152
          TabIndex        =   13
@@ -318,7 +318,6 @@ Begin VB.Form frmKits
          _ExtentX        =   13356
          _ExtentY        =   4360
          _Version        =   393217
-         Enabled         =   -1  'True
          TextRTF         =   $"frmKits.frx":0000
       End
    End
@@ -355,7 +354,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:58 PM"
+            TextSave        =   "11:21 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -741,8 +740,8 @@ Private Sub Form_Load()
     BindField txtReference, "Reference", rsMain
     BindField dbcCatalog, "Catalog", rsMain, rsCatalogs, "Catalog", "Catalog"
     BindField dbcNation, "Nation", rsMain, rsNations, "Nation", "Nation"
-    BindField dbcConditions, "Condition", rsMain, rsConditions, "Condition", "Condition"
-    BindField dbcLocations, "Location", rsMain, rsLocations, "Location", "Location"
+    BindField dbcCondition, "Condition", rsMain, rsConditions, "Condition", "Condition"
+    BindField dbcLocation, "Location", rsMain, rsLocations, "Location", "Location"
     BindField chkOutOfProduction, "OutOfProduction", rsMain
     'BindField txtCount, "Count", rsMain
     BindField txtDateInventoried, "DateInventoried", rsMain
@@ -778,8 +777,8 @@ Private Sub mnuRecordsNew_Click()
     Set tsKits.SelectedItem = tsKits.Tabs(1)
     
     'Defaults...
-    dbcConditions.BoundText = "New (boxed)"
-    dbcLocations.BoundText = "Closet"
+    dbcCondition.BoundText = "New (boxed)"
+    dbcLocation.BoundText = "Closet"
     txtDateInventoried.Text = Format(Now(), fmtDate)
     txtDateVerified.Text = Format(Now(), fmtDate)
     
@@ -855,21 +854,21 @@ Private Sub dbcCatalog_Validate(Cancel As Boolean)
     If dbcValidate(rsMain("Catalog"), dbcCatalog) = 0 Then Cancel = True
     If rsCatalogs.Bookmark <> dbcCatalog.SelectedItem Then rsCatalogs.Bookmark = dbcCatalog.SelectedItem
 End Sub
-Private Sub dbcConditions_GotFocus()
+Private Sub dbcCondition_GotFocus()
     TextSelected
 End Sub
-Private Sub dbcConditions_Validate(Cancel As Boolean)
-    If Trim(dbcConditions.Text) = vbNullString Then dbcConditions.Text = "Unknown"
+Private Sub dbcCondition_Validate(Cancel As Boolean)
+    If Trim(dbcCondition.Text) = vbNullString Then dbcCondition.Text = "Unknown"
     If dbcValidate(rsMain("Condition"), dbcCondition) = 0 Then Cancel = True
-    If rsConditions.Bookmark <> dbcConditions.SelectedItem Then rsConditions.Bookmark = dbcConditions.SelectedItem
+    If rsConditions.Bookmark <> dbcCondition.SelectedItem Then rsConditions.Bookmark = dbcCondition.SelectedItem
 End Sub
-Private Sub dbcLocations_GotFocus()
+Private Sub dbcLocation_GotFocus()
     TextSelected
 End Sub
-Private Sub dbcLocations_Validate(Cancel As Boolean)
-    If Trim(dbcLocations.Text) = vbNullString Then dbcLocations.Text = "Unknown"
+Private Sub dbcLocation_Validate(Cancel As Boolean)
+    If Trim(dbcLocation.Text) = vbNullString Then dbcLocation.Text = "Unknown"
     If dbcValidate(rsMain("Location"), dbcLocation) = 0 Then Cancel = True
-    If rsLocations.Bookmark <> dbcLocations.SelectedItem Then rsLocations.Bookmark = dbcLocations.SelectedItem
+    If rsLocations.Bookmark <> dbcLocation.SelectedItem Then rsLocations.Bookmark = dbcLocation.SelectedItem
 End Sub
 Private Sub dbcManufacturer_GotFocus()
     TextSelected

@@ -49,7 +49,7 @@ Begin VB.Form frmMusic
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:09 PM"
+            TextSave        =   "11:21 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -726,9 +726,6 @@ Private Function DefaultAlphaSort() As String
         DefaultAlphaSort = UCase(dbcType.Text & ": " & UCase(LastName) & ": " & txtYear.Text & "; " & Title)
     End If
 End Function
-Private Sub dbcType_Validate(Cancel As Boolean)
-    If rsTypes.Bookmark <> dbcType.SelectedItem Then rsTypes.Bookmark = dbcType.SelectedItem
-End Sub
 Private Sub txtAlphaSort_GotFocus()
     If txtAlphaSort.Text = "" Then
         txtAlphaSort.Text = DefaultAlphaSort
