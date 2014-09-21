@@ -199,10 +199,16 @@ Public Enum ActionMode
     modeDelete = 3
 End Enum
 Public Sub BindField(ctl As Control, DataField As String, DataSource As ADODB.Recordset, Optional RowSource As ADODB.Recordset, Optional BoundColumn As String, Optional ListField As String)
+    Dim DateTimeFormat As StdDataFormat
     Select Case TypeName(ctl)
         Case "CheckBox", "Label", "TextBox"
             Set ctl.DataSource = DataSource
             ctl.DataField = DataField
+            If DataSource(DataField).Type = adDate Then
+                Set DateTimeFormat = New StdDataFormat
+                DateTimeFormat.Format = "mm/dd/yyyy hh:mm AMPM"
+                Set ctl.DataFormat = DateTimeFormat
+            End If
         Case "DataCombo"
             Set ctl.DataSource = DataSource
             ctl.DataField = DataField
