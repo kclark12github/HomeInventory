@@ -37,7 +37,7 @@ Begin VB.Form frmMain
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:49 PM"
+            TextSave        =   "12:40 AM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -306,7 +306,8 @@ Private Sub Form_Resize()
         If scrollH.Visible Then
             scrollH.Top = Me.ScaleHeight - scrollH.Height - sbStatus.Height
             scrollH.Left = 0
-            scrollH.Width = Me.ScaleWidth - scrollV.Width
+            scrollH.Width = Me.ScaleWidth
+            If scrollV.Visible Then scrollH.Width = scrollH.Width - scrollV.Width
             scrollH.Max = picBackground.Width - Me.ScaleWidth
             scrollH.SmallChange = picBackground.Width / 1000
             scrollH.LargeChange = picBackground.Width / 50
@@ -315,7 +316,8 @@ Private Sub Form_Resize()
         If scrollV.Visible Then
             scrollV.Top = 0
             scrollV.Left = Me.ScaleWidth - scrollV.Width
-            scrollV.Height = Me.ScaleHeight - scrollH.Height - sbStatus.Height
+            scrollV.Height = Me.ScaleHeight - sbStatus.Height
+            If scrollH.Visible Then scrollV.Height = scrollV.Height - scrollH.Height
             scrollV.Max = picBackground.Height - Me.ScaleHeight
             scrollV.SmallChange = picBackground.Height / 1000
             scrollV.LargeChange = picBackground.Height / 50

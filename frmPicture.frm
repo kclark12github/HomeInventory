@@ -11,17 +11,6 @@ Begin VB.Form frmPicture
    ScaleHeight     =   5004
    ScaleWidth      =   6636
    StartUpPosition =   3  'Windows Default
-   Begin VB.PictureBox picImage 
-      AutoRedraw      =   -1  'True
-      AutoSize        =   -1  'True
-      Height          =   3324
-      Left            =   240
-      ScaleHeight     =   3276
-      ScaleWidth      =   4560
-      TabIndex        =   2
-      Top             =   300
-      Width           =   4608
-   End
    Begin VB.VScrollBar scrollV 
       Height          =   3792
       LargeChange     =   1000
@@ -39,6 +28,17 @@ Begin VB.Form frmPicture
       TabIndex        =   0
       Top             =   3780
       Width           =   5652
+   End
+   Begin VB.PictureBox picImage 
+      AutoRedraw      =   -1  'True
+      AutoSize        =   -1  'True
+      Height          =   3324
+      Left            =   240
+      ScaleHeight     =   3276
+      ScaleWidth      =   4560
+      TabIndex        =   2
+      Top             =   300
+      Width           =   4608
    End
 End
 Attribute VB_Name = "frmPicture"
@@ -105,12 +105,12 @@ Private Sub Form_Load()
     LoadImage
 End Sub
 Private Sub Form_Resize()
-    picImage.Move 0, 0, Me.ScaleWidth, Me.ScaleHeight
     If Me.WindowState <> vbMinimized Then
         If scrollH.Visible Then
             scrollH.Top = Me.ScaleHeight - scrollH.Height
             scrollH.Left = 0
-            scrollH.Width = Me.ScaleWidth - scrollV.Width
+            scrollH.Width = Me.ScaleWidth
+            If scrollV.Visible Then scrollH.Width = scrollH.Width - scrollV.Width
             scrollH.Max = picImage.Width - Me.ScaleWidth
             scrollH.SmallChange = picImage.Width / 1000
             scrollH.LargeChange = picImage.Width / 50
@@ -119,7 +119,8 @@ Private Sub Form_Resize()
         If scrollV.Visible Then
             scrollV.Top = 0
             scrollV.Left = Me.ScaleWidth - scrollV.Width
-            scrollV.Height = Me.ScaleHeight - scrollH.Height
+            scrollV.Height = Me.ScaleHeight
+            If scrollH.Visible Then scrollV.Height = scrollV.Height - scrollH.Height
             scrollV.Max = picImage.Height - Me.ScaleHeight
             scrollV.SmallChange = picImage.Height / 1000
             scrollV.LargeChange = picImage.Height / 50
