@@ -49,7 +49,7 @@ Begin VB.Form frmCompanies
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:37 PM"
+            TextSave        =   "8:42 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -547,7 +547,7 @@ Private Sub cmdOK_Click()
             mode = modeDisplay
             adodcCompanies.Enabled = True
             
-            rsProductTypes.Requery
+            mnuActionRefresh_Click
     End Select
 End Sub
 Private Sub dbcProductType_GotFocus()
@@ -644,6 +644,7 @@ Private Sub mnuActionRefresh_Click()
     SaveBookmark = rsMain("Code")
     rsMain.Requery
     rsMain.Find "Code='" & SQLQuote(SaveBookmark) & "'"
+    rsProductTypes.Requery
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form

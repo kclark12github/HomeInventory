@@ -49,7 +49,7 @@ Begin VB.Form frmAircraftDesignations
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:37 PM"
+            TextSave        =   "8:40 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -518,8 +518,6 @@ Private Sub cmdCancel_Click()
     End Select
 End Sub
 Private Sub cmdOK_Click()
-    Dim SaveBookmark As String
-    
     Select Case mode
         Case modeDisplay
             Unload Me
@@ -534,11 +532,7 @@ Private Sub cmdOK_Click()
             mode = modeDisplay
             adodcHobby.Enabled = True
             
-            SaveBookmark = rsMain("Name")
-            rsMain.Requery
-            rsMain.Find "Name='" & SaveBookmark & "'"
-            rsManufacturers.Requery
-            rsTypes.Requery
+            mnuActionRefresh_Click
     End Select
 End Sub
 Private Sub dbcManufacturer_GotFocus()
@@ -647,6 +641,8 @@ Private Sub mnuActionRefresh_Click()
     SaveBookmark = rsMain("Name")
     rsMain.Requery
     rsMain.Find "Name='" & SQLQuote(SaveBookmark) & "'"
+    rsManufacturers.Requery
+    rsTypes.Requery
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form

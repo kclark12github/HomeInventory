@@ -49,7 +49,7 @@ Begin VB.Form frmVideoResearch
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:39 PM"
+            TextSave        =   "8:46 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -518,8 +518,7 @@ Private Sub cmdOK_Click()
             mode = modeDisplay
             adodcHobby.Enabled = True
             
-            rsDistributors.Requery
-            rsSubjects.Requery
+            mnuActionRefresh_Click
     End Select
 End Sub
 Private Sub dbcDistributor_GotFocus()
@@ -635,6 +634,8 @@ Private Sub mnuActionRefresh_Click()
     SaveBookmark = rsMain("Sort")
     rsMain.Requery
     rsMain.Find "Sort='" & SQLQuote(SaveBookmark) & "'"
+    rsDistributors.Requery
+    rsSubjects.Requery
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form

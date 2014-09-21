@@ -73,7 +73,7 @@ Begin VB.Form frmTVEpisodes
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:34 PM"
+            TextSave        =   "8:46 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -557,9 +557,7 @@ Private Sub cmdOK_Click()
             mode = modeDisplay
             adodcMain.Enabled = True
             
-            rsSeries.Requery
-            rsDistributors.Requery
-            rsSubjects.Requery
+            mnuActionRefresh_Click
     End Select
 End Sub
 Private Sub dbcDistributor_GotFocus()
@@ -694,6 +692,9 @@ Private Sub mnuActionRefresh_Click()
     SaveBookmark = rsMain("ID")
     rsMain.Requery
     rsMain.Find "ID='" & SQLQuote(SaveBookmark) & "'"
+    rsSeries.Requery
+    rsDistributors.Requery
+    rsSubjects.Requery
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form

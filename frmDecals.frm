@@ -49,7 +49,7 @@ Begin VB.Form frmDecals
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:37 PM"
+            TextSave        =   "8:42 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -600,11 +600,7 @@ Private Sub cmdOK_Click()
             mode = modeDisplay
             adodcHobby.Enabled = True
             
-            rsManufacturers.Requery
-            rsCatalogs.Requery
-            rsScales.Requery
-            rsNations.Requery
-            rsTypes.Requery
+            mnuActionRefresh_Click
     End Select
 End Sub
 Private Sub dbcCatalog_GotFocus()
@@ -764,6 +760,11 @@ Private Sub mnuActionRefresh_Click()
     SaveBookmark = rsMain("Reference")
     rsMain.Requery
     rsMain.Find "Reference='" & SQLQuote(SaveBookmark) & "'"
+    rsManufacturers.Requery
+    rsCatalogs.Requery
+    rsScales.Requery
+    rsNations.Requery
+    rsTypes.Requery
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form

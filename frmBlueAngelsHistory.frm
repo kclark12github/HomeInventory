@@ -48,7 +48,7 @@ Begin VB.Form frmBlueAngelsHistory
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:37 PM"
+            TextSave        =   "8:41 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -453,6 +453,8 @@ Private Sub cmdOK_Click()
             frmMain.ProtectFields Me
             mode = modeDisplay
             adodcHobby.Enabled = True
+    
+            mnuActionRefresh_Click
     End Select
 End Sub
 Private Sub Form_Load()

@@ -49,7 +49,7 @@ Begin VB.Form frmBooks
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "10:58 PM"
+            TextSave        =   "8:41 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -584,8 +584,7 @@ Private Sub cmdOK_Click()
             mode = modeDisplay
             adodcBooks.Enabled = True
             
-            rsAuthors.Requery
-            rsSubjects.Requery
+            mnuActionRefresh_Click
     End Select
 End Sub
 Private Sub CurrencyFormat_Format(ByVal DataValue As StdFormat.StdDataValue)
@@ -753,6 +752,8 @@ Private Sub mnuActionRefresh_Click()
     SaveBookmark = rsMain("AlphaSort")
     rsMain.Requery
     rsMain.Find "AlphaSort='" & SQLQuote(SaveBookmark) & "'"
+    rsAuthors.Requery
+    rsSubjects.Requery
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form

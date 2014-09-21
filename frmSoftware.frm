@@ -49,7 +49,7 @@ Begin VB.Form frmSoftware
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:38 PM"
+            TextSave        =   "8:44 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -618,9 +618,7 @@ Private Sub cmdOK_Click()
             mode = modeDisplay
             adodcSoftware.Enabled = True
             
-            rsPublishers.Requery
-            rsTypes.Requery
-            rsPlatforms.Requery
+            mnuActionRefresh_Click
     End Select
 End Sub
 Private Sub dbcPublisher_GotFocus()
@@ -754,6 +752,9 @@ Private Sub mnuActionRefresh_Click()
     SaveBookmark = rsMain("Title")
     rsMain.Requery
     rsMain.Find "Title='" & SQLQuote(SaveBookmark) & "'"
+    rsPublishers.Requery
+    rsTypes.Requery
+    rsPlatforms.Requery
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form
