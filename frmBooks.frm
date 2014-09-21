@@ -16,6 +16,44 @@ Begin VB.Form frmBooks
    ScaleWidth      =   7524
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
+   Begin MSComctlLib.StatusBar sbStatus 
+      Align           =   2  'Align Bottom
+      Height          =   252
+      Left            =   0
+      TabIndex        =   22
+      Top             =   3804
+      Width           =   7524
+      _ExtentX        =   13272
+      _ExtentY        =   445
+      _Version        =   393216
+      BeginProperty Panels {8E3867A5-8586-11D1-B16A-00C0F0283628} 
+         NumPanels       =   4
+         BeginProperty Panel1 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            AutoSize        =   2
+            Object.Width           =   1270
+            MinWidth        =   1270
+            Key             =   "Position"
+         EndProperty
+         BeginProperty Panel2 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            AutoSize        =   2
+            Key             =   "Status"
+         EndProperty
+         BeginProperty Panel3 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            AutoSize        =   1
+            Object.Width           =   8086
+            Key             =   "Message"
+         EndProperty
+         BeginProperty Panel4 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
+            Style           =   5
+            Alignment       =   2
+            AutoSize        =   2
+            Object.Width           =   1270
+            MinWidth        =   1270
+            TextSave        =   "9:14 PM"
+            Key             =   "Time"
+         EndProperty
+      EndProperty
+   End
    Begin VB.CommandButton cmdCancel 
       Cancel          =   -1  'True
       Caption         =   "Cancel"
@@ -504,7 +542,10 @@ Private Sub cmdCancel_Click()
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
+            sbStatus.Panels("Status").Text = ""
             adodcBooks.Enabled = True
+            cmdCancel.Caption = "&Exit"
+            cmdOK.Visible = False
     End Select
 End Sub
 Private Sub cmdOK_Click()
@@ -522,10 +563,14 @@ Private Sub cmdOK_Click()
             fTransaction = False
             frmMain.ProtectFields Me
             mode = modeDisplay
+            sbStatus.Panels("Status").Text = ""
             adodcBooks.Enabled = True
             
             rsAuthors.Requery
             rsSubjects.Requery
+            
+            cmdCancel.Caption = "&Exit"
+            cmdOK.Visible = False
     End Select
 End Sub
 Private Sub CurrencyFormat_Format(ByVal DataValue As StdFormat.StdDataValue)
@@ -632,7 +677,11 @@ Private Sub Form_Load()
     
     frmMain.ProtectFields Me
     mode = modeDisplay
+    sbStatus.Panels("Status").Text = ""
     fTransaction = False
+
+    cmdCancel.Caption = "&Exit"
+    cmdOK.Visible = False
 End Sub
 Private Sub Form_Unload(Cancel As Integer)
     If fTransaction Then
@@ -692,6 +741,9 @@ Private Sub mnuActionList_Click()
     adoConn.BeginTrans
     fTransaction = True
     frmList.Show vbModal
+    If rsBooks.Filter <> vbNullString Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsBooks.Filter
+    End If
     adoConn.CommitTrans
     fTransaction = False
 End Sub
@@ -704,7 +756,6 @@ Private Sub mnuActionRefresh_Click()
 End Sub
 Private Sub mnuActionFilter_Click()
     Dim frm As Form
-    Dim Col As Column
     
     Load frmFilter
     frmFilter.Caption = Me.Caption & " Filter"
@@ -720,9 +771,13 @@ Private Sub mnuActionFilter_Click()
     
     Set frmFilter.RS = rsBooks
     frmFilter.Show vbModal
+    If rsBooks.Filter <> vbNullString Then
+        sbStatus.Panels("Message").Text = "Filter: " & rsBooks.Filter
+    End If
 End Sub
 Private Sub mnuActionNew_Click()
     mode = modeAdd
+    sbStatus.Panels("Status").Text = "Edit Mode"
     frmMain.OpenFields Me
     adodcBooks.Enabled = False
     rsBooks.AddNew
@@ -733,6 +788,9 @@ Private Sub mnuActionNew_Click()
     chkCataloged.Value = vbChecked
     strDefaultAlphaSort = ""
     txtTitle.SetFocus
+
+    cmdCancel.Caption = "Cancel"
+    cmdOK.Visible = True
 End Sub
 Private Sub mnuActionDelete_Click()
     mode = modeDelete
@@ -742,15 +800,24 @@ Private Sub mnuActionDelete_Click()
         If rsBooks.EOF Then rsBooks.MoveLast
     End If
     mode = modeDisplay
+    sbStatus.Panels("Status").Text = ""
+    
+    cmdCancel.Caption = "&Exit"
+    cmdOK.Visible = False
 End Sub
 Private Sub mnuActionModify_Click()
     mode = modeModify
+    sbStatus.Panels("Status").Text = "Edit Mode"
+
     frmMain.OpenFields Me
     adodcBooks.Enabled = False
     adoConn.BeginTrans
     fTransaction = True
     
     txtTitle.SetFocus
+
+    cmdCancel.Caption = "Cancel"
+    cmdOK.Visible = True
 End Sub
 Private Sub mnuActionReport_Click()
     Dim frm As Form
@@ -798,6 +865,7 @@ Private Sub rsBooks_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal 
         
         i = InStr(Caption, "&")
         If i > 0 Then Caption = Left(Caption, i) & "&" & Mid(Caption, i + 1)
+        sbStatus.Panels("Position").Text = "Record " & rsBooks.Bookmark & " of " & rsBooks.RecordCount
     End If
     
     adodcBooks.Caption = Caption

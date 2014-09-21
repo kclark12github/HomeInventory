@@ -280,6 +280,7 @@ Begin VB.Form frmFilter
    End
    Begin VB.CommandButton cmdApply 
       Caption         =   "Apply"
+      Default         =   -1  'True
       Height          =   372
       Left            =   4740
       TabIndex        =   0
@@ -588,38 +589,47 @@ Const hSpace As Integer = 60
 Const StartTop As Integer = 60
 Const StartLeft As Integer = 240
 Private Sub cmdApply_Click()
-    Dim SQLsource As String
+    Dim sqlSource As String
     Dim i As Integer
     'Parse fields on screen and build a filter for the recordset...
     
-    SQLsource = ""
+    sqlSource = ""
     For i = 0 To RS.Fields.Count - 1
         If Len(txtFields(i).Text) > 0 Then
             If Mid(txtFields(i).Text, 1, 1) = "=" Or _
                 Mid(txtFields(i).Text, 1, 2) = "<=" Or _
                 Mid(txtFields(i).Text, 1, 2) = ">=" Or _
                 Mid(txtFields(i).Text, 1, 1) = "<" Or _
-                Mid(txtFields(i).Text, 1, 1) = ">" Or _
-                UCase(Mid(txtFields(i).Text, 1, 4)) = "LIKE" Then
+                Mid(txtFields(i).Text, 1, 1) = ">" Then
                 'Take what the user said literally...
-                SQLsource = SQLsource & RS.Fields(i).Name & " " & txtFields(i).Text & " and "
+                sqlSource = sqlSource & RS.Fields(i).Name & " " & txtFields(i).Text & " and "
+            ElseIf UCase(Mid(txtFields(i).Text, 1, 4)) = "LIKE" Then
+                'Force the "like" to uppercase for parsing later...
+                sqlSource = sqlSource & RS.Fields(i).Name & " LIKE" & Mid(txtFields(i).Text, 5) & " and "
+            ElseIf UCase(Mid(txtFields(i).Text, 1, 7)) = "BETWEEN" Then
+                'Force the "between" to uppercase for parsing later...
+                sqlSource = sqlSource & RS.Fields(i).Name & " BETWEEN" & Mid(txtFields(i).Text, 8) & " and "
+            ElseIf UCase(Mid(txtFields(i).Text, 1, 2)) = "IN" Then
+                'Force the "in" to uppercase for parsing later...
+                sqlSource = sqlSource & RS.Fields(i).Name & " IN" & Mid(txtFields(i).Text, 3) & " and "
             Else
                 Select Case RS.Fields(i).Type
                     Case adVarChar, adChar
-                        SQLsource = SQLsource & RS.Fields(i).Name & "='" & SQLQuote(txtFields(i).Text) & "' and "
+                        sqlSource = sqlSource & RS.Fields(i).Name & " = '" & SQLQuote(txtFields(i).Text) & "' and "
                     Case adDate, adDBDate, adDBTime, adDBTimeStamp
-                        SQLsource = SQLsource & RS.Fields(i).Name & "=#" & txtFields(i).Text & "# and "
+                        sqlSource = sqlSource & RS.Fields(i).Name & " = #" & txtFields(i).Text & "# and "
                     Case Else
-                        SQLsource = SQLsource & RS.Fields(i).Name & "=" & SQLQuote(txtFields(i).Text) & " and "
+                        sqlSource = sqlSource & RS.Fields(i).Name & " = " & SQLQuote(txtFields(i).Text) & " and "
                 End Select
             End If
         End If
     Next i
-    If Len(SQLsource) > 0 Then SQLsource = Left(SQLsource, Len(SQLsource) - 5)  'Get rid of the final " and "...
+    If Len(sqlSource) > 0 Then sqlSource = Left(sqlSource, Len(sqlSource) - 5)  'Get rid of the final " and "...
     On Error Resume Next
-    RS.Filter = SQLsource
+    RS.Filter = sqlSource
     If Err.Number > 0 Then
-        MsgBox "Invalid filter specified", vbExclamation
+        MsgBox "Invalid filter specified:" & vbCr & sqlSource, vbExclamation
+        Err.Clear
     Else
         Unload Me
     End If
@@ -645,7 +655,7 @@ Private Sub Form_Activate()
     For i = 0 To RS.Fields.Count - 1
         If i > 31 Then
             MsgBox "Warning: Only the first 32 fields can be used to filter your data.", vbInformation
-            Exit Sub
+            Exit For
         End If
         txtFields(i).Visible = True
         txtFields(i).Top = iTop
@@ -663,7 +673,6 @@ Private Sub Form_Activate()
         iTop = iTop + txtFields(i).Height + vSpace
     Next i
     
-ExitSub:
     NewHeight = (txtFields(i - 1).Top + txtFields(i - 1).Height + vSpace) + Me.Height - Me.ScaleHeight
     If NewHeight > Me.Height Then
         Me.Top = Me.Top + ((NewHeight - Me.Height) / 2)
@@ -672,6 +681,9 @@ ExitSub:
     End If
     Me.Height = NewHeight
     txtFields(0).SetFocus
+
+    'Now, take any existing filter, parse it, and populate the fields on this screen...
+    If RS.Filter <> 0 And RS.Filter <> "" Then ParseFilter RS.Filter
 End Sub
 Private Sub Form_Load()
     Dim i As Integer
@@ -681,6 +693,29 @@ Private Sub Form_Load()
         lblFields(i).Visible = False
     Next
 End Sub
+Private Function ParseFilter(strFilter As String) As String
+    Dim i As Integer
+    Dim j As Integer
+    Dim iPos As Integer
+    Dim Token As String
+    Dim Operand1 As String
+    Dim FieldName As String
+    
+    For i = 1 To TokenCount(strFilter, " and ")
+        Token = ParseStr(strFilter, i, " and ", """")
+        Debug.Print "Token #" & i & ": """ & Token & """"
+        
+        FieldName = Trim(Mid(Token, 1, InStr(Token, " ") - 1))
+        
+        For j = 0 To RS.Fields.Count - 1
+            If UCase(RS.Fields(j).Name) = UCase(FieldName) Then
+                Exit For
+            End If
+        Next j
+        
+        txtFields(j).Text = Mid(Token, InStr(Token, " ") + 1)
+    Next i
+End Function
 Private Sub txtFields_GotFocus(Index As Integer)
     TextSelected
 End Sub

@@ -71,7 +71,7 @@ Begin VB.Form frmList
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "7:49 PM"
+            TextSave        =   "9:04 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -282,6 +282,8 @@ Private Sub Form_Unload(Cancel As Integer)
     SaveSetting App.ProductName, Me.Caption & " Settings", "Form Height", Me.Height
 End Sub
 Private Sub sbStatus_PanelClick(ByVal Panel As MSComctlLib.Panel)
+    Dim frm As Form
+    
     Select Case UCase(Panel.Key)
         Case "TOP"
             rsList.MoveFirst
@@ -290,10 +292,26 @@ Private Sub sbStatus_PanelClick(ByVal Panel As MSComctlLib.Panel)
             rsList.MoveLast
             UpdatePosition
         Case "FILTER"
-            MsgBox "Filter button clicked..."
+            Load frmFilter
+            frmFilter.Caption = Left(Me.Caption, Len(Me.Caption) - Len(" List")) & " Filter"
+            If frmMain.Width > Me.Width And frmMain.Height > Me.Height Then
+                Set frm = frmMain
+            Else
+                Set frm = Me
+            End If
+            frmFilter.Top = frm.Top
+            frmFilter.Left = frm.Left
+            frmFilter.Width = frm.Width
+            frmFilter.Height = frm.Height
+            
+            Set frmFilter.RS = rsList
+            frmFilter.Show vbModal
+            If rsList.Filter <> vbNullString Then
+                sbStatus.Panels("Message").Text = "Filter: " & rsList.Filter
+            End If
         Case Else
     End Select
 End Sub
 Private Sub UpdatePosition()
-    sbStatus.Panels("Position").Text = "Record " & dgdList.Bookmark & " of " & rsList.RecordCount & "  "
+    sbStatus.Panels("Position").Text = "Record " & dgdList.Bookmark & " of " & rsList.RecordCount
 End Sub
