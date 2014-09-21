@@ -49,7 +49,7 @@ Begin VB.Form frmKits
             AutoSize        =   2
             Object.Width           =   1270
             MinWidth        =   1270
-            TextSave        =   "11:25 PM"
+            TextSave        =   "11:43 PM"
             Key             =   "Time"
          EndProperty
       EndProperty
@@ -993,7 +993,7 @@ End Sub
 Private Sub mnuActionSQL_Click()
     Load frmSQL
     Set frmSQL.cnSQL = adoConn
-    frmSQL.sbStatus.Panels("DB").Text = "Hobby - Kits"
+    frmSQL.sbStatus.Panels("DB").Text = "Hobby.mdb - [Kits]"
     frmSQL.Show vbModal
 End Sub
 Private Sub rsMain_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
